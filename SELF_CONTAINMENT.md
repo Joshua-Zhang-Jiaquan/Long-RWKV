@@ -57,3 +57,34 @@ limitations and are *not* fixed here, because fixing them would change what was
 measured: the two-task repository confirmation split, the process-level (not externally
 managed) evaluator sandbox, and the token matrix having run on a CPU host rather than in
 the qz CPU lane.
+
+## A pre-existing defect found while checking self-containment
+
+Three source files the architecture contract names as helper/source paths **do not exist
+in the source tree**, and this repository faithfully mirrors that:
+
+| Path the contract expects | State |
+| --- | --- |
+| `DAN/v7_arch_round/code/models/latent_plan.py` | absent |
+| `DAN/v7_arch_round/code/models/state_hijacking_cache.py` | absent |
+| `DAN/v7_arch_round/code/models/state_hijacking_dit_torch_types.py` | absent |
+
+This is not a packaging gap. `DAN/v7_arch_round/code/models/residual_streams.py` line 58
+imports `models.state_hijacking_dit_torch_types` unguarded, so that module is
+**unimportable in the source tree as well** — verified by importing it from the original
+location, where it raises the same `ModuleNotFoundError`.
+
+Two consequences worth stating plainly:
+
+1. `DAN/v7_arch_round/code/train/test_residual_streams.py` and
+   `test_backbone_loop.py` cannot be collected anywhere, because their import chain is
+   broken at source. They are excluded from collection here by `testpaths`, and a
+   `conftest.py` supplies the flat import root the model code expects — but neither
+   makes a missing module appear.
+2. The contract's drift checks pass despite the absent files, which means the contract
+   tolerates an unsatisfiable declared path. That is checked rather than assumed: the
+   suite passes, so the binding does not include them.
+
+The packaged repository is therefore self-contained *with respect to the artifacts that
+exist*, and this limitation is inherited rather than introduced. It is recorded here
+because a reader reproducing the architecture will hit it on the first import.

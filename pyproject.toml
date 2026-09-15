@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "long-rwkv"
+version = "0.1.0"
+description = "Code, contracts and receipts for 'Depth-Recycled Recurrent Diffusion for Long-Context Agent Workloads'"
+# PEP 695 `type` statements are used throughout; 3.11 cannot parse the package.
+requires-python = ">=3.12"
+dependencies = [
+    "torch>=2.5",
+    "pydantic>=2.9",
+    "pyarrow>=15",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+# The harness suite is the repository's test surface. Archived submission
+# payloads under .omo/evidence are records, not tests.
+testpaths = ["scale/tests/nonlatent_iclr"]
