@@ -1,0 +1,210 @@
+{
+  "schema_version": 2,
+  "authorization_id": "nonlatent-h100-qualification-20260912-01",
+  "status": "CPU_PAYLOAD_FINAL2_READY_FOR_INDEPENDENT_REVIEW_NOT_SUBMITTED",
+  "purpose": "initial_model_and_cache_runtime_qualification",
+  "authorization": {
+    "maximum_job_submissions": 1,
+    "jobs_submitted": 0,
+    "maximum_nodes": 1,
+    "gpus_per_node": 8,
+    "maximum_gpus": 8,
+    "maximum_gpu_hours": 4,
+    "maximum_runtime_ms": 1800000,
+    "automatic_fault_tolerance": false,
+    "maximum_automatic_retries": 0,
+    "authorization_status": "unused"
+  },
+  "resource_request": {
+    "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+    "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6",
+    "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+    "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f",
+    "required_gpu_type": "NVIDIA_H100_SXM_80G",
+    "accepted_driver_product_names": [
+      "NVIDIA H100 80GB HBM3",
+      "NVIDIA H100-SXM5-80GB"
+    ],
+    "accepted_memory_mib_range": [79000, 83000],
+    "image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+    "scheduler_image_id": "image-7330d118-df9d-4e2e-82b1-c2543e831eb4",
+    "scheduler_image_status": "SUCCESS",
+    "observed_image_digest": null,
+    "image_digest_limitation": "qz_image_catalog_and_CreateJob_contract_expose_no_digest_or_digest_submission_field",
+    "image_type": "SOURCE_PRIVATE",
+    "instance_count": 1,
+    "shm_gi": 1800,
+    "max_running_time_ms": "1800000",
+    "auto_fault_tolerance": false
+  },
+  "runtime_limits": {
+    "expected_world_size": 8,
+    "workflow_timeout_seconds": 1650,
+    "preflight_timeout_seconds": 300,
+    "runtime_timeout_seconds": 1200,
+    "aggregation_timeout_seconds": 90,
+    "controller_receipt_timeout_seconds": 60,
+    "nccl_timeout_seconds": 120,
+    "kill_grace_seconds": 30,
+    "memory_fraction": 0.9,
+    "torchrun_max_restarts": 0,
+    "phase_total_seconds": 1590,
+    "authorized_job_runtime_seconds": 1800
+  },
+  "inputs": {
+    "staged_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale",
+    "checkpoint_dir": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/m4-loop-2p9b/step_00004750",
+    "model_dir": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF",
+    "shared_output_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification",
+    "controller_receipt_path_formula": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/controller-receipts/${QUALIFICATION_RUN_ID}.json",
+    "python_executable": "/usr/bin/python",
+    "torchrun_executable": "/usr/local/bin/torchrun"
+  },
+  "payload": {
+    "launcher": "scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+    "runtime_manifest": "scale/experiments/nonlatent_iclr/qualification/runtime_manifest.json",
+    "runtime_manifest_sha256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+    "verified_file_count": 35,
+    "required_environment": {
+      "QUALIFICATION_RUN_ID": "controller_reserved_unique_id_matching_qualification-20260912-01-[a-z0-9-]{8,80}",
+      "QUALIFICATION_NONCE": "controller_generated_32_character_lowercase_hex",
+      "QUALIFICATION_MANIFEST_SHA256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+      "QUALIFICATION_JOB_RECEIPT": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/controller-receipts/${QUALIFICATION_RUN_ID}.json",
+      "QZ_JOB_ID_or_JOB_ID": "optional_native_identity_that_must_equal_receipt_job_id_when_present"
+    },
+    "forbidden_environment_claim": "QUALIFICATION_IMAGE_DIGEST",
+    "launch_argv": [
+      "/usr/bin/bash",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh"
+    ],
+    "controller_publication_order": [
+      "reserve_unique_run_id_and_nonce",
+      "persist_exact_CreateJob_request_JSON_bytes",
+      "call_qz_CreateJob_once",
+      "extract_real_job_id_from_successful_response",
+      "write_strict_receipt_to_same_directory_temporary_file",
+      "fsync_and_atomically_rename_receipt_to_QUALIFICATION_JOB_RECEIPT"
+    ]
+  },
+  "controller_receipt_contract": {
+    "schema_module": "scale.experiments.nonlatent_iclr.qualification.controller_receipt.ControllerReceipt",
+    "extra_fields": "forbidden",
+    "job_identity_origin": "controller_qz_createjob_receipt",
+    "submitted_request_sha256_definition": "sha256_of_exact_persisted_UTF-8_CreateJob_request_JSON_bytes_used_to_construct_the_single_call",
+    "required_fields": [
+      "schema_version",
+      "job_id",
+      "job_identity_origin",
+      "submitted_request_sha256",
+      "authorization_id",
+      "project_id",
+      "workspace_id",
+      "logic_compute_group_id",
+      "spec_id",
+      "run_id",
+      "nonce",
+      "source_manifest_sha256",
+      "requested_image",
+      "scheduler_image_id",
+      "observed_image_digest",
+      "authorized_gpu_type",
+      "requested_nodes",
+      "requested_gpus_per_node",
+      "requested_gpus",
+      "maximum_runtime_seconds",
+      "maximum_gpu_hours",
+      "maximum_job_submissions",
+      "maximum_automatic_retries"
+    ],
+    "fixed_limits": {
+      "requested_nodes": 1,
+      "requested_gpus_per_node": 8,
+      "requested_gpus": 8,
+      "maximum_runtime_seconds": 1800,
+      "maximum_gpu_hours": 4,
+      "maximum_job_submissions": 1,
+      "maximum_automatic_retries": 0
+    },
+    "observed_image_digest": null,
+    "native_job_identity_rule": "QZ_JOB_ID_and_JOB_ID_must_equal_receipt_job_id_when_nonempty_otherwise_receipt_origin_is_recorded",
+    "rank_evidence_rule": "all_eight_ranks_must_share_the_exact_controller_binding_and_canonical_receipt_sha256"
+  },
+  "checkpoint_contract": {
+    "loader": "torch.load(model.pt,weights_only=True,map_location=cpu,mmap=True)",
+    "accepted_payload": "Mapping[str,torch.Tensor]_including_OrderedDict",
+    "nested_or_non_tensor_values": "rejected",
+    "state_dict_load": "strict=True",
+    "expected_checkpoint_state_tensors": 1955,
+    "checkpoint_sha256": "ffaa464dabb3291c40749bbac4d6805e8a47082e3e2b082e0240365ffc525c07",
+    "checkpoint_size_bytes": 16367167378
+  },
+  "checks": [
+    "hardware",
+    "source_identity",
+    "checkpointload",
+    "parameteridentity",
+    "realFLAcausalcache",
+    "actualmaskedforward",
+    "resource_limits"
+  ],
+  "result_contract": {
+    "success_status": "PARTIAL_QUALIFICATION",
+    "success_detail": "corevalid/fullmodelcacheunqualified",
+    "success_requires": "exactly_eight_nonce_manifest_and_controller_binding_passing_rank_records",
+    "failure_status": "FAILED",
+    "failure_rule": "any_missing_malformed_stale_extra_failed_or_cross_rank_inconsistent_record"
+  },
+  "unsupported_cache_claims": {
+    "fullmodel_cachedprefix": "NOT_QUALIFIED_FFN_TOKEN_SHIFT_STATE_UNWIRED",
+    "loop_cachedprefix": "NOT_QUALIFIED_TIED_LAYER_STATE_ALIASES_PASSES",
+    "qualified_scope": "standalone_forward_rwkv7_attention_only"
+  },
+  "terminal_files": [
+    "runtime-manifest.json",
+    "preflight.json",
+    "rank-0.json",
+    "rank-1.json",
+    "rank-2.json",
+    "rank-3.json",
+    "rank-4.json",
+    "rank-5.json",
+    "rank-6.json",
+    "rank-7.json",
+    "aggregate.json",
+    "launcher.json"
+  ],
+  "limitations": [
+    "no_controller_CreateJob_call_was_made_during_CPU_repair",
+    "no_CUDA_or_model_load_was_executed_during_CPU_repair",
+    "private_image_digest_is_unavailable_from_the_reviewed_qz_interfaces",
+    "GPU_model_cache_and_memory_results_remain_unqualified_until_the_single_authorized_run"
+  ],
+  "final_cpu_verification": {
+    "pytest": "143_passed_in_17.01_seconds",
+    "manifest_preflight": "PREFLIGHT_VERIFIED_35_FILES",
+    "runtime_manifest_sha256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+    "shell_syntax": "PASS",
+    "launcher_help": "PASS",
+    "required_executables": "PASS_/usr/bin/python_and_/usr/local/bin/torchrun",
+    "production_lsp_diagnostics": 0,
+    "changed_test_lsp_diagnostics": 0,
+    "maximum_production_logical_lines": 207,
+    "jobs_submitted": 0,
+    "cuda_or_model_loads_executed": 0,
+    "evidence_bundle": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-01/payload-final2"
+  },
+  "prohibitions": [
+    "no_submission_before_independent_CPU_payload_review",
+    "no_automatic_or_manual_resubmission_after_failure_or_ambiguous_create_response",
+    "no_network_download_or_environment_upgrade_inside_the_job",
+    "no_full_training_campaign",
+    "no_claim_of_fullmodel_or_loop_cachedprefix_qualification"
+  ],
+  "preflight_history": {
+    "original_verdict": "NO_GO",
+    "original_evidence": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-01/preflight-review/verdict/preflight-verdict.md",
+    "independent_recheck_verdict": "NO_GO",
+    "independent_recheck_evidence": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-01/preflight-recheck/verdict/preflight-recheck-verdict.md",
+    "repaired_payload_review": "PENDING_INDEPENDENT_RECHECK"
+  }
+}

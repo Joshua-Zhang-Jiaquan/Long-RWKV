@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "EXTERNAL_PREREQUISITE_BLOCK",
+  "manifest_sha256": "49cdef9722351a951ed7f36a679708905df30a19801e7d2eaa7493144638869f",
+  "observed_exception": "manifest_file_unavailable:meta.json",
+  "missing_files": [
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/m4-loop-2p9b/step_00004750/meta.json",
+      "role": "checkpoint_meta",
+      "required_sha256": "321ce0465b2cedb13c870c1ad4ec2c7c36d14cd37670e9caa018b9e63954e7ef",
+      "required_size_bytes": 43
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/m4-loop-2p9b/step_00004750/model.pt",
+      "role": "checkpoint_model",
+      "required_sha256": "ffaa464dabb3291c40749bbac4d6805e8a47082e3e2b082e0240365ffc525c07",
+      "required_size_bytes": 16367167378
+    }
+  ],
+  "observed_checkpoint_parent_entries": [
+    "step_00008000",
+    "step_00008500",
+    "step_00009000"
+  ],
+  "constrained_search_for_step_00004750": "NO_FILES_FOUND",
+  "integrity_policy": "paths_and_hashes_preserved_no_substitution_no_weight_copy",
+  "required_resolution": "restore_exact_reviewed_bytes_at_the_bound_paths_or_issue_an_independently_reviewed_manifest_and_checkpoint_change",
+  "package_identity_note": "file_inventory_failed_before_package_version_checks; query_flash-linear-attention_by_its_proper_distribution_name_on_the_next_worker_only_after_checkpoint_restoration"
+}

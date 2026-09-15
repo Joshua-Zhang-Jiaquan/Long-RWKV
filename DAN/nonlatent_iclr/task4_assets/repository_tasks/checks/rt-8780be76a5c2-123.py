@@ -1,0 +1,1 @@
+assert strip('xyzzy') == 'xyzzy'

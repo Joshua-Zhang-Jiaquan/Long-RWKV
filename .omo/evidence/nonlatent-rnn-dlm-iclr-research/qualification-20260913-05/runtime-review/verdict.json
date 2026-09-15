@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "review_type": "independent_bounded_runtime_milestone_review",
+  "review_date": "2026-09-13",
+  "verdict": "REJECT",
+  "promotion_target": "BOUNDED_PARTIAL_QUALIFICATION_MILESTONE_ONLY",
+  "task_3_complete": false,
+  "reason": "The substantive bounded runtime checks are coherent, but the evidence does not support an exact runtime-environment MATCH: preflight.json and runtime_environment.json record torch 2.8.0a0+5228986c39.nv25.6 while every rank receipt records 2.8.0a0+5228986c39.nv25.06.",
+  "source_binding": {
+    "job_id": "job-724fd7b8-97f8-43b6-bac5-bab67eae314b",
+    "run_id": "qualification-20260912-01-91f32832-f583-4638-aedc-be4ac9887ab3",
+    "nonce": "a41af12290a62f67829670728be9b480",
+    "request_sha256": "55df1dfa714dd54c4b642af5b5cda7caee76946d57e09512d9f7d492fb3fa919",
+    "manifest_sha256": "9271a2036e84c3fa29442a9f7627c9889d024106b8286321d82da26df856e51d",
+    "controller_receipt_sha256": "4b4e2655e6e833decb32411357c5bbc04d89fd68f0698e4bf4115604feeafd91",
+    "monitoring_hash_entries_verified": 9,
+    "worker_hash_entries_verified": 13,
+    "monitoring_ledger": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260913-05/submission/monitoring-v6/evidence-sha256.txt",
+    "worker_ledger": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260913-05/submission/monitoring-v6/worker-output-hashes.sha256",
+    "worker_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/qualification-20260912-01-91f32832-f583-4638-aedc-be4ac9887ab3/"
+  },
+  "verified_positive_evidence": {
+    "json_files_parsed": "17/17",
+    "hash_entries_verified": "22/22",
+    "ranks": [0, 1, 2, 3, 4, 5, 6, 7],
+    "world_size": 8,
+    "hardware": "8 NVIDIA H100 80GB HBM3 GPUs with unique UUIDs and 81559 MiB each",
+    "checkpoint_step": 4750,
+    "checkpoint_size_bytes": 16367167378,
+    "checkpoint_state_tensors": 1955,
+    "checkpoint_sha256": "ffaa464dabb3291c40749bbac4d6805e8a47082e3e2b082e0240365ffc525c07",
+    "parameter_numel": 4091581441,
+    "masked_logits_shape": [1, 48, 65536],
+    "masked_logits_all_finite": true,
+    "standalone_fla_cache_sequence_length": 48,
+    "standalone_fla_cache_prefix_length": 32,
+    "standalone_fla_cache_max_abs_delta": 0.0,
+    "standalone_fla_cache_tolerance": 0.05,
+    "worker_aggregate_status": "PARTIAL_QUALIFICATION",
+    "scheduler_status": "job_succeeded"
+  },
+  "preserved_boundaries": {
+    "full_model_prefix_cache": "NOT_QUALIFIED_FFN_TOKEN_SHIFT_STATE_UNWIRED",
+    "loop_prefix_cache": "NOT_QUALIFIED_TIED_LAYER_STATE_ALIASES_PASSES",
+    "scheduler_success_is_full_scientific_qualification": false,
+    "full_model_cache_claim": false,
+    "long_context_claim": false,
+    "performance_or_goodput_claim": false,
+    "billing_or_exact_runtime_claim": false
+  },
+  "blocking_finding": {
+    "severity": "HIGH",
+    "category": "runtime_environment_identity_mismatch",
+    "expected_or_manifest_value": "2.8.0a0+5228986c39.nv25.6",
+    "rank_observed_value": "2.8.0a0+5228986c39.nv25.06",
+    "affected_claim": "runtime_environment MATCH",
+    "effect": "The exact-value discrepancy prevents promotion of the bounded milestone from this evidence package."
+  },
+  "limitations": [
+    "The observed container image digest is null/unknown; scheduler_image_id is not a cryptographic digest.",
+    "GetJobLog returned business InternalError despite wrapper return code 0, so scheduler-log corroboration is unavailable.",
+    "The hash ledgers provide integrity coverage but are not signed provenance roots; the external controller receipt is not an entry in either source ledger.",
+    "The 435-second continuation observation span is not independently reconstructible from monitoring-v6 alone, and started_at is null.",
+    "Payload, authorization, submission, and run identifiers use date-like names that require manifest/controller interpretation.",
+    "Short bounded checks do not qualify full-model caching, loop caching, long-context behavior, performance, billing, or exact execution duration."
+  ],
+  "review_panel": [
+    {"role": "goal_and_constraints", "session_id": "ses_f64c66afaffeX6EN9plHpKUBsT", "verdict": "PASS_BOUNDED_ONLY"},
+    {"role": "evidence_quality", "session_id": "ses_f64c66a01ffeeSvuiQKIIgsaT1", "verdict": "FAIL"},
+    {"role": "security_and_integrity", "session_id": "ses_f64c66917ffeVrtuzDg75PE5V3", "verdict": "FAIL"},
+    {"role": "hands_on_qa", "session_id": "ses_f64c667f9ffeXJdHMRNz9ntYoI", "verdict": "FAIL"},
+    {"role": "historical_context", "session_id": "ses_f64c666d8ffeCGri30iu3lhKyU", "verdict": "PASS_BOUNDED_ONLY"}
+  ],
+  "exact_next_prerequisite": "Produce an immutable, identity-bound environment reconciliation receipt that either corrects the torch version evidence or defines and justifies a canonicalization under which 2.8.0a0+5228986c39.nv25.6 and 2.8.0a0+5228986c39.nv25.06 are proven equivalent; bind that receipt and any regenerated aggregate/monitoring outputs with new SHA-256 ledgers, then repeat this bounded independent review."
+}

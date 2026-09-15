@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-11",
+  "verdict": "CONFIRMED_ENGINEERING_PARTIAL_ONLY",
+  "task_4_status": "BLOCKED",
+  "four_defects": {
+    "hmm_query": {
+      "state_a_gold": "11997661/40547627",
+      "state_b_complement_gold": "28549966/40547627",
+      "state_a_plus_state_b": "1",
+      "state_b_with_old_state_a_gold_rejected": true,
+      "state_b_with_complement_gold_validates": true
+    },
+    "hmm_binary_observations": {
+      "same_length_nonbinary_mutation": true,
+      "nonbinary_mutation_rejected": true
+    },
+    "single_evidence_block": {
+      "same_length_duplicate_mutation": true,
+      "duplicate_contradictory_block_rejected": true
+    },
+    "receipt_source_binding": {
+      "named_receipt": "prepare-b815181ffa404314bce2075d08f7d8e2/result.json",
+      "named_receipt_current": true,
+      "named_receipt_status": "BLOCKED",
+      "tracked_source_count": 4,
+      "tracked_sources": [
+        "tasks/exact_tasks.py",
+        "tasks/provenance.py",
+        "tasks/external_assets.py",
+        "task_registry.py"
+      ],
+      "actual_hashes_match_receipt": true,
+      "isolated_receipt_current_before_drift": true,
+      "isolated_receipt_current_after_exact_source_drift": false,
+      "legacy_unbound_receipt_current": false,
+      "isolated_copy_removed": true
+    }
+  },
+  "owned_tests": {
+    "collected": 19,
+    "passed": 19,
+    "failed": 0,
+    "seconds": 5.50,
+    "exit_code": 0
+  },
+  "standalone_cli": {
+    "happy_verify_exit": 2,
+    "failure_verify_exit": 0,
+    "status": "BLOCKED",
+    "blocked_count": 5,
+    "successful_cells": 689,
+    "infeasible_cells": 31,
+    "failure_validator_true_count": 4,
+    "temporary_receipt_registry_hash_matches": true,
+    "temporary_receipt_source_hash_count": 4,
+    "registry_sha256": "75c487cb77ecb58b698b6fc9c032543528fd67dc9cb395784ce6a2f099d5531d"
+  },
+  "source_identity": {
+    "exact_tasks_sha256": "cd29f3ab5cc155357c37686ad43651083e9860631adea1868eaa0a33eca50ef9",
+    "named_receipt_sha256": "d78bd7943e55932a6a81ad40056d6811a64e8801f1e22ab4bad6cef56fac8b00"
+  },
+  "known_external_gates": [
+    "RULER development assets",
+    "LongBench development assets",
+    "200 rights-cleared repository tasks",
+    "real isolated repository evaluator",
+    "RWKV tokenizer and token-length qualification"
+  ],
+  "cleanup": {
+    "cli_temp_removed": true,
+    "isolated_source_copy_removed": true,
+    "product_plan_or_peer_writes": false,
+    "network_install_qz_gpu_container_or_git": false
+  }
+}

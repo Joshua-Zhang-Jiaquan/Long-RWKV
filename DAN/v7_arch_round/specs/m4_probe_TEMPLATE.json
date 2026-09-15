@@ -1,0 +1,27 @@
+{
+  "auto_fault_tolerance": false,
+  "envs": [
+    {
+      "name": "NNODES",
+      "value": "1"
+    }
+  ],
+  "framework": "pytorch",
+  "framework_config": [
+    {
+      "image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+      "image_type": "SOURCE_PRIVATE",
+      "instance_count": 1,
+      "shm_gi": 1800,
+      "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f"
+    }
+  ],
+  "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+  "max_running_time_ms": "10800000",
+  "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+  "task_priority": 4,
+  "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6",
+  "name": "m4-probe-step-UNSET",
+  "command": "bash -lc 'export DAN_SCALE_DIR=/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale; export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false; O=/inspire/hdd/global_user/zhangjiaquan-253108540222/m2_baseline_triangle; CK=__CKPT__; i=0; until [ -f $CK/model.pt ] || [ $i -ge 60 ]; do sleep 30; i=$((i+1)); done; if [ ! -f $CK/model.pt ]; then { echo ===PROBE_ABORT step __STEP__ ckpt missing after 30min===; ls __RUNDIR__ 2>&1; } >> __PROBELOG__; exit 3; fi; cd $DAN_SCALE_DIR; CUDA_VISIBLE_DEVICES=0 python -m eval.capability.cola_proxy_generic --model_kind birwkv --ckpt_dir $CK --model_dir /inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF --task_data_dir $O/task_data --output_dir __TASKDIR__ --tasks mmlu --max_samples 200 --max_new_tokens 32 --steps 16 --commit_group_size 4 --temperature 0.2 --chat_frame 0 --seed 42 > __LOGNAME__ 2>&1; ec=$?; echo \"__MARK__ exit=$ec\" >> __PROBELOG__; python /inspire/hdd/global_user/zhangjiaquan-253108540222/research/DiffRwkv/baseline/Cola-DLM/scripts/acc_calc.py $O $O/accuracy_summary.csv 2>&1 | tail -6 >> __PROBELOG__; echo ===M4_PROBE_DONE_STEP__STEP__=='",
+  "description": "v7 arch-round MMLU-proxy probe TEMPLATE (all placeholders are instantiated by the m4 tracker, which asserts the final spec is fully substituted). 200-set, chat_frame 0, scoped acc_calc. Same protocol as the F2/N2 curves so readings are comparable."
+}

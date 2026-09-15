@@ -1,0 +1,16 @@
+{
+  "ceiling": "none_user_imposed; per-job receipts and scheduler quota gate",
+  "governing_authority": ".omo/authorizations/nonlatent-gpu-campaign-20260912.json",
+  "governing_instruction": "user: \"unlimited usage for gpu and go on\" (2026-09-12); 2026-09-15: user answered a re-attempt request with \"no limits on using qz gpu tasks\"",
+  "job_shape": "1 node x 8 NVIDIA_H100_SXM_80G, max_running_time_ms 1800000, task_priority 4, auto_fault_tolerance false, fault_tolerance_max_retry 0",
+  "prior_jobs_preserved": [
+    "job-cd3c6850-91cc-4a1e-8f10-a3ce6c5baec9",
+    "job-5b99b0c6-bb92-44e2-924b-761de4ad276b",
+    "job-d10874d4-7a9e-4c36-9fe0-401b699f8698",
+    "job-724fd7b8-97f8-43b6-bac5-bab67eae314b",
+    "job-e0c9f792-8afb-4902-bb24-5dd8872927e1"
+  ],
+  "re_attempt_policy": "bounded per job (30 min, zero automatic retries) with a documented root-cause fix between attempts; the user has removed any limit on the number of bounded submissions",
+  "receipt_authorization_id_note": "The controller receipt's authorization_id field is a frozen literal of the job contract (qualification/controller_receipt.py) and is left unchanged for schema compatibility. It is not a claim about which user authorization funds this run; the governing authority is the file named above.",
+  "schema_version": 1
+}

@@ -1,0 +1,46 @@
+{
+  "tampered_computed_values": {
+    "status": "METRICS_COMPLETE",
+    "detail": "metric correction binds current raw records and code"
+  },
+  "empty_corrections": {
+    "status": "METRICS_COMPLETE",
+    "detail": "metric correction binds current raw records and code"
+  },
+  "invalid_schema_version": {
+    "status": "METRICS_COMPLETE",
+    "detail": "metric correction binds current raw records and code"
+  },
+  "missing_receipt": {
+    "status": "METRICS_COMPLETE",
+    "detail": "metric correction binds current raw records and code"
+  },
+  "missing_markdown": {
+    "status": "METRICS_COMPLETE",
+    "detail": "metric correction binds current raw records and code"
+  },
+  "changed_raw_source": {
+    "status": "STALE",
+    "detail": "raw record hash changed"
+  },
+  "changed_analysis_code_hash": {
+    "status": "STALE",
+    "detail": "analysis code changed"
+  },
+  "report_write_interruption": {
+    "first_prepare_status": "SOURCE_UNAVAILABLE",
+    "retry_prepare_status": "PUBLICATION_EXISTS",
+    "verify_status": "METRICS_COMPLETE",
+    "correction_exists": true,
+    "markdown_exists": false,
+    "receipt_count": 0
+  },
+  "receipt_write_interruption": {
+    "first_prepare_status": "SOURCE_UNAVAILABLE",
+    "retry_prepare_status": "PUBLICATION_EXISTS",
+    "verify_status": "METRICS_COMPLETE",
+    "correction_exists": true,
+    "markdown_exists": true,
+    "receipt_count": 0
+  }
+}

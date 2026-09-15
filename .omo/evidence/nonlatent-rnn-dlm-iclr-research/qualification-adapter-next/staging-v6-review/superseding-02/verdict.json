@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "review_type": "final_adapter_v6_cpu_staging_validation_correction",
+  "review_date": "2026-09-13",
+  "verdict": "PASS",
+  "scope": "IMMUTABLE_ADAPTER_V6_CPU_STAGING_ONLY",
+  "task_3_complete": false,
+  "preserves": {
+    "original_rejection_path": "../verdict.json",
+    "original_rejection_sha256": "f3117850ee8e32f85e586c7a06a3cff83ffd50edee240346ce49188c69e8a3b4",
+    "superseding_01_path": "../superseding-01/verdict.json",
+    "superseding_01_sha256": "9d378da266f962cf81379d59edff7f97dd340f7d2fc085a126da58d11886d1b8",
+    "superseding_01_ledger_sha256": "785166c2d97ceafe2430b77cdc0847b611cde73d3928609b4b14c864304d5222"
+  },
+  "procedural_history": {
+    "cpu_qa_rerun": "COMPLIANT_PASS_REUSED_WITHOUT_REPETITION",
+    "post_qa_json_helper": "NONCOMPLIANT_ENVIRONMENT_OMISSION_RECORDED",
+    "corrected_json_validation": "COMPLIANT_PASS",
+    "detail": "The omitted environment on the later JSON-only helper was not erased or called compliant. The same two evidence files were reparsed with bytecode disabled, safe path enabled, and a fresh external cache prefix."
+  },
+  "consolidated_qa": {
+    "candidate_tests": "5/5",
+    "release_tests": "3/3",
+    "approved_regression_tests": "66/66_disjoint",
+    "inherited_controls": "17/17",
+    "total_selected_tests": "91/91",
+    "strict_preflight": "PREFLIGHT_VERIFIED_111_files",
+    "runtime_environment": "MATCH_8_of_8_sources_6_of_6_versions_no_model_modules",
+    "corrected_json_validation": "2/2"
+  },
+  "candidate_binding": {
+    "release_tree_sha256": "5b86080fba3c7ed11c65c9b7045349f0ad074973921ff04c22347ac4db8690f9",
+    "runtime_manifest_sha256": "692d1cc88d6b2c6335736d47492aa933bf57b9a23a4d0dcc9e5e3eeda165cf32",
+    "runtime_manifest_entries": 111,
+    "release_writable_paths": 0,
+    "release_symlinks": 0,
+    "release_owned_bytecode_paths": 0
+  },
+  "preserved_boundaries": {
+    "model_constructed": false,
+    "checkpoint_unpickled": false,
+    "cuda_executed": false,
+    "gpu_job_submitted": false,
+    "scheduler_mutated": false,
+    "source_or_release_mutated": false,
+    "full_model_cache_qualified": false,
+    "loop_cache_qualified": false,
+    "task_3_complete": false
+  },
+  "final_disposition": "The adapter-v6 immutable CPU staging review passes. This does not authorize live execution and does not complete Task3 or qualify full-model or loop caches."
+}

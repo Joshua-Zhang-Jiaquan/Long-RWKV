@@ -1,0 +1,23 @@
+{
+  "attempt": "qa-20260911T071854Z",
+  "commands": [
+    {"command": "uv run python -m experiments.nonlatent_iclr.cli prepare --task 1", "exit": 0, "status": "AUDIT_COMPLETE"},
+    {"command": "uv run python -m experiments.nonlatent_iclr.cli verify --task 1 --case happy", "exit": 0, "status": "AUDIT_COMPLETE"},
+    {"command": "uv run python -m experiments.nonlatent_iclr.cli verify --task 1 --case failure", "exit": 0, "status": "EXPECTED_FAILURE_CONFIRMED"},
+    {"command": "uv run python -m experiments.nonlatent_iclr.cli analyze --task 1", "exit": 0, "status": "AUDIT_COMPLETE"},
+    {"command": "uv run python -m experiments.nonlatent_iclr.cli render --out ../DAN/nonlatent_iclr/evidence_audit.md", "exit": 0, "status": "AUDIT_COMPLETE"},
+    {"command": "uv run python -m experiments.nonlatent_iclr.cli prepare --task 2", "exit": 2, "status": "UNSUPPORTED"},
+    {"command": "uv run python -m experiments.nonlatent_iclr.cli prepare --task nope", "exit": 2, "status": "argparse malformed input rejection"}
+  ],
+  "adversarial": {
+    "malformed_input": "rejected with exit 2",
+    "prompt_injection": "not applicable: no free-text execution surface exists",
+    "cancel_resume": "not applicable: no asynchronous or resumable execution exists",
+    "stale_state": "isolated changed checksum and missing panel rejected",
+    "dirty_worktree": "not applicable: root is not a git repository",
+    "hung_long_commands": "all commands bounded to 120 seconds; no long-running operation",
+    "flaky_tests": "two consecutive pytest runs passed",
+    "misleading_success_output": "unsupported/malformed commands exit 2; scientific claims remain blocked",
+    "repeated_interruptions": "repeat prepare preserves immutable ledger; crash-interruption simulation remains unimplemented"
+  }
+}

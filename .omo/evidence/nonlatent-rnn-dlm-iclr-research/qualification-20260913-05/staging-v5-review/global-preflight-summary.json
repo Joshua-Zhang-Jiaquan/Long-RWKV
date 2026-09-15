@@ -1,0 +1,21 @@
+{
+  "bytecode_precheck_before_and_after": "CLEAN",
+  "cache_prefix_entries_before_cleanup": 0,
+  "controller_receipt_argument": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260913-05/staging-v5-review/controller-observation-only.json",
+  "controller_receipt_read_or_created": false,
+  "cwd": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-bytecode-v5",
+  "environment_status": "MATCH",
+  "manifest_sha256": "9271a2036e84c3fa29442a9f7627c9889d024106b8286321d82da26df856e51d",
+  "package_source_matches": 8,
+  "package_version_matches": 6,
+  "preflight_status": "PREFLIGHT_VERIFIED",
+  "runtime_modules_loaded": [],
+  "schema_version": 1,
+  "status": "GLOBAL_CPU_PREFLIGHT_PASS",
+  "sys_path_prefix": [
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-bytecode-v5",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-bytecode-v5/model_source/scale"
+  ],
+  "verified_source_files": 110,
+  "whole_deadline_seconds": 1680
+}

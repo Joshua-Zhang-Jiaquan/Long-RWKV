@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "boolean_grid": true,
+    "boolean_metric": true,
+    "boolean_seed": true,
+    "declared_n_records_mismatch": false,
+    "duplicate_pair": true,
+    "failed_record_with_finite_metric": true,
+    "failed_record_without_metric": true,
+    "incomplete_declared_grid": true,
+    "incomplete_shards": true,
+    "malformed_schema": true,
+    "mismatched_pair_sets": true,
+    "missing_grid": true,
+    "missing_panel": true,
+    "nonfinite_pair": true,
+    "positive_max_run_delta_is_worse": true,
+    "valid_full_arm": true
+  },
+  "cleanup": {
+    "exists_after_context": false,
+    "temporary_path": "/tmp/opencode/task02-record-recheck-25f6bj9r"
+  },
+  "outcomes": {
+    "boolean_grid": {"accepted": false, "detail": "invalid grid"},
+    "boolean_metric": {"accepted": false, "detail": "invalid paired record"},
+    "boolean_seed": {"accepted": false, "detail": "invalid paired record"},
+    "declared_n_records_mismatch": {"accepted": true, "detail": "file_count=8,pair_count=256"},
+    "duplicate_pair": {"accepted": false, "detail": "duplicate pair key in loop: ('doc-8', 42, 'r70_s1')"},
+    "failed_record_with_finite_metric": {"accepted": false, "detail": "failed record retained in panel"},
+    "failed_record_without_metric": {"accepted": false, "detail": "failed record retained in panel"},
+    "incomplete_declared_grid": {"accepted": false, "detail": "incomplete arm coverage: incomplete-grid"},
+    "incomplete_shards": {"accepted": false, "detail": "incomplete shard set: incomplete-shards"},
+    "malformed_schema": {"accepted": false, "detail": "malformed sampler shard"},
+    "mismatched_pair_sets": {"accepted": false, "detail": "paired key sets differ; coverage loss must be reported"},
+    "missing_grid": {"accepted": false, "detail": "missing grid"},
+    "missing_panel": {"accepted": false, "detail": "missing sampler panel: absent"},
+    "nonfinite_pair": {"accepted": false, "detail": "non-finite value in loop: ('doc-0', 42, 'r70_s1')"},
+    "valid_full_arm": {"accepted": true, "detail": "file_count=8,pair_count=256"}
+  },
+  "overall_pass": false,
+  "polarity": {
+    "interpretation": "worse",
+    "mean_delta": 0.8
+  }
+}

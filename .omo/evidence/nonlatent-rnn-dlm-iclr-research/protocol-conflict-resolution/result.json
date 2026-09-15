@@ -1,0 +1,57 @@
+{
+  "schema": "nonlatent_generation_protocol_resolution_v1",
+  "generated_at_utc": "2026-09-15T23:05:00Z",
+  "item": "generation-protocol conflict, recorded UNRESOLVED by the tokenizer and length qualifications",
+  "as_recorded": "UNRESOLVED: config BOS/EOS=1/2 conflicts with generation EOS/PAD=0 and tokenizer EOT/PAD=0",
+  "resolved_by": "reading the active vocabulary file itself rather than choosing a convention",
+  "vocab_artifact": {
+    "path": "base_models/rwkv7-0.4B-world/rwkv_vocab_v20230424.txt",
+    "sha256_prefix": "e6dee3d4e31b4d5c40ac9950",
+    "line_count": 65529,
+    "id_range": "1..65529, contiguous (the loader enumerates lines with start=1 and refuses any other count)"
+  },
+  "measured_decodes": {
+    "id 0": "ABSENT from the vocabulary file -- there is no line 0",
+    "id 1": "'\\x00' the NUL byte, an ordinary content token",
+    "id 2": "'\\x01' the SOH byte, an ordinary content token",
+    "id 65529": "the final vocabulary entry (128 spaces)",
+    "id 65530": "beyond the file -- outside the active vocabulary",
+    "id 65531": "beyond the file -- outside the active vocabulary",
+    "id 65535": "beyond the file -- outside the active vocabulary"
+  },
+  "verdict": {
+    "correct_convention": "NO BOS, and an EOT stop set of {65531, 0} (plus tok.eos_token_id when it is an int). 65530 must never be treated as a terminator.",
+    "defective_convention": "config BOS/EOS = 1/2",
+    "why_it_is_a_defect_not_a_choice": [
+      "id 0 does not exist in the vocabulary, so it cannot be a content token and is exactly what a metadata EOT/PAD marker should be.",
+      "ids 1 and 2 DO exist and are the NUL and SOH byte tokens. A byte-trie tokenizer that serves UTF-8 bytes will produce them for any input containing those bytes, so declaring them BOS/EOS would (a) mislabel real content, (b) strip or split on content that legitimately contains NUL/SOH, and (c) teach the model a sequence structure the tokenizer never inserts.",
+      "the encoder inserts no special tokens at all, so a BOS that the tokenizer never emits has no source.",
+      "an earlier BiRWKV evaluation line treated 65530 as EOS. Because CHAT_PREFIX ends with a code fence, any completion opening with a blank line was truncated to nothing: pass@1 was exactly 0.0 on 164/164 tasks across three training rounds, and no training-data change could ever have fixed a decode-side string bug. That is the concrete cost of getting this convention wrong, and it is why the conflict needed resolving rather than tolerating."
+    ],
+    "why_65531_is_NOT_the_answer_here": "RETRACTED. See two_layers_not_one and stop_set: 65531 IS the end-of-text for the tokenizer the 2.9B model uses. The claim was true of the vocabulary file and false of the tokenizer, and I stated it as the latter.",
+    "stop_set": {
+      "eot_ids": [
+        65531,
+        0
+      ],
+      "plus": "tokenizer.eos_token_id when it is an int",
+      "never": [
+        65530
+      ],
+      "provenance": "measured against the tokenizer object by the peer session (improve-benchmarks-chat), which had already fixed this class of bug in the BiRWKV eval line"
+    },
+    "zero_is_genuinely_dual_role": "0 is PAD in the packed-pkl convention (attention_mask = ids != 0) AND an EOT-decoding id. That dual role is the real ambiguity, and it is why a stop set has to name 0 explicitly instead of deriving it."
+  },
+  "consequence": {
+    "unblocks": "Task 5's preregistration may now state a settled generation protocol instead of carrying an open conflict; Task 7's generation path has a decided convention to implement against.",
+    "must_not_be_smoothed_over": "the manuscript must record that the conflict existed, that it was resolved from the vocabulary artifact, and that an earlier line in the same program shipped the opposite class of mistake undetected until it had zeroed an entire evaluation.",
+    "no_code_change_made_here": "this artifact records the resolution only. Changing the config constant, the generation path, or the qualifications' status string is a code change that belongs with Task 5/7 and their tests, not with a paper-writing pass."
+  },
+  "two_layers_not_one": {
+    "why_this_was_hard": "the id space has TWO layers, and the recorded conflict conflated them. The content vocabulary is a 65529-line file (ids 1..65529). The tokenizer/meta layer additionally declares special-token ids OUTSIDE that file.",
+    "content_layer": "rwkv_vocab_v20230424.txt, 65529 lines, ids 1..65529 contiguous; id 1 = '\\x00', id 2 = '\\x01'.",
+    "meta_layer": "the RWKV World tokenizer the 2.9B model uses maps 65531 to <|rwkv_tokenizer_end_of_text|> and 0 also decodes to that same string; 65530 decodes to '\\n\\n', an ordinary blank line.",
+    "consequence": "my first version of this artifact concluded 65531 was 'not available as an id here' because it is absent from the vocabulary FILE. That was an over-claim across layers: 65531 is absent as a CONTENT id and present as a SPECIAL id. Corrected below from the peer session's measurement, which was taken against the tokenizer object rather than the vocab file."
+  },
+  "corrected_at_utc": "2026-09-15T23:20:00Z"
+}

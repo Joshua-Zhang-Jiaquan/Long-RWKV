@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-11",
+  "verdict": "NEEDS_FIX_ENGINEERING_PARTIAL",
+  "task_4_status": "BLOCKED",
+  "owned_tests": {
+    "collected": 16,
+    "passed": 16,
+    "failed": 0,
+    "seconds": 5.44,
+    "exit_code": 0
+  },
+  "public_evidence_controls": {
+    "normal_task_validates": true,
+    "same_length_redaction_rejected": true,
+    "same_length_overwrite_contradiction_rejected": true,
+    "hmm_state_a_to_state_b_contradiction_rejected": false,
+    "hmm_nonbinary_observations_rejected": false,
+    "second_contradictory_evidence_block_rejected": false
+  },
+  "axis_and_boundary_controls": {
+    "seed_999_rejected": true,
+    "instance_index_200_rejected": true,
+    "declared_length_0_rejected": true,
+    "declared_length_1_rejected": true,
+    "declared_length_16_rejected": true,
+    "unplaceable_registered_request_raised_infeasible": true,
+    "feasible_8192_position_expected": 4096,
+    "feasible_8192_position_actual": 4096,
+    "hmm_load_1_observations": 1,
+    "hmm_load_128_observations": 128,
+    "hmm_endpoint_sources_distinct": true,
+    "dataflow_load_1_assignments": 2,
+    "dataflow_load_128_assignments": 129,
+    "dataflow_endpoint_sources_distinct": true
+  },
+  "representative_matrix": {
+    "seed": 101,
+    "instance_index": 0,
+    "declared_cells": 720,
+    "successful_cells": 689,
+    "infeasible_cells": 31,
+    "gold_failures": 0,
+    "character_length_failures": 0,
+    "position_failures": 0,
+    "materialized_instances": 0,
+    "representative_scan_seconds": 0.294687,
+    "full_verify_seconds": 1.105048,
+    "length_8192_cells": 144,
+    "length_8192_successful": 134,
+    "length_8192_infeasible": 10,
+    "length_8192_scan_seconds": 0.032997,
+    "infeasible_by_family": {
+      "associative_recall": 9,
+      "overwrite_delayed_query": 10,
+      "finite_hmm": 3,
+      "code_dataflow": 9
+    },
+    "infeasible_by_length": {
+      "4096": 18,
+      "8192": 10,
+      "16384": 3
+    }
+  },
+  "manifest_gate": {
+    "structurally_bound_arbitrary_manifests_ready": false,
+    "blocked_count": 5,
+    "exit_code": 2,
+    "all_reasons": "BLOCKED: no trusted qualification adapter is implemented"
+  },
+  "standalone_cli": {
+    "prepare_exit": 2,
+    "happy_verify_exit": 2,
+    "failure_verify_exit": 0,
+    "status": "BLOCKED",
+    "blocked_count": 5,
+    "successful_cells": 689,
+    "infeasible_cells": 31,
+    "failure_validator_true_count": 4,
+    "temporary_receipt_count": 2,
+    "temporary_receipt_hash_matches": 2,
+    "registry_sha256": "75c487cb77ecb58b698b6fc9c032543528fd67dc9cb395784ce6a2f099d5531d"
+  },
+  "registry_staleness": {
+    "current_registry_sha256": "75c487cb77ecb58b698b6fc9c032543528fd67dc9cb395784ce6a2f099d5531d",
+    "regenerated_registry_sha256": "75c487cb77ecb58b698b6fc9c032543528fd67dc9cb395784ce6a2f099d5531d",
+    "regenerated_bytes_equal_current": true,
+    "archive_sha256": "55fc4b55040d9136a142ca472305b477ce11e42a7f4e4b0e96f68ae024a97563",
+    "receipt_count": 7,
+    "current_hash_bound_receipts": 3,
+    "legacy_unbound_receipts": 4,
+    "receipts_include_source_hashes": false,
+    "current_hash_bound_receipts_names": [
+      "prepare-2997cf07c12c4810903bf5eab098c018",
+      "prepare-e90b190dda1240cebfd056dde9448cad",
+      "happy_verify-afd589cafad04ded8077eae451a95d15"
+    ]
+  },
+  "missing_external_assets": [
+    "DAN/nonlatent_iclr/task4_assets/ruler/development_manifest.json",
+    "DAN/nonlatent_iclr/task4_assets/longbench/development_manifest.json",
+    "DAN/nonlatent_iclr/task4_assets/repository_tasks/manifest.json",
+    "DAN/nonlatent_iclr/task4_assets/repository_evaluator/isolation_manifest.json",
+    "DAN/nonlatent_iclr/task4_assets/tokenizer/rwkv_tokenizer_manifest.json"
+  ],
+  "qualification_scope": {
+    "logical_character_fixtures_only": true,
+    "rwkv_token_lengths_qualified": false,
+    "benchmark_assets_qualified": false,
+    "repository_evaluator_qualified": false
+  },
+  "cleanup": {
+    "manifest_temp_removed": true,
+    "cli_temp_removed": true,
+    "full_corpus_materialized": false,
+    "product_or_plan_files_written_by_recheck": false,
+    "network_used": false,
+    "installation_used": false,
+    "gpu_qz_or_container_used": false,
+    "git_used": false
+  }
+}

@@ -1,0 +1,46 @@
+Traceback (most recent call last):
+  File "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-13-global-ffaa464d-calibration-v13/scale/experiments/nonlatent_iclr/qualification/calibration.py", line 233, in main
+    sidecar = measure(config, rank)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-13-global-ffaa464d-calibration-v13/scale/experiments/nonlatent_iclr/qualification/calibration.py", line 175, in measure
+    measurements, warnings, unavailable = run_ladder(
+                                          ^^^^^^^^^^^
+  File "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-13-global-ffaa464d-calibration-v13/scale/experiments/nonlatent_iclr/qualification/calibration_runtime.py", line 189, in run_ladder
+    outcome = measure_canvas(
+              ^^^^^^^^^^^^^^^
+  File "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-13-global-ffaa464d-calibration-v13/scale/experiments/nonlatent_iclr/qualification/calibration_runtime.py", line 107, in measure_canvas
+    forward_once(canvas_tokens)
+  File "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-13-global-ffaa464d-calibration-v13/scale/experiments/nonlatent_iclr/qualification/calibration.py", line 140, in forward_once
+    _ = model(ids, **_call_kwargs(arm))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-13-global-ffaa464d-calibration-v13/model_source/scale/models/birwkv7_diffusion.py", line 1192, in forward
+    h, v_first_fwd, v_first_bwd = self._run_layer_range(
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+  File "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-13-global-ffaa464d-calibration-v13/model_source/scale/models/birwkv7_diffusion.py", line 1069, in _run_layer_range
+    h, v_first_fwd, v_first_bwd = block(
+                                  ^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-13-global-ffaa464d-calibration-v13/model_source/scale/models/birwkv7_diffusion.py", line 757, in forward
+    self.attn_bwd(hidden_states=x_rev, v_first=v_first_bwd),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/fla/layers/rwkv7.py", line 314, in forward
+    b=kk * a,
+      ~~~^~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 64.00 MiB. GPU 1 has a total capacity of 79.18 GiB of which 63.88 MiB is free. Including non-PyTorch memory, this process has 79.11 GiB memory in use. Of the allocated memory 78.31 GiB is allocated by PyTorch, and 69.36 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

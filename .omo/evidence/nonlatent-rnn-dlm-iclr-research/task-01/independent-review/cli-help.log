@@ -1,0 +1,7 @@
+usage: cli.py [-h] {prepare,analyze,verify,render} ...
+
+positional arguments:
+  {prepare,analyze,verify,render}
+
+options:
+  -h, --help            show this help message and exit

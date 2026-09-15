@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-09-12",
+  "status": "PASS_CONTROLLER_REQUEST_PREFLIGHT_ROOT_UPDATE_REQUIRED",
+  "request": {
+    "path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-01/submission/exact_job_spec.json",
+    "bytes": 1693,
+    "sha256": "437dd1af38b91713c464b0b8c8430765ddf0fdd3c4fb592f51afa817daeb076b",
+    "run_id": "qualification-20260912-01-7bef6cf8-fda4-46b9-84ff-d7ca4fe5b892",
+    "nonce": "d75f2419e63b1c052beda405b5c7d963",
+    "source_manifest_sha256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c"
+  },
+  "authorization": {
+    "path": ".omo/authorizations/nonlatent-h100-qualification-20260912-01.json",
+    "sha256_observed_before_root_pass_update": "e7af34a994015297c7eff4e209fff6029cdc47de8c6f3456a7bc108539de0f82",
+    "controller_state_historical_sha256": "e7af34a994015297c7eff4e209fff6029cdc47de8c6f3456a7bc108539de0f82",
+    "preflight_verdict_observed": "NO_GO",
+    "status_observed": "authorized_held_for_payload_repair",
+    "jobs_submitted": 0,
+    "gpu_hours_consumed": 0,
+    "historical_hash_is_live_gate": false,
+    "live_gate": "parse current authorization and enforce immutable literal fields, jobs_submitted=0, preflight_verdict=PASS, and ROOT_PASS_CONFIRMED",
+    "temporary_root_pass_update_rebuilt_identical_request": true,
+    "temporary_immutable_tuple_mutation_rejected": true
+  },
+  "authorized_request": {
+    "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+    "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6",
+    "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+    "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f",
+    "gpu_type": "NVIDIA_H100_SXM_80G",
+    "nodes": 1,
+    "gpus_per_node": 8,
+    "gpus": 8,
+    "maximum_runtime_ms": "1800000",
+    "maximum_gpu_hours": 4,
+    "auto_fault_tolerance": false,
+    "fault_tolerance_max_retry": 0,
+    "reserve_on_fail_ms": "0",
+    "reserve_on_success_ms": "0",
+    "launcher_only": true
+  },
+  "image": {
+    "requested_image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+    "request_image_type": "SOURCE_PRIVATE",
+    "scheduler_image_id": "image-7330d118-df9d-4e2e-82b1-c2543e831eb4",
+    "observed_image_digest": null
+  },
+  "controller_sources_sha256": {
+    "controller.py": "637f94bd79e799ff40443604f795622a3ee984755c8ef22998107b1556e59403",
+    "controller_models.py": "1f16b89be0db9448c50066675529a8d8ef994106c8b49ebd4835378357df7753",
+    "controller_contract.py": "78bf9e7d203819d50dc9da9f42fa989df46c48cd25365089640f76c6f573e90d",
+    "controller_storage.py": "1ca5babe69e8208420bb06c9fa12dc2fa112890c0cc5842ca1154a6f55643538",
+    "controller_runtime.py": "be016379262fe576fcc5f9825af7ccab0e506ae508721b4d680b651b7eb46c85"
+  },
+  "controller_tests_sha256": {
+    "test_controller.py": "bde18ec2d822f535b708094a2f6e0b488850c6e8f314ac43e2652108a32c649e",
+    "test_submission_contract.py": "c94d55144c0133e49a9e561adcf0ba730b354133e6cdebbe9d21e74153ba7b53"
+  },
+  "state_and_receipts_sha256": {
+    "controller-state.json": "9883e9e99c09f79c2fecab43cf8a6689b5d45795897983ba9e19ad7f8c0281ef",
+    "dry-run-result.json": "399cc89c4e6d1913801e56be435e4b13ac2306f9cebf073ea8706cc1cca5859e",
+    "payload_controller_receipt.py": "9202801258c8e35739e2d08e42dce2115d2061dc1a189bad953ae57d9a37f121",
+    "payload_controller_receipt_contract.json": "1e87c1cf0d7856f72578fb47351ae4fccec2c55a4c0ec629d08b6822f5775827",
+    "payload_launch_contract.json": "00ddbe818b4bc07fd9e6a76a57e4f98585e94d332086e2357b778b838a01466c"
+  },
+  "cpu_verification": {
+    "designated_tests_passed": 18,
+    "designated_tests_failed": 0,
+    "pytest_seconds": 1.07,
+    "path_during_tests": "/nonexistent",
+    "qz_resolvable_during_tests": false,
+    "supplemental_fake_runner_sequence_passed": true,
+    "lsp_diagnostics": "clean_on_all_five_controller_python_files"
+  },
+  "submission_state": {
+    "reservation_count": 1,
+    "controller_status": "NOT_SUBMITTED",
+    "request_attempt_exists": false,
+    "admitted_job_exists": false,
+    "controller_receipt_exists": false,
+    "previous_jobs_submitted": 0,
+    "dry_run_invocation_count_before_this_review": 1,
+    "dry_run_repeated_by_this_review": false,
+    "qz_calls_by_this_review": 0,
+    "live_createjob_calls_by_this_review": 0
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "status": "TARGETED_V5_TO_V6_FULL_CANVAS_ADAPTER_PACKAGING_DELTA",
+  "baseline_release": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-bytecode-v5",
+  "candidate_release": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-06-global-ffaa464d-adapter-v6",
+  "added": [
+    {
+      "path": "scale/experiments/nonlatent_iclr/full_canvas.py",
+      "sha256": "1e5400e4283744d6c29ce533f0138b2b3e2b7bcd78b1a64b668a79f97c6b3e22",
+      "size_bytes": 5944,
+      "change": "exact independently approved FullCanvasAdapter source added to the parent package and pinned as payload"
+    }
+  ],
+  "changed": [
+    {
+      "path": "scale/experiments/nonlatent_iclr/qualification/model_checks.py",
+      "sha256": "6ddb94ddffc01d0fa416dcd7b7bfc0cc9dde201a864ccaf84e338201ab7ec023",
+      "size_bytes": 9006,
+      "change": "focused FullCanvasModel/MaskedForwardTorch typing plus lazy adapter open-forward-finally-reset caller integration; hardened v5 origin guards retained; existing ParameterEvidence.model_validate boundary retained"
+    },
+    {
+      "path": "scale/experiments/nonlatent_iclr/qualification/model_source_inventory.json",
+      "sha256": "726e48130360c5000c32733c94f9d6649f10a3021c271f7d507570933330826f",
+      "size_bytes": 53526,
+      "change": "owned root and 72 owned paths rebound to v6; all original and owned source identities unchanged"
+    },
+    {
+      "path": "scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+      "sha256": "8b7970c27a5a99b18a251e7c84b680dce6fa74f336866c9ff22ab871900b73c5",
+      "size_bytes": 12054,
+      "change": "default staged release root rebound from v5 to v6; bytecode/origin/runtime controls unchanged"
+    },
+    {
+      "path": "scale/experiments/nonlatent_iclr/qualification/runtime_config.py",
+      "sha256": "37db5304398a7f231d53947c34f4d73b4087dea6ef3c8e0168b3a7ef66e3cffb",
+      "size_bytes": 8010,
+      "change": "default staged model-source root rebound from v5 to v6 only"
+    },
+    {
+      "path": "scale/experiments/nonlatent_iclr/qualification/runtime_manifest.json",
+      "sha256": "692d1cc88d6b2c6335736d47492aa933bf57b9a23a4d0dcc9e5e3eeda165cf32",
+      "size_bytes": 40094,
+      "entry_count": 111,
+      "change": "owned paths and changed payload bytes freshly bound; full_canvas.py added as the twenty-fifth payload"
+    }
+  ],
+  "removed": [],
+  "unchanged_hardened_guard": {
+    "path": "scale/experiments/nonlatent_iclr/qualification/bytecode_guard.sh",
+    "sha256": "b5bcff58019e09a2acee0bf0ea6b4839371f91c3e25c32982d56f47f5c3b8a09",
+    "size_bytes": 2133
+  },
+  "identity_preservation": {
+    "model_source_blobs": 72,
+    "package_source_blobs": 8,
+    "hf_weight_shards": 2,
+    "checkpoint_models": 1,
+    "checkpoint_metadata_files": 1,
+    "external_manifest_identities_equal_v5": true,
+    "stale_v5_path_files_in_v6": []
+  },
+  "engineering_proof_additions": [
+    "build_candidate_manifest.py",
+    "test_adapter_candidate_v6.py",
+    "test_adapter_release_v6.py"
+  ],
+  "out_of_scope_changes": []
+}

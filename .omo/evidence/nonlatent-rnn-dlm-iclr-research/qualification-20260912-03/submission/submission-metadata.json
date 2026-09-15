@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-13T04:46:05Z",
+  "campaign_authorization": {
+    "id": "nonlatent-gpu-campaign-20260912",
+    "path": ".omo/authorizations/nonlatent-gpu-campaign-20260912.json",
+    "sha256_at_preparation": "067e063296ab8a738ec796afb3e92aa2732a0da261360285a591c84c05221b0a",
+    "observed_status": "authorized_for_staged_execution",
+    "consumed_or_modified": false
+  },
+  "permit": {
+    "path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/permit.json",
+    "id": "permit-nonlatent-gpu-campaign-20260912-5bf2e208-8dfb-49cf-98ef-e7e79ee44622",
+    "grant_instance_id": "grant-qualification-20260912-02-d1914223-c9a5-455d-97b6-1206369d28bc",
+    "status": "PREPARED_FOR_ROOT_REVIEW",
+    "controller_review_verdict": "PENDING",
+    "prior_ambiguous_reconciliation_verdict": "PENDING",
+    "live_submission_verdict": "NO_GO",
+    "maximum_real_createjob_calls": 1
+  },
+  "reservation": {
+    "state_path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/controller-state.json",
+    "run_id": "qualification-20260912-01-a840156e-c5a8-477e-9efe-3b07e66fd6a8",
+    "nonce": "eef4675f21e5f575e10306a9ff6feade",
+    "job_name": "qualification-20260912-01-a840156e-c5a8-477e-9efe-3b07e66fd6a8",
+    "status": "NOT_SUBMITTED",
+    "idempotent": true,
+    "old_attempt_reset": false
+  },
+  "request": {
+    "path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/exact_job_spec.json",
+    "bytes": 1694,
+    "sha256": "b932e3e036f242c6c1a91db242c342595e5df257298409a9061a489a573a301b",
+    "exact_bytes_passed_by_controller": true,
+    "no_overwrite": true,
+    "task_priority": 4,
+    "task_priority_server_range": [1, 10]
+  },
+  "resource": {
+    "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+    "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6",
+    "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+    "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f",
+    "authorized_gpu_type": "NVIDIA_H100_SXM_80G",
+    "requested_nodes": 1,
+    "requested_gpus_per_node": 8,
+    "requested_gpus": 8,
+    "shm_gi": 1800,
+    "maximum_runtime_ms": "1800000",
+    "maximum_gpu_hours": 4,
+    "auto_fault_tolerance": false,
+    "fault_tolerance_max_retry": 0,
+    "reserve_on_fail_ms": "0",
+    "reserve_on_success_ms": "0"
+  },
+  "payload": {
+    "launcher": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+    "source_manifest_sha256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+    "launcher_mutated": false,
+    "receipt_schema_mutated": false,
+    "qz_job_id_environment_in_request": false,
+    "offline_environment": true
+  },
+  "priority_delta": {
+    "root_cause_source": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-02/submission/submission-outcome.json",
+    "observed_server_error_code": "InvalidParameter",
+    "observed_server_error_message": "invalid JobOpenAPI.TaskPriority: value must be inside range [1, 10]",
+    "previous_value": 0,
+    "new_value": 4,
+    "production_files_changed": [
+      "request_contract.py"
+    ],
+    "getjob_response_priority_zero_remains_normal": true,
+    "physical_resource_checks_changed": false
+  },
+  "verification": {
+    "cpu_tests": "30_passed_0_failed",
+    "basedpyright": "0_errors_0_warnings_0_notes",
+    "lsp_diagnostics": "0_diagnostics_across_17_python_files",
+    "no_excuse_scan": "0_matches",
+    "qz_dry_run": "ONE_CALL_EXIT_0_NO_JOB_IDS_NO_LIVE_CREATEJOB"
+  },
+  "controller_receipt": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/controller-receipts/qualification-20260912-01-a840156e-c5a8-477e-9efe-3b07e66fd6a8.json",
+    "published": false,
+    "publication_timing": "ONLY_AFTER_ONE_VALID_CREATEJOB_ID_AND_EXACT_GETJOB_BINDING",
+    "schema_implementation": "scale.experiments.nonlatent_iclr.qualification.controller_receipt.ControllerReceipt",
+    "atomic_no_clobber": true
+  },
+  "root_permit_transition": {
+    "allowed_fields": {
+      "controller_review_verdict": "PASS",
+      "prior_ambiguous_reconciliation_verdict": "CLEARED_NO_MATCH",
+      "live_submission_verdict": "PASS",
+      "status": "READY_FOR_SINGLE_SUBMISSION"
+    },
+    "preparation_hashes_are_pre_review_snapshot": true
+  },
+  "future_real_submission": {
+    "allowed_now": false,
+    "preconditions": [
+      "root_delta_review_PASS",
+      "prior_ambiguous_reconciliation_CLEARED_NO_MATCH",
+      "root_live_submission_verdict_PASS",
+      "permit_status_READY_FOR_SINGLE_SUBMISSION",
+      "literal_ROOT_PASS_CONFIRMED",
+      "no_request_attempt_or_admitted_job_artifact"
+    ],
+    "command_argv": [
+      "/usr/bin/env",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "/usr/bin/python",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/controller.py",
+      "submit",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/authorizations/nonlatent-gpu-campaign-20260912.json",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/permit.json",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/controller-state.json",
+      "ROOT_PASS_CONFIRMED"
+    ]
+  },
+  "readiness": "PRIORITY_DELTA_REQUEST_CONTROLLER_AND_DRY_RUN_VERIFIED_REAL_SUBMISSION_BLOCKED",
+  "capacity": "UNKNOWN_UNTIL_LIVE_ADMISSION",
+  "qualification_03_jobs_submitted": 0
+}

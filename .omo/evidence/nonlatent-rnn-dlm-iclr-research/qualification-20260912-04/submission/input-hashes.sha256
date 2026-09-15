@@ -1,0 +1,14 @@
+067e063296ab8a738ec796afb3e92aa2732a0da261360285a591c84c05221b0a  .omo/authorizations/nonlatent-gpu-campaign-20260912.json
+3d615251e02ad41c4ea8df3e4833720137cb44ed6236eb2b0decdffc68ea4701  .omo/plans/nonlatent-rnn-dlm-iclr-research.md
+1dbf43bef9539b34d8d3e89bbe0e36111d06c29b7717999e20e879d91b4dbd45  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/input-hashes.sha256
+d160e51f42ab337e286ce326a72717cab2abf0991cf13a4d0cc23f8dc5f5aab6  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/request-attempt.json
+8d2b59610a5297efd3a4e187184094d785be5484c05b488d50f53d9d737435b3  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/submission-outcome.json
+6f04265d56070765c3779f04407e708ebc12ec9086111de9c0efb327081e2e64  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/sanitized-execution-receipt.json
+d9df8f1a1addc828465413f4d01fca00f0d72950a384210bce94ac00f4188e7b  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/createjob.response.json
+7d7f67e54fa4847ae5bfcb695c1d50e941d73d8e5b54a275f80438ad85cb5876  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/live-execution-hashes.sha256
+48a50032adb97a2256a45eb8b1ce9847275e6c312740d070dfc367074b29dc35  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/retention-resolution.md
+00ddbe818b4bc07fd9e6a76a57e4f98585e94d332086e2357b778b838a01466c  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-01/payload-final2/launch-contract.json
+1e87c1cf0d7856f72578fb47351ae4fccec2c55a4c0ec629d08b6822f5775827  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-01/payload-final2/controller-receipt-contract.json
+3d1df1da5a813bc28b6088467b3374b3b0154ea32e7af7b65096fd8b579eade1  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-01/payload-final2/contract.md
+9202801258c8e35739e2d08e42dce2115d2061dc1a189bad953ae57d9a37f121  scale/experiments/nonlatent_iclr/qualification/controller_receipt.py
+92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c  scale/experiments/nonlatent_iclr/qualification/runtime_manifest.json

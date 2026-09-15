@@ -1,0 +1,30 @@
+{
+  "AdversarialVerify": {
+    "confidence": "high",
+    "evidence": [
+      "pytest-direct-runs.json",
+      "cli-integration-summary.json",
+      "cli-unsupported-task.json",
+      "real-ledger-audit.json",
+      "schema-probes.json",
+      "scalar-type-probes.json",
+      "empty-inventory-probe.json",
+      "interruption-probes.json",
+      "discovery-metadata-views.json",
+      "containment-probes.json",
+      "atomic-write-race.json",
+      "static-diagnostics.md",
+      "source_metadata.before.json",
+      "source_metadata.after.json",
+      "cleanup-receipt.json"
+    ],
+    "repro": [
+      "Run the six scoped tests with system python3 and no cache provider.",
+      "Run help, prepare, happy/failure verify, analyze, and render against a copied v7 tree.",
+      "For each JSON probe, mutate only its isolated ledger and recompute that fixture receipt's ledger_sha256 before invoking happy verify.",
+      "For interruption, replace _atomic_write with a local test double that delegates the ledger call and raises OSError on prepare_receipt.json, then restore it before two CLI retries."
+    ],
+    "summary": "Nominal flow passes, but schema/coverage acceptance, incomplete raw and metadata inventory, and unrecoverable receipt-step interruption violate task-01 requirements.",
+    "verdict": "needs-fix"
+  }
+}

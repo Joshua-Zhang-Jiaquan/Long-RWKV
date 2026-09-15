@@ -1,0 +1,45 @@
+{
+  "added_owned_payloads": [
+    "scale/experiments/nonlatent_iclr/qualification/bytecode_guard.sh"
+  ],
+  "bytecode_paths": [],
+  "changed_owned_payloads": [
+    "scale/experiments/nonlatent_iclr/qualification/model_source_inventory.json",
+    "scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+    "scale/experiments/nonlatent_iclr/qualification/runtime_config.py"
+  ],
+  "checkpoint_meta_sha256": "321ce0465b2cedb13c870c1ad4ec2c7c36d14cd37670e9caa018b9e63954e7ef",
+  "checkpoint_model_sha256": "ffaa464dabb3291c40749bbac4d6805e8a47082e3e2b082e0240365ffc525c07",
+  "external_role_bindings_unchanged": true,
+  "global_entrypoint_origin": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-bytecode-v5/model_source/scale/models/birwkv7_diffusion.py",
+  "global_package_origin": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-bytecode-v5/model_source/scale/models/__init__.py",
+  "hashes": {
+    "bytecode_guard": "b5bcff58019e09a2acee0bf0ea6b4839371f91c3e25c32982d56f47f5c3b8a09",
+    "launcher": "112ab2595a9db913a40c3976a96998ccf54f9fb7a9680da1ed841cf871dbd52b",
+    "manifest": "9271a2036e84c3fa29442a9f7627c9889d024106b8286321d82da26df856e51d",
+    "model_checks": "2883ecbb48dadd093180513a51858541db5fcc8efef712bd55fa88e1374ee1a4",
+    "runtime_config": "dffdf1c95a228f87627c8ff895a3543adb12ae3a67414c7d6e98f198a35e6349",
+    "source_inventory": "43dc97ccd4f80cc1e5e0cf9b698b6e0db1cd1a7f9699340242ec06851b040644",
+    "tree": "f2972779734df10aad2213c4f96f50c78c3b3e81f49a2e95106cff380d72cc0e"
+  },
+  "manifest_role_counts": {
+    "checkpoint_meta": 1,
+    "checkpoint_model": 1,
+    "hf_config": 1,
+    "hf_index": 1,
+    "hf_shard": 2,
+    "package_source": 8,
+    "payload": 24,
+    "staged_source": 72
+  },
+  "model_modules_imported": false,
+  "removed_owned_payloads": [],
+  "runtime_modules_loaded": [],
+  "schema_version": 1,
+  "source_inventory_semantics_unchanged": true,
+  "staged_source_blobs_actual_hash_match": 72,
+  "status": "IDENTITY_BINDINGS_PASS",
+  "symlinks": [],
+  "whole_deadline_seconds": 1680,
+  "writable_paths": []
+}

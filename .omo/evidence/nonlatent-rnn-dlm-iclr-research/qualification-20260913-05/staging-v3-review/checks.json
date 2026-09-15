@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETED_WITH_NO_GO",
+  "targeted_tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 /usr/bin/python -m pytest -q -p no:cacheprovider staging-v3/test_model_source_closure_v3.py staging-v3/test_release_contract_v3.py",
+    "result": "8 passed in 0.99s",
+    "coverage": [
+      "64-module closure and state_hijacking_dit binding",
+      "72-file source-map byte identity",
+      "owned PathFinder origins under empty CWD",
+      "109-entry role and external-pin preservation",
+      "launcher and runtime-config root changes",
+      "v2 model-constructor byte identity",
+      "stale owned-helper hash rejection before large blobs"
+    ]
+  },
+  "strict_preflight": {
+    "status": "PREFLIGHT_VERIFIED",
+    "verified_source_files": 109,
+    "manifest_sha256": "4777fd86769f9264af91241c82655a9b8f51874500e79fbd92f9b19030003f9f",
+    "elapsed_seconds": 24.2,
+    "controller_receipt_read_or_created": false,
+    "checkpoint_unpickle_or_model_construction": false,
+    "cuda_attempted": false
+  },
+  "environment_diagnostic": {
+    "review_node_status": "MATCH",
+    "package_source_matches": 8,
+    "runtime_modules_loaded": [],
+    "observed_packages": [
+      "torch==2.8.0a0+5228986c39.nv25.6",
+      "flash-linear-attention==0.5.0",
+      "fla-core==0.5.0",
+      "transformers==5.3.0",
+      "safetensors==0.5.3",
+      "pytorch-triton==3.3.0+git96316ce52.nvinternal"
+    ],
+    "synthetic_version_mismatch_status": "MISMATCH",
+    "synthetic_package_status": "VERSION_MISMATCH",
+    "autoqualified_by_observation": false
+  },
+  "global_only_surfaces": {
+    "cli_help": "PASS",
+    "probe_help": "PASS",
+    "launcher_help": "PASS",
+    "shell_syntax": "PASS",
+    "usr_bin_python_executable": true,
+    "usr_local_bin_torchrun_executable": true,
+    "empty_cwd_package_and_entrypoint_origins_owned": true
+  },
+  "origin_precedence_reproduction": {
+    "cwd": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale",
+    "runtime_config_owned_root_already_present": true,
+    "owned_root_sys_path_index": 2,
+    "cwd_entry_precedes_owned_root": true,
+    "package_origin_owned": false,
+    "entrypoint_origin_owned": false,
+    "runtime_modules_loaded": [],
+    "cuda_or_module_execution_used_for_reproduction": false
+  },
+  "prohibited_actions": {
+    "api_or_network_calls": 0,
+    "jobs": 0,
+    "controller_or_authorization_changes": 0,
+    "installs": 0,
+    "git_operations": 0,
+    "state_or_product_source_edits": 0,
+    "subagents": 0,
+    "cuda_calls": 0,
+    "checkpoint_unpickles": 0
+  }
+}

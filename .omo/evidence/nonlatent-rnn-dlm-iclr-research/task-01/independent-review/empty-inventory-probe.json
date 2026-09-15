@@ -1,0 +1,26 @@
+{
+  "accepted_as_fresh_audit": true,
+  "artifact_count": 0,
+  "claim_count": 0,
+  "command": [
+    "python3",
+    "-m",
+    "experiments.nonlatent_iclr.cli",
+    "verify",
+    "--task",
+    "1",
+    "--case",
+    "happy",
+    "--repo-root",
+    "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/empty-inventory-case/repo",
+    "--evidence-root",
+    "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/empty-inventory-case/evidence"
+  ],
+  "exit_status": 0,
+  "finding": "incomplete-coverage acceptance",
+  "ledger_sha256": "60f33fef35c48a3c87cd9781115bb9421410ec5b372f4250dd6a6a0f182a07f6",
+  "receipt_recomputed": true,
+  "reported_blocked_claims": 0,
+  "stderr": "",
+  "stdout": "{\"blocked_claims\": 0, \"detail\": \"fresh audit; scientific claims remain blocked\", \"status\": \"AUDIT_COMPLETE\"}\n"
+}

@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-13T05:45:36Z",
+  "status": "RETENTION_OMISSION_CPU_AND_QZ_DRY_RUN_VALIDATED_LIVE_SUBMISSION_BLOCKED",
+  "campaign_authorization_id": "nonlatent-gpu-campaign-20260912",
+  "permit_id": "permit-nonlatent-gpu-campaign-20260912-f9f4c32f-6188-474f-b4e9-a728bdcce211",
+  "run_id": "qualification-20260912-01-0ff9241e-460a-4647-95b3-af4c0fba16ce",
+  "request": {
+    "path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/submission/exact_job_spec.json",
+    "bytes": 1641,
+    "sha256": "62e6a1fe05b6b004758df3ab795abcca2ca27651530d878a133306ed4af9d089",
+    "task_priority": 4,
+    "server_priority_range": [1, 10],
+    "reserve_on_fail_ms_present": false,
+    "reserve_on_success_ms_present": false,
+    "validated_before_dry_run": true
+  },
+  "retention": {
+    "request_configuration": "OMITTED",
+    "permit_configuration": "SERVER_DEFAULT_UNDOCUMENTED",
+    "reserve_on_fail_ms": null,
+    "reserve_on_success_ms": null,
+    "explicit_zero_rejected_by_local_contract": true,
+    "effective_server_values": "UNKNOWN_NOT_NORMALIZED_TO_ZERO",
+    "getjob_absence_claimed_as_verified_zero": false
+  },
+  "cpu_tests": {
+    "targeted_passed": 15,
+    "full_passed": 35,
+    "failed": 0,
+    "full_duration_seconds": 0.31,
+    "inherited_baseline_cases": 30,
+    "new_retention_cases": 5,
+    "covers": [
+      "request_serialization_omits_both_optional_retention_fields",
+      "explicit_zero_retention_fields_are_rejected",
+      "permit_records_server_default_as_unknown",
+      "captured_retention_error_is_an_explicit_rejection",
+      "getjob_contract_does_not_synthesize_retention_values",
+      "priority_four_remains_accepted",
+      "physical_resource_identity_binding_is_unchanged",
+      "response_capture_before_classification",
+      "no_automatic_retry",
+      "literal_dry_run_argv",
+      "fresh_campaign_permit_state_request_binding"
+    ]
+  },
+  "tdd_red": {
+    "passed": 26,
+    "failed": 9,
+    "failure_scope": "COPIED_QUALIFICATION_03_CONTRACT_REJECTED_OMISSION_ACCEPTED_EXPLICIT_ZERO_AND_REJECTED_UNKNOWN_PERMIT_METADATA"
+  },
+  "inherited_payload_evidence": {
+    "source": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/cap-validation.json",
+    "status": "PASS_REUSED_WITHOUT_PAYLOAD_CHANGE",
+    "source_manifest_sha256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+    "reexecuted": false,
+    "large_checkpoint_rehashed": false
+  },
+  "static_checks": {
+    "basedpyright": "0_errors_0_warnings_0_notes",
+    "lsp_diagnostics": "0_diagnostics_across_18_python_files",
+    "no_excuse_rules": "no_type_ignore_noqa_pyright_suppression_Any_cast_broad_exception_TODO_or_FIXME_matches",
+    "source_modules_checked": 12,
+    "unchanged_source_modules": 10,
+    "changed_source_modules": 2
+  },
+  "pure_loc": {
+    "admission_parser.py": 186,
+    "authority_models.py": 108,
+    "controller.py": 81,
+    "controller_models.py": 174,
+    "controller_runtime.py": 136,
+    "controller_storage.py": 143,
+    "dry_run_runtime.py": 94,
+    "job_confirmation.py": 83,
+    "receipt_contract.py": 126,
+    "request_contract.py": 131,
+    "response_capture.py": 182,
+    "runtime_records.py": 93,
+    "test_admission_parser.py": 125,
+    "test_campaign_contract.py": 76,
+    "test_controller_runtime.py": 49,
+    "test_priority_contract.py": 74,
+    "test_response_capture.py": 78,
+    "test_retention_contract.py": 51
+  },
+  "qz_dry_run": {
+    "path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/submission/dry-run-result.json",
+    "invocation_count": 1,
+    "literal_dry_run": true,
+    "request_validated": true,
+    "exit_code": 0,
+    "response_captured_before_parse": true,
+    "response_metadata_path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/submission/dry-run.response.json",
+    "stdout_sha256": "56c162cd9c8e202e7948d8df94aab3c12cda251759fa9ff53002bbf0dc39a247",
+    "stdout_bytes": 2036,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_bytes": 0,
+    "valid_job_ids_observed": 0,
+    "live_createjob_calls": 0,
+    "admission_verified": false,
+    "capacity_verified": false
+  },
+  "qualification_04_real_createjob_calls": 0,
+  "qualification_04_getjob_calls": 0,
+  "qualification_04_listjobs_calls": 0,
+  "qualification_04_stopjob_calls": 0,
+  "cuda_calls": 0,
+  "package_installs": 0
+}

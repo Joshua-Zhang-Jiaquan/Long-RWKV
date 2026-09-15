@@ -1,0 +1,126 @@
+{
+  "cpu_only": true,
+  "escape_cases_accepted": [
+    "changed_source_root_ancestor_symlink",
+    "absolute_artifact_path",
+    "traversal_artifact_path"
+  ],
+  "positive_control_rejected": true,
+  "results": [
+    {
+      "accepted_as_fresh_audit": true,
+      "case": "changed_source_root_ancestor_symlink",
+      "command": [
+        "python3",
+        "-m",
+        "experiments.nonlatent_iclr.cli",
+        "verify",
+        "--task",
+        "1",
+        "--case",
+        "happy",
+        "--repo-root",
+        "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/changed_source_root_ancestor_symlink/repo",
+        "--evidence-root",
+        "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/changed_source_root_ancestor_symlink/evidence"
+      ],
+      "details": {
+        "changed_path": "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/changed_source_root_ancestor_symlink/repo/DAN/v7_arch_round",
+        "receipt_recomputed": false,
+        "resolved_outside_repo": true,
+        "symlink_target": "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/changed_source_root_ancestor_symlink/outside-v7-arch-round"
+      },
+      "exit_status": 0,
+      "parsed_status": "AUDIT_COMPLETE",
+      "stderr": "",
+      "stdout": "{\"blocked_claims\": 11, \"detail\": \"fresh audit; scientific claims remain blocked\", \"status\": \"AUDIT_COMPLETE\"}\n"
+    },
+    {
+      "accepted_as_fresh_audit": true,
+      "case": "absolute_artifact_path",
+      "command": [
+        "python3",
+        "-m",
+        "experiments.nonlatent_iclr.cli",
+        "verify",
+        "--task",
+        "1",
+        "--case",
+        "happy",
+        "--repo-root",
+        "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/absolute_artifact_path/repo",
+        "--evidence-root",
+        "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/absolute_artifact_path/evidence"
+      ],
+      "details": {
+        "artifact_path": "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/absolute_artifact_path/absolute-external-artifact.txt",
+        "ledger_sha256": "689b49e8303fa3226101de7de22c9da8f3c9bb3adcea21e6a8ff5d00531a5007",
+        "path_is_absolute": true,
+        "receipt_recomputed": true,
+        "resolved_outside_source_root": true
+      },
+      "exit_status": 0,
+      "parsed_status": "AUDIT_COMPLETE",
+      "stderr": "",
+      "stdout": "{\"blocked_claims\": 11, \"detail\": \"fresh audit; scientific claims remain blocked\", \"status\": \"AUDIT_COMPLETE\"}\n"
+    },
+    {
+      "accepted_as_fresh_audit": true,
+      "case": "traversal_artifact_path",
+      "command": [
+        "python3",
+        "-m",
+        "experiments.nonlatent_iclr.cli",
+        "verify",
+        "--task",
+        "1",
+        "--case",
+        "happy",
+        "--repo-root",
+        "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/traversal_artifact_path/repo",
+        "--evidence-root",
+        "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/traversal_artifact_path/evidence"
+      ],
+      "details": {
+        "artifact_path": "../../../traversal-external-artifact.txt",
+        "contains_parent_segment": true,
+        "ledger_sha256": "7ddacef9edbbcc77c786b7dfdb1510151f8cb6242f46e315103e4ec2c31ecd69",
+        "receipt_recomputed": true,
+        "resolved_outside_source_root": true,
+        "resolved_target": "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/traversal_artifact_path/traversal-external-artifact.txt"
+      },
+      "exit_status": 0,
+      "parsed_status": "AUDIT_COMPLETE",
+      "stderr": "",
+      "stdout": "{\"blocked_claims\": 11, \"detail\": \"fresh audit; scientific claims remain blocked\", \"status\": \"AUDIT_COMPLETE\"}\n"
+    },
+    {
+      "accepted_as_fresh_audit": false,
+      "case": "direct_artifact_symlink_positive_control",
+      "command": [
+        "python3",
+        "-m",
+        "experiments.nonlatent_iclr.cli",
+        "verify",
+        "--task",
+        "1",
+        "--case",
+        "happy",
+        "--repo-root",
+        "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/direct_artifact_symlink_positive_control/repo",
+        "--evidence-root",
+        "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/direct_artifact_symlink_positive_control/evidence"
+      ],
+      "details": {
+        "changed_path": "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/direct_artifact_symlink_positive_control/repo/DAN/v7_arch_round/README.md",
+        "final_component_is_symlink": true,
+        "receipt_recomputed": false,
+        "symlink_target": "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/containment-cases/direct_artifact_symlink_positive_control/direct-symlink-target.txt"
+      },
+      "exit_status": 2,
+      "parsed_status": "STALE",
+      "stderr": "",
+      "stdout": "{\"blocked_claims\": 0, \"detail\": \"source changed or missing: README.md\", \"status\": \"STALE\"}\n"
+    }
+  ]
+}

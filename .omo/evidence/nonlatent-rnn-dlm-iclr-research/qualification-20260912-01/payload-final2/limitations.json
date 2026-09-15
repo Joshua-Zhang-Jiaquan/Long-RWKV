@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "observed_image_digest": null,
+  "jobs_submitted": 0,
+  "cuda_or_model_loads_executed": 0,
+  "gpu_runtime": "NOT_RUN",
+  "qualified_now": "CPU_payload_contract_only",
+  "not_qualified_now": [
+    "GPU_hardware_observation",
+    "checkpoint_load_on_H100",
+    "parameter_identity_on_runtime_model",
+    "real_FLA_causal_cache_result",
+    "actual_masked_forward_result",
+    "GPU_memory_ceiling_result",
+    "whole_model_cached_prefix",
+    "tied_layer_loop_cached_prefix"
+  ],
+  "unsupported_claims": {
+    "fullmodel_cachedprefix": "NOT_QUALIFIED_FFN_TOKEN_SHIFT_STATE_UNWIRED",
+    "loop_cachedprefix": "NOT_QUALIFIED_TIED_LAYER_STATE_ALIASES_PASSES"
+  },
+  "next_gate": "independent_CPU_payload-final2_recheck_before_any_single_authorized_submission"
+}

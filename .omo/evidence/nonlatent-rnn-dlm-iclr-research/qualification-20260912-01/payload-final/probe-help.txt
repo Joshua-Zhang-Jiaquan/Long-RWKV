@@ -1,0 +1,1 @@
+usage: probe.py --output-dir PATH --nonce TOKEN --manifest PATH --manifest-sha256 DIGEST

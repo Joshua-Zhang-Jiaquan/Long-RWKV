@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "claim": "worker_visible_qualification_release_staged_and_frozen",
+  "status": "READY_FOR_INDEPENDENT_PATH_REVIEW_EXTERNAL_CHECKPOINT_PREREQUISITE_BLOCKS_LIVE_REQUEST",
+  "release_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-92fbf9af",
+  "launcher_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-92fbf9af/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+  "runtime_manifest_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-92fbf9af/scale/experiments/nonlatent_iclr/qualification/runtime_manifest.json",
+  "runtime_manifest_sha256": "49cdef9722351a951ed7f36a679708905df30a19801e7d2eaa7493144638869f",
+  "runtime_manifest_file_count": 40,
+  "payload_file_count": 21,
+  "preserved_non_payload_file_count": 19,
+  "source_changes": [
+    "added_five_exact_parent_import_closure_files_to_the_release_and_manifest",
+    "rebased_all_sixteen_reviewed_payload_paths_to_the_worker_visible_release",
+    "added_startup_early_failure_publication_only_to_the_staged_launcher",
+    "left_all_twenty_Python_and_package_source_blobs_byte_identical",
+    "left_project_qualification_source_and_prior_frozen_evidence_unchanged"
+  ],
+  "cpu_checks": [
+    "baseline_143_passed_in_17.71_seconds_before_staging",
+    "staging_regressions_8_passed_in_0.69_seconds",
+    "global_only_invalid_input_entrypoint_returned_structured_exit_2",
+    "stale_rebased_payload_hash_rejected_before_large_file_hashing",
+    "shell_syntax_and_exact_launcher_help_passed",
+    "staging_test_LSP_diagnostics_clean",
+    "Python_no_excuse_audit_clean"
+  ],
+  "external_prerequisite": {
+    "status": "BLOCKED",
+    "detail": "manifest_file_unavailable:meta.json",
+    "missing_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/m4-loop-2p9b/step_00004750",
+    "required_action": "restore_the_exact_reviewed_step_00004750_meta_json_and_model_pt_bytes_or_independently_review_a_new_checkpoint_binding"
+  },
+  "not_claimed": [
+    "complete_current_manifest_preflight",
+    "next_worker_flash_linear_attention_distribution_check",
+    "controller_request_update",
+    "qz_job_submission",
+    "CUDA_execution",
+    "GPU_runtime_success",
+    "full_model_or_loop_cached_prefix_qualification"
+  ],
+  "jobs_submitted": 0,
+  "gpu_hours_consumed": 0,
+  "independent_review": "PENDING"
+}

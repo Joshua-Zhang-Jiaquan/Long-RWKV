@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "status": "ORIGIN_FIX_CPU_PREFLIGHT_VERIFIED_READY_FOR_FOCUSED_INDEPENDENT_REVIEW",
+  "release_id": "qualification-20260913-05-global-ffaa464d-origin-v4",
+  "release_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4",
+  "model_source_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4/model_source/scale",
+  "launcher": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+    "sha256": "3ebe224805a78606b766ce4122664a6bcf5ba33505872d44be534ace5273ba3a",
+    "size_bytes": 11765
+  },
+  "manifest": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4/scale/experiments/nonlatent_iclr/qualification/runtime_manifest.json",
+    "sha256": "9204381bd606157440c8113556798ab4d271edd4210a44249a67139253986004",
+    "entry_count": 109,
+    "role_counts": {
+      "payload": 23,
+      "staged_source": 72,
+      "package_source": 8,
+      "hf_config": 1,
+      "hf_index": 1,
+      "hf_shard": 2,
+      "checkpoint_meta": 1,
+      "checkpoint_model": 1
+    }
+  },
+  "source_inventory": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4/scale/experiments/nonlatent_iclr/qualification/model_source_inventory.json",
+    "sha256": "accee7d02191adbe105cdc823218a188615be9ea1be93bbf047bf2d4ed26f23d",
+    "size_bytes": 53453,
+    "record_count": 72,
+    "runtime_reachable": 64,
+    "copied_inactive": 8,
+    "direct_local_dependencies_outside_models": 0,
+    "unavailable_local_dependencies": 0
+  },
+  "origin_controls": {
+    "controlled_cwd": "owned_release_root",
+    "python_safe_path": "PYTHONSAFEPATH=1",
+    "fixed_pythonpath": "owned_release_root:owned_model_source_root",
+    "applies_to_direct_python_and_torchrun_children": true,
+    "owned_staged_root_promoted_even_when_already_later": true,
+    "foreign_preloaded_models_rejected_before_constructor": true,
+    "foreign_preloaded_modules_deleted_or_replaced": false,
+    "loaded_models_origins_must_be_owned_and_manifest_covered": true,
+    "non_models_package_origins_modified": false
+  },
+  "wrong_cwd_manual_qa": {
+    "cwd": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale",
+    "sys_path_0": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4",
+    "package_origin": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4/model_source/scale/models/__init__.py",
+    "entrypoint_origin": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4/model_source/scale/models/birwkv7_diffusion.py",
+    "global_launcher_help": "PASS"
+  },
+  "cpu_preflight": {
+    "status": "PREFLIGHT_VERIFIED",
+    "verified_source_files": 109,
+    "environment_status": "MATCH",
+    "runtime_modules_loaded": [],
+    "package_source_matches": 8,
+    "package_version_matches": 6,
+    "checkpoint_unpickle_attempted": false,
+    "model_construction_attempted": false,
+    "cuda_attempted": false
+  },
+  "tests": {
+    "v3_failing_first": "6_failed_5_passed_in_1.55_seconds",
+    "v4_focused_green": "11_passed_in_1.59_seconds",
+    "final_prior_scope_plus_new_controls": "189_passed_in_23.81_seconds"
+  },
+  "static_and_release_gates": {
+    "changed_python_lsp_diagnostics": 0,
+    "python_no_excuse": "PASS_no_violations_in_5_files",
+    "shell_syntax": "PASS",
+    "recursive_write_bits_removed": true,
+    "release_root_mode": "0555",
+    "owned_models_mode": "0555",
+    "model_checks_mode": "0444",
+    "manifest_mode": "0444",
+    "launcher_mode": "0500"
+  },
+  "preserved_runtime_contract": {
+    "architecture_changed": false,
+    "runtime_algorithm_changed": false,
+    "learned_latent_module_activated": false,
+    "expected_world_size": 8,
+    "fault_tolerance_restarts": 0,
+    "whole_deadline_seconds": 1680,
+    "scheduler_cap_seconds": 1800,
+    "terminal_status": "PARTIAL_QUALIFICATION",
+    "full_model_cache": "unsupported",
+    "expected_image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+    "observed_image_digest": "UNKNOWN"
+  },
+  "predecessor_manifest_sha256": {
+    "v1": "49cdef9722351a951ed7f36a679708905df30a19801e7d2eaa7493144638869f",
+    "v2": "218a0cacbaba8ecf541d2e72386b4bf070cfde6d230fbf0306ebfb50559523fb",
+    "v3": "4777fd86769f9264af91241c82655a9b8f51874500e79fbd92f9b19030003f9f"
+  },
+  "prohibited_actions": {
+    "jobs_submitted": 0,
+    "controller_operations": 0,
+    "qz_or_api_calls": 0,
+    "network_calls": 0,
+    "installs": 0,
+    "git_operations": 0,
+    "cuda_calls": 0,
+    "checkpoint_unpickles": 0,
+    "other_task4_files_changed": 0,
+    "auth_plan_or_boulder_edits": 0
+  }
+}

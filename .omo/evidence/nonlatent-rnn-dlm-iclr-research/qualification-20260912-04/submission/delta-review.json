@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-13T05:45:36Z",
+  "review_status": "PREPARED_FOR_ROOT_DELTA_REVIEW",
+  "base_controller": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission",
+  "target_controller": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/submission",
+  "production_change_scope": "CREATEJOB_RETENTION_FIELD_OMISSION_AND_PERMIT_UNKNOWN_METADATA_ONLY",
+  "source_modules_checked": 12,
+  "unchanged_source_modules": {
+    "admission_parser.py": "7b2b889514626d5a5381bee21f2bfaf5c940762e4a860b06c7134209f378baf2",
+    "controller.py": "a4d58416006c5864b1f100ac7ff44c445d60edabfdcf2c6e922d66374213cc44",
+    "controller_models.py": "b1e9cae4fdcf12e592ef2c0f0c59bee1a061c650e7fd8a1409a8a15a8f266874",
+    "controller_runtime.py": "642db0fe64448fc9ccd50c0e65a32a76766af10bf419791146e6983ec7b962e8",
+    "controller_storage.py": "9575bd63161e09f3a8a721973122bb4b469d0a72c3a23e994f2b5e04057ca5ef",
+    "dry_run_runtime.py": "59262bef42cab38203a6529c440e64c14f3f481f49e3f4dbb6e7fb73e7f3d3a4",
+    "job_confirmation.py": "1ce7e633245766f100eef5ded09a0df9f959300f214d4b54ef324a5dff18c1b4",
+    "receipt_contract.py": "ae6559620882eece17bc082d07e2f0193f59f409a8074035e7d6a076920ec374",
+    "response_capture.py": "48f40402bfedc0d4935b8644d9b5f26349fd534d6bc3398e70c56dec0d6bcf97",
+    "runtime_records.py": "6ab6457b821f43124babc7dd3afb3164dc32de2852005bc20d9d3458e0f475ee"
+  },
+  "changed_source_modules": [
+    {
+      "path": "authority_models.py",
+      "base_sha256": "f29e09cad81c7205e12bbfdd6fedf2b2144c9b3e958c8871df142df149ca686c",
+      "target_sha256": "77fa279e932f9e419680ece512f86e04c7ffc518220387b891612e35a43aeeab",
+      "byte_changes": [
+        {
+          "before": "reserve_on_fail_ms: Literal[0]",
+          "after": "reserve_on_fail_ms: None"
+        },
+        {
+          "before": "reserve_on_success_ms: Literal[0]",
+          "after": "reserve_on_success_ms: None"
+        },
+        {
+          "before": null,
+          "after": "retention_configuration: Literal[\"SERVER_DEFAULT_UNDOCUMENTED\"]"
+        }
+      ]
+    },
+    {
+      "path": "request_contract.py",
+      "base_sha256": "2583ed912ad39a73d080a34a956085a40fe0b150dfd49ba68b38c51d0796933e",
+      "target_sha256": "4af4cc1b2d28d69fc4be4734a7b9e138fcb127906c8c2f0a681cce1c5dbbbde7",
+      "byte_changes": [
+        {
+          "before": "reserve_on_fail_ms: Literal[\"0\"]",
+          "after": null
+        },
+        {
+          "before": "reserve_on_success_ms: Literal[\"0\"]",
+          "after": null
+        },
+        {
+          "before": "expected_request emits both explicit 0-string fields",
+          "after": "expected_request omits both fields"
+        }
+      ]
+    }
+  ],
+  "request_delta": {
+    "qualification_03_sha256": "b932e3e036f242c6c1a91db242c342595e5df257298409a9061a489a573a301b",
+    "qualification_04_sha256": "62e6a1fe05b6b004758df3ab795abcca2ca27651530d878a133306ed4af9d089",
+    "reserve_on_fail_ms_before": "0",
+    "reserve_on_fail_ms_after": "OMITTED",
+    "reserve_on_success_ms_before": "0",
+    "reserve_on_success_ms_after": "OMITTED",
+    "task_priority_before": 4,
+    "task_priority_after": 4,
+    "all_nonidentity_nonretention_payload_fields_unchanged": true
+  },
+  "fresh_attempt_metadata": {
+    "permit_id": "permit-nonlatent-gpu-campaign-20260912-f9f4c32f-6188-474f-b4e9-a728bdcce211",
+    "grant_instance_id": "grant-qualification-20260912-02-535e1e6f-8152-4eba-9620-91ef5b3345a4",
+    "run_id": "qualification-20260912-01-0ff9241e-460a-4647-95b3-af4c0fba16ce",
+    "nonce": "444db0447957921033362eca48e5c940",
+    "controller_receipt_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/controller-receipts/qualification-20260912-01-0ff9241e-460a-4647-95b3-af4c0fba16ce.json",
+    "identifiers_are_fresh": true,
+    "legacy_identifier_prefixes_are_preserved_for_model_compatibility": true,
+    "old_attempt_reset": false
+  },
+  "observed_root_cause": {
+    "source": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/submission-outcome.json",
+    "classification": "REJECTED",
+    "error_code": "InvalidParameter",
+    "message": "retention time must be positive",
+    "automatic_retry": false,
+    "job_id_observed": false
+  },
+  "retention_resolution": {
+    "source": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/retention-resolution.md",
+    "reserve_fields_are_optional_strings": true,
+    "documented_default_exists": false,
+    "successful_reference_request_omitted_both_fields": true,
+    "selected_request_mode": "OMIT_BOTH_FIELDS",
+    "guessed_positive_value": false,
+    "effective_server_values": "UNKNOWN"
+  },
+  "getjob_contract": {
+    "absent_retention_normalized_to_zero": false,
+    "retention_claimed_as_verified": false,
+    "physical_resource_identity_checks_preserved": true,
+    "admission_parser_byte_identical": true,
+    "job_confirmation_byte_identical": true,
+    "regression": "test_getjob_contract_does_not_synthesize_unknown_retention_values"
+  },
+  "verification": {
+    "red": {
+      "passed": 26,
+      "failed": 9,
+      "expected_failure_scope": "permit unknown metadata plus request omission and explicit-zero rejection"
+    },
+    "green_targeted": {
+      "passed": 15,
+      "failed": 0
+    },
+    "green_full": {
+      "passed": 35,
+      "failed": 0
+    },
+    "basedpyright": "0_errors_0_warnings_0_notes",
+    "lsp_diagnostics": "0_diagnostics_across_18_python_files",
+    "no_excuse_scan": "0_matches",
+    "qz_dry_run": {
+      "invocation_count": 1,
+      "literal_dry_run": true,
+      "request_validated": true,
+      "qz_exit_code": 0,
+      "valid_job_ids_observed": 0,
+      "live_createjob_calls": 0
+    }
+  },
+  "payload": {
+    "source_manifest_sha256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+    "launcher_or_receipt_schema_changed": false,
+    "large_checkpoint_rehashed": false,
+    "inherited_payload_suite_reexecuted": false
+  },
+  "live_submission": {
+    "allowed_now": false,
+    "permit_status": "PREPARED_FOR_ROOT_REVIEW",
+    "controller_review_verdict": "PENDING",
+    "prior_ambiguous_reconciliation_verdict": "PENDING",
+    "live_submission_verdict": "NO_GO",
+    "real_createjob_calls": 0,
+    "getjob_calls": 0,
+    "listjobs_calls": 0,
+    "stopjob_calls": 0,
+    "request_attempt_exists": false,
+    "admitted_job_exists": false
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "extraPaths": [
+    "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY"
+  ],
+  "pythonVersion": "3.12",
+  "typeCheckingMode": "strict"
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "release_root": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-v2",
+    "mode": "0555",
+    "owner": "root",
+    "group": "root"
+  },
+  "qualification_directory": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-v2/scale/experiments/nonlatent_iclr/qualification",
+    "mode": "0555"
+  },
+  "launcher": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-v2/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+    "mode": "0500"
+  },
+  "manifest": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-v2/scale/experiments/nonlatent_iclr/qualification/runtime_manifest.json",
+    "mode": "0444"
+  },
+  "environment_helper": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-v2/scale/experiments/nonlatent_iclr/qualification/runtime_environment.py",
+    "mode": "0444"
+  },
+  "recursive_write_bits_removed": true,
+  "chmod_777_used": false,
+  "broad_parent_permissions_changed": false,
+  "prior_release_permissions_changed": false
+}

@@ -1,0 +1,10 @@
+COMMAND: Python CPU-only construction of eight `RankResult.passing(...)` records, then aggregation; repeat with `rank-8.json`; repeat with a non-finite `NaN` metric. TemporaryDirectory under /tmp/opencode, cleaned in-process.
+EXIT_CODE: 0
+OUTPUT:
+empty_runtime_records=PASSED:all_8_rank_runtime_checks_passed
+extra_rank_file=PASSED:all_8_rank_runtime_checks_passed
+nan_evidence=PASSED:all_8_rank_runtime_checks_passed:nan
+temporary_directory=/tmp/opencode/nonlatent-agg-fw3c5ahd
+cleanup=TemporaryDirectory.cleanup_called
+
+VERDICT: FAIL. Eight generic `checks=["runtime"]`, empty-evidence pass objects are sufficient; extra rank files are ignored; non-finite JSON numbers are accepted. Existing nonce/missing/malformed tests do not cover these acceptance holes.

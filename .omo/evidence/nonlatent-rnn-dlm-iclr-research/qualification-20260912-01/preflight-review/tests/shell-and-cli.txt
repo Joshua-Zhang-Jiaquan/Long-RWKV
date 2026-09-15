@@ -1,0 +1,36 @@
+WORKDIR: /inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY
+
+1. COMMAND: bash -n scale/experiments/nonlatent_iclr/qualification/run_qualification.sh
+   EXIT_CODE: 0
+   OUTPUT: (none)
+
+2. COMMAND: python -m scale.experiments.nonlatent_iclr.qualification.cli --help
+   EXIT_CODE: 0
+   OUTPUT_PREFIX: usage: nonlatent-qualification [-h] {validate,aggregate}
+
+3. COMMAND: python -m scale.experiments.nonlatent_iclr.qualification.probe --help
+   EXIT_CODE: 0
+   OUTPUT: (none)
+   VERDICT: FAIL. The actual `python -m ...probe` entrypoint never calls `main`; its intended help branch is unreachable from module execution.
+
+4. COMMAND: python -m scale.experiments.nonlatent_iclr.qualification.probe --output-dir /tmp/opencode/nonlatent-probe-bad --nonce 00000000000000000000000000000000 --expected-world-size 7
+   EXIT_CODE: 0
+   OUTPUT: (none)
+   VERDICT: FAIL. Bad input is silently accepted because the module body does not invoke `main`; this is also the exact `torchrun -m` launch shape.
+
+5. COMMAND: bash scale/experiments/nonlatent_iclr/qualification/run_qualification.sh --help
+   EXIT_CODE: 2
+   STDERR: QUALIFICATION_RUN_ID is required and must be externally reserved
+   VERDICT: The launcher has no help mode, but it fails before output creation or torchrun.
+
+6. COMMAND: python -m scale.experiments.nonlatent_iclr.qualification.cli validate --output-dir /tmp/opencode/nonlatent-preflight-nan --nonce 00000000000000000000000000000000 --memory-fraction nan
+   EXIT_CODE: 0
+   STDOUT: {"detail": "cpu_argument_validation_passed", "status": "READY"}
+   VERDICT: FAIL. NaN bypasses both ordered comparisons in `validate_memory_fraction`.
+
+7. COMMAND: python -m scale.experiments.nonlatent_iclr.qualification.cli validate --output-dir /tmp/opencode/nonlatent-preflight-world7 --nonce 00000000000000000000000000000000 --expected-world-size 7
+   EXIT_CODE: 2
+   STDOUT: {"detail": "expected_world_size_must_be_8", "status": "INVALID_ARGUMENT"}
+   VERDICT: PASS.
+
+No command imported the staged model, torch, FLA, or CUDA. No launcher, qz action, download, install, or checkpoint deserialization occurred.

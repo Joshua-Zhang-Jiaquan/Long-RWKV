@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-13T03:31:37Z",
+  "status": "CPU_AND_QZ_DRY_RUN_VALIDATED_LIVE_SUBMISSION_BLOCKED",
+  "campaign_authorization_id": "nonlatent-gpu-campaign-20260912",
+  "permit_id": "permit-nonlatent-gpu-campaign-20260912-e42a9149-a2da-429a-b0c5-a8315c07f7d2",
+  "run_id": "qualification-20260912-01-28575096-6ce0-4fd8-9e86-3e3804c86c14",
+  "request": {
+    "path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-02/submission/exact_job_spec.json",
+    "bytes": 1694,
+    "sha256": "ece8b1bf041f31ee84bb9b400d21856c31c458770982b75568b7be31c6f0c42e",
+    "validated_before_dry_run": true
+  },
+  "cpu_tests": {
+    "passed": 26,
+    "failed": 0,
+    "duration_seconds": 0.36,
+    "covers": [
+      "zero_exit_business_error_rejection",
+      "empty_response_unknown_no_retry",
+      "direct_and_result_success_envelopes",
+      "missing_invalid_and_multiple_job_id_refusal",
+      "getjob_exact_identity_and_resource_binding",
+      "response_capture_before_classification",
+      "timeout_partial_output_capture",
+      "secret_redaction_with_raw_sha_and_length",
+      "exclusive_0600_capture_files",
+      "renewed_campaign_and_per_run_permit_binding",
+      "legacy_profile_is_compatibility_only",
+      "literal_dry_run_and_live_argv",
+      "attempt_marker_before_single_invocation",
+      "request_cap_validation"
+    ]
+  },
+  "historical_baseline": {
+    "suite": "qualification-20260912-01/submission",
+    "passed": 6,
+    "failed": 12,
+    "classification": "PRESERVED_HISTORICAL_AUTHORIZATION_DRIFT_NOT_A_QUALIFICATION_02_REGRESSION",
+    "detail": "The preserved authorization now has jobs_submitted null while the historical strict model requires literal 0",
+    "files_mutated": false
+  },
+  "inherited_payload_evidence": {
+    "status": "PASS",
+    "tests_passed": 143,
+    "files": 35,
+    "source_manifest_sha256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+    "payload_mutated": false
+  },
+  "static_checks": {
+    "basedpyright": "0_errors_0_warnings_0_notes",
+    "lsp_diagnostics": "0_diagnostics_across_16_python_files",
+    "no_excuse_rules": "no_type_ignore_noqa_pyright_suppression_Any_cast_or_broad_exception_matches",
+    "cli_help": "exit_0_bounded_surface"
+  },
+  "pure_loc": {
+    "admission_parser.py": 186,
+    "authority_models.py": 107,
+    "controller.py": 81,
+    "controller_models.py": 174,
+    "controller_runtime.py": 136,
+    "controller_storage.py": 143,
+    "dry_run_runtime.py": 94,
+    "job_confirmation.py": 83,
+    "receipt_contract.py": 126,
+    "request_contract.py": 135,
+    "response_capture.py": 182,
+    "runtime_records.py": 93,
+    "test_admission_parser.py": 125,
+    "test_campaign_contract.py": 72,
+    "test_controller_runtime.py": 49,
+    "test_response_capture.py": 78
+  },
+  "qz_dry_run": {
+    "path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-02/submission/dry-run-result.json",
+    "invocation_count": 1,
+    "literal_dry_run": true,
+    "request_validated": true,
+    "exit_code": 0,
+    "response_captured_before_parse": true,
+    "response_metadata_path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-02/submission/dry-run.response.json",
+    "stdout_sha256": "c6bf38fdf47e68a73caf069862de840ef05ebe07fda4a720bad4a7ca80a59376",
+    "stdout_bytes": 2097,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_bytes": 0,
+    "redacted_actual_content_persisted": true,
+    "capture_file_mode": "0600",
+    "valid_job_ids_observed": 0,
+    "admission_verified": false,
+    "capacity_verified": false
+  },
+  "qualification_02_real_createjob_calls": 0,
+  "qualification_02_getjob_calls": 0,
+  "qualification_02_listjobs_calls": 0,
+  "qualification_02_stopjob_calls": 0,
+  "cuda_calls": 0,
+  "package_installs": 0
+}

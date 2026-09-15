@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "review": "INDEPENDENT_V4_TO_V5_REQUEST_REBIND_LAUNCH_GATE_REVIEW",
+  "reviewed_at_utc": "2026-09-13T14:35:00Z",
+  "verdict": "PASS",
+  "scope": "READ_ONLY_LAUNCH_GATE; live submission remains NO_GO; Task3 not marked complete; CPU PASS not converted to a GPU qualification claim",
+  "request_identity": {
+    "request_sha256": "55df1dfa714dd54c4b642af5b5cda7caee76946d57e09512d9f7d492fb3fa919 (recomputed from submission/exact_job_spec.json raw bytes; matches sidecar exact_job_spec.sha256, permit.submitted_request_sha256, controller-state.submitted_request_sha256, validation-result.request_sha256)",
+    "v5_manifest_sha256": "9271a2036e84c3fa29442a9f7627c9889d024106b8286321d82da26df856e51d (independently recomputed from release file payloads/qualification-20260913-05-global-ffaa464d-bytecode-v5/scale/experiments/nonlatent_iclr/qualification/runtime_manifest.json on GPFS; 110 file entries; matches spec env QUALIFICATION_MANIFEST_SHA256, permit.source_manifest_sha256, controller-state, staging-v5-review)",
+    "launcher_on_gpfs": "sha256 112ab2595a9db913a40c3976a96998ccf54f9fb7a9680da1ed841cf871dbd52b (recomputed; matches preflight-report and staging-v5-review checks.json)",
+    "v5_path": "qualification-20260913-05-global-ffaa464d-bytecode-v5"
+  },
+  "request_delta_v4_to_v5": {
+    "method": "diff -u archive/v4-candidate-4af505/exact_job_spec.json submission/exact_job_spec.json",
+    "changes": [
+      "command: payload dir origin-v4 -> bytecode-v5 (launcher path only)",
+      "envs.QUALIFICATION_MANIFEST_SHA256: 9204381bd606157440c8113556798ab4d271edd4210a44249a67139253986004 -> 9271a2036e84c3fa29442a9f7627c9889d024106b8286321d82da26df856e51d"
+    ],
+    "unchanged": "run_id qualification-20260912-01-91f32832-f583-4638-aedc-be4ac9887ab3, nonce a41af12290a62f67829670728be9b480, QUALIFICATION_JOB_RECEIPT, description, all envs, framework_config (relay2:v2, instance_count 1, spec_id 7166bd2e-6cbe-4bd9-be38-762d11003e7f, shm 1800), lcg/project/workspace, max_running_time_ms 1800000, task_priority 4, auto_fault_tolerance false, fault_tolerance_max_retry 0; NO reserve keys in v4 or v5"
+  },
+  "source_delta": {
+    "changed_files": {
+      "authority_models.py": "one hunk: permit source_manifest_sha256 Literal rebinding 9204381b... -> 9271a203...",
+      "controller_models.py": "one hunk: MANIFEST_SHA256 Final constant rebinding",
+      "request_contract.py": "three hunks: GLOBAL_LAUNCHER_PATH / LAUNCH_COMMAND / CreateJobRequest.command Literal path rebinding origin-v4 -> bytecode-v5",
+      "test_global_payload_contract.py": "two hunks: GLOBAL_RELEASE_ROOT + EXPECTED_MANIFEST_SHA256 test constants"
+    },
+    "unchanged_vs_archive": "15 files byte-identical (cmp -s): admission_parser.py, controller.py, controller_runtime.py, controller_storage.py, dry_run_runtime.py, job_confirmation.py, receipt_contract.py, response_capture.py, runtime_records.py, test_admission_parser.py, test_campaign_contract.py, test_controller_runtime.py, test_priority_contract.py, test_response_capture.py, test_retention_contract.py",
+    "lsp_diagnostics": "0 diagnostics on all 4 changed files (independent LSP run)"
+  },
+  "staging_v5_review_confirmed": {
+    "path": "qualification-20260913-05/staging-v5-review/verdict.json + checks.json",
+    "status": "PASS, accepted_scope CPU_LAUNCH_PREFLIGHT_ONLY",
+    "counts": "preflight_files_verified 110; v5_tests_executed 11 (11 passed in 2.12s); historical_v4_tests_reused_not_reexecuted 189; honestly denies 'all 200 as v5'",
+    "bytecode": "owned_bytecode_paths 0; injected .pyc rejected before package import; verdict_sha256 ebf7f2efab6cc0592a0a3d771e83b481fd0a554ba214614cbee031de2eb30ca5"
+  },
+  "controller_validation_rerun": {
+    "validate": "PYTHONDONTWRITEBYTECODE=1 /usr/bin/python controller.py validate <campaign.json> permit.json controller-state.json -> exit 0, stdout '55df1dfa...fa919' (matches validation-result.controller_validate_result PASS)",
+    "negative_submit_gate": "controller.py submit <campaign> permit.json controller-state.json WRONG_CONFIRMATION -> exit 2, stderr 'live_submission_not_authorized'; no request-attempt.json / admitted-job.json created; require_live_submission (controller_storage.py:117) demands PASS/CLEARED_NO_MATCH/PASS/READY_FOR_SINGLE_SUBMISSION + exact confirmation, so PENDING/PENDING/NO_GO/PREPARED_FOR_ROOT_REVIEW permit fails closed",
+    "tests": "37 passed in 0.37s across 7 test files (admission_parser 12, campaign_contract 6, controller_runtime 2, priority_contract 4, response_capture 6, retention_contract 5, global_payload_contract 2)",
+    "validation_result_claims_cross_checked": "validation-result.json/preflight-report.json numbers (37 tests, 4-file LSP 0, binding red test 2 failed-before/passed-after [launcher_path, manifest_hash], 9 unchanged production modules) consistent with independent reruns"
+  },
+  "attempt_marker_absence": {
+    "submission_dir": "no request-attempt.json / admitted-job.json / createjob.response.json / submission-outcome.json / live-execution-hashes.sha256",
+    "gpfs": "no controller receipt for run 91f32832 in nonlatent_iclr_qualification/controller-receipts/",
+    "controller_state": "status NOT_SUBMITTED, maximum_real_createjob_calls 1, qz_calls 0"
+  },
+  "constraints_respected": "no qz invocation (validate/negative-submit only, both offline), no submission, no installs, no source/product/state edits, frozen v5 release not mutated (read-only stat + manifest hash only; no 16GB weights rehash), no new review agents, Task3 left incomplete",
+  "residual_unknowns": [
+    "Runtime GPU behavior, worker image digest, and in-pod package state remain UNKNOWN until a real run (staging-v5-review scope is CPU launch preflight only).",
+    "Permit gates stay PENDING/PENDING/NO_GO until explicit root approval; this review does not grant them."
+  ],
+  "evidence_paths": {
+    "this_review": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260913-05/request-v5-review/review.json",
+    "notepad_append": ".omo/notepads/nonlatent-rnn-dlm-iclr-research/issues.md (## Qualification-05 v4-to-v5 rebind: independent launch-gate review)",
+    "rebind_executor_validation": "qualification-20260913-05/submission/validation-result.json + preflight-report.json + controller-delta.json",
+    "independent_v5_pass": "qualification-20260913-05/staging-v5-review/{verdict.json,checks.json,identity-bindings.json,bytecode-audit.json}",
+    "archived_v4": "qualification-20260913-05/archive/v4-candidate-4af505/"
+  }
+}

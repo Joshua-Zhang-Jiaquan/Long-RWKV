@@ -1,0 +1,10 @@
+# Long-RWKV runtime + test requirements.
+#
+# Python >= 3.12 is REQUIRED: the package uses PEP 695 `type` statements.
+# (The sibling scratch_1b program pins 3.11.9; that is a different experiment
+# line with a different stack -- see README.)
+torch>=2.5
+pydantic>=2.9
+fla-core==0.3.0
+pyarrow>=15
+pytest>=8.0

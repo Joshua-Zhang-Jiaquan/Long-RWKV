@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "observed_worker": {
+    "diagnostic": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/bootstrap-20260913T073456Z-1fe0b3fe/diag.json",
+    "uid": 0,
+    "python": "/usr/bin/python",
+    "python_version": "3.12.3",
+    "project_root": "ENOENT",
+    "global_user_stage_mode": "0755"
+  },
+  "expected_read_roots": [
+    {
+      "purpose": "qualification_payload",
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-92fbf9af"
+    },
+    {
+      "purpose": "runtime_model_source",
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale"
+    },
+    {
+      "purpose": "Python_package_source",
+      "path": "/usr/local/lib/python3.12/dist-packages"
+    },
+    {
+      "purpose": "HF_model",
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF"
+    },
+    {
+      "purpose": "checkpoint_required_but_currently_missing",
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/m4-loop-2p9b/step_00004750"
+    }
+  ],
+  "write_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/${QUALIFICATION_RUN_ID}",
+  "project_mount_required": false
+}

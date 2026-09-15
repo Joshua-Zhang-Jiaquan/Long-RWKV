@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "review_id": "qualification-20260913-05-v5-focused-bytecode-recheck",
+  "status": "COMPLETED_WITH_PASS",
+  "release": {
+    "root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-bytecode-v5",
+    "manifest_sha256": "9271a2036e84c3fa29442a9f7627c9889d024106b8286321d82da26df856e51d",
+    "manifest_entry_count": 110,
+    "tree_sha256": "f2972779734df10aad2213c4f96f50c78c3b3e81f49a2e95106cff380d72cc0e",
+    "source_inventory_sha256": "43dc97ccd4f80cc1e5e0cf9b698b6e0db1cd1a7f9699340242ec06851b040644",
+    "launcher_sha256": "112ab2595a9db913a40c3976a96998ccf54f9fb7a9680da1ed841cf871dbd52b",
+    "bytecode_guard_sha256": "b5bcff58019e09a2acee0bf0ea6b4839371f91c3e25c32982d56f47f5c3b8a09",
+    "runtime_config_sha256": "dffdf1c95a228f87627c8ff895a3543adb12ae3a67414c7d6e98f198a35e6349",
+    "model_checks_sha256": "2883ecbb48dadd093180513a51858541db5fcc8efef712bd55fa88e1374ee1a4"
+  },
+  "actual_tests_this_review": {
+    "command": "launcher-derived guarded environment; /usr/bin/python -P -m pytest -q -p no:cacheprovider test_bytecode_isolation_v5.py test_release_freshness_v5.py",
+    "result": "11 passed in 2.12s",
+    "v5_tests_executed": 11,
+    "historical_v4_tests_reexecuted": 0,
+    "tests_claimed_as_v5": 11,
+    "tests_claimed_as_200_v5": false
+  },
+  "bytecode_fix": {
+    "owned_bytecode_paths": 0,
+    "release_cache_opens": 0,
+    "release_cache_unmarshals": 0,
+    "isolated_injected_pyc_rejected": true,
+    "rejected_before_package_import": true,
+    "normal_failure_timeout_cleanup": "PASS",
+    "receipt": "bytecode-audit.json"
+  },
+  "global_cpu_preflight": {
+    "status": "PREFLIGHT_VERIFIED",
+    "verified_source_files": 110,
+    "environment_status": "MATCH",
+    "package_source_matches": 8,
+    "package_version_matches": 6,
+    "runtime_modules_loaded": [],
+    "controller_receipt_argument": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260913-05/staging-v5-review/controller-observation-only.json",
+    "controller_receipt_read_or_created": false,
+    "whole_deadline_seconds": 1680,
+    "receipt": "global-preflight-summary.json"
+  },
+  "identity_bindings": {
+    "source_inventory_semantics_unchanged": true,
+    "staged_source_blob_hashes_matched": 72,
+    "external_package_hf_checkpoint_roles_unchanged": true,
+    "checkpoint_meta_sha256": "321ce0465b2cedb13c870c1ad4ec2c7c36d14cd37670e9caa018b9e63954e7ef",
+    "checkpoint_model_sha256": "ffaa464dabb3291c40749bbac4d6805e8a47082e3e2b082e0240365ffc525c07",
+    "global_package_origin_owned_and_manifested": true,
+    "global_entrypoint_origin_owned_and_manifested": true,
+    "writable_paths": 0,
+    "symlinks": 0,
+    "receipt": "identity-bindings.json"
+  },
+  "runtime_boundary": {
+    "cpu_launch_preflight_only": true,
+    "future_worker_packages_and_image_digest": "UNKNOWN_UNTIL_RUNTIME",
+    "gpu_runtime_success_claimed": false
+  },
+  "diagnostics": {
+    "json_lsp": "UNAVAILABLE_BIOME_NOT_INSTALLED_USER_PREVIOUSLY_DECLINED",
+    "installation_attempted": false,
+    "json_parser_validation": "PASS"
+  },
+  "prohibited_actions": {
+    "jobs_submitted": 0,
+    "qz_api_or_network_calls": 0,
+    "controller_operations": 0,
+    "installs": 0,
+    "git_operations": 0,
+    "source_product_plan_or_state_edits": 0,
+    "subagents": 0,
+    "cuda_calls": 0,
+    "checkpoint_unpickles": 0,
+    "model_constructions": 0
+  }
+}

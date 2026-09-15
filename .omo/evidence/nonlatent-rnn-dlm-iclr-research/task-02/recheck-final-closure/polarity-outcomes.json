@@ -1,0 +1,22 @@
+{
+  "checks": {
+    "direct_delta": true,
+    "direct_interpretation": true,
+    "direction_restored": true,
+    "normal_probe": true,
+    "reversed_direction_rejected": true
+  },
+  "direct": {
+    "interpretation": "worse",
+    "mean_delta": 0.8
+  },
+  "normal_probe": {
+    "detail": "finite max-run delta=0.8 worse; nonfinite, missing-pair, and prompt-leakage guards rejected",
+    "status": "EXPECTED_FAILURE_CONFIRMED"
+  },
+  "overall_pass": true,
+  "reversed_direction_probe": {
+    "detail": "finite max-run polarity control did not yield delta=0.8 worse",
+    "status": "PROBE_FAILED"
+  }
+}

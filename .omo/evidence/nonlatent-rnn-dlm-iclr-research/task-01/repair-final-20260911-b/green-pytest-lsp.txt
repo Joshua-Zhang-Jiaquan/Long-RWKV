@@ -1,0 +1,10 @@
+$ PYTHONDONTWRITEBYTECODE=1 python -m pytest -q -p no:cacheprovider scale/tests/nonlatent_iclr
+Running 62 items in this shard
+..............................................................           [100%]
+62 passed in 1.42s
+exit_code=0
+
+LSP diagnostics:
+- scale/experiments/nonlatent_iclr: 9 Python files scanned, 0 diagnostics
+- scale/tests/nonlatent_iclr/test_schema_contract.py: 0 diagnostics
+- scale/tests/nonlatent_iclr/test_service_inventory.py: 0 diagnostics

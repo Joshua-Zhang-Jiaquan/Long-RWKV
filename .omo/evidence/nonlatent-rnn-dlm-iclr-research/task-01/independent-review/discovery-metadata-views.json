@@ -1,0 +1,159 @@
+{
+  "available_metadata_entries_still_hardcoded_unverified": [
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/m4-loop-2p9b/step_00004750/meta.json",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/n2-knowpt-2p9b/step_00006000_probe_copy/meta.json",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF/tokenizer_config.json"
+  ],
+  "controlled_metadata": {
+    "existing_and_missing_receive_same_identity": true,
+    "existing_path": "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/discovery-label-cases/metadata/exists.json",
+    "generated_entries": [
+      {
+        "bytes": null,
+        "identity": "unverified",
+        "kind": "metadata",
+        "path": "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/discovery-label-cases/metadata/exists.json",
+        "reason": "metadata-only identity; binary content not hashed",
+        "sha256": null,
+        "source": "R6"
+      },
+      {
+        "bytes": null,
+        "identity": "unverified",
+        "kind": "metadata",
+        "path": "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/discovery-label-cases/metadata/missing.json",
+        "reason": "metadata-only identity; binary content not hashed",
+        "sha256": null,
+        "source": "R6"
+      }
+    ],
+    "missing_path": "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a/discovery-label-cases/metadata/missing.json"
+  },
+  "inert_source_text": {
+    "f_string_endpoint_truncated": true,
+    "generated_raw": [
+      {
+        "bytes": null,
+        "identity": "unverified",
+        "kind": "raw_record",
+        "path": "cap_lm_m4loop_s",
+        "reason": "external raw record not bulk-read",
+        "sha256": null,
+        "source": "R3"
+      }
+    ],
+    "sentinel_exists": false,
+    "text_was_not_executed": true
+  },
+  "real_generated_metadata": [
+    {
+      "actual_bytes": 43,
+      "actual_exists": true,
+      "actual_regular": true,
+      "actual_sha256": "321ce0465b2cedb13c870c1ad4ec2c7c36d14cd37670e9caa018b9e63954e7ef",
+      "generated": {
+        "bytes": null,
+        "identity": "unverified",
+        "kind": "metadata",
+        "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/m4-loop-2p9b/step_00004750/meta.json",
+        "reason": "metadata-only identity; binary content not hashed",
+        "sha256": null,
+        "source": "R6"
+      }
+    },
+    {
+      "actual_bytes": 43,
+      "actual_exists": true,
+      "actual_regular": true,
+      "actual_sha256": "ffd02c77be71b72b28413e3ab58cff63fbc158239e91b0a1c820b304192b24e2",
+      "generated": {
+        "bytes": null,
+        "identity": "unverified",
+        "kind": "metadata",
+        "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/n2-knowpt-2p9b/step_00006000_probe_copy/meta.json",
+        "reason": "metadata-only identity; binary content not hashed",
+        "sha256": null,
+        "source": "R6"
+      }
+    },
+    {
+      "actual_bytes": 1101,
+      "actual_exists": true,
+      "actual_regular": true,
+      "actual_sha256": "4e03aa0f5d6b1a4006a0d9e9f070f01418e734ab17c7c48f28333596d6bd5e29",
+      "generated": {
+        "bytes": null,
+        "identity": "unverified",
+        "kind": "metadata",
+        "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF/tokenizer_config.json",
+        "reason": "metadata-only identity; binary content not hashed",
+        "sha256": null,
+        "source": "R6"
+      }
+    }
+  ],
+  "real_raw_discovery": {
+    "all_expected_named": false,
+    "expected_names": [
+      "cap_lm_m4loop_s4750",
+      "cap_lm_m4loop_s4750_reps2",
+      "cap_lm_m4loop_s4750_reps3",
+      "cap_lm_m4loop_s4750_reps4",
+      "cap_lm_n2_s4000",
+      "cap_lm_n2_s6000",
+      "m2_baseline_triangle/ability_curve_m4loop.csv",
+      "sampler_gate_m4_loop_s4750",
+      "sampler_gate_m4_loop_s4750_reps2",
+      "sampler_gate_m4_loop_s4750_reps3",
+      "sampler_gate_m4_loop_s4750_reps4",
+      "sampler_gate_m4_n2_s4000",
+      "sampler_gate_m4_n2_s6000"
+    ],
+    "generated_names": [
+      "cap_lm_m4loop_s",
+      "cap_lm_m4loop_s4750",
+      "cap_lm_n2_",
+      "cap_lm_n2_s",
+      "m2_baseline_triangle/ability_curve_m4loop.csv",
+      "sampler_gate_m4_loop_s",
+      "sampler_gate_m4_loop_s4750",
+      "sampler_gate_m4_n2_"
+    ],
+    "missing_expected_names": [
+      "cap_lm_m4loop_s4750_reps2",
+      "cap_lm_m4loop_s4750_reps3",
+      "cap_lm_m4loop_s4750_reps4",
+      "cap_lm_n2_s4000",
+      "cap_lm_n2_s6000",
+      "sampler_gate_m4_loop_s4750_reps2",
+      "sampler_gate_m4_loop_s4750_reps3",
+      "sampler_gate_m4_loop_s4750_reps4",
+      "sampler_gate_m4_n2_s4000",
+      "sampler_gate_m4_n2_s6000"
+    ],
+    "unexpected_or_truncated_names": [
+      "cap_lm_m4loop_s",
+      "cap_lm_n2_",
+      "cap_lm_n2_s",
+      "sampler_gate_m4_loop_s",
+      "sampler_gate_m4_n2_"
+    ]
+  },
+  "views": {
+    "current_staged_actual_exists": true,
+    "live_present_actual_exists": true,
+    "live_present_detail_claims_absent": true,
+    "live_present_generated": {
+      "detail": "local scale code mirror absent",
+      "source": "live",
+      "state": "observed"
+    },
+    "snapshot_absence_mislabeled_observed": true,
+    "snapshot_absent_actual_exists": false,
+    "snapshot_absent_generated": {
+      "detail": "DAN/v7_arch_round is bound by hashes",
+      "source": "snapshot",
+      "state": "observed"
+    }
+  }
+}

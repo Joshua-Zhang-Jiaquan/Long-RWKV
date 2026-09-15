@@ -1,0 +1,1 @@
+usage: QUALIFICATION_RUN_ID=<reserved-id> QUALIFICATION_MANIFEST_SHA256=<64-hex> QUALIFICATION_IMAGE_DIGEST=<64-hex> run_qualification.sh

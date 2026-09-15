@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-13T03:31:37Z",
+  "campaign_authorization": {
+    "id": "nonlatent-gpu-campaign-20260912",
+    "path": ".omo/authorizations/nonlatent-gpu-campaign-20260912.json",
+    "sha256_at_preparation": "067e063296ab8a738ec796afb3e92aa2732a0da261360285a591c84c05221b0a",
+    "observed_status": "authorized_for_staged_execution",
+    "replaces_attempt_limit_of": "nonlatent-h100-qualification-20260912-01",
+    "consumed_or_modified": false
+  },
+  "permit": {
+    "path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-02/submission/permit.json",
+    "id": "permit-nonlatent-gpu-campaign-20260912-e42a9149-a2da-429a-b0c5-a8315c07f7d2",
+    "grant_instance_id": "grant-qualification-20260912-02-2e9052ad-a45a-4e6d-868b-1dc2b3415039",
+    "status": "PREPARED_FOR_ROOT_REVIEW",
+    "controller_review_verdict": "PENDING",
+    "prior_ambiguous_reconciliation_verdict": "PENDING",
+    "live_submission_verdict": "NO_GO",
+    "maximum_real_createjob_calls": 1
+  },
+  "compatibility_mapping": {
+    "actual_authority": "campaign authorization hash plus unique permit_id and grant_instance_id",
+    "legacy_runtime_profile_id": "nonlatent-h100-qualification-20260912-01",
+    "legacy_runtime_profile_role": "PAYLOAD_RECEIPT_SCHEMA_COMPATIBILITY_ONLY_NOT_AUTHORITY"
+  },
+  "reservation": {
+    "state_path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-02/submission/controller-state.json",
+    "run_id": "qualification-20260912-01-28575096-6ce0-4fd8-9e86-3e3804c86c14",
+    "nonce": "0f5967954a5daa239f738de73b7c4649",
+    "job_name": "qualification-20260912-01-28575096-6ce0-4fd8-9e86-3e3804c86c14",
+    "status": "NOT_SUBMITTED",
+    "idempotent": true
+  },
+  "request": {
+    "path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-02/submission/exact_job_spec.json",
+    "bytes": 1694,
+    "sha256": "ece8b1bf041f31ee84bb9b400d21856c31c458770982b75568b7be31c6f0c42e",
+    "exact_bytes_passed_by_controller": true,
+    "no_overwrite": true
+  },
+  "resource": {
+    "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+    "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6",
+    "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+    "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f",
+    "authorized_gpu_type": "NVIDIA_H100_SXM_80G",
+    "requested_nodes": 1,
+    "requested_gpus_per_node": 8,
+    "requested_gpus": 8,
+    "shm_gi": 1800,
+    "maximum_runtime_ms": "1800000",
+    "maximum_gpu_hours": 4,
+    "task_priority": 0,
+    "auto_fault_tolerance": false,
+    "fault_tolerance_max_retry": 0,
+    "reserve_on_fail_ms": "0",
+    "reserve_on_success_ms": "0"
+  },
+  "image": {
+    "requested_image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+    "request_image_type": "SOURCE_PRIVATE",
+    "scheduler_image_id": "image-7330d118-df9d-4e2e-82b1-c2543e831eb4",
+    "observed_image_digest": null
+  },
+  "payload": {
+    "launcher": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+    "source_manifest_sha256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+    "mutated": false,
+    "qz_job_id_environment_in_request": false,
+    "offline_environment": true
+  },
+  "response_capture": {
+    "timing": "AFTER_PROCESS_RETURN_BEFORE_ANY_ADMISSION_PARSE",
+    "stdout_and_stderr": "RAW_SHA256_AND_LENGTH_PLUS_REDACTED_ACTUAL_CONTENT",
+    "file_mode": "0600",
+    "timeout_partial_output": true,
+    "invocation_failure": true,
+    "no_clobber": true
+  },
+  "controller_receipt": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/controller-receipts/qualification-20260912-01-28575096-6ce0-4fd8-9e86-3e3804c86c14.json",
+    "published": false,
+    "publication_timing": "ONLY_AFTER_ONE_VALID_CREATEJOB_ID_AND_EXACT_GETJOB_BINDING",
+    "schema_implementation": "scale.experiments.nonlatent_iclr.qualification.controller_receipt.ControllerReceipt",
+    "atomic_no_clobber": true,
+    "observed_image_digest": null
+  },
+  "controller_sequence": [
+    "load_and_bind_campaign_permit_state_and_exact_request",
+    "validate_exact_request_caps_and_successful_captured_dry_run",
+    "require_root_updated_permit_four_gate_tuple_and_literal_confirmation",
+    "if_attempt_exists_never_call_CreateJob_again",
+    "write_request_attempt_exclusively_before_invocation",
+    "invoke_qz_train_CreateJob_once_without_dry_run_or_retry",
+    "capture_stdout_stderr_sha_lengths_and_redacted_content_before_parse",
+    "classify_explicit_business_error_or_success_envelopes",
+    "on_rejected_or_unknown_persist_outcome_and_stop_without_retry",
+    "on_one_valid_job_id_write_local_admission_exclusively",
+    "invoke_and_capture_one_initial_GetJob_for_exact_identity_binding",
+    "publish_strict_legacy_compatible_receipt_atomically_without_clobber"
+  ],
+  "failure_policy": {
+    "ambiguous_timeout_empty_or_unrecognized_response": "STOP_NO_RESUBMIT",
+    "zero_exit_business_error": "REJECT_STOP_NO_RESUBMIT",
+    "nonzero_create_response": "STOP_NO_RESUBMIT",
+    "existing_attempt_without_admission": "REQUIRE_EXTERNAL_RECONCILIATION_NO_CREATEJOB",
+    "existing_attempt_with_admission": "RECONCILE_KNOWN_ID_NO_CREATEJOB",
+    "receipt_or_getjob_failure_after_admission": "REPORT_EXACT_NEW_JOB_ID_NO_AUTOMATIC_STOP_OR_RESUBMIT",
+    "reference_job_mutation": false,
+    "automatic_stop": false
+  },
+  "root_permit_transition": {
+    "allowed_fields": {
+      "controller_review_verdict": "PASS",
+      "prior_ambiguous_reconciliation_verdict": "CLEARED_NO_MATCH",
+      "live_submission_verdict": "PASS",
+      "status": "READY_FOR_SINGLE_SUBMISSION"
+    },
+    "preparation_hashes_are_pre_review_snapshot": true
+  },
+  "future_real_submission": {
+    "allowed_now": false,
+    "preconditions": [
+      "root_controller_review_PASS",
+      "prior_ambiguous_reconciliation_CLEARED_NO_MATCH",
+      "root_live_submission_verdict_PASS",
+      "permit_status_READY_FOR_SINGLE_SUBMISSION",
+      "literal_ROOT_PASS_CONFIRMED",
+      "no_request_attempt_or_admitted_job_artifact"
+    ],
+    "command_argv": [
+      "/usr/bin/env",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "/usr/bin/python",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-02/submission/controller.py",
+      "submit",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/authorizations/nonlatent-gpu-campaign-20260912.json",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-02/submission/permit.json",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-02/submission/controller-state.json",
+      "ROOT_PASS_CONFIRMED"
+    ]
+  },
+  "readiness": "REQUEST_CONTROLLER_AND_DRY_RUN_VERIFIED_REAL_SUBMISSION_BLOCKED",
+  "capacity": "UNKNOWN_UNTIL_LIVE_ADMISSION",
+  "qualification_02_jobs_submitted": 0
+}

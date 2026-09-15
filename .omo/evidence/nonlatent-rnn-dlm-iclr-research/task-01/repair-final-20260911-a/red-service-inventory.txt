@@ -1,0 +1,8 @@
+$ python -m pytest -q scale/tests/nonlatent_iclr/test_service_inventory.py
+Running 11 items in this shard
+FFFFFFFFFFF                                                              [100%]
+11 failed in 0.26s
+exit_code=1
+
+Focused root failure:
+- `AuditPaths.from_roots()` rejects `external_root`, `live_root`, and `staged_root`, so the service cannot bind or verify explicit source origins; all origin-aware inventory, freshness, provenance, bounded-panel, and dynamic-view regressions remain RED.

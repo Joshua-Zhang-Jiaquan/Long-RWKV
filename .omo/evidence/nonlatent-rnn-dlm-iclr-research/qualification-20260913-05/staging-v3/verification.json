@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "status": "CPU_PREFLIGHT_AND_SOURCE_CLOSURE_VERIFIED_READY_FOR_INDEPENDENT_REVIEW",
+  "release_id": "qualification-20260913-05-global-ffaa464d-closure-v3",
+  "release_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-closure-v3",
+  "launcher_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-closure-v3/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+  "launcher_sha256": "985487e8bc61206f1af7cf82ee79f42969249066c36c87f5ebebe3e8632257d0",
+  "model_source_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-closure-v3/model_source/scale",
+  "runtime_manifest_sha256": "4777fd86769f9264af91241c82655a9b8f51874500e79fbd92f9b19030003f9f",
+  "runtime_manifest_file_count": 109,
+  "manifest_role_counts": {
+    "payload": 23,
+    "staged_source": 72,
+    "package_source": 8,
+    "hf_config": 1,
+    "hf_index": 1,
+    "hf_shard": 2,
+    "checkpoint_meta": 1,
+    "checkpoint_model": 1
+  },
+  "source_closure": {
+    "complete_package_python_files": 72,
+    "ast_runtime_reachable_modules": 64,
+    "copied_inactive_package_members": 8,
+    "direct_local_dependencies_outside_models": 0,
+    "unavailable_local_dependencies": 0,
+    "canonical_mapping_sha256": "dcd874b57a4b3f582534c215b4b7b3713602378e6d3f6f109205163335d83e79"
+  },
+  "environment_diagnostic": {
+    "status": "MATCH",
+    "runtime_modules_loaded": [],
+    "package_source_files_matched": 8,
+    "packages": [
+      "torch==2.8.0a0+5228986c39.nv25.6",
+      "flash-linear-attention==0.5.0",
+      "fla-core==0.5.0",
+      "transformers==5.3.0",
+      "safetensors==0.5.3",
+      "pytorch-triton==3.3.0+git96316ce52.nvinternal"
+    ]
+  },
+  "strict_cpu_preflight": {
+    "status": "PREFLIGHT_VERIFIED",
+    "detail": "source_manifest_and_controls_verified",
+    "verified_source_files": 109,
+    "checkpoint_unpickle_attempted": false,
+    "model_construction_attempted": false,
+    "cuda_attempted": false,
+    "separate_construction_time_large_blob_rehash_performed": false,
+    "single_strict_v3_preflight_performed": true
+  },
+  "tests": {
+    "reviewer_gap_red": "v2_rejected_unmanifested_runtime_source_models_state_hijacking_dit_py",
+    "absent_v3_red": "8_failed_before_release_existed",
+    "v3_green": "8_passed_in_0.98_seconds",
+    "final_combined": "178_passed_in_21.77_seconds"
+  },
+  "quality_gates": {
+    "shell_syntax": "PASS",
+    "launcher_help": "PASS",
+    "direct_changed_Python_LSP_diagnostics": 0,
+    "package_context_runtime_config_LSP_diagnostics": 0,
+    "python_no_excuse_audit": "PASS_no_violations_in_4_files",
+    "recursive_write_bits_removed": true,
+    "release_root_mode": "0555",
+    "owned_models_directory_mode": "0555",
+    "owned_source_file_mode": "0444",
+    "manifest_mode": "0444",
+    "launcher_mode": "0500"
+  },
+  "runtime_contract": {
+    "architecture_changed": false,
+    "learned_latent_module_activated": false,
+    "full_model_config_nonlatent": true,
+    "worker_count": 8,
+    "fault_tolerance": 0,
+    "partial_verdict": "unsupported_full_model_cache",
+    "whole_deadline_seconds": 1680,
+    "scheduler_cap_seconds": 1800,
+    "expected_image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+    "observed_image_digest": "UNKNOWN"
+  },
+  "preservation": {
+    "v1_manifest_sha256": "49cdef9722351a951ed7f36a679708905df30a19801e7d2eaa7493144638869f",
+    "v2_manifest_sha256": "218a0cacbaba8ecf541d2e72386b4bf070cfde6d230fbf0306ebfb50559523fb",
+    "v1_v2_releases_changed": false,
+    "qz_stage_source_changed": false,
+    "project_runtime_source_changed": false,
+    "model_history_changed": false
+  },
+  "jobs_submitted": 0,
+  "cuda_calls": 0,
+  "network_calls": 0,
+  "installs": 0,
+  "downloads": 0,
+  "git_operations": 0,
+  "controller_requests_or_receipts_created": 0
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "launcher_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-92fbf9af/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+  "computed_repo_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-92fbf9af",
+  "pythonpath_order": [
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-92fbf9af",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale"
+  ],
+  "python": "/usr/bin/python",
+  "torchrun": "/usr/local/bin/torchrun",
+  "output_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification",
+  "early_failure_path_formula": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/${QUALIFICATION_RUN_ID}/early-failure.json",
+  "early_failure_fields": [
+    "schema_version",
+    "status",
+    "phase",
+    "detail",
+    "run_id"
+  ],
+  "deadlines_seconds": {
+    "workflow": 1650,
+    "preflight": 300,
+    "runtime": 1200,
+    "aggregation": 90,
+    "controller_receipt": 60,
+    "nccl": 120,
+    "kill_grace": 30,
+    "scheduler": 1800
+  },
+  "distributed_policy": {
+    "nodes": 1,
+    "ranks": 8,
+    "max_restarts": 0,
+    "automatic_retries": 0
+  },
+  "terminal_success": "PARTIAL_QUALIFICATION",
+  "terminal_detail": "corevalid/fullmodelcacheunqualified"
+}

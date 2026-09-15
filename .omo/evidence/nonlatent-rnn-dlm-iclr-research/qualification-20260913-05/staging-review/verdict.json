@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "review_id": "qualification-20260913-05-global-ffaa464d-v2-focused-preflight",
+  "scope": "independent_cpu_only_global_release_review",
+  "status": "NO_GO",
+  "detail": "complete_parent_import_closure_not_manifested",
+  "release_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-v2",
+  "runtime_manifest_sha256": "218a0cacbaba8ecf541d2e72386b4bf070cfde6d230fbf0306ebfb50559523fb",
+  "deterministic_blocker": {
+    "id": "unmanifested_staged_parent_import",
+    "entrypoint": "models.birwkv7_diffusion",
+    "proof_chain": [
+      "model_checks.construct_model calls import_module('models.birwkv7_diffusion')",
+      "a fresh Python import executes the staged models/__init__.py first",
+      "models/__init__.py imports models.state_hijacking_dit at module scope",
+      "state_hijacking_dit.py is not one of the five staged_source manifest entries"
+    ],
+    "manifested_parent_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/__init__.py",
+    "manifested_parent_sha256": "88592fdfb49695edf513a5d5b6c6e17ae58d28c16c7b2a1953050ea93dd09ca1",
+    "first_unmanifested_runtime_source": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/state_hijacking_dit.py",
+    "first_unmanifested_runtime_source_sha256": "9138cbd1ab210026ab25e45d61409d90922e80053caebaa1018fcf7e6479c0f6",
+    "first_unmanifested_runtime_source_mode": "0644",
+    "worker_bootstrap_uid": 0,
+    "static_transitive_local_candidates": 64,
+    "manifested_transitive_local_candidates": 5,
+    "unmanifested_transitive_local_candidates": 59,
+    "impact": "The strict preflight can return PREFLIGHT_VERIFIED while the GPU runtime executes local staged Python bytes whose size and SHA-256 were never pinned by the manifest. This violates the requested complete parent import closure and makes source identity incomplete."
+  },
+  "positive_results_do_not_override_blocker": {
+    "targeted_v2_tests": "12_passed_in_1.32_seconds",
+    "environment_diagnostic": "MATCH",
+    "strict_manifest_preflight": "PREFLIGHT_VERIFIED_41_files_in_23.773_seconds",
+    "global_cli_probe_and_launcher_help": "PASS",
+    "shell_syntax": "PASS",
+    "release_and_prior_staging_trees_unchanged": true
+  },
+  "required_remediation": [
+    "Publish a new immutable release whose staged models package initializer does not import unneeded unmanifested modules, or add every runtime-reachable local staged source to the manifest with exact size and SHA-256.",
+    "Add a regression that resolves the fresh-process package-parent import closure for models.birwkv7_diffusion and fails on any unmanifested local source.",
+    "Repeat this focused independent preflight against the new manifest before any live request."
+  ],
+  "live_submission_allowed": false
+}

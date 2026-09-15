@@ -1,0 +1,27 @@
+{
+  "blocked": [
+    {
+      "reason": "BLOCKED: missing declared local asset DAN/nonlatent_iclr/task4_assets/ruler/development_manifest.json",
+      "requirement": "ruler_development_suite"
+    },
+    {
+      "reason": "BLOCKED: missing declared local asset DAN/nonlatent_iclr/task4_assets/longbench/development_manifest.json",
+      "requirement": "longbench_development_suite"
+    },
+    {
+      "reason": "BLOCKED: missing declared local asset DAN/nonlatent_iclr/task4_assets/repository_tasks/manifest.json",
+      "requirement": "rights_cleared_repository_tasks"
+    },
+    {
+      "reason": "BLOCKED: missing declared local asset DAN/nonlatent_iclr/task4_assets/repository_evaluator/isolation_manifest.json",
+      "requirement": "isolated_repository_evaluator"
+    },
+    {
+      "reason": "BLOCKED: missing declared local asset DAN/nonlatent_iclr/task4_assets/tokenizer/rwkv_tokenizer_manifest.json",
+      "requirement": "rwkv_tokenizer"
+    }
+  ],
+  "exact_checks_passed": true,
+  "registry_sha256": "75c487cb77ecb58b698b6fc9c032543528fd67dc9cb395784ce6a2f099d5531d",
+  "status": "BLOCKED"
+}

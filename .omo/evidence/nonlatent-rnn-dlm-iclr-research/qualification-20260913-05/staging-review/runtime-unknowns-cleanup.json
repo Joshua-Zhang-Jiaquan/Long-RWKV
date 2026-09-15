@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "status": "CLEAN_WITH_RUNTIME_UNKNOWNS",
+  "bootstrap_worker": {
+    "hostname": "job-dd2cec2a-9c22-4f01-a1e5-a9bef2a649db-worker-0",
+    "uid": 0,
+    "python_version": "3.12.3",
+    "api_environment_sentinel_present_and_matching": true,
+    "gpu_probe": "8 NVIDIA H100 80GB HBM3 devices observed",
+    "project_checkout": "ENOENT",
+    "global_staged_root_readable": true,
+    "torch_version": "2.8.0a0+5228986c39.nv25.6",
+    "legacy_fla_query": "PackageNotFoundError because the bootstrap queried the import name fla rather than the manifest distribution names",
+    "qualification_result": false
+  },
+  "future_runtime_unknowns": [
+    "No v2 live pod has executed the new environment helper.",
+    "The future worker's exact flash-linear-attention, fla-core, transformers, safetensors, and pytorch-triton distribution versions remain unobserved for this release.",
+    "No v2 CUDA model construction, checkpoint load, eight-rank NCCL execution, memory measurement, causal-cache check, or masked forward has run.",
+    "The early environment diagnostic is observational only; a MATCH cannot override strict manifest/package checks and a MISMATCH must remain visible.",
+    "The source-closure blocker is deterministic and must be fixed before these runtime unknowns may be tested live."
+  ],
+  "authorization_boundary": {
+    "campaign_budget_has_no_cumulative_user_ceiling": true,
+    "fresh_budget_approval_requested": false,
+    "legacy_one_shot_grant_treated_as_current_authority": false,
+    "future_corrected_release_requires_a_fresh_manifest_bound_job_permit_but_not_new_budget_approval": true
+  },
+  "cleanup": {
+    "named_temporary_pattern": "/tmp/opencode/qualification05-*",
+    "named_temporary_files_remaining": 0,
+    "release_tree_changed": false,
+    "prior_release_tree_changed": false,
+    "staging_tree_changed": false,
+    "staging_v2_tree_changed": false,
+    "tree_digests_before_and_after": {
+      "release_v2": "5506463d070cb0b1078207327afe4d79ac5046ccd3c5047567cf275194429335",
+      "prior_release": "b7adcf38624acb34e02137bbace8c4b1140a60e0accf57c58f1f4c6fdbf31cea",
+      "staging": "6bf0bf9a134e7c52242fa81184c5b9c4043586ddffae038e60eccffabc279477",
+      "staging_v2": "3c298b227a9bdfb644d4b53d09aa1cae282f6d75bb031c0684509d881db1f355"
+    }
+  }
+}

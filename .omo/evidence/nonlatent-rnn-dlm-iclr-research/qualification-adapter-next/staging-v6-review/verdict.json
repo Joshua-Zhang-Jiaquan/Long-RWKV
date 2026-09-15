@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "review_type": "focused_independent_adapter_v6_cpu_launch_preflight",
+  "review_date": "2026-09-13",
+  "verdict": "REJECT",
+  "review_scope": "IMMUTABLE_ADAPTER_V6_STAGING_ONLY",
+  "task_3_complete": false,
+  "reason": "The candidate's substantive CPU checks pass, but the mandatory five-lane independent review is not unanimously admissible. The hands-on QA lane violated the required source-clean command discipline with one unprefixed Python timing helper, and the goal lane rejected future live identity readiness. Under the fail-fast review rule, the staging review cannot PASS.",
+  "candidate_binding": {
+    "release_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-06-global-ffaa464d-adapter-v6",
+    "tree_sha256": "5b86080fba3c7ed11c65c9b7045349f0ad074973921ff04c22347ac4db8690f9",
+    "runtime_manifest_sha256": "692d1cc88d6b2c6335736d47492aa933bf57b9a23a4d0dcc9e5e3eeda165cf32",
+    "runtime_manifest_entries": 111,
+    "launcher_sha256": "8b7970c27a5a99b18a251e7c84b680dce6fa74f336866c9ff22ab871900b73c5",
+    "full_canvas_sha256": "1e5400e4283744d6c29ce533f0138b2b3e2b7bcd78b1a64b668a79f97c6b3e22",
+    "model_checks_sha256": "6ddb94ddffc01d0fa416dcd7b7bfc0cc9dde201a864ccaf84e338201ab7ec023",
+    "source_inventory_sha256": "726e48130360c5000c32733c94f9d6649f10a3021c271f7d507570933330826f",
+    "bytecode_guard_sha256": "b5bcff58019e09a2acee0bf0ea6b4839371f91c3e25c32982d56f47f5c3b8a09",
+    "staging_evidence_ledger_sha256": "8bb46ebdec96f8fd1b4ba759a673e82f41c3990872a28b6a9c15701909e8c781"
+  },
+  "verified_positive_evidence": {
+    "manifest_unique_entries_and_hash_size_bindings": "111/111",
+    "external_package_model_checkpoint_identities_equal_v5": true,
+    "owned_model_source_identities_equal_v5": "72/72",
+    "writable_paths": 0,
+    "symlinks": 0,
+    "owned_bytecode_paths": 0,
+    "inherited_origin_validation_preserved": true,
+    "lazy_adapter_import_preserved": true,
+    "parameter_evidence_model_validate_boundary_preserved": true,
+    "adapter_open_before_forward": true,
+    "adapter_reset_in_finally": true,
+    "explicit_forward_kwargs": {
+      "force_forward": false,
+      "z_slots": null,
+      "state_cache": null,
+      "use_cache": false
+    },
+    "cpu_preflight_status": "PREFLIGHT_VERIFIED",
+    "cpu_preflight_verified_files": 111,
+    "runtime_environment_status": "MATCH",
+    "runtime_modules_loaded": [],
+    "package_source_matches": "8/8",
+    "package_version_matches": "6/6",
+    "v5_tree_sha256_preserved": "f2972779734df10aad2213c4f96f50c78c3b3e81f49a2e95106cff380d72cc0e",
+    "consumed_qualification05_identity_reused": false
+  },
+  "fresh_independent_execution": {
+    "candidate_lifecycle_and_parameter_tests": "5 passed; pytest 18.62s; wall 20.15s; exit 0",
+    "release_manifest_preservation_tests": "3 passed; pytest 0.93s; wall 2.50s; exit 0",
+    "approved_regression_part_one": "55 passed; pytest 4.52s; wall 6.55s; exit 0",
+    "approved_regression_part_two": "11 passed; pytest 14.01s; wall 16.09s; exit 0",
+    "approved_regression_logical_total": "66/66, disjoint, zero duplicates",
+    "inherited_v5_bytecode_and_freshness": "11 passed; 2.07s; exit 0",
+    "inherited_v4_origin_controls": "6 passed, 2 deselected; 1.75s; exit 0",
+    "inherited_logical_total": "17/17",
+    "strict_preflight": "PREFLIGHT_VERIFIED; 111 files; exit 0",
+    "runtime_environment": "MATCH; 8/8 package sources; 6/6 versions; no runtime model modules; exit 0",
+    "candidate_topology_after_execution": "0 writable paths, 0 symlinks, 0 bytecode paths",
+    "external_cache_cleanup": "0 entries before cleanup and cache prefixes removed",
+    "noncandidate_harness_error": "An initial v5 freshness test was mistakenly pointed at v6 and failed 111 == 110; corrected v5 invocation passed and the error is not a candidate failure."
+  },
+  "reused_prior_evidence": {
+    "worker_reported_original_timings": "Not used as independent execution; replaced by fresh lane timings above.",
+    "basedpyright": "Reused staging-v6 basedpyright receipt: 0 errors, 0 warnings, 0 notes across six exact files.",
+    "previous_v5_cpu_review": "Used as accepted baseline identity and not rerun broadly.",
+    "approved_adapter_api_review": "Used as the pinned full_canvas.py hash and not rerun broadly."
+  },
+  "blocking_issues": [
+    {
+      "category": "review_procedure_noncompliance",
+      "detail": "The QA lane ran one /usr/bin/python -c timing helper without PYTHONDONTWRITEBYTECODE=1 and a fresh external PYTHONPYCACHEPREFIX. It did not modify the immutable releases, but the review run does not satisfy the literal source-clean execution rule.",
+      "minimum_resolution": "Repeat the complete independent CPU QA pass with every Python invocation, including helpers, prefixed by PYTHONDONTWRITEBYTECODE=1 and a fresh external PYTHONPYCACHEPREFIX; record exact commands, outputs, post-run tree hash, zero release bytecode, and cache cleanup in a new immutable review receipt."
+    },
+    {
+      "category": "future_live_identity_readiness",
+      "detail": "No fresh v6-bound request, nonce, or permit exists, and the goal lane flagged the retained qualification-20260912-01 run-id family as not demonstrated compatible with a fresh adapter-v6 controller contract.",
+      "minimum_resolution": "After CPU review acceptance and only if live execution is authorized, prepare a fresh v6-bound request, unique run id, nonce, permit, and duplicate-clearance evidence; independently verify the launcher/controller run-id contract before submission."
+    }
+  ],
+  "adjudicated_nonblocker": {
+    "code_lane_missing_changed_files_claim": "Invalidated: staging-v6/changed-files.json existed before lane launch and is bound by SHA-256 0a86f7bda89b3de0b9efcd81e34b7eabd9963a015fafa1e0a09df42fb8145eca. The code delta itself passed that lane."
+  },
+  "preserved_boundaries": {
+    "cpu_spy_lifecycle_is_actual_model_lifecycle": false,
+    "model_constructed": false,
+    "checkpoint_unpickled": false,
+    "cuda_executed": false,
+    "gpu_job_submitted": false,
+    "full_model_cache_qualified": false,
+    "loop_cache_qualified": false,
+    "task_3_complete": false
+  }
+}

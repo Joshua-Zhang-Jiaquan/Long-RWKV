@@ -1,0 +1,206 @@
+
+== PPL: loop-s9500 - N2-s4000 (per-doc paired, causal arm, nats)
+  lambada      n=5153   delta=-0.0012 ci95=±0.0007  loop BETTER (CI)
+  lm1b         n=10000  delta=-0.1859 ci95=±0.0023  loop BETTER (CI)
+  owt          n=16000  delta=+0.0085 ci95=±0.0002  loop WORSE (CI)
+  pg19         n=16000  delta=+0.0005 ci95=±0.0001  loop WORSE (CI)
+  wikitext103  n=999    delta=-0.0099 ci95=±0.0007  loop BETTER (CI)
+  -> better=3 worse=2 (PRIMARY needs >=2 better, no delta > +0.03)
+
+== PPL: loop-s9500 - N2-s6000 (per-doc paired, causal arm, nats)
+  lambada      n=5153   delta=-0.0191 ci95=±0.0008  loop BETTER (CI)
+  lm1b         n=10000  delta=-0.1512 ci95=±0.0025  loop BETTER (CI)
+  owt          n=16000  delta=-0.0224 ci95=±0.0002  loop BETTER (CI)
+  pg19         n=16000  delta=-0.0109 ci95=±0.0002  loop BETTER (CI)
+  wikitext103  n=999    delta=+0.0083 ci95=±0.0008  loop WORSE (CI)
+  -> better=4 worse=1 (PRIMARY needs >=2 better, no delta > +0.03)
+
+== PPL: loop-s9500 reps2 - reps1 (W-A5) (per-doc paired, causal arm, nats)
+  lambada      n=5153   delta=-0.0007 ci95=±0.0001  loop BETTER (CI)
+  lm1b         n=10000  delta=-0.0090 ci95=±0.0003  loop BETTER (CI)
+  owt          n=16000  delta=+0.0002 ci95=±0.0000  loop WORSE (CI)
+  pg19         n=16000  delta=+0.0001 ci95=±0.0000  loop WORSE (CI)
+  wikitext103  n=999    delta=+0.0010 ci95=±0.0001  loop WORSE (CI)
+  -> better=2 worse=3 (PRIMARY needs >=2 better, no delta > +0.03)
+
+== PPL: loop-s9500 reps3 - reps1 (W-A5) (per-doc paired, causal arm, nats)
+  lambada      n=5153   delta=-0.0007 ci95=±0.0002  loop BETTER (CI)
+  lm1b         n=10000  delta=-0.0174 ci95=±0.0006  loop BETTER (CI)
+  owt          n=16000  delta=+0.0011 ci95=±0.0000  loop WORSE (CI)
+  pg19         n=16000  delta=+0.0008 ci95=±0.0000  loop WORSE (CI)
+  wikitext103  n=999    delta=+0.0024 ci95=±0.0002  loop WORSE (CI)
+  -> better=2 worse=3 (PRIMARY needs >=2 better, no delta > +0.03)
+
+== PPL: loop-s9500 reps4 - reps1 (W-A5) (per-doc paired, causal arm, nats)
+  lambada      n=5153   delta=-0.0001 ci95=±0.0003  wash
+  lm1b         n=10000  delta=-0.0251 ci95=±0.0008  loop BETTER (CI)
+  owt          n=16000  delta=+0.0025 ci95=±0.0001  loop WORSE (CI)
+  pg19         n=16000  delta=+0.0020 ci95=±0.0001  loop WORSE (CI)
+  wikitext103  n=999    delta=+0.0046 ci95=±0.0002  loop WORSE (CI)
+  -> better=1 worse=3 (PRIMARY needs >=2 better, no delta > +0.03)
+
+== DECODE: loop-s9500 - N2-s4000 (paired by document_id+seed)
+  r100_s1   em            n=256   delta=-0.0000 ci95=±0.0012  ~0
+  r100_s1   max_run_frac  n=256   delta=-0.2148 ci95=±0.0000  WORSE
+  r100_s1   distinct_frac n=256   delta=-0.0029 ci95=±0.0000  WORSE
+  r100_s16  em            n=256   delta=-0.0000 ci95=±0.0006  ~0
+  r100_s16  max_run_frac  n=256   delta=+0.8613 ci95=±0.0000  BETTER
+  r100_s16  distinct_frac n=256   delta=-0.0059 ci95=±0.0000  WORSE
+  r100_s32  em            n=256   delta=+0.0001 ci95=±0.0001  BETTER
+  r100_s32  max_run_frac  n=256   delta=+0.2217 ci95=±0.0000  BETTER
+  r100_s32  distinct_frac n=256   delta=-0.0039 ci95=±0.0000  WORSE
+  r100_s64  em            n=256   delta=+0.0002 ci95=±0.0001  BETTER
+  r100_s64  max_run_frac  n=256   delta=+0.2539 ci95=±0.0000  BETTER
+  r100_s64  distinct_frac n=256   delta=-0.0068 ci95=±0.0000  WORSE
+  r100_s8   em            n=256   delta=-0.0003 ci95=±0.0007  ~0
+  r100_s8   max_run_frac  n=256   delta=+0.6846 ci95=±0.0000  BETTER
+  r100_s8   distinct_frac n=256   delta=-0.0059 ci95=±0.0000  WORSE
+  r70_s1    em            n=256   delta=+0.0024 ci95=±0.0009  BETTER
+  r70_s16   em            n=256   delta=+0.0030 ci95=±0.0017  BETTER
+  r70_s32   em            n=256   delta=+0.0032 ci95=±0.0018  BETTER
+  r70_s64   em            n=256   delta=+0.0007 ci95=±0.0018  ~0
+  r70_s8    em            n=256   delta=+0.0018 ci95=±0.0016  BETTER
+  r95_s1    em            n=256   delta=+0.0011 ci95=±0.0005  BETTER
+  r95_s16   em            n=256   delta=+0.0009 ci95=±0.0010  ~0
+  r95_s32   em            n=256   delta=+0.0003 ci95=±0.0009  ~0
+  r95_s32   max_run_frac  n=256   delta=+0.0025 ci95=±0.0033  ~0
+  r95_s32   distinct_frac n=256   delta=-0.0025 ci95=±0.0030  ~0
+  r95_s64   em            n=256   delta=+0.0015 ci95=±0.0009  BETTER
+  r95_s8    em            n=256   delta=+0.0010 ci95=±0.0009  BETTER
+  r95_s8    max_run_frac  n=256   delta=+0.0046 ci95=±0.0027  BETTER
+  r99_s1    em            n=256   delta=+0.0009 ci95=±0.0005  BETTER
+  r99_s1    max_run_frac  n=256   delta=-0.0040 ci95=±0.0097  ~0
+  r99_s16   em            n=256   delta=+0.0013 ci95=±0.0009  BETTER
+  r99_s16   max_run_frac  n=256   delta=-0.0051 ci95=±0.0123  ~0
+  r99_s32   em            n=256   delta=+0.0019 ci95=±0.0012  BETTER
+  r99_s32   max_run_frac  n=256   delta=-0.0042 ci95=±0.0189  ~0
+  r99_s32   distinct_frac n=256   delta=-0.0021 ci95=±0.0010  WORSE
+  r99_s64   em            n=256   delta=+0.0014 ci95=±0.0013  BETTER
+  r99_s64   distinct_frac n=256   delta=-0.0036 ci95=±0.0018  WORSE
+  r99_s8    em            n=256   delta=+0.0005 ci95=±0.0007  ~0
+  r99_s8    max_run_frac  n=256   delta=+0.0093 ci95=±0.0107  ~0
+
+== DECODE: loop-s9500 - N2-s6000 (paired by document_id+seed)
+  r100_s1   em            n=256   delta=-0.0002 ci95=±0.0008  ~0
+  r100_s1   max_run_frac  n=256   delta=-0.0068 ci95=±0.0000  WORSE
+  r100_s16  em            n=256   delta=+0.0000 ci95=±0.0000  ~0
+  r100_s32  em            n=256   delta=-0.0000 ci95=±0.0001  ~0
+  r100_s32  max_run_frac  n=256   delta=+0.0557 ci95=±0.0000  BETTER
+  r100_s64  em            n=256   delta=+0.0000 ci95=±0.0000  ~0
+  r100_s8   em            n=256   delta=-0.0000 ci95=±0.0000  ~0
+  r70_s1    em            n=256   delta=+0.0003 ci95=±0.0008  ~0
+  r70_s16   em            n=256   delta=+0.0007 ci95=±0.0014  ~0
+  r70_s32   em            n=256   delta=-0.0003 ci95=±0.0017  ~0
+  r70_s64   em            n=256   delta=+0.0006 ci95=±0.0019  ~0
+  r70_s8    em            n=256   delta=-0.0011 ci95=±0.0015  ~0
+  r95_s1    em            n=256   delta=-0.0002 ci95=±0.0004  ~0
+  r95_s16   em            n=256   delta=-0.0003 ci95=±0.0008  ~0
+  r95_s16   max_run_frac  n=256   delta=+0.0040 ci95=±0.0032  BETTER
+  r95_s16   distinct_frac n=256   delta=-0.0020 ci95=±0.0020  WORSE
+  r95_s32   em            n=256   delta=-0.0003 ci95=±0.0009  ~0
+  r95_s64   em            n=256   delta=+0.0005 ci95=±0.0009  ~0
+  r95_s64   distinct_frac n=256   delta=-0.0024 ci95=±0.0032  ~0
+  r95_s8    em            n=256   delta=-0.0002 ci95=±0.0008  ~0
+  r99_s1    em            n=256   delta=+0.0004 ci95=±0.0004  BETTER
+  r99_s16   em            n=256   delta=-0.0002 ci95=±0.0008  ~0
+  r99_s16   max_run_frac  n=256   delta=-0.0036 ci95=±0.0095  ~0
+  r99_s32   em            n=256   delta=+0.0006 ci95=±0.0011  ~0
+  r99_s32   max_run_frac  n=256   delta=-0.0033 ci95=±0.0194  ~0
+  r99_s64   em            n=256   delta=+0.0002 ci95=±0.0012  ~0
+  r99_s64   max_run_frac  n=256   delta=+0.0060 ci95=±0.0151  ~0
+  r99_s8    em            n=256   delta=-0.0004 ci95=±0.0005  ~0
+  r99_s8    max_run_frac  n=256   delta=+0.0103 ci95=±0.0108  ~0
+
+== DECODE: loop-s9500 reps2 - reps1 (W-A5 decode) (paired by document_id+seed)
+  r100_s1   em            n=256   delta=-0.0000 ci95=±0.0005  ~0
+  r100_s1   max_run_frac  n=256   delta=+0.0107 ci95=±0.0000  BETTER
+  r100_s16  em            n=256   delta=+0.0000 ci95=±0.0000  ~0
+  r100_s32  em            n=256   delta=+0.0000 ci95=±0.0000  ~0
+  r100_s64  em            n=256   delta=+0.0000 ci95=±0.0000  ~0
+  r100_s8   em            n=256   delta=+0.0000 ci95=±0.0000  ~0
+  r70_s1    em            n=256   delta=-0.0001 ci95=±0.0003  ~0
+  r70_s16   em            n=256   delta=+0.0002 ci95=±0.0010  ~0
+  r70_s32   em            n=256   delta=-0.0001 ci95=±0.0012  ~0
+  r70_s64   em            n=256   delta=+0.0002 ci95=±0.0014  ~0
+  r70_s8    em            n=256   delta=+0.0000 ci95=±0.0010  ~0
+  r95_s1    em            n=256   delta=+0.0000 ci95=±0.0002  ~0
+  r95_s16   em            n=256   delta=+0.0004 ci95=±0.0008  ~0
+  r95_s16   distinct_frac n=256   delta=-0.0034 ci95=±0.0017  WORSE
+  r95_s32   em            n=256   delta=+0.0004 ci95=±0.0008  ~0
+  r95_s32   distinct_frac n=256   delta=-0.0024 ci95=±0.0023  WORSE
+  r95_s64   em            n=256   delta=-0.0002 ci95=±0.0009  ~0
+  r95_s64   distinct_frac n=256   delta=-0.0021 ci95=±0.0026  ~0
+  r95_s8    em            n=256   delta=+0.0005 ci95=±0.0007  ~0
+  r99_s1    em            n=256   delta=-0.0002 ci95=±0.0002  ~0
+  r99_s1    max_run_frac  n=256   delta=-0.0027 ci95=±0.0043  ~0
+  r99_s16   em            n=256   delta=-0.0001 ci95=±0.0006  ~0
+  r99_s16   max_run_frac  n=256   delta=+0.0023 ci95=±0.0087  ~0
+  r99_s32   em            n=256   delta=+0.0005 ci95=±0.0009  ~0
+  r99_s32   max_run_frac  n=256   delta=+0.0063 ci95=±0.0155  ~0
+  r99_s64   em            n=256   delta=+0.0012 ci95=±0.0012  BETTER
+  r99_s64   max_run_frac  n=256   delta=+0.0058 ci95=±0.0147  ~0
+  r99_s8    em            n=256   delta=+0.0000 ci95=±0.0004  ~0
+  r99_s8    max_run_frac  n=256   delta=-0.0022 ci95=±0.0060  ~0
+
+== DECODE: loop-s9500 reps4 - reps1 (W-A5 decode) (paired by document_id+seed)
+  r100_s1   em            n=256   delta=-0.0002 ci95=±0.0007  ~0
+  r100_s1   max_run_frac  n=256   delta=+0.0781 ci95=±0.0000  BETTER
+  r100_s16  em            n=256   delta=-0.0001 ci95=±0.0006  ~0
+  r100_s16  max_run_frac  n=256   delta=-0.1699 ci95=±0.0000  WORSE
+  r100_s32  em            n=256   delta=+0.0000 ci95=±0.0005  ~0
+  r100_s32  max_run_frac  n=256   delta=-0.1406 ci95=±0.0000  WORSE
+  r100_s64  em            n=256   delta=-0.0000 ci95=±0.0002  ~0
+  r100_s64  max_run_frac  n=256   delta=-0.1123 ci95=±0.0000  WORSE
+  r100_s8   em            n=256   delta=-0.0003 ci95=±0.0006  ~0
+  r100_s8   max_run_frac  n=256   delta=-0.1943 ci95=±0.0000  WORSE
+  r70_s1    em            n=256   delta=-0.0001 ci95=±0.0004  ~0
+  r70_s1    distinct_frac n=256   delta=-0.0039 ci95=±0.0003  WORSE
+  r70_s16   em            n=256   delta=-0.0006 ci95=±0.0013  ~0
+  r70_s16   distinct_frac n=256   delta=-0.0029 ci95=±0.0010  WORSE
+  r70_s32   em            n=256   delta=-0.0003 ci95=±0.0013  ~0
+  r70_s64   em            n=256   delta=-0.0010 ci95=±0.0014  ~0
+  r70_s8    em            n=256   delta=-0.0002 ci95=±0.0012  ~0
+  r70_s8    distinct_frac n=256   delta=-0.0025 ci95=±0.0010  WORSE
+  r95_s1    em            n=256   delta=+0.0000 ci95=±0.0003  ~0
+  r95_s16   em            n=256   delta=+0.0011 ci95=±0.0008  BETTER
+  r95_s16   max_run_frac  n=256   delta=-0.0033 ci95=±0.0027  WORSE
+  r95_s16   distinct_frac n=256   delta=-0.0057 ci95=±0.0017  WORSE
+  r95_s32   em            n=256   delta=+0.0012 ci95=±0.0008  BETTER
+  r95_s32   max_run_frac  n=256   delta=-0.0045 ci95=±0.0033  WORSE
+  r95_s32   distinct_frac n=256   delta=-0.0036 ci95=±0.0024  WORSE
+  r95_s64   em            n=256   delta=+0.0005 ci95=±0.0009  ~0
+  r95_s64   max_run_frac  n=256   delta=-0.0033 ci95=±0.0030  WORSE
+  r95_s64   distinct_frac n=256   delta=-0.0041 ci95=±0.0028  WORSE
+  r95_s8    em            n=256   delta=+0.0019 ci95=±0.0008  BETTER
+  r95_s8    max_run_frac  n=256   delta=-0.0034 ci95=±0.0024  WORSE
+  r95_s8    distinct_frac n=256   delta=-0.0047 ci95=±0.0009  WORSE
+  r99_s1    em            n=256   delta=-0.0003 ci95=±0.0004  ~0
+  r99_s1    max_run_frac  n=256   delta=-0.0034 ci95=±0.0076  ~0
+  r99_s16   em            n=256   delta=+0.0005 ci95=±0.0007  ~0
+  r99_s16   max_run_frac  n=256   delta=-0.0028 ci95=±0.0115  ~0
+  r99_s32   em            n=256   delta=+0.0003 ci95=±0.0010  ~0
+  r99_s64   em            n=256   delta=+0.0018 ci95=±0.0011  BETTER
+  r99_s64   max_run_frac  n=256   delta=-0.0056 ci95=±0.0141  ~0
+  r99_s8    em            n=256   delta=-0.0002 ci95=±0.0005  ~0
+  r99_s8    max_run_frac  n=256   delta=-0.0134 ci95=±0.0092  WORSE
+
+== MMLU curve (tracked, non-gating)
+  step   500  mmlu 50.50
+  step  1000  mmlu 49.50
+  step  1500  mmlu 47.50
+  step  2000  mmlu 46.50
+  step  2500  mmlu 48.50
+  step  3000  mmlu 50.00
+  step  3500  mmlu 48.50
+  step  4000  mmlu 47.00
+  step  4500  mmlu 47.50
+  step  4750  mmlu 47.00
+
+N2 MMLU refs: s2000=46.5 s4000=47.5 s6000=48.0
+
+== W-A5 PPL depth curve at s9500 (reps - reps1, paired)
+reps2: lambada=-0.0007 lm1b=-0.0090 owt=+0.0002 pg19=+0.0001 wikitext103=+0.0010
+reps3: lambada=-0.0007 lm1b=-0.0174 owt=+0.0011 pg19=+0.0008 wikitext103=+0.0024
+reps4: lambada=-0.0001 lm1b=-0.0251 owt=+0.0025 pg19=+0.0020 wikitext103=+0.0046
+
+== MMLU s9500: 94/200 = 47.0 (N2 s9500 = 45.5)

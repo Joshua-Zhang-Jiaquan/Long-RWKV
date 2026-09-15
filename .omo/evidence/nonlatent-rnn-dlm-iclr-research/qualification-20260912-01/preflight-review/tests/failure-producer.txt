@@ -1,0 +1,9 @@
+COMMAND: CPU-only `unittest.mock.patch` of `probe._run` to raise AssertionError and TypeError through the real `probe.main` boundary. No torch/FLA/CUDA import. TemporaryDirectory cleaned in-process.
+FIRST ATTEMPT: reviewer command had a Python quoting SyntaxError; no payload code ran and no artifact was retained.
+CORRECTED EXIT_CODE: 0 (outer inspection command)
+OUTPUT:
+AssertionError=UNHANDLED:AssertionError:assert_close_failed:rank_file_exists=False
+TypeError=UNHANDLED:TypeError:api_signature_failed:rank_file_exists=False
+cleanup=TemporaryDirectory.cleanup_called
+
+VERDICT: FAIL. `probe.main` catches neither the exception emitted by `torch.testing.assert_close` nor API/signature TypeError, so those failures produce no named per-rank terminal record.

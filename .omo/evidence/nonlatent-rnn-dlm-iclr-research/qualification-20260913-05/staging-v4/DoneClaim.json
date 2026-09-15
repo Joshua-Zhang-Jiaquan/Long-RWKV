@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "claim": "v4_owned_model_origin_fix_staged_frozen_and_cpu_preflight_verified",
+  "status": "READY_FOR_FOCUSED_INDEPENDENT_ORIGIN_REVIEW_NO_LIVE_OR_GPU_CLAIM",
+  "release_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4",
+  "model_source_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4/model_source/scale",
+  "launcher_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+  "launcher_sha256": "3ebe224805a78606b766ce4122664a6bcf5ba33505872d44be534ace5273ba3a",
+  "runtime_manifest_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4/scale/experiments/nonlatent_iclr/qualification/runtime_manifest.json",
+  "runtime_manifest_sha256": "9204381bd606157440c8113556798ab4d271edd4210a44249a67139253986004",
+  "runtime_manifest_file_count": 109,
+  "source_inventory_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4/scale/experiments/nonlatent_iclr/qualification/model_source_inventory.json",
+  "source_inventory_sha256": "accee7d02191adbe105cdc823218a188615be9ea1be93bbf047bf2d4ed26f23d",
+  "actual_receipts": [
+    "v3_red_6_failed_5_passed_in_1.55_seconds",
+    "v4_focused_11_passed_in_1.59_seconds",
+    "strict_CPU_preflight_PREFLIGHT_VERIFIED_109_files",
+    "hostile_CWD_environment_MATCH_with_owned_sys_path_0_and_1",
+    "final_regression_189_passed_in_23.81_seconds",
+    "LSP_0_diagnostics_and_no_excuse_0_violations",
+    "shell_syntax_PASS_and_recursive_write_bits_removed"
+  ],
+  "not_claimed": [
+    "independent_review_approval",
+    "controller_request_or_receipt",
+    "qz_job_submission",
+    "CUDA_execution",
+    "model_unpickle_or_construction",
+    "GPU_runtime_success",
+    "known_image_digest",
+    "full_model_cache_qualification"
+  ],
+  "next_step": "focused_independent_review_of_origin_fix_only",
+  "jobs_submitted": 0,
+  "gpu_hours_consumed": 0,
+  "independent_review": "PENDING"
+}

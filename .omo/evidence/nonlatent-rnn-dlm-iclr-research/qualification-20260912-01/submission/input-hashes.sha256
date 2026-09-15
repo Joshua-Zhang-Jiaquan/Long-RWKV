@@ -1,0 +1,7 @@
+e7af34a994015297c7eff4e209fff6029cdc47de8c6f3456a7bc108539de0f82  .omo/authorizations/nonlatent-h100-qualification-20260912-01.json
+dba8085eba8025c70f913173cb6d44db284b1edad1d14e81e157ad28f90331b2  .omo/plans/nonlatent-rnn-dlm-iclr-research.md
+00ddbe818b4bc07fd9e6a76a57e4f98585e94d332086e2357b778b838a01466c  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-01/payload-final2/launch-contract.json
+1e87c1cf0d7856f72578fb47351ae4fccec2c55a4c0ec629d08b6822f5775827  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-01/payload-final2/controller-receipt-contract.json
+3d1df1da5a813bc28b6088467b3374b3b0154ea32e7af7b65096fd8b579eade1  .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-01/payload-final2/contract.md
+9202801258c8e35739e2d08e42dce2115d2061dc1a189bad953ae57d9a37f121  scale/experiments/nonlatent_iclr/qualification/controller_receipt.py
+92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c  scale/experiments/nonlatent_iclr/qualification/runtime_manifest.json

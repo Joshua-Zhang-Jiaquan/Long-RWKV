@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "campaign_authorization_id": "nonlatent-gpu-campaign-20260912",
+  "campaign_authorization_sha256": "067e063296ab8a738ec796afb3e92aa2732a0da261360285a591c84c05221b0a",
+  "permit_id": "permit-nonlatent-gpu-campaign-20260912-e42a9149-a2da-429a-b0c5-a8315c07f7d2",
+  "grant_instance_id": "grant-qualification-20260912-02-2e9052ad-a45a-4e6d-868b-1dc2b3415039",
+  "legacy_runtime_profile_id": "nonlatent-h100-qualification-20260912-01",
+  "run_id": "qualification-20260912-01-28575096-6ce0-4fd8-9e86-3e3804c86c14",
+  "nonce": "0f5967954a5daa239f738de73b7c4649",
+  "job_name": "qualification-20260912-01-28575096-6ce0-4fd8-9e86-3e3804c86c14",
+  "request_path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-02/submission/exact_job_spec.json",
+  "permit_path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-02/submission/permit.json",
+  "submitted_request_sha256": "ece8b1bf041f31ee84bb9b400d21856c31c458770982b75568b7be31c6f0c42e",
+  "controller_receipt_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/controller-receipts/qualification-20260912-01-28575096-6ce0-4fd8-9e86-3e3804c86c14.json",
+  "source_manifest_sha256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+  "maximum_real_createjob_calls": 1,
+  "status": "NOT_SUBMITTED",
+  "created_at_utc": "2026-09-13T02:50:11Z"
+}

@@ -1,0 +1,13 @@
+# Versioned worker qualification release handoff
+
+The versioned successor is frozen at `/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-v2`. Its exact launcher is `scale/experiments/nonlatent_iclr/qualification/run_qualification.sh`, SHA-256 `7630248033630f8331b1f3671b7124f328b9d31da69af266369409ed76c8943c`. Its adjacent 41-file manifest has SHA-256 `218a0cacbaba8ecf541d2e72386b4bf070cfde6d230fbf0306ebfb50559523fb`.
+
+The checkpoint binding now uses `/inspire/hdd/global_user/zhangjiaquan-253108540222/m2_baseline_triangle/m4loop_endpoint_ckpt`. `meta.json` remains the reviewed 43-byte step-4750 record with SHA-256 `321ce0465b2cedb13c870c1ad4ec2c7c36d14cd37670e9caa018b9e63954e7ef`; `model.pt` remains 16,367,167,378 bytes with SHA-256 `ffaa464dabb3291c40749bbac4d6805e8a47082e3e2b082e0240365ffc525c07`. No weights were copied, loaded, unpickled, reconstructed, or changed.
+
+Before strict manifest validation, the launcher now runs the 228-pure-LOC stdlib-only `runtime_environment.py` as a standalone absolute script. It records requested and resolved roots, all six manifest distribution versions, and bounded hashes for the eight small package-source files to both stdout and `runtime_environment.json`. Expected and observed values remain distinct. A mismatch is diagnostic only and cannot weaken the unchanged strict manifest/package checks.
+
+The final CPU environment diagnostic is `MATCH`, with no Torch, FLA, transformers, or CUDA imports. The strict CPU preflight hashed and size-checked all 41 entries and returned `PREFLIGHT_VERIFIED`; all six exact manifest distribution versions matched. The final combined suite passed 168 tests in 19.96 seconds. Shell syntax/help, package-context LSP diagnostics, Python no-excuse checks, global-only import controls, and recursive read-only permissions also passed.
+
+The prior release remains untouched and read-only, with manifest SHA-256 `49cdef9722351a951ed7f36a679708905df30a19801e7d2eaa7493144638869f`. The project qualification source and model history were not rewritten.
+
+No controller request or receipt was created and no job was submitted. The prior authorization records `new_attempt_authorized: false`; it must not be reused. After independent review, obtain fresh explicit authorization, reserve a new unique run ID, and build a fresh controller request that pins this release path, launcher, and manifest SHA-256. Only then may the reviewed one-node/eight-H100 live qualification be submitted with zero automatic retries and the existing 1,800-second scheduler cap.

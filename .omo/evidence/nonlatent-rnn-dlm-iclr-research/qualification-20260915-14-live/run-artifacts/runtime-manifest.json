@@ -1,0 +1,819 @@
+{
+  "expected_image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+  "files": [
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/__init__.py",
+      "role": "payload",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/__init__.py",
+      "role": "payload",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/__init__.py",
+      "role": "payload",
+      "sha256": "9b47ccc1514d28d20f7f9e9ba92d717bf8f1bf3c9b022903152c977d3f560ade",
+      "size_bytes": 300
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/full_canvas.py",
+      "role": "payload",
+      "sha256": "1e5400e4283744d6c29ce533f0138b2b3e2b7bcd78b1a64b668a79f97c6b3e22",
+      "size_bytes": 5944
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/contract.py",
+      "role": "payload",
+      "sha256": "e365b777e422394472d162c7fbb8a3e1097e0d9a19bea337dd8952bf588d2fc1",
+      "size_bytes": 3834
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/inventory.py",
+      "role": "payload",
+      "sha256": "dd2616678441420f0becdf1bbf41e2b598dfa1e681979cd292ab81c05e57375f",
+      "size_bytes": 8158
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/models.py",
+      "role": "payload",
+      "sha256": "5e61b4c01ea90586a0d44116c5aa8f8914b195a0cd350309338f732aeabed127",
+      "size_bytes": 3496
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/publication.py",
+      "role": "payload",
+      "sha256": "290f15b8e88c34e215550882da4d1605500b99dae29ce3c8b4b58f023a5000a9",
+      "size_bytes": 2923
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/schema.py",
+      "role": "payload",
+      "sha256": "4ab390650b3920f7d72a46b586cafb16109f73c6d9c0c6e00e1af2c68ab5f455",
+      "size_bytes": 9332
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/__init__.py",
+      "role": "payload",
+      "sha256": "61815d8ea8522b2a57d5ecf04088416427ec53d50df4d5ec735421456ef820a6",
+      "size_bytes": 60
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/controller_receipt.py",
+      "role": "payload",
+      "sha256": "9202801258c8e35739e2d08e42dce2115d2061dc1a189bad953ae57d9a37f121",
+      "size_bytes": 5472
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/evidence_contracts.py",
+      "role": "payload",
+      "sha256": "d36b8d8442871b39caa04f7a2dde3c11aa3bd99d9cf05dc89a7cf5ee2aee6b1e",
+      "size_bytes": 6483
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/contracts.py",
+      "role": "payload",
+      "sha256": "ff1d638a3779491e48f2e23c7b93581a39eb9e7d8f4a650b21ebbf2064c69f25",
+      "size_bytes": 4208
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/manifest.py",
+      "role": "payload",
+      "sha256": "1c9bd38b71dc5b22d305fe65ac5c6403f08443f449bd0f58e6a550835823ce65",
+      "size_bytes": 8161
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/controls.py",
+      "role": "payload",
+      "sha256": "ea440dbf993eb7b92a0bdeb992b43d35766db06b75a4547ace132e554d455c03",
+      "size_bytes": 6071
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/runtime_config.py",
+      "role": "payload",
+      "sha256": "37db5304398a7f231d53947c34f4d73b4087dea6ef3c8e0168b3a7ef66e3cffb",
+      "size_bytes": 8010
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/runtime_environment.py",
+      "role": "payload",
+      "sha256": "aeb15fe3ef7c6f8b81570a8e9c86cc773eb77b23091bd115fb4c89489acf3a69",
+      "size_bytes": 8744
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/model_checks.py",
+      "role": "payload",
+      "sha256": "c2d91329cbbe17c156123fead6a88f7661a7f7fa922203ac30fd4b640d391e0b",
+      "size_bytes": 9393
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/runtime_checks.py",
+      "role": "payload",
+      "sha256": "001ad5090ff3dbeac21ec8e2f9dcba8e51b5e4c20629c900c11c3e2cabade06d",
+      "size_bytes": 9719
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/runtime_identity.py",
+      "role": "payload",
+      "sha256": "6b2b1001856e3e438f12e1e57f6c6832e29b726829519481dbc5bdf63c8fb234",
+      "size_bytes": 3005
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/probe.py",
+      "role": "payload",
+      "sha256": "58fdb178af5a20a78e187ba79680fac5505e19f23df2e25a5089142054e399bc",
+      "size_bytes": 3227
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/cli.py",
+      "role": "payload",
+      "sha256": "1ad978d2608ef8abd627b117f3c3788aca748b175ffbdcbe89293392d22d076a",
+      "size_bytes": 6188
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+      "role": "payload",
+      "sha256": "ecef91963fa7800197055daeaa9b223cd91cf589ebef09d7af3b0f9e440f6694",
+      "size_bytes": 12709
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/model_source_inventory.json",
+      "role": "payload",
+      "sha256": "205a295dda8f6ea2e632b5d2c628c9f1685dc99948ad97e174b99c11e42c5436",
+      "size_bytes": 53891
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/bytecode_guard.sh",
+      "role": "payload",
+      "sha256": "b5bcff58019e09a2acee0bf0ea6b4839371f91c3e25c32982d56f47f5c3b8a09",
+      "size_bytes": 2133
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/__init__.py",
+      "role": "staged_source",
+      "sha256": "88592fdfb49695edf513a5d5b6c6e17ae58d28c16c7b2a1953050ea93dd09ca1",
+      "size_bytes": 138
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/birwkv7_diffusion.py",
+      "role": "staged_source",
+      "sha256": "e6d90ce843f722f235c3e88b894ffe060847e2b5cdda5b793af801f03f865858",
+      "size_bytes": 77426
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/boundary_field.py",
+      "role": "staged_source",
+      "sha256": "402275883653a34c2630ed477312bc12af9bbec7a3235d707c7d0933510cadff",
+      "size_bytes": 5490
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/hidden_block_capture.py",
+      "role": "staged_source",
+      "sha256": "19d1310c1e21c54ba16c6ae6a60053e11d4a5833f28a538ee474becddc086ad4",
+      "size_bytes": 9293
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/latent_grid_diffrwkv.py",
+      "role": "staged_source",
+      "sha256": "4bab6bc0bf89b146f3bd26bd548e3b72df6abbd71c6585ce0ef914d91152a2f9",
+      "size_bytes": 28684
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/latent_plan.py",
+      "role": "staged_source",
+      "sha256": "a617596b7681a128478aeeda9b8fbb27e98a906e3457b39086bf647ec4f65a71",
+      "size_bytes": 19064
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/residual_streams.py",
+      "role": "staged_source",
+      "sha256": "5ba645d5924b1782c60fccd8a17dec26bc904e3675f2f1834d9e948cac7e9b68",
+      "size_bytes": 9184
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_backbone_pool.py",
+      "role": "staged_source",
+      "sha256": "5580d146ff8bad66f44e1f95260ae4a922e44e280e047c7961c4996ac92466c4",
+      "size_bytes": 1486
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_cache.py",
+      "role": "staged_source",
+      "sha256": "65dc078a5d93a768cd2749918fce0484724a52076e12216298d76c64677a0d5e",
+      "size_bytes": 3100
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_collapse_monitors.py",
+      "role": "staged_source",
+      "sha256": "c1401d03b37db20d802499219fb18a161f44c49cbce6380778102cc40fbce6b1",
+      "size_bytes": 3637
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_diagnostics.py",
+      "role": "staged_source",
+      "sha256": "210b9aea5dbcfdabd1c786687ceb88344d1aa5798a7ee5bd7467ae071dc65235",
+      "size_bytes": 2129
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_diffusion.py",
+      "role": "staged_source",
+      "sha256": "a70b4a14a286ef3a25fd2da39c3d5c06ae9727ae6e3a08d9cd552396b579d497",
+      "size_bytes": 3716
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_diffusion_state.py",
+      "role": "staged_source",
+      "sha256": "466e5ff25e77aca91ea50b3e996fda43dfa2d5a2626bf0ca6fb6019298c6c7a3",
+      "size_bytes": 2656
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_dit.py",
+      "role": "staged_source",
+      "sha256": "9138cbd1ab210026ab25e45d61409d90922e80053caebaa1018fcf7e6479c0f6",
+      "size_bytes": 60871
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_dit_components.py",
+      "role": "staged_source",
+      "sha256": "ccdd0eddae084c4001b42812462ee4823dfceb2369b6a552c8fa659c8476d7ae",
+      "size_bytes": 9890
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_dit_torch_types.py",
+      "role": "staged_source",
+      "sha256": "85c045d3dccf6873843aef48ca46cb137e50cddb23238573fbc224f6b26e5ce1",
+      "size_bytes": 1835
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_dit_trajectory_decoder_request.py",
+      "role": "staged_source",
+      "sha256": "4c88a6d14df4b5260347c92ba3bd92f4c6a8d694c050e2987b899cd5fe7c6ce3",
+      "size_bytes": 490
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_forward_result.py",
+      "role": "staged_source",
+      "sha256": "e0e958eb139b0b49ce7ca78998a745fff3dec7605cc94b8f4be320fe14f1212c",
+      "size_bytes": 2461
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_gumbel_schedule.py",
+      "role": "staged_source",
+      "sha256": "afdb5bdb3e302b8f34c7b318cc9db3344797a9edd3555189771beee6d7668801",
+      "size_bytes": 4260
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_latent_ar.py",
+      "role": "staged_source",
+      "sha256": "3012dbcd900047ee738189e097017e35b50b79fef573589c8be0815fa7f8c17a",
+      "size_bytes": 3476
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_latent_ar_decode.py",
+      "role": "staged_source",
+      "sha256": "a3f1dd354b5e3e85deaaaa2f6baddf77be4a9b57644dc17b87bc6d1a50fd2f7e",
+      "size_bytes": 1994
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_latent_ar_facade.py",
+      "role": "staged_source",
+      "sha256": "484fd0655bbe41f12d5a606cb8a046c2326f78619ca23b42347448f76f405a37",
+      "size_bytes": 1629
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_latent_ar_token_logits.py",
+      "role": "staged_source",
+      "sha256": "001cc5335543934f80350cda51b306f7cfb845fb8499a3c3311c61ffdd1b320a",
+      "size_bytes": 3243
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_latent_ar_tokens.py",
+      "role": "staged_source",
+      "sha256": "6d0a12da20aea6c9a0d92a884cf3c4647b9519a903652182e003e41301375107",
+      "size_bytes": 2553
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_latent_blend.py",
+      "role": "staged_source",
+      "sha256": "7b02cd3a931e7a7b1cdf60006ecf6365cc1ba4c301c63984d8d63a1e83acd318",
+      "size_bytes": 1491
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_latent_grid_errors.py",
+      "role": "staged_source",
+      "sha256": "2a26e88e0ea64ec41b60138c99de12da3436df141b3331784324dceae01f0af1",
+      "size_bytes": 2277
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_latent_grid_lineage.py",
+      "role": "staged_source",
+      "sha256": "b5dc4f90f646091e85599fd3e1d4bf87901e8395085875f82c1068968b751414",
+      "size_bytes": 5959
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_losses.py",
+      "role": "staged_source",
+      "sha256": "86afa61433a47848500f6655abc6820bc45c977a9a6a950a2af0207f5e99654d",
+      "size_bytes": 3111
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_pooling.py",
+      "role": "staged_source",
+      "sha256": "d5fbb87fcae57bca61946c173726f0014a7342dd07c699100c6052beb159cb2d",
+      "size_bytes": 548
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_prefix.py",
+      "role": "staged_source",
+      "sha256": "8d55a53ebfa74cfa14ce40f9af22e1bdb480b7b56a3a11f5b8dae722fa11346a",
+      "size_bytes": 2134
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_prefix_diffusion.py",
+      "role": "staged_source",
+      "sha256": "92fedcc59363d6123e271c67ad9ba8507f79532f3fa74106194b4e93c42a8f3c",
+      "size_bytes": 5160
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_prefix_state.py",
+      "role": "staged_source",
+      "sha256": "83b50242f90772e09960dec0408b9b62c14e9d068d003f26965b5fb013dbd846",
+      "size_bytes": 5521
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_prefix_trajectory_diffusion.py",
+      "role": "staged_source",
+      "sha256": "791cf28cfdd89181c9c02393677302b33846909ec5120c17ebb32f5c32e70bd3",
+      "size_bytes": 4633
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_prefix_trajectory_state.py",
+      "role": "staged_source",
+      "sha256": "f33118610f02d195230dd71bb80c0c10a7919eb7c5773c211ef5e0139f3a6918",
+      "size_bytes": 2842
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_prefix_trajectory_state_route.py",
+      "role": "staged_source",
+      "sha256": "4ba86f3abe2eb4f4787125c54b21c79eb9c1416f64100c96ad7cdae6c618a11b",
+      "size_bytes": 3548
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_alpha_setup.py",
+      "role": "staged_source",
+      "sha256": "1404c364ce87ec774fc989650d42543fee65dd67c45f4126dcd19d0757fbf38e",
+      "size_bytes": 2006
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_backbone.py",
+      "role": "staged_source",
+      "sha256": "83cfed2efd6ea2da30ff72029c6bac3f826b076d4647667ba6badd688e13882a",
+      "size_bytes": 1839
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_encoder_setup.py",
+      "role": "staged_source",
+      "sha256": "0955c11241aa5f40c6ae029d24646dce8165e5b862f4661c493fdcfb6801fc82",
+      "size_bytes": 3723
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_forward.py",
+      "role": "staged_source",
+      "sha256": "00603415b5aad9402f6aec0ddbb0954dc6389a3c3c9defd1343c36feb569ae32",
+      "size_bytes": 9807
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_forward_facade.py",
+      "role": "staged_source",
+      "sha256": "c467ed3f7a37c9223b650b91dca111d1a669feb3d0dfcfa12a2ec3f8c416e422",
+      "size_bytes": 5076
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_gradient_checkpointing.py",
+      "role": "staged_source",
+      "sha256": "5a87e1bdd54275ea6f9e1a92a0c1f0408060c4d0b2917c3eb05248e2eb45672c",
+      "size_bytes": 928
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_pooled_encoder_facade.py",
+      "role": "staged_source",
+      "sha256": "77918ef510e4a7f4c0adaa3256ac55dc89db3450b01ea75efca0962aff293c93",
+      "size_bytes": 4005
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_prefix_diffusion_facade.py",
+      "role": "staged_source",
+      "sha256": "9cd2d44684c41581f9c10079d364f4cd3eb6e31e7e367c4ecefe08d1e9155af8",
+      "size_bytes": 3854
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_state_route_facade.py",
+      "role": "staged_source",
+      "sha256": "718783de803f1bd694da050a1994a46ede0f18dba5f3ed5df02dab3db0f608eb",
+      "size_bytes": 4794
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_trajectory_diffusion_facade.py",
+      "role": "staged_source",
+      "sha256": "9be1af1fc3492a821eaf363214caed2556c070e00ea7e78ecb95fe0f14788286",
+      "size_bytes": 2712
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_trajectory_setup.py",
+      "role": "staged_source",
+      "sha256": "4ca1cf9cb93ef21801ea9bb80327d7db932d947c2f97a12b0dbe0e39773feaa6",
+      "size_bytes": 5124
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_trajectory_state_rollout_facade.py",
+      "role": "staged_source",
+      "sha256": "fa3b7378635475ac43b60c726ebf800903780f478b29b9475672bdb391b05368",
+      "size_bytes": 5569
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_relay_vae_facade.py",
+      "role": "staged_source",
+      "sha256": "1e618f275e781fe12abe3904eea33cd69ea9968ab13772e8ea21d049703cd6ab",
+      "size_bytes": 7541
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_route_dispatch.py",
+      "role": "staged_source",
+      "sha256": "f8d75c160afab3d76b963e6dbd183c555ba3572a01be573f9b89b6cd7db265cc",
+      "size_bytes": 2355
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_rwkv7_ops.py",
+      "role": "staged_source",
+      "sha256": "342e79db86a8e3bb1b01571a106c385f202fb460f168b1e2a4a66fc513fc02f7",
+      "size_bytes": 2569
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_sampling.py",
+      "role": "staged_source",
+      "sha256": "d7ba78afcadbd108ca05bd824c36808d1dc56b96fd8cce6bec08d92119ad0bbf",
+      "size_bytes": 7336
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_sampling_mixin.py",
+      "role": "staged_source",
+      "sha256": "c15373cb223a40ad263908ece1e9082f2ba0a3d834a52a87dc9615526ea2b714",
+      "size_bytes": 4555
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_schedule.py",
+      "role": "staged_source",
+      "sha256": "cf7c8d7ae6cd9d12f46628baff5df131c556076b7ec23ced5305b1388d2b7b03",
+      "size_bytes": 498
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_stage2.py",
+      "role": "staged_source",
+      "sha256": "e75544add14b4fc80953728e9eaf3f8fe6fc6069caf0110f5c87b7c1a417a38e",
+      "size_bytes": 2156
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_state_branch.py",
+      "role": "staged_source",
+      "sha256": "d20a4dc0ff3cd14f3431d0bbe3766f2c3e30dd5878349a0dc6eada1b187f9fd2",
+      "size_bytes": 1443
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_state_prediction.py",
+      "role": "staged_source",
+      "sha256": "21847c20b46000c2db360f0cff7bc1a26d5f31c3388b5837c1a9739a4a09c753",
+      "size_bytes": 3297
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_trajectory.py",
+      "role": "staged_source",
+      "sha256": "ab06dfcccaebf737410bc7a744db43ff0a015759a9cfa9925b84cb3d3a5f1d5d",
+      "size_bytes": 2061
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_trajectory_diffusion.py",
+      "role": "staged_source",
+      "sha256": "b917ff59205abf52b0156c9624c4c54ac53934ebc827010de45f28b04b84f388",
+      "size_bytes": 5070
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_trajectory_encoding.py",
+      "role": "staged_source",
+      "sha256": "f6f829425321a338eeb49a9d5febe77e2e6d635cf77a5c5df55fff3572b7e1c7",
+      "size_bytes": 2105
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_trajectory_extras.py",
+      "role": "staged_source",
+      "sha256": "bd77ab3aff35824876fe4c21841739061a79e80835f6e92b807b8cc95ac73bec",
+      "size_bytes": 2021
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_trajectory_output.py",
+      "role": "staged_source",
+      "sha256": "8528d834c61cfeb12321bfc0461b9cd391913aad72d3791ff1e1e94a2e325d67",
+      "size_bytes": 3461
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_trajectory_rollout.py",
+      "role": "staged_source",
+      "sha256": "f2c2b727503385f4c9a913655824851bc04a6764b7f62431da8d6fa37e0fa503",
+      "size_bytes": 2529
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_trajectory_state.py",
+      "role": "staged_source",
+      "sha256": "9a579e0e300fb856b371d7b1f58a9acd7d88ddb13e1ea21fdf73dc1f98d73cbc",
+      "size_bytes": 2360
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_trajectory_state_rollout.py",
+      "role": "staged_source",
+      "sha256": "773b43f755ffb646acbd211108bf12bd362c6634d7fb3e9edb60b7113047b3ab",
+      "size_bytes": 2216
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_trajectory_state_route.py",
+      "role": "staged_source",
+      "sha256": "07d75c901b1be6489aec3b6ddb1c2d831c1bc79a91da4c77d4d35124b8684454",
+      "size_bytes": 3140
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_vae_extras.py",
+      "role": "staged_source",
+      "sha256": "9ac82e165d551d6e789ff8909467e9f62e45133f0a362fecf762d174bcdd8f4a",
+      "size_bytes": 1672
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_vae_forward.py",
+      "role": "staged_source",
+      "sha256": "2271791a0877fdf8846c38c223605e5fedab64dc46ed15e5641a4fbc8fbeb738",
+      "size_bytes": 2925
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_vae_metrics.py",
+      "role": "staged_source",
+      "sha256": "786ae60bb83ba1165dce7dafa4bf43235d058cc3ce394e3144d93bbd81fb3e3d",
+      "size_bytes": 1496
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_vae_outputs.py",
+      "role": "staged_source",
+      "sha256": "1fe1e8bbba25c510e443864c987ce8368d2cfd34c2072ce627df593d214ee604",
+      "size_bytes": 1030
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_vae_routes.py",
+      "role": "staged_source",
+      "sha256": "7cdcfa142e38df457f98882246e2cca42ddf1bdae6dfd660793d6ac1817d9f4f",
+      "size_bytes": 4922
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_hijacking_vae_sample.py",
+      "role": "staged_source",
+      "sha256": "3330446f7571694611d83bb12a0c457efe7bb6860a38f376008dc77e76e3c1b9",
+      "size_bytes": 1901
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/model_source/scale/models/state_token_conditioner.py",
+      "role": "staged_source",
+      "sha256": "f195e49b160b92835daaa274b0f42408c2c57d3cb00f8090902eed52f6221088",
+      "size_bytes": 3430
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/fla/layers/rwkv7.py",
+      "role": "package_source",
+      "sha256": "de4109b25df8162810f8b45abfc48cc8149b93a02a06cfb51ea3b36717404ffa",
+      "size_bytes": 14910
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/fla/layers/utils.py",
+      "role": "package_source",
+      "sha256": "4f05bbcf7646ca6a9d58340eb8f91eae8ef00364a884f10929639fdfb0d07f20",
+      "size_bytes": 8173
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/fla/models/utils.py",
+      "role": "package_source",
+      "sha256": "96717da020bca677e9fc672d2bec75866c1b001e1fec067105c551900e39af19",
+      "size_bytes": 20221
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/fla/models/rwkv7/configuration_rwkv7.py",
+      "role": "package_source",
+      "sha256": "4020978c0974bf29cb6c56532a58d717cab1531d036c227d70fe38ac0029cd89",
+      "size_bytes": 5085
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/fla/models/rwkv7/modeling_rwkv7.py",
+      "role": "package_source",
+      "sha256": "5da518704726c0231484c82937d682d185d930169aa4d43ef1c39090dc798f76",
+      "size_bytes": 23531
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/transformers/cache_utils.py",
+      "role": "package_source",
+      "sha256": "e4fe20ca1eeb17ea0ce7e62d1dbd0d6eab32e7072044f293612403b8e0c477fd",
+      "size_bytes": 60147
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/safetensors/torch.py",
+      "role": "package_source",
+      "sha256": "a95be924990d99bd45696f468f50e594682a7c0d70943a90467e43c84216a3dd",
+      "size_bytes": 17822
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/torch/serialization.py",
+      "role": "package_source",
+      "sha256": "8263ad671446bb287b1d343309dfa7dcd4aa12ec37e89498b2522bf840e905e0",
+      "size_bytes": 84598
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF/config.json",
+      "role": "hf_config",
+      "sha256": "08bf100980c8fe9e69d5c149fba30abc5903a57ad8e6d3166442a2efe7a25783",
+      "size_bytes": 967
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF/model.safetensors.index.json",
+      "role": "hf_index",
+      "sha256": "d83256f944260c29571d24cdb5b25750536c7c759f3cb85acc82a5ea89371fe6",
+      "size_bytes": 80590
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF/model-00001-of-00002.safetensors",
+      "role": "hf_shard",
+      "sha256": "0d02085ce601ff0aa911d5442b047f9f040496a4c0a3754cc1da001b3822399b",
+      "size_bytes": 4965315576
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF/model-00002-of-00002.safetensors",
+      "role": "hf_shard",
+      "sha256": "c3abf5b979251acd9c6bad770fb72934b0074bf4c31f678ff8ad766ce1486b29",
+      "size_bytes": 930269032
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/m2_baseline_triangle/m4loop_endpoint_ckpt/meta.json",
+      "role": "checkpoint_meta",
+      "sha256": "321ce0465b2cedb13c870c1ad4ec2c7c36d14cd37670e9caa018b9e63954e7ef",
+      "size_bytes": 43
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/m2_baseline_triangle/m4loop_endpoint_ckpt/model.pt",
+      "role": "checkpoint_model",
+      "sha256": "ffaa464dabb3291c40749bbac4d6805e8a47082e3e2b082e0240365ffc525c07",
+      "size_bytes": 16367167378
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/lifecycle.py",
+      "role": "payload",
+      "sha256": "c4b305313b1ea3a0dfb738e06341e46ddb7a032ad769b2850628a288d2d712aa",
+      "size_bytes": 6230
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/lifecycle_checks.py",
+      "role": "payload",
+      "sha256": "a83addc0a6ef8961830a01f874992e221ad06e635bbfda0a3e59ff574929dd4c",
+      "size_bytes": 5096
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/lifecycle_evidence.py",
+      "role": "payload",
+      "sha256": "c2ed4371f6582cdd8f4900b46db3c3c03bf8034dc4c21872971e0ab720e39088",
+      "size_bytes": 6922
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/lifecycle_binding.py",
+      "role": "payload",
+      "sha256": "8b31a422ca36234b55de0be0bd73345964310a6d67429c47a6e9952d4341877c",
+      "size_bytes": 2673
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/lifecycle_settings.py",
+      "role": "payload",
+      "sha256": "df922a709cbd55fa3cb2ad74bc815731e89b818bcd106b7a0ba22d2c6b07026e",
+      "size_bytes": 2718
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/lifecycle_sidecar.py",
+      "role": "payload",
+      "sha256": "6de17a53cf9c025cd06632289ade8512e2b35bf5f9c41807d8ac0e10cd8e7a4c",
+      "size_bytes": 2474
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/lifecycle_runtime.py",
+      "role": "payload",
+      "sha256": "83f8a35d14b20da5ee795b63e8f779dd06721ec86d651152a8bab3fba951d783",
+      "size_bytes": 2510
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/semantics_evidence.py",
+      "role": "payload",
+      "sha256": "2ea38ef2fa7f0269d95ea4c6cf27a9061c2606aececbd9678365c59ba177e28e",
+      "size_bytes": 3895
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/semantics_optimizer.py",
+      "role": "payload",
+      "sha256": "8635a9201bbabb1069dee16b5f23b383e8a9914228f9b6596d229b7006fefb5f",
+      "size_bytes": 3837
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/semantics_probe.py",
+      "role": "payload",
+      "sha256": "f88f143e29bb68a8dc719ced6c7a85d135e114249b8f6b1d438e4e8748b9de22",
+      "size_bytes": 5870
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/semantics_sidecar.py",
+      "role": "payload",
+      "sha256": "33ea00b594e0dcb10b8bccbb99ffc3dc5e5122c2ac876ee7a630e76b913d8ca1",
+      "size_bytes": 3197
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/semantics_runtime.py",
+      "role": "payload",
+      "sha256": "eec9cf932ddc431f7f14d14bbb6060137ac26b95e807e551285aabcf9d9a1c5b",
+      "size_bytes": 2300
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/trainer_semantics.py",
+      "role": "payload",
+      "sha256": "6c101b392adc190ad3b295bf235819bacd6fbc3ebbc111cf8e33760d47191a10",
+      "size_bytes": 7017
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/trainer_semantics_contract.py",
+      "role": "payload",
+      "sha256": "1a621477407d198c6aa41b216e1a852a21f7cc4e93a70502efc309e0ed571bb5",
+      "size_bytes": 2683
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/DAN/v7_arch_round/code/train/train_birwkv_diffusion.py",
+      "role": "payload",
+      "sha256": "0bee15b5af05a785b70ddfeffa3064161f04beccea36b44e9bfd01029e286b60",
+      "size_bytes": 95892
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/calibration_arms.py",
+      "role": "payload",
+      "sha256": "03579181e56ba016796a03126e70cebe13a4433ed236bc0d50ddd56be088c886",
+      "size_bytes": 12546
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/calibration_backward.py",
+      "role": "payload",
+      "sha256": "e9dc5d985e0d0f6601c77e5ec7123d0e4305a432f322367f7a6e63b4c8df7d7c",
+      "size_bytes": 8862
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/calibration_contracts.py",
+      "role": "payload",
+      "sha256": "7fcc3ce4745a7ebf55bd74a0b750502ac682e05a8eac7e5b983599f6bf28ab49",
+      "size_bytes": 16689
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/calibration_runtime.py",
+      "role": "payload",
+      "sha256": "2f07e85cc8947fca2d264328ca9b657128849e21d0685e2bdb9d06e09c088459",
+      "size_bytes": 10648
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-14-global-ffaa464d-calibration-v14/scale/experiments/nonlatent_iclr/qualification/calibration.py",
+      "role": "payload",
+      "sha256": "b09c4c6fa84eecc985080e76475638d8dcc35f204b70340c1b9a6d8024a78f78",
+      "size_bytes": 12459
+    }
+  ],
+  "packages": [
+    {
+      "distribution": "torch",
+      "version": "2.8.0a0+5228986c39.nv25.6"
+    },
+    {
+      "distribution": "flash-linear-attention",
+      "version": "0.5.0"
+    },
+    {
+      "distribution": "fla-core",
+      "version": "0.5.0"
+    },
+    {
+      "distribution": "transformers",
+      "version": "5.3.0"
+    },
+    {
+      "distribution": "safetensors",
+      "version": "0.5.3"
+    },
+    {
+      "distribution": "pytorch-triton",
+      "version": "3.3.0+git96316ce52.nvinternal"
+    }
+  ],
+  "payload_id": "qualification-20260912-01",
+  "schema_version": 1
+}

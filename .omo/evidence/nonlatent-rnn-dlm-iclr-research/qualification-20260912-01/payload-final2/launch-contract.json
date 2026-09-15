@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "authorization_id": "nonlatent-h100-qualification-20260912-01",
+  "controller_receipt_path_formula": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/controller-receipts/${QUALIFICATION_RUN_ID}.json",
+  "required_environment": {
+    "QUALIFICATION_RUN_ID": "controller_reserved_unique_id_matching_qualification-20260912-01-[a-z0-9-]{8,80}",
+    "QUALIFICATION_NONCE": "controller_generated_32_character_lowercase_hex",
+    "QUALIFICATION_MANIFEST_SHA256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+    "QUALIFICATION_JOB_RECEIPT": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/controller-receipts/${QUALIFICATION_RUN_ID}.json"
+  },
+  "optional_native_environment": {
+    "QZ_JOB_ID": "when_nonempty_must_equal_receipt_job_id",
+    "JOB_ID": "when_nonempty_must_equal_receipt_job_id"
+  },
+  "forbidden_environment_claim": "QUALIFICATION_IMAGE_DIGEST",
+  "argv": [
+    "/usr/bin/bash",
+    "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh"
+  ],
+  "deadlines_seconds": {
+    "workflow": 1650,
+    "preflight": 300,
+    "runtime": 1200,
+    "aggregation": 90,
+    "controller_receipt": 60,
+    "nccl": 120,
+    "kill_grace": 30
+  },
+  "controller_sequence": [
+    "reserve_run_id_and_nonce",
+    "persist_exact_CreateJob_request_JSON_bytes",
+    "compute_submitted_request_sha256_from_those_exact_bytes",
+    "invoke_CreateJob_once_with_zero_automatic_retries",
+    "extract_real_job_id_only_from_a_successful_response",
+    "construct_the_strict_sanitized_ControllerReceipt",
+    "publish_via_same_directory_temporary_file_and_atomic_no-clobber_operation"
+  ],
+  "jobs_submitted_while_freezing_payload": 0
+}

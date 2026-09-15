@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "review_type": "independent_actual_adapter_v6_gpu_runtime_review",
+  "review_date": "2026-09-13",
+  "verdict": "PASS",
+  "promotion_target": "BOUNDED_PARTIAL_QUALIFICATION_MILESTONE_ONLY",
+  "scheduler_status": "job_succeeded",
+  "scientific_status": "PARTIAL_QUALIFICATION",
+  "task_3_complete": false,
+  "source_binding": {
+    "job_id": "job-d10874d4-7a9e-4c36-9fe0-401b699f8698",
+    "request_sha256": "486a2602130b95e1559b720bd0b0e42c8d738cd9a2e03b4b0fb6fdba1f98c2e4",
+    "run_id": "qualification-20260912-01-52397234-f849-41c4-8d3d-b431ec867ae2",
+    "nonce": "a594d65e61ac97ba616acddd2641685a",
+    "manifest_sha256": "692d1cc88d6b2c6335736d47492aa933bf57b9a23a4d0dcc9e5e3eeda165cf32",
+    "manifest_entries": 111,
+    "controller_receipt_sha256": "16d1457588ccd4c367f02656c8bec696266aa98558174661067bc8c27871d44e",
+    "worker_output_ledger_sha256": "546cfd02f432a77187cf7e4c5cd9a249b4b84f50f1fa88577cf23b521bf3e743",
+    "live_execution_ledger_sha256": "91cb2d35254e91646958f46d3a1c2d38bf04dbc213646ec3d5dd01fbfd20a497",
+    "staging_final_verdict_sha256": "f22526aa03bf1639f74158b542d82b737ddeb8dd19238ce4ce7142977f8b758d"
+  },
+  "accepted_runtime_evidence": {
+    "ranks": [0, 1, 2, 3, 4, 5, 6, 7],
+    "all_rank_reports_passed": true,
+    "world_size": 8,
+    "checkpoint_step": 4750,
+    "checkpoint_sha256": "ffaa464dabb3291c40749bbac4d6805e8a47082e3e2b082e0240365ffc525c07",
+    "checkpoint_state_tensors": 1955,
+    "parameter_numel": 4091581441,
+    "masked_logits_shape": [1, 48, 65536],
+    "masked_logits_all_finite": true,
+    "actual_adapter_backed_masked_forward": "PASSED_ON_ALL_8_RANKS",
+    "model_checks_sha256": "6ddb94ddffc01d0fa416dcd7b7bfc0cc9dde201a864ccaf84e338201ab7ec023",
+    "approved_full_canvas_sha256": "1e5400e4283744d6c29ce533f0138b2b3e2b7bcd78b1a64b668a79f97c6b3e22",
+    "adapter_reset_in_finally": true
+  },
+  "scheduler_interpretation": {
+    "createjob_calls": 1,
+    "automatic_retries": 0,
+    "terminal_status": "job_succeeded",
+    "observed_image_digest": null,
+    "getjoblog_business_error": "InternalError",
+    "gpfs_evidence_complete_for_bounded_runtime_review": true
+  },
+  "environment_interpretation": {
+    "torch_nv25_6_and_nv25_06": "PEP440_NORMALIZATION_EQUIVALENT",
+    "raw_string_equality_required": false,
+    "environment_drift_detected": false,
+    "arbitrary_torch_binary_identity_proven": false
+  },
+  "preserved_limitations": {
+    "successful_forward_proves_gpu_failure_behavior": false,
+    "successful_forward_proves_reset_after_injected_failure": false,
+    "successful_forward_proves_gpu_edit_lifecycle": false,
+    "successful_forward_proves_gpu_cross_session_behavior": false,
+    "full_model_prefix_cache": "NOT_QUALIFIED_FFN_TOKEN_SHIFT_STATE_UNWIRED",
+    "loop_prefix_cache": "NOT_QUALIFIED_TIED_LAYER_STATE_ALIASES_PASSES",
+    "full_task_3_approval": false,
+    "long_context_claim": false,
+    "performance_or_goodput_claim": false,
+    "image_digest_known": false
+  },
+  "exact_next_task_3_prerequisite": "Wire and qualify FFN token-shift state for full-model prefix caching and prove tied-layer state-alias equivalence for loop caching under a fresh identity-bound GPU runtime; include bounded GPU failure/reset, edit-lifecycle, and cross-session scenarios before any full Task3 claim."
+}

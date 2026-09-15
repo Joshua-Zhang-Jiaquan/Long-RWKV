@@ -1,0 +1,29 @@
+{
+  "analysis_code_sha256": "87857b08ca7ccabfe438f27c88bd769c13fae06128cd378bc0fcb1b26e5e0fc5",
+  "attempt": "818675d2aa2d4d25a932555ac4e1a847",
+  "cell_count": 100,
+  "checks": {
+    "analysis_hash": true,
+    "cell_count": true,
+    "comparison_count": true,
+    "markdown_sha": true,
+    "metadata_unchanged": true,
+    "metric_row_count": true,
+    "numeric_fields_unchanged": true,
+    "panel_hashes_unchanged": true,
+    "prior_proof_passed": true,
+    "receipt_exact": true,
+    "receipt_sha": true,
+    "report_sha": true
+  },
+  "comparison_count": 5,
+  "markdown_sha256": "a1d87e99eb1146ea8fd5824024d93a65c565994f63c7e6cdc2ae297b7bc98efd",
+  "metadata_match_count": 500,
+  "metric_row_count": 500,
+  "numeric_match_count": 2000,
+  "overall_pass": true,
+  "prior_proof_sha256": "17b4419509dbfaa86ba7870757a891eff380fe9a702e31a37237a6e1042f16cb",
+  "raw_panels_reread": false,
+  "receipt_sha256": "a06b4fe800d7ebbe12941b26e85a5155982689699c45006ae0a3a04c4aef118b",
+  "report_sha256": "e08dff9441ee0dd78c33bbff33675ebc02fe97875606bfb9a11415ca905381b6"
+}

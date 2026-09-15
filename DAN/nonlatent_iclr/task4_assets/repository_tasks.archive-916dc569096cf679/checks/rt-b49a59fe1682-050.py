@@ -1,0 +1,1 @@
+assert dencrypt('Racecar') == 'Enprpne'

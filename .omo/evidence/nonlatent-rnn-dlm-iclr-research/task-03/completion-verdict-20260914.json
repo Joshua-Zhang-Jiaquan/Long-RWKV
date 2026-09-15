@@ -1,0 +1,103 @@
+{
+  "acceptance_mapping": {
+    "48_block_evaluations_distinct_from_outer_nfe": "Contract cpu_source_evidence and claims.three_clocks; hash-bound original loop tests observe one outer invocation with32base+16recycled calls, not48NFEs.",
+    "full_canvas_vs_streaming_distinct": "Contract task3_acceptance.full_canvas_vs_streaming; FullCanvasAdapter explicitly rejects streaming/full-model/loop-cache requests and forces state_cache=None,use_cache=False.",
+    "nonlatent_path_explicit": "Contract claims.nonlatent_path and task3_acceptance.nonlatent_full_canvas_path; v7/v8 bound GPU no-cache/nonlatent full-canvas calls.",
+    "replayed_state_cannot_cross_unrelated_samples": "v7/v8 lifecycle sidecars: foreign/retired/stale requests rejected before model calls; A/B/A, edit, close/reset/reopen comparisons pass on all8ranks."
+  },
+  "contract_work_mapping": {
+    "cache_invalidation_on_edits": "Full-canvas snapshots are replaced on edit and revision advances; old request rejected. No recurrent prefix state accepted for unsupported modes.",
+    "canonical_publication": "Exact supplied contract and receipt hashes verified; canonical regeneration and receipt validation passed before and after tests. Both previously OPEN fields now satisfied at stated scopes.",
+    "forward_backward_sharing": "claims.attention_pair=clone_not_tied_source_backed; pinned model allocates distinct attention objects; CPU false-sharing controls distinguish value clones from id-based loop reuse.",
+    "initializations": "cpu_source_evidence: pinned fusion zero-projection/bias and source-extracted initialization tests.",
+    "input_output_masks": "v8 actual corrupted canvas and finite logits,46eligible/22selected positions; selected-mean agreement, unselected-loss invariance, empty loss zero and zero unselected logit gradients; rank-local scope.",
+    "loop_gates": "Pinned zero-gate identity, bounded gate values, exact fixture gradients, nonzero-gate response and same-object recycle evidence.",
+    "optimizer_membership": "semantics_v8_evidence: actual loaded baseline/frozen nonlatent policies, two groups, exact coverage/frozen exclusion; stage-A real backward gradient policy. No optimizer-step qualification inferred.",
+    "parameter_identities_counts": "v7/v8 checkpoint-bound core records and v8 named optimizer/gradient ledgers:1953parameter tensors,1955state tensors,4091581441elements.",
+    "three_clocks": "Token recurrence, inner recycled block evaluations, and outer denoising calls explicitly separated in canonical contract."
+  },
+  "input_sha256": {
+    ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260914-07-live/runtime-review/evidence-sha256.txt": "19460d5864fc49dea22295dbfb4d0ffe5895394e10beeaf1d572de2fc7fad8ab",
+    ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260914-07-live/runtime-review/verdict.json": "64a1a457191561e0576afa80aa84caff1b80210585cb74e24533dcc427325bd2",
+    ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260914-08-live/runtime-review/evidence-sha256.txt": "5c5bb4f6dd3384c968512b0d8de69576847d410a31f6deb4075c06e307965427",
+    ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260914-08-live/runtime-review/verdict.json": "4996f460a0ac6befe2f42e6a17b15a555d938f65d352faebe6534087b923b6f0",
+    ".omo/evidence/nonlatent-rnn-dlm-iclr-research/task-03/reconciliation-20260914/cpu-verification.json": "129c5637ad3c53c921771c87292f6263155713e029a39ee0cefd4822b2a8697a",
+    ".omo/plans/nonlatent-rnn-dlm-iclr-research.md": "e9eb6e0c57465f1d87abe04e27513292b361fd7e506a7fa454162d30315d0d92",
+    "DAN/nonlatent_iclr/architecture_contract.json": "c5de62bf3e3a2eeabdb8baa94079d5cb351f9fe37616ae5751c8c6aa80bcdd74",
+    "DAN/nonlatent_iclr/architecture_contract.receipt.json": "cea0df1db0acef1eafa0334d095c9ec4023d163e6cf7bcbd56a06b814bba7a36",
+    "scale/experiments/nonlatent_iclr/architecture_checks.py": "519a1624709f273c28ea7a033855deb3ab24f9e8aca9112c314636046190a001",
+    "scale/experiments/nonlatent_iclr/architecture_contract.py": "405bf23f348701d4bbcc70d5ace3b1ab1ece643d57fd0fb6b78869140934eda8",
+    "scale/experiments/nonlatent_iclr/architecture_cpu_evidence.py": "5fa9b43b2f27ffa2127cc76381f37bef299e7cfbb7a7cf49b0a58b201d7ac911",
+    "scale/experiments/nonlatent_iclr/architecture_evidence.py": "07bcd5d5c2dc7c3b79293923376e4632a7dc12431fb59f39c23bb7e4e696a76c",
+    "scale/experiments/nonlatent_iclr/architecture_evidence_io.py": "25002703a0cebffe3074c1273cd5096a2ed607f2267ae717664916d9c519e3e5",
+    "scale/experiments/nonlatent_iclr/architecture_lifecycle.py": "b6926f91fc9c30f7e2967f1ce8e06e28ba7b5c6d3f739f158ad87407abdd7cb2",
+    "scale/experiments/nonlatent_iclr/architecture_semantics.py": "b6c3f4a1c47c4408368433d61af341ee17e041b9759b499254c68740d79bb514",
+    "scale/experiments/nonlatent_iclr/architecture_semantics_models.py": "3a293f669f4b1b1e4bbef8c95ff1095007e7cb479b7b4ae6f3303040d91868f6",
+    "scale/experiments/nonlatent_iclr/architecture_task.py": "5aa07cd694127995a2a508dd749fc167a8177155ec1a544972bce8b11fd13a6c",
+    "scale/experiments/nonlatent_iclr/test_initialization_boundary.py": "7216db03e995f5c96e6bf6ce9238c0a75632ba516fb6d40927af642ecf6d3c02",
+    "scale/experiments/nonlatent_iclr/test_initialization_fusion.py": "fc8a0a47140fdd9659ac9cb829dd40816c4d25af7ac591041349538476380e1a",
+    "scale/experiments/nonlatent_iclr/test_initialization_loop.py": "ed7d3c62d09c69d6c46170f37e3264fa55aa7f7520d6d77294f6fa68c25d4dea",
+    "scale/experiments/nonlatent_iclr/test_trainer_mask_semantics.py": "504852a88f23931de9b0195b7bbbd3d10d381a7aa391a00dad392effe7ef9ac8",
+    "scale/experiments/nonlatent_iclr/test_trainer_optimizer_semantics.py": "a1d46d51a3a595baed348c1f478747feba3b2058d5863c82eaaf6a949563e3f6",
+    "scale/tests/nonlatent_iclr/test_architecture_contract.py": "aed198c1c24fbf069f7acb560b9d18e0c53dc9936e9048dbb89fea01995bfcdf",
+    "scale/tests/nonlatent_iclr/test_architecture_cpu_evidence.py": "14480dae4046874aa7093bf9513d27225cbdd948f4749b772784163d859975b0",
+    "scale/tests/nonlatent_iclr/test_architecture_evidence.py": "a2d9c84c47a4a8799581a63820c03ae83556ffbf7578c7499a54bb988b4ab81d",
+    "scale/tests/nonlatent_iclr/test_architecture_lifecycle_evidence.py": "533f7d6d96d36322da96409a184519446d24a3d37652614816ada86495bbc7bb",
+    "scale/tests/nonlatent_iclr/test_architecture_semantics_evidence.py": "f4502d45f8062301a301f1f5101a94b87f9555b6039864b7560a473af5a50d10",
+    "scale/tests/nonlatent_iclr/test_full_canvas.py": "dea2c61596a7170ddcea4687dad09efb9d9a3cdb99a2a0692fbb79b6c68e8257",
+    "scale/tests/nonlatent_iclr/test_full_canvas_ownership.py": "b28dfc901959a054477d6d360c2c8772842e821208f7e3b6a64a4b4799a19ad8"
+  },
+  "plan_task": 3,
+  "preserved_limitations": [
+    "whole_architecture_ready remains false; task completion is not qualification of every architecture/cache/performance claim.",
+    "Stage-A gradient policy and rank-local masked loss only; later stages, FSDP/distributed scaling, optimizer updates and convergence remain outside the documented qualification.",
+    "CPU initialization/clock evidence is not trained-checkpoint initialization or FLA/CUDA evidence.",
+    "No change to existing immutable reviews: their earlier incomplete-contract statements remain historical; this verdict assesses the new republication."
+  ],
+  "qa_mapping": {
+    "cli_scope_note": "The Task3-specific architecture_task CLI is the implemented gate used here; its cases do not themselves execute every behavioral test. Completion relies on the CLI artifact gates plus the explicitly executed behavioral suites and bound runtime evidence, not on CLI exit0 alone.",
+    "failure": "CLI failure rejects a noncanonical contract. Separately executed tests cover changed hashes/missing records, unsuccessful derived sidecars, stale prefix/canvas, cross-session/retired requests, false tying of value-equal distinct objects, and unsupported-cache rejection.",
+    "happy": "Task3-specific CLI happy validates fresh canonical evidence and receipt; CPU tests cover valid capture/carry, loop identity-at-init and gradient membership. Immutable runtime records retain standalone causal-attention cached-versus-recomputed equivalence and full-canvas/direct recomputation comparisons within claimed valid modes."
+  },
+  "recommendation": "Coordinator may mark only plan Task3 complete at its documented architecture-contract scope.",
+  "required_evidence_missing": [],
+  "retained_blocked_claims": {
+    "full_model_prefix_cache": "Unsupported and unqualified; not required while disabled/unclaimed under plan line261.",
+    "image_identity": "Disclosed unknown image/binary provenance, explicitly not additional Task3 work under plan line261.",
+    "long_context_performance": "Separate later experimental claim, not Task3 acceptance.",
+    "loop_prefix_cache": "Unsupported and unqualified; not required while disabled/unclaimed under plan line261."
+  },
+  "reviewed_at_utc": "2026-09-14T05:42:17.586395+00:00",
+  "schema_version": 1,
+  "scope": "Freeze architecture, parameter groups, and recurrent state semantics; not full research-plan or all-mode readiness.",
+  "verdict": "COMPLETE",
+  "verification": {
+    "additional": "Fresh validate_contract_json/validate_receipt_json and CPU capture/carry/edit invalidation passed; publication hashes unchanged after suites. No model weights opened, GPU jobs, installs or historical evidence mutation.",
+    "architecture_tests": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 CUDA_VISIBLE_DEVICES=\"\" python -m pytest -p no:cacheprovider -q scale/tests/nonlatent_iclr/test_architecture_contract.py scale/tests/nonlatent_iclr/test_architecture_evidence.py scale/tests/nonlatent_iclr/test_architecture_cpu_evidence.py scale/tests/nonlatent_iclr/test_architecture_lifecycle_evidence.py scale/tests/nonlatent_iclr/test_architecture_semantics_evidence.py",
+      "exit_code": 0,
+      "passed": 102,
+      "seconds": 39.25
+    },
+    "behavioral_tests": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 CUDA_VISIBLE_DEVICES=\"\" python -m pytest -p no:cacheprovider -q scale/experiments/nonlatent_iclr/test_trainer_optimizer_semantics.py scale/experiments/nonlatent_iclr/test_trainer_mask_semantics.py scale/experiments/nonlatent_iclr/test_initialization_boundary.py scale/experiments/nonlatent_iclr/test_initialization_fusion.py scale/experiments/nonlatent_iclr/test_initialization_loop.py scale/tests/nonlatent_iclr/test_full_canvas.py scale/tests/nonlatent_iclr/test_full_canvas_ownership.py",
+      "exit_code": 0,
+      "passed": 106,
+      "seconds": 12.81,
+      "warning_detail": "Unchanged historical trainer line301 loss.item() on requires-grad tensor.",
+      "warnings": 1
+    },
+    "cli_failure": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 CUDA_VISIBLE_DEVICES=\"\" python -m scale.experiments.nonlatent_iclr.architecture_task --case failure",
+      "detail": "canonical_contract_mismatch",
+      "exit_code": 0,
+      "status": "EXPECTED_FAILURE_CONFIRMED"
+    },
+    "cli_happy": {
+      "blocked_claims": 4,
+      "command": "PYTHONDONTWRITEBYTECODE=1 CUDA_VISIBLE_DEVICES=\"\" python -m scale.experiments.nonlatent_iclr.architecture_task --case happy",
+      "exit_code": 0,
+      "status": "BLOCKED_EXTERNAL"
+    }
+  }
+}

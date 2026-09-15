@@ -1,0 +1,7 @@
+{
+  "cleanup_command": "rm -rf -- <temporary_root>",
+  "cleanup_exit_status": 0,
+  "post_delete_requery_performed": false,
+  "scope": "review-owned temporary fixtures only",
+  "temporary_root": "/tmp/opencode/nonlatent-av-gpt56sol-20260911-a"
+}

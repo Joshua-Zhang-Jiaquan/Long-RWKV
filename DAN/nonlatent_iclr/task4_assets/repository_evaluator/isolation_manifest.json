@@ -1,0 +1,10 @@
+{
+  "isolation_backend": "python_isolated_mode+posix_rlimits+socket_stub",
+  "isolation_evidence_path": "isolation_evidence.json",
+  "license": "local evaluator harness; repository task rights are recorded per record",
+  "network_isolation": "socket_stub_best_effort_bypassable",
+  "scope": "process_sandbox_not_externally_managed",
+  "sha256": "697c0a4d6b98cc51396f1bb9b5d0bef48d6f277737ed9adeb24ea5fc4067800e",
+  "unmet_plan_wording": "The plan requires 'a real externally managed VM/container evaluator declaration'. This host provides neither an external container service nor permitted namespaces (unshare -n and -m both fail with EPERM, and /sys/fs/cgroup is not writable), so this declaration is a process-level sandbox and the requirement's original wording is unmet.",
+  "version": "process-sandbox-v1+5.15.0-119-generic"
+}

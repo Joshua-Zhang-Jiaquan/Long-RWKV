@@ -1,0 +1,6 @@
+Before replacement, generated files matched their archived copies byte-for-byte by SHA-256:
+
+3bd4aed8010b200be0f06376e1a4e3509c028a44d5dfaa27e4cf18387b6279f3  DAN/nonlatent_iclr/evidence_ledger.json
+3bd4aed8010b200be0f06376e1a4e3509c028a44d5dfaa27e4cf18387b6279f3  archive-before-repair/evidence_ledger.json
+4122d0d9ec77a1ff19e4841e6574fd7e51f068b28c95eb1572c85ff432122377  DAN/nonlatent_iclr/evidence_audit.md
+4122d0d9ec77a1ff19e4841e6574fd7e51f068b28c95eb1572c85ff432122377  archive-before-repair/evidence_audit.md

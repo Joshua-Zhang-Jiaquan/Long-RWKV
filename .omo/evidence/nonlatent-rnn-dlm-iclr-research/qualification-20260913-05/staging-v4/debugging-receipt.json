@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "RED_GREEN_AND_MANUAL_ORIGIN_QA_COMPLETE",
+  "root_cause": "inherited_cwd_and_cached_models_modules_could_precede_or_bypass_owned_model_source",
+  "reviewer_reproduction": {
+    "cwd": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale",
+    "v3_owned_root_sys_path_index": 2,
+    "v3_package_origin_owned": false,
+    "v3_entrypoint_origin_owned": false
+  },
+  "red": {
+    "release": "qualification-20260913-05-global-ffaa464d-closure-v3",
+    "result": "6_failed_5_passed_in_1.55_seconds",
+    "failures": [
+      "owned_root_already_later_was_not_promoted",
+      "foreign_preloaded_models_package_was_reused",
+      "foreign_preloaded_models_submodule_was_reused",
+      "unmanifested_loaded_model_helper_was_accepted",
+      "wrong_original_cwd_resolved_qz_stage_models",
+      "launcher_lacked_controlled_cwd_and_safe_path"
+    ]
+  },
+  "green": {
+    "release": "qualification-20260913-05-global-ffaa464d-origin-v4",
+    "result": "11_passed_in_1.59_seconds",
+    "foreign_constructor_invoked_in_rejection_tests": false,
+    "foreign_modules_deleted_or_replaced": false
+  },
+  "manual_qa": {
+    "inherited_cwd": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale",
+    "sys_path_0": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4",
+    "package_origin": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4/model_source/scale/models/__init__.py",
+    "entrypoint_origin": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4/model_source/scale/models/birwkv7_diffusion.py",
+    "global_launcher_help": "PASS"
+  },
+  "partial_runtime_boundary": {
+    "cpu_import_origin_fix_verified": true,
+    "gpu_or_model_construction_attempted": false,
+    "gpu_runtime_success_claimed": false
+  },
+  "debug_artifacts_removed": [
+    "staging-v4/release-edit",
+    "/tmp/opencode/qualification05-v4-*",
+    ".debug-journal.md"
+  ]
+}

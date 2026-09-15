@@ -1,0 +1,66 @@
+{
+  "auto_fault_tolerance": false,
+  "command": "/usr/bin/bash /inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260915-12-global-ffaa464d-calibration-v12/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+  "description": "Direct-qz nonlatent calibration: 1x8 H100 SXM 80GB, 30 minutes, zero retries. Measures per-arm forward/backward/optimizer throughput for the Task-6 forecast ledger. Makes no long-context, goodput or quality claim.",
+  "enable_notification": false,
+  "enable_troubleshoot": false,
+  "envs": [
+    {
+      "name": "QUALIFICATION_RUN_ID",
+      "value": "qualification-20260912-01-7d530082-cf94-472d-b257-96afe36e846e"
+    },
+    {
+      "name": "QUALIFICATION_NONCE",
+      "value": "6912a68f37cb9c628e838334a29d5e41"
+    },
+    {
+      "name": "QUALIFICATION_MANIFEST_SHA256",
+      "value": "30b20b7d5d82667638a874c05a7149b106ceccd726abb5b2c9bbe34e733c7bf4"
+    },
+    {
+      "name": "QUALIFICATION_JOB_RECEIPT",
+      "value": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/controller-receipts/qualification-20260912-01-7d530082-cf94-472d-b257-96afe36e846e.json"
+    },
+    {
+      "name": "QUALIFICATION_MODE",
+      "value": "calibration"
+    },
+    {
+      "name": "QUALIFICATION_CHECKPOINT_STEP",
+      "value": "4750"
+    },
+    {
+      "name": "HF_HUB_OFFLINE",
+      "value": "1"
+    },
+    {
+      "name": "TRANSFORMERS_OFFLINE",
+      "value": "1"
+    },
+    {
+      "name": "HF_DATASETS_OFFLINE",
+      "value": "1"
+    },
+    {
+      "name": "PYTHONUNBUFFERED",
+      "value": "1"
+    }
+  ],
+  "fault_tolerance_max_retry": 0,
+  "framework": "pytorch",
+  "framework_config": [
+    {
+      "image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+      "image_type": "SOURCE_PRIVATE",
+      "instance_count": 1,
+      "shm_gi": 1800.0,
+      "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f"
+    }
+  ],
+  "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+  "max_running_time_ms": "1800000",
+  "name": "qualification-20260912-01-7d530082-cf94-472d-b257-96afe36e846e",
+  "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+  "task_priority": 4,
+  "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6"
+}

@@ -1,0 +1,6 @@
+{
+  "answer_field_rejected": true,
+  "fork_leakage_rejected": true,
+  "silent_truncation_rejected": true,
+  "test_tampering_rejected": true
+}

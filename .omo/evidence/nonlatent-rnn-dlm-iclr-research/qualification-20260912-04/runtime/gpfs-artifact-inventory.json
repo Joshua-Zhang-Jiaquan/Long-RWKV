@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-13T06:55:09Z",
+  "job_id": "job-e0c9f792-8afb-4902-bb24-5dd8872927e1",
+  "gpfs_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/qualification-20260912-01-0ff9241e-460a-4647-95b3-af4c0fba16ce",
+  "scheduler_finished_at_utc": "2026-09-13T06:30:38Z",
+  "gpfs_checked_at_utc": "2026-09-13T06:51:12Z",
+  "root_exists": false,
+  "observed_entries": 0,
+  "expected_artifacts": {
+    "runtime-manifest.json": "ABSENT",
+    "preflight.json": "ABSENT",
+    "launcher.json": "ABSENT",
+    "aggregate.json": "ABSENT",
+    "rank-0.json": "ABSENT",
+    "rank-1.json": "ABSENT",
+    "rank-2.json": "ABSENT",
+    "rank-3.json": "ABSENT",
+    "rank-4.json": "ABSENT",
+    "rank-5.json": "ABSENT",
+    "rank-6.json": "ABSENT",
+    "rank-7.json": "ABSENT"
+  },
+  "gpfs_logs": {
+    "launcher_log": "ABSENT",
+    "preflight_log": "ABSENT",
+    "rank_logs": 0,
+    "aggregate_log": "ABSENT"
+  },
+  "getjoblog_fallback": {
+    "invocation_count": 1,
+    "returncode": 0,
+    "api_error_code": "InternalError",
+    "api_error_message": "internal server error",
+    "usable_log_lines": 0,
+    "capture_path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/runtime/getjoblog.stdout.redacted"
+  },
+  "failure_trace_available": false,
+  "large_private_environment_captured": false
+}

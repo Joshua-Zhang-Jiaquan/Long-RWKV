@@ -1,0 +1,100 @@
+{
+  "calibration": {
+    "aggregate_sha256": "46176cea6dc32a2031168e2bf6a5731aebb307bcb53b88e8e3ba1ac2b66f8226",
+    "aggregate_status": "PASSED",
+    "job_id": "job-76af72a0-5054-40b4-9644-51c9bd96bb31",
+    "launcher_detail": "calibrated/task6forecastinput",
+    "launcher_status": "PARTIAL_QUALIFICATION",
+    "manifest_sha256": "d22e139f4916dd06e0e19ea9e9d1f8d1c3318ce35e538c06f4520a76a61e4743",
+    "payload": "qualification-20260915-15-global-ffaa464d-calibration-v15",
+    "ranks_failed": 0,
+    "ranks_passed": 8,
+    "run_id": "qualification-20260912-01-3cc9d01e-f702-4777-8669-82a7a8d50a4f",
+    "scheduler_status": "job_succeeded"
+  },
+  "claims_not_made": [
+    "sustainable goodput",
+    "long-context capability",
+    "quality",
+    "physical edge-device performance",
+    "measured training time at production sharding"
+  ],
+  "gate_receipts": {
+    "analyze": {
+      "exit_code": 0,
+      "stdout_head": "{\"priced\": {\"A0\": 4171.2, \"A1\": 4171.2, \"A2\": 3759.43, \"A3\": 3477.95, \"A4\": 3477.95, \"A5\": 4073.85}, \"status\": \"LEDGER_REPRODUCED\", \"unforecastable\": []}"
+    },
+    "prepare": {
+      "exit_code": 0,
+      "stdout_head": "{\"candidate_budgets\": [2000000000, 4000000000, 8000000000], \"forecastable\": [\"A0\", \"A1\", \"A2\", \"A3\", \"A4\", \"A5\"], \"status\": \"LEDGER_READY\", \"unforecastable\": []}"
+    },
+    "verify_failure": {
+      "exit_code": 0,
+      "stdout_head": "{\"rejections\": {\"absent_approval_record\": \"no approval record exists\", \"consumed_quota_as_new_funding\": \"an allocation with no declared ceiling must name that policy in its receipt; this one presents "
+    },
+    "verify_happy": {
+      "exit_code": 0,
+      "stdout_head": "{\"admitted\": \"{\\\"A0_x3seeds_4000000000\\\": \\\"priced 4171.2 GPU-hours; derived from A1_small_noloop, not measured\\\", \\\"A1_x3seeds_4000000000\\\": \\\"priced 4171.2 GPU-hours\\\", \\\"A2_x3seeds_4000000000\\\": \\\""
+    }
+  },
+  "ledger": {
+    "archived_previous": "allocation_ledger.archive-c61de1d95fdeb2e2.json (v14-derived)",
+    "calibration_manifest_sha256": "d22e139f4916dd06e0e19ea9e9d1f8d1c3318ce35e538c06f4520a76a61e4743",
+    "derived_arms": {
+      "A0": "A1_small_noloop",
+      "A4": "A3_small_loop"
+    },
+    "forecastable_arms": [
+      "A0",
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "A5"
+    ],
+    "markdown_sha256": "4988d899165ed06899eeb78a3db5ceb6727115cf75a5580d51a6a1bfa1b45f7a",
+    "path": "DAN/nonlatent_iclr/allocation_ledger.json",
+    "revision_note": "Regenerated after the review fixes; the pre-review ledger is preserved as allocation_ledger.archive-*.json.",
+    "sha256": "7836ab630da9ddbfcc3660835e161c3fb7e9e56b3738bd1c8c9e0acdf38bf49f",
+    "storage_total_gib": 198.17
+  },
+  "plan_task": 6,
+  "preserved_limitations": [
+    "The 2.9B confirmation arms are not priced: A3_large_loop OOM'd above the 512-token rung on a single 80 GiB GPU. Task 8 needs a sharded calibration; no extrapolation was substituted.",
+    "Every priced row is a microbatch-1 measurement and is a conservative upper bound on a batched run; a batched or compiled measurement should precede freezing the budget.",
+    "Forward rates are overhead-dominated at these canvases (~94 ms fixed cost per call, inferred from the 21x spread across rungs); they are measured, not a performance curve.",
+    "Rows were measured with the job's other ranks resident (contended node), not solo-GPU peak.",
+    "Six bounded submissions preceded the clean one; each earlier failure and its fix is preserved in its own evidence directory rather than rewritten.",
+    "No long-context, goodput, quality or physical-edge claim is made."
+  ],
+  "recommendation": "Coordinator may mark plan Task 6 complete at the documented small-model scope. Task 7 additionally needs a batched-rate measurement and a storage-retention decision; Task 8 needs a sharded 2.9B calibration.",
+  "review_round": {
+    "arithmetic_verdict": "Every published step time and GPU-hour was recomputed from aggregate-calibration.json and reproduced exactly; no arithmetic defect survived refutation.",
+    "confirmed_findings": 3,
+    "findings_and_fixes": [
+      {
+        "finding": "confirmation_note asserted both large arms OOM'd at the 4096 canvas; the aggregate shows A2_large_noloop measured it",
+        "fix": "the note is now derived from the aggregate and reports which large arm reached the canvas and which did not",
+        "severity": "high"
+      },
+      {
+        "finding": "render_markdown emitted only the global assumptions, so the published table showed bare numbers and A4 at A3's cost with no understatement warning",
+        "fix": "the markdown now carries a per-row caveat section; a test pins it",
+        "severity": "high"
+      },
+      {
+        "finding": "admit() never compared payload.gpu_hours to the ledger's price, so a caller could declare 0.0 and be admitted",
+        "fix": "the gate prices from the bound ledger and refuses any declared price that differs by more than 1%; two new refusal probes cover an underpriced payload and a derived arm carrying a sibling's price",
+        "severity": "high"
+      }
+    ],
+    "kind": "independent adversarial review by four lenses with per-finding refutation (workflow wf_e0693b46-2f2)",
+    "refuted_claims_preserved": [
+      "An earlier round argued the bare torch.cuda.synchronize made ranks 1-7's timings launch-overhead-only; the replica ranks agreed within 5% and matched rank 0's order of magnitude, which that explanation cannot produce. The synchronize is device-bound as hardening, not as a bug fix."
+    ]
+  },
+  "reviewed_at_utc": "2026-09-15T09:50:25.611181+00:00",
+  "schema_version": 1,
+  "scope": "Bounded H100 throughput calibration as the Task-6 forecast input, plus the published allocation ledger and its admission gate. Not a performance, goodput, quality or long-context result.",
+  "verdict": "COMPLETE_AT_DOCUMENTED_SCOPE"
+}

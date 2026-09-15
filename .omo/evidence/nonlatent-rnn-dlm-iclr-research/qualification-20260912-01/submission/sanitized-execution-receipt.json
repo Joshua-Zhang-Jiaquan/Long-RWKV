@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "authorization_id": "nonlatent-h100-qualification-20260912-01",
+  "authorization_sha256_at_invocation": "942703e9fc6c1ac41944b4a157c66015774d5484cb53086733421f5a6f61f461",
+  "authorization_preflight_verdict": "PASS",
+  "authorization_status": "authorized_ready_for_single_submission",
+  "root_confirmation": "ROOT_PASS_CONFIRMED",
+  "run_id": "qualification-20260912-01-7bef6cf8-fda4-46b9-84ff-d7ca4fe5b892",
+  "nonce": "d75f2419e63b1c052beda405b5c7d963",
+  "submitted_request_sha256": "437dd1af38b91713c464b0b8c8430765ddf0fdd3c4fb592f51afa817daeb076b",
+  "source_manifest_sha256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+  "createjob": {
+    "call_count": 1,
+    "attempt_recorded_at_utc": "2026-09-12T08:30:43Z",
+    "controller_error_code": "createjob_response_missing",
+    "qz_process_returncode_before_response_validation": 0,
+    "response_class": "empty_stdout_or_valid_json_without_exact_job_id_field",
+    "job_id": null,
+    "admission_certainty": "UNKNOWN",
+    "retry_permitted": false,
+    "retry_performed": false
+  },
+  "reconciliation": {
+    "scope": "exact_reserved_job_name_only",
+    "scheduler_mutations": 0,
+    "read_only_call_count": 2,
+    "match_result": "NOT_OBSERVED_BECAUSE_BOTH_BOUNDED_QUERIES_WERE_REJECTED",
+    "attempts": [
+      {
+        "page_size": 10,
+        "error_code": "InvalidParameter",
+        "sanitized_message": "page or page_size too large"
+      },
+      {
+        "page": 1,
+        "page_size": 10,
+        "error_code": "InvalidParameter",
+        "sanitized_message": "parameter error"
+      }
+    ],
+    "further_scheduler_queries_performed": false
+  },
+  "records": {
+    "request_attempt_path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-01/submission/request-attempt.json",
+    "request_attempt_present": true,
+    "admitted_job_path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-01/submission/admitted-job.json",
+    "admitted_job_present": false,
+    "controller_receipt_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/controller-receipts/qualification-20260912-01-7bef6cf8-fda4-46b9-84ff-d7ca4fe5b892.json",
+    "controller_receipt_present": false
+  },
+  "requested_resource_caps": {
+    "gpu_type": "NVIDIA_H100_SXM_80G",
+    "nodes": 1,
+    "gpus_per_node": 8,
+    "gpus": 8,
+    "maximum_runtime_ms": 1800000,
+    "maximum_gpu_hours": 4,
+    "automatic_fault_tolerance": false,
+    "maximum_automatic_retries": 0,
+    "reserve_on_fail_ms": 0,
+    "reserve_on_success_ms": 0,
+    "task_priority": 0,
+    "shm_gi": 1800
+  },
+  "initial_getjob": {
+    "call_count": 0,
+    "reason": "NO_VALID_ACTUAL_JOB_ID_AVAILABLE",
+    "current_status": "UNKNOWN",
+    "shared_output_directory": null
+  },
+  "stopjob_call_count": 0,
+  "reference_job_touched": false,
+  "outcome": "AMBIGUOUS_CREATE_OUTCOME_STOP_NO_RETRY",
+  "recorded_at_utc": "2026-09-12T08:31:57Z"
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "review_id": "qualification-20260913-05-v4-focused-origin-recheck",
+  "status": "COMPLETED_WITH_NO_GO",
+  "release": {
+    "root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-origin-v4",
+    "launcher_sha256": "3ebe224805a78606b766ce4122664a6bcf5ba33505872d44be534ace5273ba3a",
+    "model_checks_sha256": "2883ecbb48dadd093180513a51858541db5fcc8efef712bd55fa88e1374ee1a4",
+    "runtime_config_sha256": "e4b5ac407341674fca21d2d58741f05e28426b6d34a877ef54d741d62efbc413",
+    "manifest_sha256": "9204381bd606157440c8113556798ab4d271edd4210a44249a67139253986004",
+    "manifest_entry_count": 109,
+    "source_inventory_sha256": "accee7d02191adbe105cdc823218a188615be9ea1be93bbf047bf2d4ed26f23d",
+    "source_inventory_records": 72,
+    "runtime_reachable_sources": 64,
+    "inactive_sources": 8
+  },
+  "v3_blocker_recheck": {
+    "status": "CLOSED",
+    "controlled_cwd": true,
+    "python_safe_path": "PYTHONSAFEPATH=1",
+    "fixed_pythonpath": "owned_release_root:owned_model_source_root",
+    "owned_root_promoted_when_already_later": true,
+    "foreign_preloaded_package_rejected": true,
+    "foreign_preloaded_submodule_rejected": true,
+    "loaded_models_must_be_owned_and_manifest_covered": true,
+    "foreign_constructor_invoked_in_rejection_cases": false
+  },
+  "focused_tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 /usr/bin/python -m pytest -q -p no:cacheprovider test_origin_enforcement_v4.py test_release_freshness_v4.py",
+    "result": "11 passed in 1.63s",
+    "model_construction_attempted": false,
+    "cuda_attempted": false
+  },
+  "global_entrypoints": {
+    "launcher_help": "PASS",
+    "shell_syntax": "PASS",
+    "help_started_from_hostile_original_cwd": true,
+    "expected_world_size": 8,
+    "workflow_timeout_seconds": 1650,
+    "kill_grace_seconds": 30,
+    "whole_deadline_seconds": 1680,
+    "max_restarts": 0,
+    "terminal_status": "PARTIAL_QUALIFICATION"
+  },
+  "environment_diagnostic": {
+    "status": "MATCH",
+    "python_executable": "/usr/bin/python",
+    "package_matches": 6,
+    "package_source_matches": 8,
+    "runtime_modules_loaded": [],
+    "owned_release_sys_path_index": 0,
+    "owned_model_source_sys_path_index": 1,
+    "autoqualified_by_observation": false,
+    "receipt": "runtime_environment.json"
+  },
+  "strict_preflight": {
+    "status": "PREFLIGHT_VERIFIED",
+    "verified_source_files": 109,
+    "controller_receipt_read_or_created": false,
+    "checkpoint_unpickle_attempted": false,
+    "model_construction_attempted": false,
+    "cuda_attempted": false,
+    "receipt": "preflight.json"
+  },
+  "deterministic_bytecode_reproduction": {
+    "status": "FAIL",
+    "v4_pyc_files": 16,
+    "v4_unmanifested_pyc_files": 16,
+    "v4_timestamp_mode_pyc_files": 16,
+    "release_pyc_files_opened_on_first_import": 16,
+    "release_pyc_files_opened_on_exact_repeat": 16,
+    "repeat_list_exactly_equal": true,
+    "release_pyc_files_opened_with_empty_alternate_cache_prefix": 0,
+    "alternate_cache_path_created": false,
+    "runtime_modules_loaded": [],
+    "receipt": "cache-audit.json"
+  },
+  "preservation": {
+    "v1_manifest_sha256": "49cdef9722351a951ed7f36a679708905df30a19801e7d2eaa7493144638869f",
+    "v2_manifest_sha256": "218a0cacbaba8ecf541d2e72386b4bf070cfde6d230fbf0306ebfb50559523fb",
+    "v3_manifest_sha256": "4777fd86769f9264af91241c82655a9b8f51874500e79fbd92f9b19030003f9f",
+    "all_manifest_bindings_match_prior_review": true,
+    "v1_unmanifested_pyc_files": 0,
+    "v2_unmanifested_pyc_files": 0,
+    "v3_unmanifested_pyc_files": 16,
+    "v3_writable_pyc_files": 16,
+    "v3_pyc_files_created_after_prior_review_anchor": 16,
+    "earlier_immutable_payloads_untouched": false,
+    "checkpoint_and_weight_identity_reused_from_prior_review_and_v4_strict_preflight": true
+  },
+  "runtime_boundary": {
+    "cpu_preflight_only": true,
+    "future_worker_package_versions": "UNKNOWN_UNTIL_RUNTIME",
+    "observed_image_digest": "UNKNOWN",
+    "gpu_runtime_success_claimed": false
+  },
+  "diagnostics": {
+    "json_lsp": "UNAVAILABLE_BIOME_NOT_INSTALLED_USER_PREVIOUSLY_DECLINED",
+    "installation_attempted": false,
+    "json_parser_validation": "PASS"
+  },
+  "prohibited_actions": {
+    "jobs_submitted": 0,
+    "api_or_controller_operations": 0,
+    "network_calls": 0,
+    "installs": 0,
+    "git_operations": 0,
+    "product_or_plan_state_edits": 0,
+    "subagents": 0,
+    "cuda_calls": 0,
+    "checkpoint_unpickles": 0
+  }
+}

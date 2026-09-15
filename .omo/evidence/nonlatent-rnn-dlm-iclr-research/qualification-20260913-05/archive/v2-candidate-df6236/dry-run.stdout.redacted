@@ -1,0 +1,59 @@
+DRY RUN: POST https://qz.sii.edu.cn/api/v2/train?Action=CreateJob
+Body: {
+  "auto_fault_tolerance": false,
+  "command": "/usr/bin/bash /inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-v2/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+  "description": "Single authorized nonlatent runtime qualification: one 8xH100 SXM 80GB node, 30 minutes, zero retries.",
+  "enable_notification": false,
+  "enable_troubleshoot": false,
+  "envs": [
+    {
+      "name": "QUALIFICATION_RUN_ID",
+      "value": "qualification-20260912-01-91f32832-f583-4638-aedc-be4ac9887ab3"
+    },
+    {
+      "name": "QUALIFICATION_NONCE",
+      "value": "a41af12290a62f67829670728be9b480"
+    },
+    {
+      "name": "QUALIFICATION_MANIFEST_SHA256",
+      "value": "218a0cacbaba8ecf541d2e72386b4bf070cfde6d230fbf0306ebfb50559523fb"
+    },
+    {
+      "name": "QUALIFICATION_JOB_RECEIPT",
+      "value": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/controller-receipts/qualification-20260912-01-91f32832-f583-4638-aedc-be4ac9887ab3.json"
+    },
+    {
+      "name": "HF_HUB_OFFLINE",
+      "value": "1"
+    },
+    {
+      "name": "TRANSFORMERS_OFFLINE",
+      "value": "1"
+    },
+    {
+      "name": "HF_DATASETS_OFFLINE",
+      "value": "1"
+    },
+    {
+      "name": "PYTHONUNBUFFERED",
+      "value": "1"
+    }
+  ],
+  "fault_tolerance_max_retry": 0,
+  "framework": "pytorch",
+  "framework_config": [
+    {
+      "image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+      "image_type": "SOURCE_PRIVATE",
+      "instance_count": 1,
+      "shm_gi": 1800,
+      "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f"
+    }
+  ],
+  "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+  "max_running_time_ms": "1800000",
+  "name": "qualification-20260912-01-91f32832-f583-4638-aedc-be4ac9887ab3",
+  "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+  "task_priority": 4,
+  "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6"
+}

@@ -1,0 +1,12 @@
+{
+  "atomic_write_returned": true,
+  "contender_bytes": "racing-writer-bytes",
+  "contender_created_immediately_before_real_replace": true,
+  "contender_preserved": false,
+  "destination_overwritten": true,
+  "final_bytes": "publisher-bytes",
+  "finding": "precheck race overwrites destination",
+  "published_bytes": "publisher-bytes",
+  "race_hook_calls": 1,
+  "target_absent_before_call": true
+}

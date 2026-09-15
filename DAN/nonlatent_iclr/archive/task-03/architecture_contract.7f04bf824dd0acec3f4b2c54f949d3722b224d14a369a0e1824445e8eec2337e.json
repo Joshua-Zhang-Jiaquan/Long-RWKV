@@ -1,0 +1,96 @@
+{
+  "blockers": [
+    {
+      "kind": "missing_caller_helper",
+      "path": "DAN/v7_arch_round/code/models/latent_plan.py"
+    },
+    {
+      "kind": "missing_caller_helper",
+      "path": "DAN/v7_arch_round/code/models/state_hijacking_cache.py"
+    },
+    {
+      "kind": "missing_caller_helper",
+      "path": "DAN/v7_arch_round/code/models/state_hijacking_dit_torch_types.py"
+    },
+    {
+      "kind": "missing_checkpoint_identity",
+      "path": "DAN/v7_arch_round/checkpoint_config.yaml"
+    },
+    {
+      "kind": "missing_checkpoint_identity",
+      "path": "DAN/v7_arch_round/model.safetensors.index.json"
+    },
+    {
+      "kind": "unexecuted_fla_runtime",
+      "path": "GPU kernel/cache equivalence authorization and runtime"
+    }
+  ],
+  "claims": {
+    "attention_pair": "clone_not_tied_source_backed",
+    "backbone_loop": {
+      "base_block_passes": 32,
+      "recycled_block_passes": 16,
+      "total_block_passes": 48
+    },
+    "cache_runtime": "unavailable",
+    "freeze_optimizer": "source_selection_semantics_only",
+    "full_checkpoint_count": "unavailable",
+    "masks": "unavailable",
+    "optional_latent": "not_an_active_nonlatent_assumption",
+    "outer_denoising_nfe": "distinct_full_canvas_forwards_source_backed",
+    "state_owner": "engineering_control_only"
+  },
+  "contract_version": 2,
+  "cpu_check_status": "ENGINEERING_ONLY",
+  "fla": {
+    "availability": "installed_source_available",
+    "distribution": "flash-linear-attention",
+    "sources": [
+      {
+        "path": "/usr/local/lib/python3.12/dist-packages/fla/layers/rwkv7.py",
+        "sha256": "de4109b25df8162810f8b45abfc48cc8149b93a02a06cfb51ea3b36717404ffa"
+      },
+      {
+        "path": "/usr/local/lib/python3.12/dist-packages/fla/models/rwkv7/configuration_rwkv7.py",
+        "sha256": "4020978c0974bf29cb6c56532a58d717cab1531d036c227d70fe38ac0029cd89"
+      },
+      {
+        "path": "/usr/local/lib/python3.12/dist-packages/fla/models/rwkv7/modeling_rwkv7.py",
+        "sha256": "5da518704726c0231484c82937d682d185d930169aa4d43ef1c39090dc798f76"
+      }
+    ],
+    "version": "0.5.0"
+  },
+  "readiness": {
+    "blocked_claims": 6,
+    "whole_architecture_ready": false
+  },
+  "sources": {
+    "architecture_spec": {
+      "path": "DAN/v7_arch_round/ARCHITECTURE.md",
+      "role": "staged_source",
+      "sha256": "651c1abbca41345b0d55d404c5699de1ce1ba6fb60cbd94552152acf1e332427"
+    },
+    "model": {
+      "path": "DAN/v7_arch_round/code/models/birwkv7_diffusion.py",
+      "role": "staged_source",
+      "sha256": "2591f58b1dfb7b567b979fb1f05cbb8c1e9a60490fc9fba293fcb2da48e0154a"
+    },
+    "residual_streams": {
+      "path": "DAN/v7_arch_round/code/models/residual_streams.py",
+      "role": "staged_source",
+      "sha256": "5ba645d5924b1782c60fccd8a17dec26bc904e3675f2f1834d9e948cac7e9b68"
+    },
+    "run_spec": {
+      "path": "DAN/v7_arch_round/report.md",
+      "role": "staged_source",
+      "sha256": "ed2901cae9d4fc748c0ff688c3119e360038dfc4ed70951ddc6c9494787351e3"
+    },
+    "trainer": {
+      "path": "DAN/v7_arch_round/code/train/train_birwkv_diffusion.py",
+      "role": "staged_source",
+      "sha256": "0bee15b5af05a785b70ddfeffa3064161f04beccea36b44e9bfd01029e286b60"
+    }
+  },
+  "status": "BLOCKED_EXTERNAL"
+}

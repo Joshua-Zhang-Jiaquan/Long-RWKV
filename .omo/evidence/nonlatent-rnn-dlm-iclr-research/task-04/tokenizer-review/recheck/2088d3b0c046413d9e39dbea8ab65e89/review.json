@@ -1,0 +1,88 @@
+{
+  "review_id": "2088d3b0c046413d9e39dbea8ab65e89",
+  "review_date": "2026-09-13",
+  "scope": "Bounded independent recheck of repaired tokenizer provenance only",
+  "verdict": {
+    "encoder_qualified": true,
+    "provenance_qualified": true,
+    "actual_requested_token_matrix_qualified": false,
+    "matrix_token_lengths_qualified": false,
+    "global_task4_gate": "BLOCKED"
+  },
+  "reviewed_hashes": {
+    "exact_tasks.py": "cd29f3ab5cc155357c37686ad43651083e9860631adea1868eaa0a33eca50ef9",
+    "tokenizer_qualification.py": "247b3cc10839f499d22d42280ebba07083c3f04e3e67082c6bbdaac5d936fd73",
+    "tokenizer_provenance.py": "681ea7049c3e9d31f485f3cad03752e4154cc7ae19b50837ae0d3cab2c580b56",
+    "rwkv_vocab_v20230424.txt": "e6dee3d4e31b4d5c40ac99508ac6c701ceef4bed681bf2167ce9a908552bca89",
+    "rwkv_tokenizer_results.json": "75d8230dc53be82045f1277f60ad6fa4b562fe40d84ceb0ed1ceeaf6d55b7d6e",
+    "rwkv_tokenizer_manifest.json": "b449a66bd42af5ceb3bb113fca13e98414db99d9a59e06481f97943d9c3f1a2d",
+    "qualification_receipt.json": "a18ef80ee1870fa93adfeea52b41e6124c8c388648159f02508f2fddcdd3c22f"
+  },
+  "qualification_receipt": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/task-04/tokenizer-qualification/8ef417180818408d8bc65efcb4dcd75c/receipt.json",
+  "binding_checks": {
+    "results_hash_matches_manifest": true,
+    "results_hash_matches_receipt": true,
+    "manifest_hash_matches_receipt": true,
+    "receipt_source_hashes_match_results": true,
+    "all_current_source_hashes_match": true,
+    "exact_tasks_source_bound": true,
+    "tokenizer_qualification_source_bound": true,
+    "tokenizer_provenance_verifier_source_bound": true
+  },
+  "required_adversarial_controls": {
+    "changed_exact_tasks_source_copy_rejected": true,
+    "self_consistent_changed_exact_tasks_hash_rejected_by_verifier": true,
+    "tampered_receipt_results_sha256_rejected": true,
+    "fabricated_empty_projection_results_used_self_consistent_updated_hashes": true,
+    "fabricated_empty_projection_results_rejected_by_actual_replay": true
+  },
+  "valid_current_replay": {
+    "verify_qualification_returned": true,
+    "real_vocab_load_calls_observed_inside_verifier": 1,
+    "real_vocab_entries": 65529,
+    "real_generator_calls_observed_inside_verifier": 4,
+    "projection_families": [
+      "associative_recall",
+      "overwrite_delayed_query",
+      "finite_hmm",
+      "code_dataflow"
+    ],
+    "token_counts": [
+      1589,
+      1598,
+      1554,
+      1601
+    ],
+    "closed_results_equal_replayed_results_document": true,
+    "all_projection_character_lengths": 8192,
+    "all_projection_decoded_bytes_equal": true,
+    "all_projection_ids_exclude_reserved_ids": true
+  },
+  "owned_tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python -m pytest -q -p no:cacheprovider scale/tests/nonlatent_iclr/test_exact_tasks.py scale/tests/nonlatent_iclr/test_task_registry.py scale/tests/nonlatent_iclr/test_tokenizer_qualification.py scale/tests/nonlatent_iclr/test_tokenizer_qualification_projection.py scale/tests/nonlatent_iclr/test_tokenizer_qualification_provenance.py",
+    "result": "26 passed in 7.74s"
+  },
+  "lsp_diagnostics": {
+    "scale/experiments/nonlatent_iclr/tasks/tokenizer_provenance.py": "clean",
+    "scale/experiments/nonlatent_iclr/tasks/tokenizer_qualification.py": "clean",
+    "scale/tests/nonlatent_iclr/test_tokenizer_qualification_provenance.py": "clean"
+  },
+  "scope_limits": {
+    "vocabulary_algorithm_reaudited": false,
+    "giant_720_matrix_run": false,
+    "actual_requested_token_matrix_qualified": false,
+    "full_task4_reaudited": false
+  },
+  "constraints_and_cleanup": {
+    "product_files_written": false,
+    "plan_files_written": false,
+    "gpu_used": false,
+    "api_or_network_used": false,
+    "packages_installed": false,
+    "git_used": false,
+    "subagents_used": false,
+    "temporary_directories_scrubbed": true,
+    "pytest_cache_disabled": true,
+    "python_bytecode_disabled": true
+  }
+}

@@ -1,0 +1,1 @@
+assert build_toy_dataset() == (['buy cheap meds now', 'cheap meds available online', 'win cash prizes now', 'project meeting schedule attached', 'let us discuss the project timeline', 'team meeting moved to monday'], ['spam', 'spam', 'spam', 'ham', 'ham', 'ham'])

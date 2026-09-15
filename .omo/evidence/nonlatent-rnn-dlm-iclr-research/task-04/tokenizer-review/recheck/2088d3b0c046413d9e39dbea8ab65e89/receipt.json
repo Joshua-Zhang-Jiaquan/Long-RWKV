@@ -1,0 +1,12 @@
+{
+  "review_id": "2088d3b0c046413d9e39dbea8ab65e89",
+  "review_path": "review.json",
+  "review_sha256": "04942dd995e096e33207cb156d9d407fe8128212b3dc4c197e12ac7d39587e0d",
+  "reviewed_results_sha256": "75d8230dc53be82045f1277f60ad6fa4b562fe40d84ceb0ed1ceeaf6d55b7d6e",
+  "reviewed_manifest_sha256": "b449a66bd42af5ceb3bb113fca13e98414db99d9a59e06481f97943d9c3f1a2d",
+  "reviewed_qualification_receipt_sha256": "a18ef80ee1870fa93adfeea52b41e6124c8c388648159f02508f2fddcdd3c22f",
+  "encoder_qualified": true,
+  "provenance_qualified": true,
+  "actual_requested_token_matrix_qualified": false,
+  "global_task4_gate": "BLOCKED"
+}

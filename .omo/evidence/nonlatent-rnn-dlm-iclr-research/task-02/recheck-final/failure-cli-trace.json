@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "cli_status_success": true,
+    "missing_pair_probe_executed": true,
+    "nonfinite_probe_executed": true,
+    "polarity_probe_executed": false,
+    "prompt_probe_executed": true,
+    "typed_polarity_correct": true
+  },
+  "cli_claim_complete": false,
+  "explicit_polarity_call_count": 0,
+  "pair_calls": [
+    {
+      "all_finite": false,
+      "keys_match": true,
+      "left_values": [
+        "NaN"
+      ],
+      "metric": "max_run_frac",
+      "right_values": [
+        0.0
+      ]
+    },
+    {
+      "all_finite": true,
+      "keys_match": false,
+      "left_values": [
+        0.0
+      ],
+      "metric": "max_run_frac",
+      "right_values": [
+        0.0
+      ]
+    }
+  ],
+  "plan_assessment": "failure CLI omits the finite reversed-polarity control even though the typed metric and scoped unit test cover the behavior",
+  "prompt_calls": [
+    {
+      "keyword_names": [
+        "mask_token_id",
+        "pad_id"
+      ],
+      "positional_count": 3
+    }
+  ],
+  "result": {
+    "detail": "polarity, nonfinite, missing-pair, and prompt-leakage guards rejected",
+    "status": "EXPECTED_FAILURE_CONFIRMED"
+  },
+  "strict_plan_acceptance": false,
+  "typed_polarity": {
+    "interpretation": "worse",
+    "mean_delta": 0.8
+  }
+}

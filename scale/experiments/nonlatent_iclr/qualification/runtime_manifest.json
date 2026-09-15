@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "payload_id": "qualification-20260912-01",
+  "expected_image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+  "files": [
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/__init__.py",
+      "role": "payload",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/__init__.py",
+      "role": "payload",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/__init__.py",
+      "role": "payload",
+      "sha256": "9b47ccc1514d28d20f7f9e9ba92d717bf8f1bf3c9b022903152c977d3f560ade",
+      "size_bytes": 300
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/__init__.py",
+      "role": "payload",
+      "sha256": "61815d8ea8522b2a57d5ecf04088416427ec53d50df4d5ec735421456ef820a6",
+      "size_bytes": 60
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/controller_receipt.py",
+      "role": "payload",
+      "sha256": "9202801258c8e35739e2d08e42dce2115d2061dc1a189bad953ae57d9a37f121",
+      "size_bytes": 5472
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/evidence_contracts.py",
+      "role": "payload",
+      "sha256": "d36b8d8442871b39caa04f7a2dde3c11aa3bd99d9cf05dc89a7cf5ee2aee6b1e",
+      "size_bytes": 6483
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/contracts.py",
+      "role": "payload",
+      "sha256": "ff1d638a3779491e48f2e23c7b93581a39eb9e7d8f4a650b21ebbf2064c69f25",
+      "size_bytes": 4208
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/manifest.py",
+      "role": "payload",
+      "sha256": "1c9bd38b71dc5b22d305fe65ac5c6403f08443f449bd0f58e6a550835823ce65",
+      "size_bytes": 8161
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/controls.py",
+      "role": "payload",
+      "sha256": "ea440dbf993eb7b92a0bdeb992b43d35766db06b75a4547ace132e554d455c03",
+      "size_bytes": 6071
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/runtime_config.py",
+      "role": "payload",
+      "sha256": "f826238529ff8a5f0d95e54dac44de86ef05935b812c95a5492f57b6717a600f",
+      "size_bytes": 7891
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/model_checks.py",
+      "role": "payload",
+      "sha256": "5f84af18cc47602537e86058beb5442e33555868327e2368cf558b07ea7bbd0f",
+      "size_bytes": 5276
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/runtime_checks.py",
+      "role": "payload",
+      "sha256": "c34753e6ed0450f8697a9fda761cc3a3571b3c3c51e4d1d159459a4b98cb6dde",
+      "size_bytes": 8667
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/runtime_identity.py",
+      "role": "payload",
+      "sha256": "6b2b1001856e3e438f12e1e57f6c6832e29b726829519481dbc5bdf63c8fb234",
+      "size_bytes": 3005
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/probe.py",
+      "role": "payload",
+      "sha256": "58fdb178af5a20a78e187ba79680fac5505e19f23df2e25a5089142054e399bc",
+      "size_bytes": 3227
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/cli.py",
+      "role": "payload",
+      "sha256": "29da623a0fd0ec20d10cb629beef7b3786207e08497efe5ab9afd39a0be27a41",
+      "size_bytes": 3203
+    },
+    {
+      "path": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+      "role": "payload",
+      "sha256": "dbd5ba93a6f7b0ab0cfdceed61058a157ea54b11291a53c554adc4abe3e7f8d0",
+      "size_bytes": 10018
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/__init__.py",
+      "role": "staged_source",
+      "sha256": "88592fdfb49695edf513a5d5b6c6e17ae58d28c16c7b2a1953050ea93dd09ca1",
+      "size_bytes": 138
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/birwkv7_diffusion.py",
+      "role": "staged_source",
+      "sha256": "e6d90ce843f722f235c3e88b894ffe060847e2b5cdda5b793af801f03f865858",
+      "size_bytes": 77426
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/residual_streams.py",
+      "role": "staged_source",
+      "sha256": "5ba645d5924b1782c60fccd8a17dec26bc904e3675f2f1834d9e948cac7e9b68",
+      "size_bytes": 9184
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/state_hijacking_dit_torch_types.py",
+      "role": "staged_source",
+      "sha256": "85c045d3dccf6873843aef48ca46cb137e50cddb23238573fbc224f6b26e5ce1",
+      "size_bytes": 1835
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/latent_plan.py",
+      "role": "staged_source",
+      "sha256": "a617596b7681a128478aeeda9b8fbb27e98a906e3457b39086bf647ec4f65a71",
+      "size_bytes": 19064
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/fla/layers/rwkv7.py",
+      "role": "package_source",
+      "sha256": "de4109b25df8162810f8b45abfc48cc8149b93a02a06cfb51ea3b36717404ffa",
+      "size_bytes": 14910
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/fla/layers/utils.py",
+      "role": "package_source",
+      "sha256": "4f05bbcf7646ca6a9d58340eb8f91eae8ef00364a884f10929639fdfb0d07f20",
+      "size_bytes": 8173
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/fla/models/utils.py",
+      "role": "package_source",
+      "sha256": "96717da020bca677e9fc672d2bec75866c1b001e1fec067105c551900e39af19",
+      "size_bytes": 20221
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/fla/models/rwkv7/configuration_rwkv7.py",
+      "role": "package_source",
+      "sha256": "4020978c0974bf29cb6c56532a58d717cab1531d036c227d70fe38ac0029cd89",
+      "size_bytes": 5085
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/fla/models/rwkv7/modeling_rwkv7.py",
+      "role": "package_source",
+      "sha256": "5da518704726c0231484c82937d682d185d930169aa4d43ef1c39090dc798f76",
+      "size_bytes": 23531
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/transformers/cache_utils.py",
+      "role": "package_source",
+      "sha256": "e4fe20ca1eeb17ea0ce7e62d1dbd0d6eab32e7072044f293612403b8e0c477fd",
+      "size_bytes": 60147
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/safetensors/torch.py",
+      "role": "package_source",
+      "sha256": "a95be924990d99bd45696f468f50e594682a7c0d70943a90467e43c84216a3dd",
+      "size_bytes": 17822
+    },
+    {
+      "path": "/usr/local/lib/python3.12/dist-packages/torch/serialization.py",
+      "role": "package_source",
+      "sha256": "8263ad671446bb287b1d343309dfa7dcd4aa12ec37e89498b2522bf840e905e0",
+      "size_bytes": 84598
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF/config.json",
+      "role": "hf_config",
+      "sha256": "08bf100980c8fe9e69d5c149fba30abc5903a57ad8e6d3166442a2efe7a25783",
+      "size_bytes": 967
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF/model.safetensors.index.json",
+      "role": "hf_index",
+      "sha256": "d83256f944260c29571d24cdb5b25750536c7c759f3cb85acc82a5ea89371fe6",
+      "size_bytes": 80590
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF/model-00001-of-00002.safetensors",
+      "role": "hf_shard",
+      "sha256": "0d02085ce601ff0aa911d5442b047f9f040496a4c0a3754cc1da001b3822399b",
+      "size_bytes": 4965315576
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF/model-00002-of-00002.safetensors",
+      "role": "hf_shard",
+      "sha256": "c3abf5b979251acd9c6bad770fb72934b0074bf4c31f678ff8ad766ce1486b29",
+      "size_bytes": 930269032
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/m4-loop-2p9b/step_00004750/meta.json",
+      "role": "checkpoint_meta",
+      "sha256": "321ce0465b2cedb13c870c1ad4ec2c7c36d14cd37670e9caa018b9e63954e7ef",
+      "size_bytes": 43
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/m4-loop-2p9b/step_00004750/model.pt",
+      "role": "checkpoint_model",
+      "sha256": "ffaa464dabb3291c40749bbac4d6805e8a47082e3e2b082e0240365ffc525c07",
+      "size_bytes": 16367167378
+    }
+  ],
+  "packages": [
+    {
+      "distribution": "torch",
+      "version": "2.8.0a0+5228986c39.nv25.6"
+    },
+    {
+      "distribution": "flash-linear-attention",
+      "version": "0.5.0"
+    },
+    {
+      "distribution": "fla-core",
+      "version": "0.5.0"
+    },
+    {
+      "distribution": "transformers",
+      "version": "5.3.0"
+    },
+    {
+      "distribution": "safetensors",
+      "version": "0.5.3"
+    },
+    {
+      "distribution": "pytorch-triton",
+      "version": "3.3.0+git96316ce52.nvinternal"
+    }
+  ]
+}

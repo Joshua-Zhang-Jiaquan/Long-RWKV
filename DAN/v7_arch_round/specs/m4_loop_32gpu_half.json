@@ -1,0 +1,25 @@
+{
+  "name": "m4-loop-2p9b-32h100-half",
+  "framework": "pytorch",
+  "command": "bash -lc 'set -e; export DAN_SCALE_DIR=/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale; export MODEL_DIR=/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF; export SAVE_ROOT=/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion; export TOKEN_DIR=/inspire/hdd/global_user/zhangjiaquan-253108540222/pt_training_data/knowledge_interim_gpkgfs/pt_mixture_4096_packed; export LOGDIR=$SAVE_ROOT/logs_m4_loop; rm -rf /inspire/hdd/global_user/zhangjiaquan-253108540222/rdzv/rdzv_birwkv_m4loop32; MODE=train RUN_NAME=m4-loop-2p9b NNODES=4 NGPUS=8 MICROBATCH=4 GRAD_ACCUM=2 STEPS=4750 TOKEN=birwkv_m4loop32 EXTRA_ARGS=\"--gradient-checkpointing --resume-from /inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/f2-2p9b-ptcorpora/step_00014000_probe_copy --loop-range 16:32 --loop-reps 1 --lr 1e-5 --warmup-steps 200 --val-every 500 --save-every 500 --sampler-every 4000\" bash $DAN_SCALE_DIR/qz/launch_birwkv_diffusion.sh'",
+  "envs": [],
+  "framework_config": [
+    {
+      "image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+      "image_type": "SOURCE_PRIVATE",
+      "instance_count": 4,
+      "shm_gi": 1800,
+      "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f"
+    }
+  ],
+  "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+  "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+  "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6",
+  "task_priority": 3,
+  "max_running_time_ms": "86400000",
+  "auto_fault_tolerance": true,
+  "fault_tolerance_max_retry": 3,
+  "fault_tolerance_retry_interval_sec": 300,
+  "tb_summary_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/logs_m4_loop/tb",
+  "description": "v7 W-A3 loop arm HALF-BUDGET (user decision 2026-09-09: 4750 steps @ 32xH100 LOW lane). Weight-tied loop over layers [16,32), reps=1 (NFE 48); otherwise EXACT N2 recipe (F2 s14000 warm start, knowledge_interim pack, lr 1e-5, 256 rows/step via mb4 x ga2 x 32GPU). Gates: 2B + 4.7B PPL panels + 500-step MMLU probes; PRE-REGISTERED MIDPOINT KILL at s2000 if >=3/5 corpora worse with any erosion >0.03. Single 24h segment (no mid-run resume -> no data-iterator offset). V7-MECH-PARITY probe gates step 0 [loop=on, mHC=off]."
+}

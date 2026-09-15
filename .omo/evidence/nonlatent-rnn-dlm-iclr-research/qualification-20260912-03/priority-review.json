@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "review": "INDEPENDENT_PRIORITY_DELTA_REVIEW_03",
+  "reviewed_at_utc": "2026-09-13T05:05:00Z",
+  "verdict": "PASS",
+  "live_submission_verdict_confirmed": "NO_GO_until_root_authorization (permit/controller-state/delta-review all gate live call; correct)",
+  "delta_scope": {
+    "request_contract.py_02_vs_03": "verified via diff -u: only task_priority changes (Literal[0] -> Annotated[Literal[4], Field(ge=1, le=10)] at model field; task_priority=0 -> task_priority=4 at builder) plus removal of one trailing blank line at EOF (cosmetic, non-semantic); NO other hunk",
+    "exact_job_spec.json_02_vs_03": "verified via diff -u: task_priority 0->4 and fresh attempt identity (run_id 28575096->a840156e, nonce 0f596795->eef4675f, receipt path, job name follow); QUALIFICATION_MANIFEST_SHA256 92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c unchanged; all other fields byte-identical (image relay2:v2, instance_count 1, spec_id 7166bd2e-6cbe-4bd9-be38-762d11003e7f, max_running_time_ms 1800000, auto_fault_tolerance false, fault_tolerance_max_retry 0, lcg/project/workspace ids)"
+  },
+  "hash_bindings_verified": {
+    "request_contract_base_02": "6e2b25f1696ecb82db0f186be26d871686e894fdbdfe87ff9c8d985f9364e71a",
+    "request_contract_target_03": "2583ed912ad39a73d080a34a956085a40fe0b150dfd49ba68b38c51d0796933e",
+    "exact_job_spec_02": "ece8b1bf041f31ee84bb9b400d21856c31c458770982b75568b7be31c6f0c42e",
+    "exact_job_spec_03": "b932e3e036f242c6c1a91db242c342595e5df257298409a9061a489a573a301b",
+    "exact_job_spec_03_sidecar_sha256_file": "b932e3e036f242c6c1a91db242c342595e5df257298409a9061a489a573a301b (matches)",
+    "permit_submitted_request_sha256": "b932e3e036f242c6c1a91db242c342595e5df257298409a9061a489a573a301b (matches exact_job_spec_03)",
+    "controller_state_submitted_request_sha256": "b932e3e036f242c6c1a91db242c342595e5df257298409a9061a489a573a301b (matches)",
+    "campaign_authorization_sha256": "067e063296ab8a738ec796afb3e92aa2732a0da261360285a591c84c05221b0a (matches .omo/authorizations/nonlatent-gpu-campaign-20260912.json on disk)",
+    "source_manifest": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c (unchanged across 02->03 spec env)",
+    "unchanged_source_modules": "all 11 unchanged_source_modules sha256 in delta-review.json recomputed and matched byte-for-byte (admission_parser, authority_models, controller, controller_models, controller_runtime, controller_storage, dry_run_runtime, job_confirmation, receipt_contract, response_capture, runtime_records); 11 unchanged + 1 changed = 12 checked"
+  },
+  "campaign_binding": {
+    "priority": 4,
+    "nodes": 1,
+    "gpus_per_node": 8,
+    "max_runtime_ms": 1800000,
+    "auto_fault_tolerance": false,
+    "max_retries": 0,
+    "run_id": "qualification-20260912-01-a840156e-c5a8-477e-9efe-3b07e66fd6a8",
+    "nonce": "eef4675f21e5f575e10306a9ff6feade",
+    "permit_path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-03/submission/permit.json",
+    "permit_id": "permit-nonlatent-gpu-campaign-20260912-5bf2e208-8dfb-49cf-98ef-e7e79ee44622",
+    "future_submit_command": "future-submit-command.txt references only 03 paths; not executed"
+  },
+  "tests_executed": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python -m pytest test_admission_parser.py test_campaign_contract.py test_controller_runtime.py test_priority_contract.py test_response_capture.py -p no:cacheprovider -q  (cwd = 03/submission)",
+    "result": "30 passed in 0.44s, exit 0",
+    "per_file": {
+      "test_admission_parser.py": 12,
+      "test_campaign_contract.py": 6,
+      "test_controller_runtime.py": 2,
+      "test_priority_contract.py": 4,
+      "test_response_capture.py": 6
+    },
+    "getjob_zero_priority_regression_present": "test_getjob_priority_zero_does_not_mismatch_createjob_profile_priority (test_priority_contract.py) — response enum-0 vs request priority-4 does not misinterpret; verified present and passing",
+    "negative_direction_covered": "test_createjob_priority_zero_is_rejected_by_preflight_contract (priority 0 request rejected) passing"
+  },
+  "immutability_and_markers": {
+    "old_attempts_immutable": "find qualification-20260912-01 qualification-20260912-02 -newermt '2026-09-13 04:05:00' -type f -> 0 files (01 and 02 untouched since 03 creation)",
+    "new_attempt_marker_absent": "no request-attempt.json / createjob.response.json / submission-outcome.json / live-execution-hashes.sha256 in 03/submission; no controller receipt for run a840156e in GPFS controller-receipts dir; controller-state.status = NOT_SUBMITTED; delta-review live_submission all zero calls",
+    "hygiene": "no __pycache__/.pytest_cache created by this review (PYTHONDONTWRITEBYTECODE=1, -p no:cacheprovider)"
+  },
+  "constraints_respected": "no qz invocation of any kind (no dry-run, no CreateJob/GetJob/ListJobs/StopJob), no CUDA, no network, no git, no installs, no product/state edits; only reads + this evidence file",
+  "notes": [
+    "Non-semantic byte delta: one trailing blank line removed at EOF of request_contract.py — cosmetic, does not affect contract semantics; flagged for completeness, not a defect.",
+    "Permit binds priority transitively via submitted_request_sha256 = b932e3e0... (the priority-4 spec); permit itself carries no explicit task_priority field."
+  ]
+}

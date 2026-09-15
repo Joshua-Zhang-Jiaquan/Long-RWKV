@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "review_id": "qualification-20260913-05-v5-focused-bytecode-recheck",
+  "status": "PASS",
+  "detail": "v5_python_bytecode_execution_identity_fix_passes_cpu_launch_preflight",
+  "release_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-bytecode-v5",
+  "manifest_sha256": "9271a2036e84c3fa29442a9f7627c9889d024106b8286321d82da26df856e51d",
+  "tree_sha256": "f2972779734df10aad2213c4f96f50c78c3b3e81f49a2e95106cff380d72cc0e",
+  "job_cpu_launch_preflight_ready": true,
+  "accepted_scope": "CPU_LAUNCH_PREFLIGHT_ONLY",
+  "proof": [
+    "The v5 immutable tree contains zero __pycache__, .pyc, or .pyo paths, zero writable paths, and zero symlinks.",
+    "A fresh child under the exact launcher-derived CWD, safe-path, PYTHONPATH, PYTHONPYCACHEPREFIX, and dont-write environment opened and unmarshalled zero release bytecode.",
+    "An injected .pyc in an isolated copy was rejected by the production guard with return code 1 before the package-import sentinel could run; both helper-owned prefixes and review scratch were removed.",
+    "Launcher help and strict global preflight left the release bytecode-free; strict validation returned PREFLIGHT_VERIFIED for all 110 manifest entries using the correct absolute controller-receipt argument.",
+    "The global package and birwkv7_diffusion entrypoint resolve beneath the v5 model-source root and to manifest-covered files without importing model/runtime modules.",
+    "All 72 staged source blobs match their manifest hashes; source-inventory semantics and package, HF, and checkpoint roles match v4 after owned-root rebinding.",
+    "The workflow remains eight ranks, zero restarts, 1650 seconds plus 30 seconds grace, and PARTIAL_QUALIFICATION."
+  ],
+  "actual_test_count": {
+    "v5_targeted_executed": 11,
+    "v5_targeted_result": "11 passed in 2.12s",
+    "historical_v4_reused_not_reexecuted": 189,
+    "all_200_executed_as_v5_claimed": false
+  },
+  "predecessor_forensic_cache_state": "DOCUMENTED_AND_NOT_A_NEW_V5_BLOCKER",
+  "runtime_unknowns": [
+    "The future worker image digest and package state remain runtime observations.",
+    "No checkpoint unpickle, model construction, CUDA, NCCL, memory, cache-equivalence, or masked-forward result is proven by this CPU review."
+  ],
+  "live_job_ready_within_cpu_preflight_scope": true
+}

@@ -1,0 +1,147 @@
+[
+  {
+    "argv": [
+      "verify",
+      "--case",
+      "happy",
+      "--task",
+      "1",
+      "--repo-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY",
+      "--evidence-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research"
+    ],
+    "exit_code": 0,
+    "parsed": {
+      "blocked_claims": 8,
+      "detail": "fresh audit; scientific claims remain blocked",
+      "status": "AUDIT_COMPLETE"
+    },
+    "stderr": "",
+    "stdout": "{\n  \"blocked_claims\": 8,\n  \"detail\": \"fresh audit; scientific claims remain blocked\",\n  \"status\": \"AUDIT_COMPLETE\"\n}\n"
+  },
+  {
+    "argv": [
+      "verify",
+      "--case",
+      "happy",
+      "--task",
+      "1",
+      "--repo-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY",
+      "--evidence-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research"
+    ],
+    "exit_code": 0,
+    "parsed": {
+      "blocked_claims": 8,
+      "detail": "fresh audit; scientific claims remain blocked",
+      "status": "AUDIT_COMPLETE"
+    },
+    "stderr": "",
+    "stdout": "{\n  \"blocked_claims\": 8,\n  \"detail\": \"fresh audit; scientific claims remain blocked\",\n  \"status\": \"AUDIT_COMPLETE\"\n}\n"
+  },
+  {
+    "argv": [
+      "analyze",
+      "--task",
+      "1",
+      "--repo-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY",
+      "--evidence-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research"
+    ],
+    "exit_code": 0,
+    "parsed": {
+      "blocked_claims": 8,
+      "detail": "artifacts=32; claims=8; blocked_claims=8; unresolved_artifacts=0",
+      "status": "AUDIT_COMPLETE"
+    },
+    "stderr": "",
+    "stdout": "{\n  \"blocked_claims\": 8,\n  \"detail\": \"artifacts=32; claims=8; blocked_claims=8; unresolved_artifacts=0\",\n  \"status\": \"AUDIT_COMPLETE\"\n}\n"
+  },
+  {
+    "argv": [
+      "prepare",
+      "--task",
+      "not-an-integer",
+      "--repo-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY"
+    ],
+    "exit_code": 2,
+    "parsed": {
+      "blocked_claims": 0,
+      "detail": "argument --task: invalid int value: 'not-an-integer'",
+      "status": "INVALID_ARGUMENT"
+    },
+    "stderr": "",
+    "stdout": "{\n  \"blocked_claims\": 0,\n  \"detail\": \"argument --task: invalid int value: 'not-an-integer'\",\n  \"status\": \"INVALID_ARGUMENT\"\n}\n"
+  },
+  {
+    "argv": [
+      "verify",
+      "--case",
+      "failure",
+      "--task",
+      "1",
+      "--repo-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY",
+      "--evidence-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research"
+    ],
+    "exit_code": 0,
+    "parsed": {
+      "blocked_claims": 0,
+      "detail": "isolated checksum change and missing raw record rejected",
+      "status": "EXPECTED_FAILURE_CONFIRMED"
+    },
+    "stderr": "",
+    "stdout": "{\n  \"blocked_claims\": 0,\n  \"detail\": \"isolated checksum change and missing raw record rejected\",\n  \"status\": \"EXPECTED_FAILURE_CONFIRMED\"\n}\n"
+  },
+  {
+    "argv": [
+      "render",
+      "--out",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/.manual-qa-work-wj0qlt04/outside.md",
+      "--task",
+      "1",
+      "--repo-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/.manual-qa-work-wj0qlt04/containment/repo",
+      "--evidence-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/.manual-qa-work-wj0qlt04/containment/evidence",
+      "--external-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/.manual-qa-work-wj0qlt04/containment/external",
+      "--live-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/.manual-qa-work-wj0qlt04/containment/live",
+      "--staged-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research/.manual-qa-work-wj0qlt04/containment/staged"
+    ],
+    "exit_code": 2,
+    "parsed": {
+      "blocked_claims": 0,
+      "detail": "render output must be inside DAN/nonlatent_iclr",
+      "status": "UNSAFE_DESTINATION"
+    },
+    "stderr": "",
+    "stdout": "{\n  \"blocked_claims\": 0,\n  \"detail\": \"render output must be inside DAN/nonlatent_iclr\",\n  \"status\": \"UNSAFE_DESTINATION\"\n}\n"
+  },
+  {
+    "argv": [
+      "prepare",
+      "--task",
+      "1",
+      "--repo-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY",
+      "--evidence-root",
+      "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/.omo/evidence/nonlatent-rnn-dlm-iclr-research"
+    ],
+    "exit_code": 2,
+    "parsed": {
+      "blocked_claims": 8,
+      "detail": "complete immutable publication already exists",
+      "status": "PUBLICATION_EXISTS"
+    },
+    "stderr": "",
+    "stdout": "{\n  \"blocked_claims\": 8,\n  \"detail\": \"complete immutable publication already exists\",\n  \"status\": \"PUBLICATION_EXISTS\"\n}\n"
+  }
+]

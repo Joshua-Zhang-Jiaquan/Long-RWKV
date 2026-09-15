@@ -1,0 +1,14 @@
+$ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. python <independent>/correction_probe.py
+exit_code=0
+machine_readable_output=correction-outcomes.json
+
+Expected truth checks versus observed verifier results:
+- Changed first correction to pair_count=999, max_run_delta=12345.0, interpretation=better while preserving raw hash fields: verifier returned METRICS_COMPLETE (FAIL).
+- Replaced corrections with an empty list while external raw records were unchanged: verifier returned METRICS_COMPLETE (FAIL).
+- Changed schema_version from 1 to 999: verifier returned METRICS_COMPLETE (FAIL).
+- Supplied no receipt directory: verifier returned METRICS_COMPLETE (FAIL).
+- Removed the Markdown correction artifact: verifier returned METRICS_COMPLETE (FAIL).
+- Changed a raw source byte: verifier returned STALE (PASS freshness control).
+- Changed analysis_code_sha256 to 64 zeroes: verifier returned STALE (PASS code-freshness control).
+- Injected report-write interruption after JSON publication: first prepare SOURCE_UNAVAILABLE, retry PUBLICATION_EXISTS, verify METRICS_COMPLETE despite no Markdown and no receipt (FAIL recovery/truth).
+- Injected receipt-write interruption after JSON and Markdown publication: first prepare SOURCE_UNAVAILABLE, retry PUBLICATION_EXISTS, verify METRICS_COMPLETE despite no receipt (FAIL recovery/truth).

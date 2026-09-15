@@ -1,0 +1,25 @@
+{
+  "name": "m4-mhc-2p9b-16h100-hp",
+  "framework": "pytorch",
+  "command": "bash -lc 'set -e; export DAN_SCALE_DIR=/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale; export MODEL_DIR=/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF; export SAVE_ROOT=/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion; export TOKEN_DIR=/inspire/hdd/global_user/zhangjiaquan-253108540222/pt_training_data/knowledge_interim_gpkgfs/pt_mixture_4096_packed; export LOGDIR=$SAVE_ROOT/logs_m4_mhc; rm -rf /inspire/hdd/global_user/zhangjiaquan-253108540222/rdzv/rdzv_birwkv_m4mhc16r2; MODE=train RUN_NAME=m4-mhc-2p9b NNODES=2 NGPUS=8 MICROBATCH=4 GRAD_ACCUM=4 STEPS=9500 TOKEN=birwkv_m4mhc16r2 EXTRA_ARGS=\"--gradient-checkpointing --resume-from /inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/f2-2p9b-ptcorpora/step_00014000_probe_copy --n-streams 4 --lr 1e-5 --warmup-steps 200 --val-every 500 --save-every 500 --sampler-every 4000\" bash $DAN_SCALE_DIR/qz/launch_birwkv_diffusion.sh'",
+  "envs": [],
+  "framework_config": [
+    {
+      "image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+      "image_type": "SOURCE_PRIVATE",
+      "instance_count": 2,
+      "shm_gi": 1800,
+      "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f"
+    }
+  ],
+  "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+  "project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+  "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6",
+  "task_priority": 4,
+  "max_running_time_ms": "129600000",
+  "auto_fault_tolerance": true,
+  "fault_tolerance_max_retry": 3,
+  "fault_tolerance_retry_interval_sec": 300,
+  "tb_summary_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/logs_m4_mhc/tb",
+  "description": "v7 W-A2 mHC arm: EXACT N2 recipe replay (F2 s14000 warm start, 7.6B knowledge_interim pack, lr 1e-5, 9500 steps, 64xH100) with the ONLY change = --n-streams 4 (n-stream hyper-connections, exact identity at init; V7-MECH-PARITY probe gates step 0). Every N2 metric is the paired control: primary gate = fixed PPL panel at 2B/6B/10B beats N2's per-corpus deltas CI-disjoint on >=2 corpora, no erosion; co-primary decode gate per the user steer = repetition + em@k at 90% mask. MICROBATCH=4 pending the smoke's n=4/mb4 memory probe (fallback mb2/GRAD_ACCUM=2, same 256-row global batch). RESCALED 2026-09-07: 64-GPU requests rejected by BOTH quota lanes (16 high / 32 low). This is the 16-GPU HIGH-priority shape: 2 nodes x 8, MICROBATCH 4, GRAD_ACCUM 4 -> 256 rows/step EXACTLY as N2 (paired gate unaffected). Wall-clock ~4x the 64-GPU plan (~44h) \u2014 chose HIGH lane over the queued 32/LOW variant because the LOW queue demonstrated multi-hour placement delays (priority 11)."
+}

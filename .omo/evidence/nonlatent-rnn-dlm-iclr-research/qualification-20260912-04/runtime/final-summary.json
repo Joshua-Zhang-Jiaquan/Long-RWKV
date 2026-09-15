@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-13T06:55:09Z",
+  "job_id": "job-e0c9f792-8afb-4902-bb24-5dd8872927e1",
+  "run_id": "qualification-20260912-01-0ff9241e-460a-4647-95b3-af4c0fba16ce",
+  "scheduler_terminal_status": "job_failed",
+  "qualification_classification": "FAILED_NO_RUNTIME_PROOF",
+  "failure_cause_classification": "INCONCLUSIVE_PRE_PAYLOAD_OR_LAUNCHER_START",
+  "timings": {
+    "created_at_utc": "2026-09-13T06:29:46Z",
+    "resource_prepared_at_utc": "2026-09-13T06:30:30Z",
+    "running_at_utc": "2026-09-13T06:30:33Z",
+    "finished_at_utc": "2026-09-13T06:30:38Z",
+    "running_time_ms": 5000,
+    "terminal_observed_at_utc": "2026-09-13T06:51:12Z"
+  },
+  "resource": {
+    "nodes": 1,
+    "gpus": 8,
+    "gpu_type": "NVIDIA_H100_SXM_80G",
+    "image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+    "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+    "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f",
+    "max_running_time_ms": 1800000,
+    "auto_fault_tolerance": false,
+    "automatic_retries": 0,
+    "observed_gpu_hours": 0.011111111111111112,
+    "observed_gpu_hours_is_billing_claim": false
+  },
+  "monitoring_calls": {
+    "failed_bootstrap_scheduler_calls": 0,
+    "assignment_getjob_calls": 2,
+    "assignment_getjoblog_calls": 1,
+    "assignment_stopjob_calls": 0,
+    "assignment_createjob_calls": 0,
+    "new_jobs_submitted": 0,
+    "automatic_retries": 0
+  },
+  "runtime_proof": {
+    "gpfs_root_exists": false,
+    "preflight_present": false,
+    "launcher_present": false,
+    "aggregate_present": false,
+    "rank_records_expected": 8,
+    "rank_records_observed": 0,
+    "core_checks_passed": 0,
+    "source_identity_runtime_verified": false,
+    "checkpoint_runtime_verified": false,
+    "package_identity_runtime_verified": false
+  },
+  "fullmodel_cache": {
+    "healthy_expected_classification": "PARTIAL_QUALIFICATION",
+    "expected_healthy_limit": "fullmodelcacheunqualified",
+    "actual_result": "NOT_EVALUATED"
+  },
+  "failure_evidence": {
+    "gpfs_output": "ABSENT",
+    "getjoblog_error_code": "InternalError",
+    "getjoblog_error_message": "internal server error",
+    "exact_payload_trace_available": false,
+    "generic_retention_error_observed": false
+  },
+  "retention_and_recycle": {
+    "retention_fields_returned": false,
+    "effective_retention": "UNKNOWN",
+    "zero_inferred": false,
+    "resource_recycle_status": "UNKNOWN_NOT_EXPOSED",
+    "terminal_resource_hold_visible": false
+  },
+  "safety": {
+    "resource_mismatch_observed": false,
+    "runaway_observed": false,
+    "safety_stop_issued": false,
+    "older_jobs_touched": false
+  },
+  "artifact_paths": {
+    "monitor_terminal": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/runtime/monitor-terminal.json",
+    "terminal_status_snapshot": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/runtime/status-snapshots/001-20260913T065112Z.json",
+    "terminal_getjob": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/runtime/terminal-getjob.json",
+    "gpfs_inventory": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/runtime/gpfs-artifact-inventory.json",
+    "getjoblog_capture": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/runtime/getjoblog.stdout.redacted",
+    "check_results": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/runtime/check-results.json",
+    "resource_accounting": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260912-04/runtime/resource-accounting.json",
+    "controller_receipt": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/controller-receipts/qualification-20260912-01-0ff9241e-460a-4647-95b3-af4c0fba16ce.json"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "rank": 7,
+  "nonce": "1d32cc5ade0e5888d611e9d632049a82",
+  "status": "PASSED",
+  "detail": "A2_large_noloop: measured 2 of 4 canvases",
+  "scope": "task6_forecast_input_only",
+  "claims_not_made": [
+    "long-context capability",
+    "sustainable goodput",
+    "quality-matched serving",
+    "physical edge-device performance",
+    "training throughput at production sharding"
+  ],
+  "arm_id": "A2_large_noloop",
+  "arm_digest": "e5a5342abdf521f2749160bdc4aa96f0586dfb9ebdef88fe6fcc6e9248baa999",
+  "nominal_label": "A2 at the nominal-2.9B loop checkpoint, loop executed zero times",
+  "measured": true,
+  "derived_from": null,
+  "loop_reps_configured": 1,
+  "loop_reps_measured": 0,
+  "force_forward": false,
+  "gradient_checkpointing": true,
+  "model_geometry": {
+    "num_hidden_layers": 32,
+    "hidden_size": 2560,
+    "vocab_size": 65536,
+    "num_heads": 40,
+    "head_dim": 64,
+    "intermediate_size": 10240
+  },
+  "parameters": {
+    "total_tensors": 1953,
+    "total_numel": 4091581441,
+    "loop_tensors": 1,
+    "loop_numel": 1
+  },
+  "checkpoint_step": 4750,
+  "checkpoint_sha256": "ffaa464dabb3291c40749bbac4d6805e8a47082e3e2b082e0240365ffc525c07",
+  "weights_sha256": {
+    "model-00001-of-00002.safetensors": "0d02085ce601ff0aa911d5442b047f9f040496a4c0a3754cc1da001b3822399b",
+    "model-00002-of-00002.safetensors": "c3abf5b979251acd9c6bad770fb72934b0074bf4c31f678ff8ad766ce1486b29",
+    "config.json": "08bf100980c8fe9e69d5c149fba30abc5903a57ad8e6d3166442a2efe7a25783"
+  },
+  "measurements": [
+    {
+      "canvas_tokens": 512,
+      "forward_tokens_per_second": 3148.250688269849,
+      "backward_seconds": 0.46222785899590235,
+      "backward_not_measured_reason": null,
+      "optimizer_step_seconds": null,
+      "optimizer_step_not_measured_reason": "single-GPU AdamW state for 4.09B parameters is not the training configuration (training sharded across 32 GPUs), so no optimizer step was timed",
+      "selected_tokens": 170,
+      "sampler_nfe_seconds": 0.16262999700362948,
+      "peak_allocated_bytes": 22082783744,
+      "peak_reserved_bytes": 22204645376
+    },
+    {
+      "canvas_tokens": 4096,
+      "forward_tokens_per_second": 16760.875846990937,
+      "backward_seconds": 6.748603589003324,
+      "backward_not_measured_reason": null,
+      "optimizer_step_seconds": null,
+      "optimizer_step_not_measured_reason": "single-GPU AdamW state for 4.09B parameters is not the training configuration (training sharded across 32 GPUs), so no optimizer step was timed",
+      "selected_tokens": 1365,
+      "sampler_nfe_seconds": 0.24437863733328413,
+      "peak_allocated_bytes": 61628209664,
+      "peak_reserved_bytes": 61878566912
+    }
+  ],
+  "warnings": [
+    "canvas_16384_unavailable:out_of_memory:OutOfMemoryError",
+    "each rung's first forward is an untimed warm-up and the allocator cache is released between rungs, so the reported forward values exclude first-touch kernels and cross-rung accumulation",
+    "the job runs with PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True; without it the dplr chunk kernels fragment the 79 GiB device and a rung that fits alone fails",
+    "rows were measured while this job's other ranks were resident on the same node; treat them as contended-node throughput, not solo-GPU peak"
+  ]
+}

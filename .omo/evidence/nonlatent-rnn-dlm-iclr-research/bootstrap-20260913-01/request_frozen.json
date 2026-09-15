@@ -1,0 +1,45 @@
+{
+  "schema": "bootstrap-diag-request-frozen/v2",
+  "frozen_at_utc": "2026-09-13T07:42:17Z",
+  "job_name": "bootstrap-diag-p1-h100-20260913T073456Z-1fe0b3fe",
+  "run_id": "20260913T073456Z",
+  "nonce": "1fe0b3fe",
+  "wrapper": "/usr/bin/bash -lc <shlex.quote(inner)>; inner trap-removes temp script; exit status preserved",
+  "api_sentinel": {
+    "channel": "job.envs ONLY",
+    "expected_inline": true,
+    "value_sha256": "5de50c42931a6f3d42d41b75751ce5878a7a4264604cae13760c272b78614ab4"
+  },
+  "request_sha256": "7e3f86759618e7ac3f3c92a4e6c7bae7b986927ce9a232c21fc429cffe2be7a1",
+  "payload_sha256": "b5d3b688aee1d1a477910fcb1f64b508ca9458487de741df90cfe853be554531",
+  "caps": {
+    "gpu_type": "NVIDIA_H100_SXM_80G",
+    "nodes": 1,
+    "gpus_per_node": 8,
+    "max_running_time_ms": 180000,
+    "task_priority": 4,
+    "auto_fault_tolerance": false,
+    "fault_tolerance_max_retry": 0,
+    "internal_timeout_term_s": 120,
+    "internal_kill_grace_s": 5,
+    "per_probe_timeout_s": 15
+  },
+  "resources": {
+    "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+    "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+    "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6",
+    "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f",
+    "image": "docker.sii.shaipower.online/inspire-studio/relay2:v2"
+  },
+  "read_paths": [
+    "scheduler GetJobLog (full stdout incl. DIAG_SUMMARY / PATH / SENTINEL / PUBLISH lines)",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_birwkv_diffusion/logs/bootstrap-20260913T073456Z-1fe0b3fe/diag.json",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/bootstrap-20260913T073456Z-1fe0b3fe/diag.json"
+  ],
+  "submit_command": "qz train CreateJob --data \"$(cat job_spec_candidate.json)\" -o yaml",
+  "authorization": ".omo/authorizations/nonlatent-gpu-campaign-20260912.json",
+  "history": [
+    "v2b archived: command began 'echo <b64> |' relying on scheduler shell parsing",
+    "v3: /usr/bin/bash -lc + shlex.quote(inner), trap cleanup, identity pinned (nothing submitted)"
+  ]
+}

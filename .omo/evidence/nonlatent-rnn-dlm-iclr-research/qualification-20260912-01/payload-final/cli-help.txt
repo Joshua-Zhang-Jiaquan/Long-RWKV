@@ -1,0 +1,7 @@
+usage: nonlatent-qualification [-h] {validate,aggregate}
+
+positional arguments:
+  {validate,aggregate}
+
+options:
+  -h, --help            show this help message and exit

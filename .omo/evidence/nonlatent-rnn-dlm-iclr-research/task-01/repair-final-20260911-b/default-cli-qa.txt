@@ -1,0 +1,13 @@
+$ cd scale
+$ python -m experiments.nonlatent_iclr.cli prepare --task 1
+PUBLICATION_EXISTS blocked_claims=8 exit_code=2
+$ python -m experiments.nonlatent_iclr.cli verify --task 1 --case happy
+AUDIT_COMPLETE blocked_claims=8 exit_code=0
+$ python -m experiments.nonlatent_iclr.cli verify --task 1 --case failure
+EXPECTED_FAILURE_CONFIRMED exit_code=0
+$ python -m experiments.nonlatent_iclr.cli analyze --task 1
+AUDIT_COMPLETE artifacts=32 claims=8 blocked_claims=8 unresolved_artifacts=0 exit_code=0
+$ python -m experiments.nonlatent_iclr.cli render --out ../DAN/nonlatent_iclr/recheck-6626a347.md --task 1
+AUDIT_COMPLETE blocked_claims=8 exit_code=0
+
+The fresh render fixture was removed after successful inspection.

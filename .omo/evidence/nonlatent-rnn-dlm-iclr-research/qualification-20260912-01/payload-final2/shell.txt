@@ -1,0 +1,4 @@
+bash -n scale/experiments/nonlatent_iclr/qualification/run_qualification.sh: PASS
+/usr/bin/python executable: PASS
+/usr/local/bin/torchrun executable: PASS
+launcher help: usage: QUALIFICATION_RUN_ID=<reserved-id> QUALIFICATION_NONCE=<32-hex> QUALIFICATION_MANIFEST_SHA256=<64-hex> QUALIFICATION_JOB_RECEIPT=<absolute-path> run_qualification.sh

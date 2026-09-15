@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "source_root": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY",
+  "release_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-92fbf9af",
+  "path_map_rule": "release_path = release_root / relative_path",
+  "reviewed_payload_rebased": [
+    "scale/__init__.py",
+    "scale/experiments/__init__.py",
+    "scale/experiments/nonlatent_iclr/__init__.py",
+    "scale/experiments/nonlatent_iclr/qualification/__init__.py",
+    "scale/experiments/nonlatent_iclr/qualification/controller_receipt.py",
+    "scale/experiments/nonlatent_iclr/qualification/evidence_contracts.py",
+    "scale/experiments/nonlatent_iclr/qualification/contracts.py",
+    "scale/experiments/nonlatent_iclr/qualification/manifest.py",
+    "scale/experiments/nonlatent_iclr/qualification/controls.py",
+    "scale/experiments/nonlatent_iclr/qualification/runtime_config.py",
+    "scale/experiments/nonlatent_iclr/qualification/model_checks.py",
+    "scale/experiments/nonlatent_iclr/qualification/runtime_checks.py",
+    "scale/experiments/nonlatent_iclr/qualification/runtime_identity.py",
+    "scale/experiments/nonlatent_iclr/qualification/probe.py",
+    "scale/experiments/nonlatent_iclr/qualification/cli.py",
+    "scale/experiments/nonlatent_iclr/qualification/run_qualification.sh"
+  ],
+  "added_import_closure": [
+    "scale/experiments/nonlatent_iclr/contract.py",
+    "scale/experiments/nonlatent_iclr/inventory.py",
+    "scale/experiments/nonlatent_iclr/models.py",
+    "scale/experiments/nonlatent_iclr/publication.py",
+    "scale/experiments/nonlatent_iclr/schema.py"
+  ],
+  "hash_inventory": [
+    {
+      "relative_path": "scale/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "release_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "release_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/__init__.py",
+      "source_sha256": "9b47ccc1514d28d20f7f9e9ba92d717bf8f1bf3c9b022903152c977d3f560ade",
+      "release_sha256": "9b47ccc1514d28d20f7f9e9ba92d717bf8f1bf3c9b022903152c977d3f560ade",
+      "size_bytes": 300,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/contract.py",
+      "source_sha256": "e365b777e422394472d162c7fbb8a3e1097e0d9a19bea337dd8952bf588d2fc1",
+      "release_sha256": "e365b777e422394472d162c7fbb8a3e1097e0d9a19bea337dd8952bf588d2fc1",
+      "size_bytes": 3834,
+      "disposition": "added_import_closure_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/inventory.py",
+      "source_sha256": "dd2616678441420f0becdf1bbf41e2b598dfa1e681979cd292ab81c05e57375f",
+      "release_sha256": "dd2616678441420f0becdf1bbf41e2b598dfa1e681979cd292ab81c05e57375f",
+      "size_bytes": 8158,
+      "disposition": "added_import_closure_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/models.py",
+      "source_sha256": "5e61b4c01ea90586a0d44116c5aa8f8914b195a0cd350309338f732aeabed127",
+      "release_sha256": "5e61b4c01ea90586a0d44116c5aa8f8914b195a0cd350309338f732aeabed127",
+      "size_bytes": 3496,
+      "disposition": "added_import_closure_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/publication.py",
+      "source_sha256": "290f15b8e88c34e215550882da4d1605500b99dae29ce3c8b4b58f023a5000a9",
+      "release_sha256": "290f15b8e88c34e215550882da4d1605500b99dae29ce3c8b4b58f023a5000a9",
+      "size_bytes": 2923,
+      "disposition": "added_import_closure_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/schema.py",
+      "source_sha256": "4ab390650b3920f7d72a46b586cafb16109f73c6d9c0c6e00e1af2c68ab5f455",
+      "release_sha256": "4ab390650b3920f7d72a46b586cafb16109f73c6d9c0c6e00e1af2c68ab5f455",
+      "size_bytes": 9332,
+      "disposition": "added_import_closure_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/__init__.py",
+      "source_sha256": "61815d8ea8522b2a57d5ecf04088416427ec53d50df4d5ec735421456ef820a6",
+      "release_sha256": "61815d8ea8522b2a57d5ecf04088416427ec53d50df4d5ec735421456ef820a6",
+      "size_bytes": 60,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/controller_receipt.py",
+      "source_sha256": "9202801258c8e35739e2d08e42dce2115d2061dc1a189bad953ae57d9a37f121",
+      "release_sha256": "9202801258c8e35739e2d08e42dce2115d2061dc1a189bad953ae57d9a37f121",
+      "size_bytes": 5472,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/evidence_contracts.py",
+      "source_sha256": "d36b8d8442871b39caa04f7a2dde3c11aa3bd99d9cf05dc89a7cf5ee2aee6b1e",
+      "release_sha256": "d36b8d8442871b39caa04f7a2dde3c11aa3bd99d9cf05dc89a7cf5ee2aee6b1e",
+      "size_bytes": 6483,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/contracts.py",
+      "source_sha256": "ff1d638a3779491e48f2e23c7b93581a39eb9e7d8f4a650b21ebbf2064c69f25",
+      "release_sha256": "ff1d638a3779491e48f2e23c7b93581a39eb9e7d8f4a650b21ebbf2064c69f25",
+      "size_bytes": 4208,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/manifest.py",
+      "source_sha256": "1c9bd38b71dc5b22d305fe65ac5c6403f08443f449bd0f58e6a550835823ce65",
+      "release_sha256": "1c9bd38b71dc5b22d305fe65ac5c6403f08443f449bd0f58e6a550835823ce65",
+      "size_bytes": 8161,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/controls.py",
+      "source_sha256": "ea440dbf993eb7b92a0bdeb992b43d35766db06b75a4547ace132e554d455c03",
+      "release_sha256": "ea440dbf993eb7b92a0bdeb992b43d35766db06b75a4547ace132e554d455c03",
+      "size_bytes": 6071,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/runtime_config.py",
+      "source_sha256": "f826238529ff8a5f0d95e54dac44de86ef05935b812c95a5492f57b6717a600f",
+      "release_sha256": "f826238529ff8a5f0d95e54dac44de86ef05935b812c95a5492f57b6717a600f",
+      "size_bytes": 7891,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/model_checks.py",
+      "source_sha256": "5f84af18cc47602537e86058beb5442e33555868327e2368cf558b07ea7bbd0f",
+      "release_sha256": "5f84af18cc47602537e86058beb5442e33555868327e2368cf558b07ea7bbd0f",
+      "size_bytes": 5276,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/runtime_checks.py",
+      "source_sha256": "c34753e6ed0450f8697a9fda761cc3a3571b3c3c51e4d1d159459a4b98cb6dde",
+      "release_sha256": "c34753e6ed0450f8697a9fda761cc3a3571b3c3c51e4d1d159459a4b98cb6dde",
+      "size_bytes": 8667,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/runtime_identity.py",
+      "source_sha256": "6b2b1001856e3e438f12e1e57f6c6832e29b726829519481dbc5bdf63c8fb234",
+      "release_sha256": "6b2b1001856e3e438f12e1e57f6c6832e29b726829519481dbc5bdf63c8fb234",
+      "size_bytes": 3005,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/probe.py",
+      "source_sha256": "58fdb178af5a20a78e187ba79680fac5505e19f23df2e25a5089142054e399bc",
+      "release_sha256": "58fdb178af5a20a78e187ba79680fac5505e19f23df2e25a5089142054e399bc",
+      "size_bytes": 3227,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/cli.py",
+      "source_sha256": "29da623a0fd0ec20d10cb629beef7b3786207e08497efe5ab9afd39a0be27a41",
+      "release_sha256": "29da623a0fd0ec20d10cb629beef7b3786207e08497efe5ab9afd39a0be27a41",
+      "size_bytes": 3203,
+      "disposition": "rebased_identical"
+    },
+    {
+      "relative_path": "scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
+      "source_sha256": "dbd5ba93a6f7b0ab0cfdceed61058a157ea54b11291a53c554adc4abe3e7f8d0",
+      "release_sha256": "0a4366326ed8eb7b49b56dff576ff0b94af77d4c5e97a9d38f9590c153bc074d",
+      "source_size_bytes": 10018,
+      "release_size_bytes": 11060,
+      "disposition": "staging_only_early_failure_publication"
+    }
+  ],
+  "runtime_manifest": {
+    "listed_in_itself": false,
+    "old_sha256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+    "new_sha256": "49cdef9722351a951ed7f36a679708905df30a19801e7d2eaa7493144638869f"
+  }
+}

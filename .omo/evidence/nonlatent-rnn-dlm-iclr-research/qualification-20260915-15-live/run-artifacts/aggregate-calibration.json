@@ -1,0 +1,444 @@
+{
+  "schema_version": 1,
+  "scope": "task6_forecast_input_only",
+  "claims_not_made": [
+    "long-context capability",
+    "sustainable goodput",
+    "quality-matched serving",
+    "physical edge-device performance",
+    "training throughput at production sharding"
+  ],
+  "status": "PASSED",
+  "gradient_checkpointing": true,
+  "ranks_passed": 8,
+  "ranks_failed": 0,
+  "arms": [
+    {
+      "arm_id": "A1_small_noloop",
+      "nominal_label": "A1 forward-only recurrent masked denoiser, no loop",
+      "derived_from": null,
+      "contributing_ranks": 1,
+      "unavailable_ranks": [],
+      "parameters": {
+        "total_tensors": 1464,
+        "total_numel": 591054848,
+        "loop_tensors": 0,
+        "loop_numel": 0
+      },
+      "checkpoint_step": null,
+      "model_geometry": {
+        "num_hidden_layers": 24,
+        "hidden_size": 1024,
+        "vocab_size": 65536,
+        "num_heads": 16,
+        "head_dim": 64,
+        "intermediate_size": 4096
+      },
+      "canvases": [
+        {
+          "canvas_tokens": 512,
+          "contributing_ranks": 1,
+          "forward_tokens_per_second": 4561.953353605734,
+          "backward_seconds": 0.18963013400207274,
+          "backward_contributing_ranks": 1,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": 0.09797325399995316,
+          "optimizer_step_contributing_ranks": 1,
+          "optimizer_step_not_measured_reason": null,
+          "selected_tokens_min": 170,
+          "selected_tokens_max": 170,
+          "sampler_nfe_seconds": 0.11223262499940272,
+          "peak_allocated_bytes": 3159922688,
+          "peak_reserved_bytes": 3177185280
+        },
+        {
+          "canvas_tokens": 4096,
+          "contributing_ranks": 1,
+          "forward_tokens_per_second": 33685.25275691289,
+          "backward_seconds": 4.9895113649981795,
+          "backward_contributing_ranks": 1,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": 0.014464402993326075,
+          "optimizer_step_contributing_ranks": 1,
+          "optimizer_step_not_measured_reason": null,
+          "selected_tokens_min": 1365,
+          "selected_tokens_max": 1365,
+          "sampler_nfe_seconds": 0.12159623766395573,
+          "peak_allocated_bytes": 12027172864,
+          "peak_reserved_bytes": 13363052544
+        },
+        {
+          "canvas_tokens": 16384,
+          "contributing_ranks": 1,
+          "forward_tokens_per_second": 105449.51811897605,
+          "backward_seconds": 7.964909597008955,
+          "backward_contributing_ranks": 1,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": 0.022323112993035465,
+          "optimizer_step_contributing_ranks": 1,
+          "optimizer_step_not_measured_reason": null,
+          "selected_tokens_min": 5461,
+          "selected_tokens_max": 5461,
+          "sampler_nfe_seconds": 0.15537292433630986,
+          "peak_allocated_bytes": 36247214080,
+          "peak_reserved_bytes": 36505124864
+        },
+        {
+          "canvas_tokens": 32768,
+          "contributing_ranks": 1,
+          "forward_tokens_per_second": 129636.35908132452,
+          "backward_seconds": 4.176036044998909,
+          "backward_contributing_ranks": 1,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": 0.015565007997793145,
+          "optimizer_step_contributing_ranks": 1,
+          "optimizer_step_not_measured_reason": null,
+          "selected_tokens_min": 10922,
+          "selected_tokens_max": 10922,
+          "sampler_nfe_seconds": 0.2527685923317525,
+          "peak_allocated_bytes": 68540602368,
+          "peak_reserved_bytes": 73324822528
+        }
+      ],
+      "canvases_not_reported": []
+    },
+    {
+      "arm_id": "A2_large_noloop",
+      "nominal_label": "A2 at the nominal-2.9B loop checkpoint, loop executed zero times",
+      "derived_from": null,
+      "contributing_ranks": 1,
+      "unavailable_ranks": [],
+      "parameters": {
+        "total_tensors": 1953,
+        "total_numel": 4091581441,
+        "loop_tensors": 1,
+        "loop_numel": 1
+      },
+      "checkpoint_step": 4750,
+      "model_geometry": {
+        "num_hidden_layers": 32,
+        "hidden_size": 2560,
+        "vocab_size": 65536,
+        "num_heads": 40,
+        "head_dim": 64,
+        "intermediate_size": 10240
+      },
+      "canvases": [
+        {
+          "canvas_tokens": 512,
+          "contributing_ranks": 1,
+          "forward_tokens_per_second": 2980.21949154894,
+          "backward_seconds": 0.4566709580103634,
+          "backward_contributing_ranks": 1,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": null,
+          "optimizer_step_contributing_ranks": 0,
+          "optimizer_step_not_measured_reason": "single-GPU AdamW state for 4.09B parameters is not the training configuration (training sharded across 32 GPUs), so no optimizer step was timed",
+          "selected_tokens_min": 170,
+          "selected_tokens_max": 170,
+          "sampler_nfe_seconds": 0.17179942667038026,
+          "peak_allocated_bytes": 22211758592,
+          "peak_reserved_bytes": 23028826112
+        },
+        {
+          "canvas_tokens": 4096,
+          "contributing_ranks": 1,
+          "forward_tokens_per_second": 13568.629580197852,
+          "backward_seconds": 6.803910266011371,
+          "backward_contributing_ranks": 1,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": null,
+          "optimizer_step_contributing_ranks": 0,
+          "optimizer_step_not_measured_reason": "single-GPU AdamW state for 4.09B parameters is not the training configuration (training sharded across 32 GPUs), so no optimizer step was timed",
+          "selected_tokens_min": 1365,
+          "selected_tokens_max": 1365,
+          "sampler_nfe_seconds": 0.30187278499943204,
+          "peak_allocated_bytes": 61755087360,
+          "peak_reserved_bytes": 63149441024
+        }
+      ],
+      "canvases_not_reported": [
+        16384,
+        32768
+      ]
+    },
+    {
+      "arm_id": "A2_small_noloop",
+      "nominal_label": "A2 bidirectional recurrent masked denoiser, no loop",
+      "derived_from": null,
+      "contributing_ranks": 2,
+      "unavailable_ranks": [],
+      "parameters": {
+        "total_tensors": 1464,
+        "total_numel": 591054848,
+        "loop_tensors": 0,
+        "loop_numel": 0
+      },
+      "checkpoint_step": null,
+      "model_geometry": {
+        "num_hidden_layers": 24,
+        "hidden_size": 1024,
+        "vocab_size": 65536,
+        "num_heads": 16,
+        "head_dim": 64,
+        "intermediate_size": 4096
+      },
+      "canvases": [
+        {
+          "canvas_tokens": 512,
+          "contributing_ranks": 2,
+          "forward_tokens_per_second": 2566.5179793189186,
+          "backward_seconds": 0.34689602400612785,
+          "backward_contributing_ranks": 2,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": 0.10582395100209396,
+          "optimizer_step_contributing_ranks": 2,
+          "optimizer_step_not_measured_reason": null,
+          "selected_tokens_min": 170,
+          "selected_tokens_max": 170,
+          "sampler_nfe_seconds": 0.19949290183285484,
+          "peak_allocated_bytes": 4175777792,
+          "peak_reserved_bytes": 4194304000
+        },
+        {
+          "canvas_tokens": 4096,
+          "contributing_ranks": 2,
+          "forward_tokens_per_second": 17914.726503983307,
+          "backward_seconds": 4.368011804494017,
+          "backward_contributing_ranks": 2,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": 0.022935776993108448,
+          "optimizer_step_contributing_ranks": 2,
+          "optimizer_step_not_measured_reason": null,
+          "selected_tokens_min": 1365,
+          "selected_tokens_max": 1365,
+          "sampler_nfe_seconds": 0.2286449395008579,
+          "peak_allocated_bytes": 18751143936,
+          "peak_reserved_bytes": 21126709248
+        },
+        {
+          "canvas_tokens": 16384,
+          "contributing_ranks": 2,
+          "forward_tokens_per_second": 43330.21769855779,
+          "backward_seconds": 8.125868733499374,
+          "backward_contributing_ranks": 2,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": 0.02792245649470715,
+          "optimizer_step_contributing_ranks": 2,
+          "optimizer_step_not_measured_reason": null,
+          "selected_tokens_min": 5461,
+          "selected_tokens_max": 5461,
+          "sampler_nfe_seconds": 0.3797835955022796,
+          "peak_allocated_bytes": 60617932800,
+          "peak_reserved_bytes": 60869836800
+        }
+      ],
+      "canvases_not_reported": [
+        32768
+      ]
+    },
+    {
+      "arm_id": "A3_large_loop",
+      "nominal_label": "A3 at the nominal-2.9B step-4750 loop checkpoint",
+      "derived_from": null,
+      "contributing_ranks": 1,
+      "unavailable_ranks": [],
+      "parameters": {
+        "total_tensors": 1953,
+        "total_numel": 4091581441,
+        "loop_tensors": 1,
+        "loop_numel": 1
+      },
+      "checkpoint_step": 4750,
+      "model_geometry": {
+        "num_hidden_layers": 32,
+        "hidden_size": 2560,
+        "vocab_size": 65536,
+        "num_heads": 40,
+        "head_dim": 64,
+        "intermediate_size": 10240
+      },
+      "canvases": [
+        {
+          "canvas_tokens": 512,
+          "contributing_ranks": 1,
+          "forward_tokens_per_second": 2041.5394558248452,
+          "backward_seconds": 0.6871318810008233,
+          "backward_contributing_ranks": 1,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": null,
+          "optimizer_step_contributing_ranks": 0,
+          "optimizer_step_not_measured_reason": "single-GPU AdamW state for 4.09B parameters is not the training configuration (training sharded across 32 GPUs), so no optimizer step was timed",
+          "selected_tokens_min": 170,
+          "selected_tokens_max": 170,
+          "sampler_nfe_seconds": 0.2507911363354651,
+          "peak_allocated_bytes": 25009490944,
+          "peak_reserved_bytes": 25784483840
+        }
+      ],
+      "canvases_not_reported": [
+        4096,
+        16384,
+        32768
+      ]
+    },
+    {
+      "arm_id": "A3_small_loop",
+      "nominal_label": "A3 bidirectional masked denoiser, tied loop",
+      "derived_from": null,
+      "contributing_ranks": 2,
+      "unavailable_ranks": [],
+      "parameters": {
+        "total_tensors": 1465,
+        "total_numel": 591054849,
+        "loop_tensors": 1,
+        "loop_numel": 1
+      },
+      "checkpoint_step": null,
+      "model_geometry": {
+        "num_hidden_layers": 24,
+        "hidden_size": 1024,
+        "vocab_size": 65536,
+        "num_heads": 16,
+        "head_dim": 64,
+        "intermediate_size": 4096
+      },
+      "canvases": [
+        {
+          "canvas_tokens": 512,
+          "contributing_ranks": 2,
+          "forward_tokens_per_second": 2098.6629901073434,
+          "backward_seconds": 0.5273076005032635,
+          "backward_contributing_ranks": 2,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": 0.10733805050404044,
+          "optimizer_step_contributing_ranks": 2,
+          "optimizer_step_not_measured_reason": null,
+          "selected_tokens_min": 170,
+          "selected_tokens_max": 170,
+          "sampler_nfe_seconds": 0.24397089166692848,
+          "peak_allocated_bytes": 5017099264,
+          "peak_reserved_bytes": 5035261952
+        },
+        {
+          "canvas_tokens": 4096,
+          "contributing_ranks": 2,
+          "forward_tokens_per_second": 15216.859676995286,
+          "backward_seconds": 3.9803424189958605,
+          "backward_contributing_ranks": 2,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": 0.02419180650031194,
+          "optimizer_step_contributing_ranks": 2,
+          "optimizer_step_not_measured_reason": null,
+          "selected_tokens_min": 1365,
+          "selected_tokens_max": 1365,
+          "sampler_nfe_seconds": 0.2692022021680411,
+          "peak_allocated_bytes": 25481695232,
+          "peak_reserved_bytes": 28988932096
+        }
+      ],
+      "canvases_not_reported": [
+        16384,
+        32768
+      ]
+    },
+    {
+      "arm_id": "A5_small_loop_fwd",
+      "nominal_label": "A5 forward-only masked denoiser, tied loop",
+      "derived_from": null,
+      "contributing_ranks": 1,
+      "unavailable_ranks": [],
+      "parameters": {
+        "total_tensors": 1465,
+        "total_numel": 591054849,
+        "loop_tensors": 1,
+        "loop_numel": 1
+      },
+      "checkpoint_step": null,
+      "model_geometry": {
+        "num_hidden_layers": 24,
+        "hidden_size": 1024,
+        "vocab_size": 65536,
+        "num_heads": 16,
+        "head_dim": 64,
+        "intermediate_size": 4096
+      },
+      "canvases": [
+        {
+          "canvas_tokens": 512,
+          "contributing_ranks": 1,
+          "forward_tokens_per_second": 3282.227400196581,
+          "backward_seconds": 0.27273933599644806,
+          "backward_contributing_ranks": 1,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": 0.07643749099224806,
+          "optimizer_step_contributing_ranks": 1,
+          "optimizer_step_not_measured_reason": null,
+          "selected_tokens_min": 170,
+          "selected_tokens_max": 170,
+          "sampler_nfe_seconds": 0.15599162933358457,
+          "peak_allocated_bytes": 3632014336,
+          "peak_reserved_bytes": 3649044480
+        },
+        {
+          "canvas_tokens": 4096,
+          "contributing_ranks": 1,
+          "forward_tokens_per_second": 22175.94617697375,
+          "backward_seconds": 4.807163352001226,
+          "backward_contributing_ranks": 1,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": 0.014079357992159203,
+          "optimizer_step_contributing_ranks": 1,
+          "optimizer_step_not_measured_reason": null,
+          "selected_tokens_min": 1365,
+          "selected_tokens_max": 1365,
+          "sampler_nfe_seconds": 0.18470463299793968,
+          "peak_allocated_bytes": 15803885568,
+          "peak_reserved_bytes": 17744003072
+        },
+        {
+          "canvas_tokens": 16384,
+          "contributing_ranks": 1,
+          "forward_tokens_per_second": 51002.36413891473,
+          "backward_seconds": 8.000503129005665,
+          "backward_contributing_ranks": 1,
+          "backward_not_measured_reason": null,
+          "optimizer_step_seconds": 0.015096789007657208,
+          "optimizer_step_contributing_ranks": 1,
+          "optimizer_step_not_measured_reason": null,
+          "selected_tokens_min": 5461,
+          "selected_tokens_max": 5461,
+          "sampler_nfe_seconds": 0.32124001066646696,
+          "peak_allocated_bytes": 51354052608,
+          "peak_reserved_bytes": 51497664512
+        }
+      ],
+      "canvases_not_reported": [
+        32768
+      ]
+    }
+  ],
+  "derived_arms": {
+    "A0": "A1_small_noloop",
+    "A4": "A3_small_loop"
+  },
+  "warnings": [
+    "canvas_16384_unavailable:out_of_memory:OutOfMemoryError",
+    "canvas_32768_unavailable:out_of_memory:OutOfMemoryError",
+    "canvas_4096_unavailable:out_of_memory:OutOfMemoryError",
+    "each rung's first forward is an untimed warm-up and the allocator cache is released between rungs, so the reported forward values exclude first-touch kernels and cross-rung accumulation",
+    "measured with a plain torch.optim.AdamW over all parameters; matches the trainer's optimizer class but not its parameter-group or freeze policy",
+    "rows were measured while this job's other ranks were resident on the same node; treat them as contended-node throughput, not solo-GPU peak",
+    "the job runs with PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True; without it the dplr chunk kernels fragment the 79 GiB device and a rung that fits alone fails"
+  ],
+  "sidecar_sha256": {
+    "rank-0": "f38beb12468670da7cefc186278fa681743a2f0ea656b5d36cc74a633e9aaaec",
+    "rank-1": "eefba35679733c5b132b0ed7f80adab13e9a031910751cc93877eb4b2d0d6de3",
+    "rank-2": "11aadf66fc71852028f311d807fe8b72d50e37e9cbcf51207b8001b5ea84a8e7",
+    "rank-3": "06a6e74ef215e7d805d051a6e20f06488b051fa837c76ee88271ed505e028eb7",
+    "rank-4": "d4f65817a48bb1f82f9887f2c02e814006db3d5cc90a1244f29582879e9e6f06",
+    "rank-5": "2fb03709db3b2743a6ab009a5c9db2f37dbd77864e2f235f986fed206cef8c06",
+    "rank-6": "521ed4859b534e7953ec5d34f4007eb567e69e88ff389824d4021f848c12c7df",
+    "rank-7": "e1ec5eaa202c256e0700471af340b64d2f5de3a53a349c28d4ebfe8dbdef8ea6"
+  }
+}

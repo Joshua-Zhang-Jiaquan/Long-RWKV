@@ -1,0 +1,11 @@
+{
+  "status": "CPU_REPAIR_READY_NOT_GPU_VERIFIED",
+  "runtime_outcome_policy": "PARTIAL_QUALIFICATION",
+  "supported_cache_claim": "FLA_RWKV7_attention_causal_cache_only",
+  "unsupported_claims": ["fullmodel_cachedprefix", "loop_cachedprefix"],
+  "unsupported_reason": "custom FFN token-shift and loop-pass cache state are not independently owned",
+  "model_constructor": {"loop_range": [16, 32], "loop_reps": 1},
+  "expected_custom_numel": 4091581440,
+  "masked_logit_shape": [1, 48, 65536],
+  "no_submission_or_cuda_execution": true
+}

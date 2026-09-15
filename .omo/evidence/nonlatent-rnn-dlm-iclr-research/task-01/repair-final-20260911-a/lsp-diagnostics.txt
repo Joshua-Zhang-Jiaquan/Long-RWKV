@@ -1,0 +1,11 @@
+Task-01 changed-Python-file LSP receipt, 2026-09-11
+
+- scale/experiments/nonlatent_iclr/: no diagnostics found.
+- scale/tests/nonlatent_iclr/test_cli_contract.py: no diagnostics found.
+- scale/tests/nonlatent_iclr/test_publication.py: no diagnostics found.
+- scale/tests/nonlatent_iclr/test_schema_contract.py: no diagnostics found.
+- scale/tests/nonlatent_iclr/test_audit_cli.py: no diagnostics found after task-local Pyright configuration/server refresh.
+- scale/tests/nonlatent_iclr/test_service_inventory.py: no diagnostics found after narrowing decoded ledger values.
+- Effective final result for every changed Python source/test file: zero LSP diagnostics.
+
+Standalone `ruff` and `basedpyright` executables are unavailable in this checkout. No claim is made that those unavailable commands ran.

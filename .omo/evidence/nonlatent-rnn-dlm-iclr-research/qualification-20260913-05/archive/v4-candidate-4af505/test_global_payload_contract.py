@@ -1,0 +1,52 @@
+from __future__ import annotations
+
+from hashlib import sha256
+from pathlib import Path
+from typing import Final
+
+import authority_models
+import controller_models as models
+import request_contract as subject
+
+
+GLOBAL_RELEASE_ROOT: Final = Path(
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/"
+    "nonlatent_iclr_qualification/payloads/"
+    "qualification-20260913-05-global-ffaa464d-origin-v4"
+)
+GLOBAL_LAUNCHER: Final = GLOBAL_RELEASE_ROOT / (
+    "scale/experiments/nonlatent_iclr/qualification/run_qualification.sh"
+)
+GLOBAL_MANIFEST: Final = GLOBAL_RELEASE_ROOT / (
+    "scale/experiments/nonlatent_iclr/qualification/runtime_manifest.json"
+)
+EXPECTED_LAUNCH_COMMAND: Final = f"/usr/bin/bash {GLOBAL_LAUNCHER}"
+EXPECTED_MANIFEST_SHA256: Final = (
+    "9204381bd606157440c8113556798ab4d271edd4210a44249a67139253986004"
+)
+
+
+def test_request_contract_binds_worker_visible_global_launcher() -> None:
+    # Given / When
+    command_schema = subject.CreateJobRequest.model_json_schema()["properties"][
+        "command"
+    ]
+
+    # Then
+    assert GLOBAL_LAUNCHER.is_file()
+    assert subject.LAUNCH_COMMAND == EXPECTED_LAUNCH_COMMAND
+    assert command_schema["const"] == EXPECTED_LAUNCH_COMMAND
+    assert "/inspire/hdd/project/" not in subject.LAUNCH_COMMAND
+
+
+def test_manifest_contract_binds_reviewed_global_release() -> None:
+    # Given / When
+    actual_digest = sha256(GLOBAL_MANIFEST.read_bytes()).hexdigest()
+    permit_schema = authority_models.Permit.model_json_schema()["properties"][
+        "source_manifest_sha256"
+    ]
+
+    # Then
+    assert actual_digest == EXPECTED_MANIFEST_SHA256
+    assert models.MANIFEST_SHA256 == EXPECTED_MANIFEST_SHA256
+    assert permit_schema["const"] == EXPECTED_MANIFEST_SHA256

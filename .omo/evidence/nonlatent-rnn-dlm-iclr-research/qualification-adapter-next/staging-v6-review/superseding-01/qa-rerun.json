@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-09-13",
+  "scope": "existing_adapter_v6_cpu_qa_lane_only",
+  "existing_qa_task_id": "bg_9d0b84cb",
+  "existing_qa_session_id": "ses_f6452547bffeDlbaUeIVRZvLm8",
+  "new_reviewers_launched": 0,
+  "status": "PASS",
+  "environment": {
+    "python_executable": "/usr/bin/python",
+    "python_safe_path": true,
+    "python_dont_write_bytecode": "1",
+    "python_pycache_prefix": "/tmp/adapter-v6-qa-cache.84kajX",
+    "timing_tool": "shell date +%s%N",
+    "unprefixed_python_invocations": 0
+  },
+  "before": {
+    "release_tree_sha256": "5b86080fba3c7ed11c65c9b7045349f0ad074973921ff04c22347ac4db8690f9",
+    "runtime_manifest_sha256": "692d1cc88d6b2c6335736d47492aa933bf57b9a23a4d0dcc9e5e3eeda165cf32",
+    "writable_paths": 0,
+    "symlinks": 0,
+    "bytecode_paths": 0
+  },
+  "tests": [
+    {
+      "scope": "candidate_lifecycle_and_parameter",
+      "test_file_count": 1,
+      "tests": 5,
+      "pytest_seconds": 18.54,
+      "wall_milliseconds": 20170,
+      "exit_code": 0
+    },
+    {
+      "scope": "release_manifest_and_preservation",
+      "test_file_count": 1,
+      "tests": 3,
+      "pytest_seconds": 0.81,
+      "wall_milliseconds": 2327,
+      "exit_code": 0
+    },
+    {
+      "scope": "approved_regression_part_one",
+      "test_file_count": 4,
+      "tests": 55,
+      "pytest_seconds": 4.56,
+      "wall_milliseconds": 6502,
+      "exit_code": 0
+    },
+    {
+      "scope": "approved_regression_part_two",
+      "test_file_count": 2,
+      "tests": 11,
+      "pytest_seconds": 14.14,
+      "wall_milliseconds": 16040,
+      "exit_code": 0
+    },
+    {
+      "scope": "inherited_v5_bytecode_and_freshness",
+      "test_file_count": 2,
+      "tests": 11,
+      "pytest_seconds": 2.05,
+      "wall_milliseconds": 3566,
+      "exit_code": 0
+    },
+    {
+      "scope": "inherited_v4_origin_controls",
+      "selected_tests": 6,
+      "tests": 6,
+      "pytest_seconds": 1.82,
+      "wall_milliseconds": 3381,
+      "exit_code": 0
+    }
+  ],
+  "totals": {
+    "candidate": "5/5",
+    "release": "3/3",
+    "approved_regression": "66/66_disjoint",
+    "inherited_controls": "17/17",
+    "all_selected_tests": "91/91"
+  },
+  "preflight": {
+    "status": "PREFLIGHT_VERIFIED",
+    "detail": "source_manifest_and_controls_verified",
+    "verified_source_files": 111,
+    "manifest_sha256": "692d1cc88d6b2c6335736d47492aa933bf57b9a23a4d0dcc9e5e3eeda165cf32",
+    "wall_milliseconds": 24543,
+    "exit_code": 0
+  },
+  "runtime_environment": {
+    "status": "MATCH",
+    "package_source_matches": "8/8",
+    "package_version_matches": "6/6",
+    "runtime_modules_loaded": [],
+    "wall_milliseconds": 339,
+    "exit_code": 0
+  },
+  "after": {
+    "release_tree_sha256": "5b86080fba3c7ed11c65c9b7045349f0ad074973921ff04c22347ac4db8690f9",
+    "runtime_manifest_sha256": "692d1cc88d6b2c6335736d47492aa933bf57b9a23a4d0dcc9e5e3eeda165cf32",
+    "writable_paths": 0,
+    "symlinks": 0,
+    "bytecode_paths": 0,
+    "external_cache_entries_before_cleanup": 0,
+    "external_cache_absent_after_cleanup": true,
+    "temporary_output_absent_after_cleanup": true
+  },
+  "preliminary_attempt": {
+    "status": "HARNESS_TOOL_UNAVAILABLE",
+    "detail": "/usr/bin/time was unavailable; test, preflight, and environment commands exited 127 before Python. A prefixed output-validation helper then failed on absent output. No unprefixed Python or release mutation occurred. The complete successful attempt used shell date timing and a new cache prefix."
+  },
+  "prohibited_actions": {
+    "gpu_jobs": 0,
+    "qz_mutations": 0,
+    "model_constructions": 0,
+    "checkpoint_unpickles": 0,
+    "cuda_calls": 0,
+    "installs": 0,
+    "git_operations": 0,
+    "source_release_or_controller_edits": 0
+  }
+}

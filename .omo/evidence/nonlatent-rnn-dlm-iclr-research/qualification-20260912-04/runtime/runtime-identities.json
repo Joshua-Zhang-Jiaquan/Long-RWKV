@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-13T06:55:09Z",
+  "job": {
+    "job_id": "job-e0c9f792-8afb-4902-bb24-5dd8872927e1",
+    "run_id": "qualification-20260912-01-0ff9241e-460a-4647-95b3-af4c0fba16ce",
+    "nonce": "444db0447957921033362eca48e5c940",
+    "submitted_request_sha256": "62e6a1fe05b6b004758df3ab795abcca2ca27651530d878a133306ed4af9d089",
+    "controller_receipt_sha256": "8e7e1ebfc03260f0a41663addf1f3d4983c2297003f198dee31c5cfa5356cb11",
+    "controller_binding_confirmed_before_runtime": true
+  },
+  "scheduler_resource_identity": {
+    "status": "CONFIRMED",
+    "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+    "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6",
+    "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+    "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f",
+    "image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+    "gpu_type": "NVIDIA_H100_SXM_80G",
+    "nodes": 1,
+    "gpus_per_node": 8,
+    "allocated_gpus": 8,
+    "shm_gi": 1800,
+    "max_running_time_ms": 1800000,
+    "auto_fault_tolerance": false,
+    "fault_tolerance_max_retry": 0,
+    "request_task_priority": 4,
+    "terminal_getjob_task_priority": 0,
+    "terminal_getjob_priority_name": "4"
+  },
+  "payload_identity": {
+    "expected_source_manifest_sha256": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c",
+    "controller_receipt_manifest_matches": true,
+    "runtime_manifest_snapshot_observed": false,
+    "runtime_source_files_verified": false,
+    "runtime_packages_verified": false,
+    "runtime_checkpoint_verified": false,
+    "reason": "GPFS_OUTPUT_ROOT_ABSENT_PAYLOAD_PRECHECK_EVIDENCE_NOT_PUBLISHED"
+  },
+  "expected_but_not_runtime_verified": {
+    "checkpoint_sha256": "ffaa464dabb3291c40749bbac4d6805e8a47082e3e2b082e0240365ffc525c07",
+    "checkpoint_size_bytes": 16367167378,
+    "checkpoint_step": 4750,
+    "model_cache_scope": "FULL_MODEL_CACHE_NOT_EVALUATED"
+  },
+  "retention": {
+    "createjob_fields_present": false,
+    "terminal_getjob_fields_present": false,
+    "effective_server_values": "UNKNOWN",
+    "zero_inferred_from_omission": false
+  },
+  "source_hashes": {
+    "controller_receipt": "8e7e1ebfc03260f0a41663addf1f3d4983c2297003f198dee31c5cfa5356cb11",
+    "exact_request": "62e6a1fe05b6b004758df3ab795abcca2ca27651530d878a133306ed4af9d089",
+    "root_approved_permit": "6869ff42894666a3aa587b73d2fa8791b64dde003fa4f7fbd755a7a922f51615",
+    "controller_state": "c0a43f8b58d19908a6f726e9f1e0ee30c255c21fcc5724b1c4cdef84c4155db3",
+    "runtime_manifest": "92fbf9afe7d0c7b47829337639dae54debddc8e9409c0903f30358aa75aa656c"
+  }
+}

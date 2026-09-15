@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "rank": 0,
+  "nonce": "6912a68f37cb9c628e838334a29d5e41",
+  "status": "PASSED",
+  "detail": "A1_small_noloop: measured 4 of 4 canvases",
+  "scope": "task6_forecast_input_only",
+  "claims_not_made": [
+    "long-context capability",
+    "sustainable goodput",
+    "quality-matched serving",
+    "physical edge-device performance",
+    "training throughput at production sharding"
+  ],
+  "arm_id": "A1_small_noloop",
+  "arm_digest": "9a03195f2c8976a23529e4fd7aa7e10300bc0971228b211e7ae1ecdee4fc0b48",
+  "nominal_label": "A1 forward-only recurrent masked denoiser, no loop",
+  "measured": true,
+  "derived_from": null,
+  "loop_reps_configured": 0,
+  "loop_reps_measured": 0,
+  "force_forward": true,
+  "gradient_checkpointing": true,
+  "model_geometry": {
+    "num_hidden_layers": 24,
+    "hidden_size": 1024,
+    "vocab_size": 65536,
+    "num_heads": 16,
+    "head_dim": 64,
+    "intermediate_size": 4096
+  },
+  "parameters": {
+    "total_tensors": 1464,
+    "total_numel": 591054848,
+    "loop_tensors": 0,
+    "loop_numel": 0
+  },
+  "checkpoint_step": null,
+  "checkpoint_sha256": null,
+  "weights_sha256": {
+    "model.safetensors": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524",
+    "config.json": "1131b80caf1fe16e5f67dd8c2965fa61467a5188be52de479deecde3fabbfa5a"
+  },
+  "measurements": [
+    {
+      "canvas_tokens": 512,
+      "forward_tokens_per_second": 8236.501312296003,
+      "backward_seconds": 0.18992767692543566,
+      "backward_not_measured_reason": null,
+      "optimizer_step_seconds": 0.01406936813145876,
+      "optimizer_step_not_measured_reason": null,
+      "selected_tokens": 170,
+      "sampler_nfe_seconds": 0.06216231632667283,
+      "peak_allocated_bytes": 4962994176,
+      "peak_reserved_bytes": 5584715776
+    },
+    {
+      "canvas_tokens": 4096,
+      "forward_tokens_per_second": 54262.42475371846,
+      "backward_seconds": 0.19809616985730827,
+      "backward_not_measured_reason": null,
+      "optimizer_step_seconds": 0.014040723908692598,
+      "optimizer_step_not_measured_reason": null,
+      "selected_tokens": 1365,
+      "sampler_nfe_seconds": 0.07548501598648727,
+      "peak_allocated_bytes": 12027172864,
+      "peak_reserved_bytes": 17093885952
+    },
+    {
+      "canvas_tokens": 16384,
+      "forward_tokens_per_second": 131592.72921169165,
+      "backward_seconds": 0.40490297111682594,
+      "backward_not_measured_reason": null,
+      "optimizer_step_seconds": 0.01451111282221973,
+      "optimizer_step_not_measured_reason": null,
+      "selected_tokens": 5461,
+      "sampler_nfe_seconds": 0.1245053590585788,
+      "peak_allocated_bytes": 36247214080,
+      "peak_reserved_bytes": 56084135936
+    },
+    {
+      "canvas_tokens": 32768,
+      "forward_tokens_per_second": 134910.69623919172,
+      "backward_seconds": 0.8006764429155737,
+      "backward_not_measured_reason": null,
+      "optimizer_step_seconds": 0.014573089079931378,
+      "optimizer_step_not_measured_reason": null,
+      "selected_tokens": 10922,
+      "sampler_nfe_seconds": 0.24288659767868617,
+      "peak_allocated_bytes": 68540602368,
+      "peak_reserved_bytes": 69063409664
+    }
+  ],
+  "warnings": [
+    "measured with a plain torch.optim.AdamW over all parameters; matches the trainer's optimizer class but not its parameter-group or freeze policy",
+    "each canvas rung's first forward, backward and optimizer step are untimed warm-ups, so the reported values exclude first-touch kernels and first-step optimizer allocation",
+    "rows were measured while this job's other ranks were resident on the same node; treat them as contended-node throughput, not solo-GPU peak"
+  ]
+}

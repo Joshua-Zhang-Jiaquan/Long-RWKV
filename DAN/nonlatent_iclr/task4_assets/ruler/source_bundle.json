@@ -1,0 +1,32 @@
+{
+  "acquisition": "per-file HTTPS at a pinned commit; proxy environment scrubbed",
+  "files": [
+    {
+      "dest": "source/LICENSE",
+      "sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
+      "upstream_path": "LICENSE"
+    },
+    {
+      "dest": "source/synthetic.yaml",
+      "sha256": "34bc71dcacdc41a829a170f04b528fbf48d62c616338005ab4991680fbf8cb0b",
+      "upstream_path": "scripts/synthetic.yaml"
+    },
+    {
+      "dest": "source/variable_tracking.py",
+      "sha256": "9aac483420e158d116ab63fc43b9606bdb284ac0c053288c30776d5c365530e5",
+      "upstream_path": "scripts/data/synthetic/variable_tracking.py"
+    }
+  ],
+  "generator_config": "source/synthetic.yaml",
+  "generators": [
+    "source/variable_tracking.py"
+  ],
+  "schema_version": 1,
+  "suite": "ruler",
+  "upstream": {
+    "commit": "c3f5e3b4f87f97e048793bb510a3a6b19a46bf3a",
+    "host": "raw.githubusercontent.com",
+    "license": "Apache-2.0",
+    "repo": "NVIDIA/RULER"
+  }
+}

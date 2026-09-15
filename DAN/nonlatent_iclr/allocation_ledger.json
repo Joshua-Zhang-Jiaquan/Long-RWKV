@@ -1,0 +1,167 @@
+{
+  "arms": [
+    {
+      "arm": "A0",
+      "assumptions": [
+        "priced from a microbatch-1 gradient step, so the row is a conservative upper bound on the GPU-hours a batched run would use",
+        "the underlying rates were measured while the job's other seven ranks were resident on the same node, so they are not solo-GPU peak",
+        "derived from A1_small_noloop: this arm was not run in the calibration job"
+      ],
+      "contributing_ranks": 1,
+      "forecastable": true,
+      "gpu_hours_all_seeds": 4171.201176477426,
+      "gpu_hours_per_seed": 1390.400392159142,
+      "label": "causal RWKV, autoregressive objective, no loop",
+      "measured_canvas": 4096,
+      "peak_allocated_bytes": 12027172864,
+      "reason_unforecastable": null,
+      "source_arm": "A1_small_noloop",
+      "source_kind": "derived",
+      "step_seconds": 5.125572005655461,
+      "token_budget": 4000000000,
+      "tokens_per_second": 799.1303205731086
+    },
+    {
+      "arm": "A1",
+      "assumptions": [
+        "priced from a microbatch-1 gradient step, so the row is a conservative upper bound on the GPU-hours a batched run would use",
+        "the underlying rates were measured while the job's other seven ranks were resident on the same node, so they are not solo-GPU peak"
+      ],
+      "contributing_ranks": 1,
+      "forecastable": true,
+      "gpu_hours_all_seeds": 4171.201176477426,
+      "gpu_hours_per_seed": 1390.400392159142,
+      "label": "forward-only recurrent masked denoiser, no loop",
+      "measured_canvas": 4096,
+      "peak_allocated_bytes": 12027172864,
+      "reason_unforecastable": null,
+      "source_arm": "A1_small_noloop",
+      "source_kind": "measured",
+      "step_seconds": 5.125572005655461,
+      "token_budget": 4000000000,
+      "tokens_per_second": 799.1303205731086
+    },
+    {
+      "arm": "A2",
+      "assumptions": [
+        "priced from a microbatch-1 gradient step, so the row is a conservative upper bound on the GPU-hours a batched run would use",
+        "the underlying rates were measured while the job's other seven ranks were resident on the same node, so they are not solo-GPU peak"
+      ],
+      "contributing_ranks": 2,
+      "forecastable": true,
+      "gpu_hours_all_seeds": 3759.428950063984,
+      "gpu_hours_per_seed": 1253.1429833546613,
+      "label": "bidirectional recurrent masked denoiser, no loop",
+      "measured_canvas": 4096,
+      "peak_allocated_bytes": 18751143936,
+      "reason_unforecastable": null,
+      "source_arm": "A2_small_noloop",
+      "source_kind": "measured",
+      "step_seconds": 4.619586293838624,
+      "token_budget": 4000000000,
+      "tokens_per_second": 886.6594840890932
+    },
+    {
+      "arm": "A3",
+      "assumptions": [
+        "priced from a microbatch-1 gradient step, so the row is a conservative upper bound on the GPU-hours a batched run would use",
+        "the underlying rates were measured while the job's other seven ranks were resident on the same node, so they are not solo-GPU peak"
+      ],
+      "contributing_ranks": 2,
+      "forecastable": true,
+      "gpu_hours_all_seeds": 3477.953567344062,
+      "gpu_hours_per_seed": 1159.317855781354,
+      "label": "bidirectional masked denoiser, tied loop",
+      "measured_canvas": 4096,
+      "peak_allocated_bytes": 25481695232,
+      "reason_unforecastable": null,
+      "source_arm": "A3_small_loop",
+      "source_kind": "measured",
+      "step_seconds": 4.273709343552383,
+      "token_budget": 4000000000,
+      "tokens_per_second": 958.4180089784328
+    },
+    {
+      "arm": "A4",
+      "assumptions": [
+        "priced from a microbatch-1 gradient step, so the row is a conservative upper bound on the GPU-hours a batched run would use",
+        "the underlying rates were measured while the job's other seven ranks were resident on the same node, so they are not solo-GPU peak",
+        "derived from A3_small_loop: this arm was not run in the calibration job",
+        "A4 has extra untied blocks that do not exist in the code, so its parameter count is higher than the measured arm's and this row understates its cost"
+      ],
+      "contributing_ranks": 2,
+      "forecastable": true,
+      "gpu_hours_all_seeds": 3477.953567344062,
+      "gpu_hours_per_seed": 1159.317855781354,
+      "label": "bidirectional masked denoiser, untied extra blocks",
+      "measured_canvas": 4096,
+      "peak_allocated_bytes": 25481695232,
+      "reason_unforecastable": null,
+      "source_arm": "A3_small_loop",
+      "source_kind": "derived",
+      "step_seconds": 4.273709343552383,
+      "token_budget": 4000000000,
+      "tokens_per_second": 958.4180089784328
+    },
+    {
+      "arm": "A5",
+      "assumptions": [
+        "priced from a microbatch-1 gradient step, so the row is a conservative upper bound on the GPU-hours a batched run would use",
+        "the underlying rates were measured while the job's other seven ranks were resident on the same node, so they are not solo-GPU peak"
+      ],
+      "contributing_ranks": 1,
+      "forecastable": true,
+      "gpu_hours_all_seeds": 4073.8503767833045,
+      "gpu_hours_per_seed": 1357.950125594435,
+      "label": "forward-only masked denoiser, tied loop",
+      "measured_canvas": 4096,
+      "peak_allocated_bytes": 15803885568,
+      "reason_unforecastable": null,
+      "source_arm": "A5_small_loop_fwd",
+      "source_kind": "measured",
+      "step_seconds": 5.005947342991324,
+      "token_budget": 4000000000,
+      "tokens_per_second": 818.2267449805852
+    }
+  ],
+  "assumptions": [
+    "per-step cost is the sum of a forward, a backward and an optimizer step measured at the training canvas",
+    "a run's GPU-hours are (token budget / measured tokens per second) / 3600",
+    "no multi-GPU scaling factor is applied; the ledger is per-GPU",
+    "no communication, checkpointing pause, evaluation, or restart cost is included"
+  ],
+  "calibration_manifest_sha256": "d22e139f4916dd06e0e19ea9e9d1f8d1c3318ce35e538c06f4520a76a61e4743",
+  "calibration_status": "PASSED",
+  "candidate_token_budgets": [
+    2000000000,
+    4000000000,
+    8000000000
+  ],
+  "claims_not_made": [
+    "sustainable goodput",
+    "long-context capability",
+    "quality",
+    "physical edge-device performance",
+    "measured training time at production sharding"
+  ],
+  "confirmation_note": "The 2.9B confirmation runs are NOT covered by this ledger and are not extrapolated from it. Reached the 4096-token canvas: A2_large_noloop. A 2.9B confirmation forecast could be built from that row, but this ledger prices only the controlled small-model matrix. Did not reach it: A3_large_loop (measured rungs [512]). Those arms stopped where a single 80 GiB GPU could no longer hold the step, so a sharded calibration is required rather than an extrapolation.",
+  "derived_arms": {
+    "A0": "A1_small_noloop",
+    "A4": "A3_small_loop"
+  },
+  "gradient_checkpointing": true,
+  "schema_version": 1,
+  "scope": "Task-6 experiment forecast at the training canvas; not a measurement and not a performance claim",
+  "storage": {
+    "arms_in_matrix": 6,
+    "bytes_per_arm_seed": 11821096980,
+    "bytes_per_checkpoint": 5910548490,
+    "note": "SAVE_ROOT is on the global_user volume, which was 98% full with ~240 GiB free when this ledger was written, and qz workers do not mount the project volume. Fix the retention policy before launching: a mid-run prune would destroy the failed-attempt evidence Task 7 must preserve, and it has happened before in this program.",
+    "parameters_numel": 591054849,
+    "retained_checkpoints_per_seed": 2,
+    "retention_policy": "keep-last plus keep-best per arm-seed, with model-only neutral copies",
+    "total_bytes": 212779745640
+  },
+  "unforecast_reasons": {},
+  "unforecastable": []
+}

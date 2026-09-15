@@ -1,0 +1,346 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\newcommand{\todo}[1]{\textcolor{red}{[#1]}}
+\newcommand{\registered}{\textsc{registered}}
+\newcommand{\notrun}{\textsc{not yet measured}}
+
+\title{Depth-Recycled Recurrent Diffusion for Long-Context Agent Workloads}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Recurrent language models promise constant per-token state, yet the state that gives
+them that promise is also the only channel through which context survives. We study a
+\emph{non-latent} recurrent diffusion model: a bidirectionally scanned RWKV-7 backbone
+that denoises masked tokens in place, with no learned latent sidecar and no separate
+decoder. The question is whether \emph{depth recycling} --- re-applying a tied block at
+increased executed depth --- improves long-context behaviour, or merely spends compute.
+
+This manuscript reports a program at an unusual and deliberate stage, and we state it
+plainly rather than implying otherwise. We contribute (i) a \emph{correction} to the
+program's own prior evidence: several earlier decode-side conclusions do not survive
+re-analysis, and one class of them was traced to an end-of-text id confusion that had
+silently zeroed an entire evaluation; (ii) a machine-checked architecture contract that
+fixes the object under study, including what it explicitly does \emph{not} yet qualify;
+(iii) a rights-cleared, hash-bound asset and evaluation stack, with an offline
+tokenizer qualification that settles an open id-convention conflict from the artifacts
+rather than by choice; and (iv) a registered protocol --- controlled arms, a long-context
+contract, and an H100 deployment measurement --- with frozen decision rules and stated
+failure interpretations. The confirmatory measurements that protocol defines are
+\notrun{}: no depth-recycling quality gain, no long-context macro improvement, and no
+serving goodput result is reported here, and none is claimed. We consider the corrected
+evidence and the frozen protocol to be the contribution, and we mark every cell where a
+number is absent.
+\end{abstract}
+
+\section{Introduction}
+
+An autoregressive recurrent model carries a fixed-size state forward and reads the next
+token from it. That state is the mechanism by which context reaches the present, and it
+is also a bottleneck: whatever does not fit is gone. Bidirectional scanning and
+iterative denoising both attack this from different sides. Bidirectional scanning lets
+every position see left \emph{and} right context within the window. Denoising lets the
+model revise rather than commit. Depth recycling --- running a tied block more times
+than the backbone has layers --- is a third, cheaper lever: it adds executed depth
+without adding parameters.
+
+This paper asks whether that third lever does anything, and it is organised around the
+possibility that the answer is \emph{no}. Two failure modes are live and both are
+unremarkable: recycling may be an expensive way to spend compute that a wider baseline
+would have spent better, and any short-context benefit may simply not transfer to long
+context, where a fixed-size state is the binding constraint. We therefore commit in
+advance to the comparisons that would distinguish a real architectural advantage from
+those two, and to the interpretation of a null result.
+
+\paragraph{Why this manuscript looks the way it does.} The program this paper belongs to
+has completed its evidence audit, its architecture contract, its asset qualification and
+its runtime calibration, and has \emph{not} run the confirmatory training and evaluation
+campaign. We have written the paper to that state: the completed work is reported as
+results, the protocol is reported as a registrable protocol, and the cells that the
+protocol defines are left visibly empty. We think this is more useful than either a
+premature results paper or a plan, and the alternative --- filling the cells with
+fixture numbers --- is excluded by the program's own rules.
+
+\section{Positioning}
+
+Depth recycling and bidirectional recurrence over SSMs are both active areas, and three
+comparisons are mandatory for any novelty claim here: DiffuMamba~\cite{diffumamba},
+Triplet-Block Diffusion RWKV~\cite{tripletrwkv}, and partial-bidirectional hybrid block
+diffusion~\cite{partialbidir}. We make \emph{no} firstness claim. Diffusion language
+models, RWKV-family recurrent models, and depth-recurrent or looped architectures all
+predate this work; the contribution we aim to defend is a controlled comparison under
+equal-compute and equal-quality constraints, and the corrected evidence that determines
+what such a comparison should even measure.
+
+\paragraph{What is not claimed.} We do not claim a latent semantic sidecar, a learned
+coordinator, or a macro-neuron network; introducing one to rescue this line would change
+the object under study. We do not claim that a causal-path negative log-likelihood gain
+proves a generation improvement, nor that equal token counts imply equal compute. We do
+not claim any physical edge-device latency, energy, thermal, or hardware-efficiency
+result from H100 proxies: software memory caps do not reproduce edge compute or
+bandwidth. And we do not claim a global long-context superiority theorem from local
+spectral observations.
+
+\section{Correcting our own prior evidence}
+\label{sec:correction}
+
+The first contribution is negative and concerns the program's earlier conclusions.
+
+\paragraph{A decode-side id confusion had zeroed an evaluation.} In a prior bidirectional
+RWKV evaluation line, generation was truncated at token id \texttt{65530}, treated as
+end-of-text. Measured against the tokenizer, \texttt{65530} decodes to \texttt{'\textbackslash
+n\textbackslash n'} --- an ordinary blank line --- while the real end-of-text is
+\texttt{65531}, and id \texttt{0} also decodes to that same string. Because the chat
+prompt ended with a code fence, any completion that opened with a blank line was
+truncated to the empty string, and pass@1 was \emph{exactly} $0.0$ on 164 of 164 tasks
+across three successive training-data revisions. The invariance of that number across
+three rounds was itself the tell: a decode-side string bug is unreachable from the
+corpus, so no amount of training-data work could have moved it. The fix is a stop set of
+$\{65531, 0\}$ (plus \texttt{eos\_token\_id} when it is an integer), never \texttt{65530}.
+
+\paragraph{An id-convention conflict, settled from the artifacts.} A separate internal
+record carried an unresolved conflict: the model config declared BOS/EOS $=1/2$, while
+the generation path and the tokenizer reserve policy used id $0$ as EOT/PAD. We resolved
+it by reading the active vocabulary rather than choosing a convention. The vocabulary
+file has \textbf{65529 lines}, numbered contiguously $1..65529$; there is \emph{no} id
+$0$; id $1$ is the NUL byte and id $2$ is the SOH byte. So $1$ and $2$ are ordinary
+content tokens, and a config declaring them BOS/EOS would mislabel real bytes and teach
+a sequence structure the encoder never inserts. The correct convention is \emph{no BOS}
+with EOT $=0$. Ids \texttt{65530}/\texttt{65531}/\texttt{65535} lie outside the content
+vocabulary and belong to the tokenizer's special-token layer, which is why the two
+layers must not be conflated: \texttt{65531} is absent as a content id and present as
+the end-of-text special id.
+
+\paragraph{Why we report this.} The two errors share a shape: a plausible constant,
+never checked against the artifact that defines it, in a position where being wrong is
+silent. One of them cost three rounds of work in a direction that could not have
+succeeded. The paper's later claims inherit the corrected convention, and we record the
+correction rather than the repaired number.
+
+\section{The architecture under study}
+
+The object is a bidirectional RWKV-7 backbone performing masked diffusion directly over
+the token embedding. Each layer holds two distinct RWKV directional modules: a forward
+module scanning $x_1,\dots,x_T$ from a zero state, and a backward module scanning the
+reversed sequence, also from a zero state, whose outputs are reversed back into token
+order. The directions are fused by a learned gate,
+$g_t=\sigma(W_{\mathrm f} y^{\mathrm f}_t + W_{\mathrm b} y^{\mathrm b}_t + b)$.
+Neither direction continues a persistent generation state across calls; both compute
+independent, zero-initialised recurrences over the available window. Documents are
+isolated: the scan and the corruption mask both respect document boundaries, and the
+token shift is zeroed at each document start so no document's history reaches another's
+first token.
+
+\paragraph{Depth recycling.} The recycled variant re-applies a \emph{tied} block beyond
+the backbone's layer count, so executed depth rises without parameters rising. A
+same-executed-depth untied arm exists as the capacity control, and its unequal parameter
+count is disclosed rather than matched by construction.
+
+\paragraph{Contract.} The architecture is fixed by a machine-checked contract
+(\texttt{DAN/nonlatent\_iclr/architecture\_contract.json}) with 102 passing tests. The
+contract records, among its acceptances, the items it does \emph{not} qualify: full-model
+FFN token-shift state and tied-loop layer-state alias caches remain
+\texttt{NOT\_QUALIFIED} and are explicitly rejected rather than assumed, and
+\texttt{whole\_architecture\_ready} remains \texttt{false}. A prefix-cache claim is
+therefore unavailable until those modes are wired and qualified, and no result here
+depends on them.
+
+\section{Assets, tokenizer, and evaluation}
+
+The evaluation stack is built to be rights-cleared and replayable. RULER
+(\texttt{NVIDIA/RULER@c3f5e3b4}, Apache-2.0) and LongBench
+(\texttt{THUDM/LongBench@2e00731f}, MIT) are pinned by revision; a 200-task
+repository-execution panel is assembled with per-record licences (MIT/Apache-2.0/
+BSD-3-Clause); and a deterministic exact-task generator covers associative recall,
+overwrite/delayed-query tracking, HMM belief tracking and code-dataflow dependency
+queries. The token-length matrix spans 3{,}600 registered units over 720{,}000
+instances, with 689 feasible and 31 infeasible cells checked exactly rather than
+approximated. Hold-out is by \emph{source group}, not by adjacent chunk, so a reduced
+representation cannot be validated on points drawn from a trajectory it already saw.
+
+\paragraph{Recorded limitations.} Three are carried forward unmodified because repairing
+them would change what was measured. (i) The repository confirmation split holds only
+two tasks (train 184 / validation 14 / confirmation 2), too thin for a repository
+endpoint without later panel expansion. (ii) The evaluator is a process-level sandbox
+(\texttt{python\_isolated\_mode} + \texttt{posix\_rlimits} + socket stub); this host
+denies \texttt{unshare -n}/\texttt{-m} and a writable \texttt{/sys/fs/cgroup}, so it is
+\emph{not} an externally managed isolation boundary. (iii) The token matrix ran on a CPU
+host rather than in the designated CPU lane.
+
+\section{Registered protocol}
+\label{sec:protocol}
+
+Everything in this section is frozen before the confirmatory runs and carries the
+failure interpretation agreed in advance. Results appear in \S\ref{sec:notrun}, which is
+empty.
+
+\paragraph{Controlled arms.} A0 causal RWKV (autoregressive control); A1 forward-only
+denoiser (objective control); A2 bidirectional denoiser (directionality control); A3
+bidirectional tied-loop denoiser (the candidate); A4 bidirectional denoiser with untied
+extra blocks at equal executed depth (capacity control, unequal parameters disclosed);
+A5 forward-only tied-loop (the loop~$\times$~directionality interaction). Seeds 17, 29,
+43 for training comparisons; synthetic-data seeds 101--105. Matched-nonpadding-token and
+matched-measured-compute readouts are published \emph{separately}, because the two
+controls answer different questions and reporting one as the other is the error this
+design exists to prevent.
+
+\paragraph{Long-context contract.} Lengths 4{,}096 / 8{,}192 / 16{,}384 / 32{,}768 /
+65{,}536 tokens; evidence at 10\%, 50\% and 90\% of the prefix; binding loads
+$\{1,8,32,128\}$; distractor loads \{zero, matched random, adversarially similar\}; 200
+generated instances per registered cell across five data seeds. Access modes are
+full-canvas rescanning, state-only streaming with old tokens inaccessible, and external
+retrieval as a separately labelled control --- and a failure of the streaming
+implementation does \emph{not} authorise presenting a full-canvas run as
+constant-history access. The primary aggregate is an equal-weight macro score over
+associative recall, overwrite and dataflow at 16K/32K/64K. OOM and unsupported lengths
+remain in the tables as failures, not omitted rows.
+
+\paragraph{Deployment protocol.} H100 measurements are resource-constrained
+\emph{proxies} for edge-oriented workloads. Two lanes: independent private-weight
+replicas at 4/8/16\,GiB device-resident budgets, and shared-weight serving with
+per-session state. Budgets include weights, quantisation metadata, recurrent states,
+caches, canvas, logits, activations, workspaces, graphs and framework allocations --- an
+allocator-only cap is not a total-memory guarantee. A cell that fails is reported as a
+failure. Concurrency grid 1--128, a fixed equal-count 4K/16K/32K/64K mixture, output cap
+256 tokens, warm-up 60\,s then at least 300\,s and 1{,}000 completed requests, five
+repetitions with randomised arm order. A cell that cannot reach the minimum sample is
+labelled \emph{underpowered} rather than given a tail estimate.
+
+\paragraph{Decision rules.} Long context: at least $+5$ absolute points on the primary
+macro score with an adjusted confidence interval excluding zero. Serving: at least
+$1.5\times$ goodput at a common SLO, or a separately claimed $2\times$ sustainable
+session-capacity stretch. Quality equivalence requires the one-sided 95\% lower bound of
+candidate-minus-baseline success to be at least $-1$ point. Resampling units are
+task/repository clusters, not tokens; 10{,}000 paired hierarchical bootstrap draws with
+Holm correction across declared primary comparisons. Seeds are reported individually,
+not summarised by a significance label.
+
+\section{Completed runtime qualification}
+\label{sec:runtime}
+
+A bounded throughput calibration was completed on $1\times 8$ H100 SXM 80\,GB. It took
+six submissions; each failure was diagnosed from its own artifacts, and each fix brought
+a CPU regression test. The failures are informative and are reported rather than
+elided: a launcher that rejected its own staged root; ranks that found no canvas because
+CUDA counters were called without a device; a forward that ran the loop while declaring
+zero passes; a per-rung backward warm-up that doubled live activations and OOM'd; a
+warm-up sitting outside the OOM guard and discarding earlier rungs; and a caught OOM
+followed by further kernels, producing an illegal memory access. The working
+configuration --- warm-up inside the OOM guard with the ladder stopping there, allocator
+cache released between rungs, a device-bound synchronise, no allocator override ---
+passed \textbf{8/8 ranks} with every controlled arm measured at the 4{,}096-token
+training canvas.
+
+The resulting allocation ledger prices all six arms, marking A0 and A4 as \emph{declared
+derivations} from A1 and A3 rather than measurements. What it does \emph{not} cover is
+as important: the 2.9B confirmation runs are not priced, because the looped large arm
+OOM'd above 512 tokens on a single 80\,GiB GPU and no sharded calibration has been run.
+The ledger states this rather than extrapolating, and it claims no long-context,
+goodput, quality or physical-edge result.
+
+\section{Theory: targets, not results}
+\label{sec:theory}
+
+The supplied spectral-submanifold material motivates an analysis; it does not prove
+retention for a discrete RWKV diffusion model, and treating it as a theorem would be the
+error we most want to avoid. The target is a task-specific finite-horizon relation of
+the form
+\[
+E_{k+1}(L) \;\le\; q_k E_k(L) + a_k\,\epsilon_{\mathrm{memory}}(L)
+            + \epsilon_{\mathrm{schedule},k} + \epsilon_{\mathrm{model},k}
+            + \epsilon_{\mathrm{quant},k},
+\]
+with every norm, comparator, domain and constant defined, and with the memory term
+\emph{derived} from input-dependent recurrent dynamics and a known task statistic rather
+than assumed to be small. Under $0\le q_k\le q<1$ and a bounded disturbance the
+elementary consequence is $E_K \le q^K E_0 + b(1-q^K)/(1-q)$; that inequality is not the
+novelty, and architecture-specific non-vacuous constants with held-out predictions are
+what would be. Two constraints are registered in advance: no claim that iterative
+refinement recovers information lost through a finite-precision state-only interface,
+and no inference of global superiority from local spectral stability. Fitted eigenvalues
+inside the unit circle do not justify assuming the full dynamics are contractive.
+
+\section{What is not yet measured}
+\label{sec:notrun}
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Endpoint & Registered target & State \\
+\midrule
+Depth-recycling quality gain & survives matched-compute comparison & \notrun \\
+Long-context macro score & $\ge +5$ points, CI excludes zero & \notrun \\
+Serving goodput & $\ge 1.5\times$ at common SLO & \notrun \\
+Session capacity & $2\times$ stretch, quality non-inferior & \notrun \\
+Proxy memory matrix & complete feasibility/precision/context & \notrun \\
+Theory & non-vacuous constants, held-out predictions & \notrun \\
+Adaptive inference & quality gain at matched total compute & \notrun \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The confirmatory campaign is not gated on resources. It is gated on a preregistration
+that cannot yet be sealed, because sealing requires development-derived H100 SLO
+deadlines (which need the deployment measurements), the frozen common token budget, and
+resolution of checkpoints that are not present on disk. Until then the protocol above is
+a specification, and a specification is not a result.
+
+\paragraph{One result in flight, described as such.} A continuation run
+(\texttt{job-fd80e224}, resumed from step 9500 toward 25000, $+15.5$B tokens) is mid-run
+at roughly step 11{,}400 with a validation masked-CE near 3.81 --- inside the lineage's
+3.81--3.83 band and therefore indistinguishable from it. It is \emph{in flight}, it is
+not evidence for or against depth recycling, and nothing in this paper depends on it.
+
+\section{Reproducibility}
+
+``In flight'' is the honest description of the whole program, so the repository is
+organised around making that checkable rather than rhetorical. Every claim above points
+at an artifact: a contract with a receipt, a registry whose computed fields are
+re-derived by live replay rather than stored, an allocation ledger with planted-violation
+refusals, and per-attempt receipts recording the command, environment, input and output
+hashes, and the gate verdict. Failed attempts are retained, not overwritten. The code,
+contracts and receipts accompany this manuscript; the receipts are hash-bound to the
+sources that produced them, and the test suite re-checks those bindings, so the
+correspondence between this paper and its evidence is machine-verifiable rather than
+asserted.
+
+\paragraph{A worked example of the discipline.} When this repository was prepared for
+publication, an attempt was made to make host-specific path constants configurable. Ten
+source-drift tests failed --- correctly, because those hashes exist to prove the evidence
+came from exactly those sources. The change was reverted rather than the hashes
+re-derived: re-deriving them would have made the receipts assert a provenance they do not
+have. Portability was fixed on the side that carries no provenance claim (the tests)
+instead. We report this because it is the same principle as \S\ref{sec:correction}: when
+a check and a convenience disagree, the check is the one that is doing work.
+
+\section{Limitations}
+
+Beyond the three recorded asset limitations of \S5: the model has not been shown to
+qualify prefix caching, so no constant-history claim is available; the only live
+measurements are bounded runtime calibrations rather than capability results; no
+checkpoint comparison against external baselines has been run, and any future such
+comparison is external validity rather than a same-data causal comparison; the theory
+remains a target; and the confirmatory endpoints are all \notrun. A reader should treat
+this paper as a corrected foundation plus a frozen protocol, and should not cite it for
+an effect size.
+
+\begin{thebibliography}{9}
+\bibitem{diffumamba} DiffuMamba: diffusion language modelling with a state-space
+backbone. arXiv:2511.15927.
+\bibitem{tripletrwkv} Triplet-Block Diffusion RWKV. arXiv:2605.25969.
+\bibitem{partialbidir} Partial-bidirectional hybrid block diffusion. arXiv:2607.02805.
+\bibitem{pile} L. Gao et al. The Pile: An 800GB dataset of diverse text for language
+modelling. arXiv:2101.00027.
+\bibitem{ruler} NVIDIA RULER: long-context evaluation, \texttt{NVIDIA/RULER@c3f5e3b4}.
+\bibitem{longbench} THUDM LongBench, \texttt{THUDM/LongBench@2e00731f}.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "PREFLIGHT_VERIFIED",
+  "detail": "source_manifest_and_controls_verified",
+  "nonce": "cccccccccccccccccccccccccccccccc",
+  "manifest_sha256": "4777fd86769f9264af91241c82655a9b8f51874500e79fbd92f9b19030003f9f",
+  "verified_source_files": 109,
+  "package_versions": [
+    "torch==2.8.0a0+5228986c39.nv25.6",
+    "flash-linear-attention==0.5.0",
+    "fla-core==0.5.0",
+    "transformers==5.3.0",
+    "safetensors==0.5.3",
+    "pytorch-triton==3.3.0+git96316ce52.nvinternal"
+  ],
+  "expected_image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+  "observed_image_digest": "UNKNOWN"
+}

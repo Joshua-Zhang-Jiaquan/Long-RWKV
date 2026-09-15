@@ -1,0 +1,73 @@
+{
+  "backend": "python_isolated_mode+posix_rlimits+socket_stub",
+  "claims_not_made": [
+    "container or VM isolation",
+    "externally managed evaluator",
+    "unbypassable network denial",
+    "kernel-enforced filesystem read-only"
+  ],
+  "host": {
+    "kernel": "5.15.0-119-generic",
+    "python": "3.12.3"
+  },
+  "observations": {
+    "cgroup_limits": {
+      "controllers": "cpuset cpu io memory hugetlb pids rdma misc",
+      "observed": false,
+      "writable_root": false
+    },
+    "environment_scrubbed": {
+      "detail": "child env is empty",
+      "observed": true
+    },
+    "fresh_working_directory": {
+      "detail": "one temporary cwd per execution",
+      "observed": true
+    },
+    "mount_namespace": {
+      "detail": "unshare: unshare failed: Operation not permitted",
+      "observed": false
+    },
+    "network_namespace": {
+      "detail": "unshare: unshare failed: Operation not permitted",
+      "observed": false
+    },
+    "python_isolated_mode": {
+      "detail": "-I: no user site, cwd absent from sys.path, PYTHON* ignored",
+      "observed": true
+    },
+    "readonly_bind_mount": {
+      "detail": "requires the mount namespace, which is unavailable",
+      "observed": false
+    },
+    "rlimits": {
+      "observed": true,
+      "values": {
+        "RLIMIT_AS": [
+          536870912,
+          536870912
+        ],
+        "RLIMIT_CPU": [
+          10,
+          10
+        ],
+        "RLIMIT_FSIZE": [
+          1048576,
+          1048576
+        ],
+        "RLIMIT_NPROC": [
+          0,
+          0
+        ]
+      }
+    },
+    "socket_stub": {
+      "bypassable": true,
+      "detail": "a determined program can re-import or reimplement socket access; this is not a network namespace",
+      "isolation_mode": "socket_stub",
+      "observed": true
+    }
+  },
+  "scope": "process_sandbox_not_externally_managed",
+  "unmet_plan_wording": "The plan requires 'a real externally managed VM/container evaluator declaration'. This host provides neither an external container service nor permitted namespaces (unshare -n and -m both fail with EPERM, and /sys/fs/cgroup is not writable), so this declaration is a process-level sandbox and the requirement's original wording is unmet."
+}

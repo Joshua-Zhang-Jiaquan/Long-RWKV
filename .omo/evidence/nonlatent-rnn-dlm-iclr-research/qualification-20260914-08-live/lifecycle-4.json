@@ -1,0 +1,469 @@
+{
+  "schema_version": 1,
+  "scope": "bound_rank_full_canvas_lifecycle",
+  "runtime_promoted": false,
+  "binding": {
+    "controller": {
+      "schema_version": 1,
+      "job_id": "job-cd3c6850-91cc-4a1e-8f10-a3ce6c5baec9",
+      "job_identity_origin": "controller_qz_createjob_receipt",
+      "submitted_request_sha256": "ffcb99d8b34fdf29a6c8d52aa342d589abc063080143ca34a6860d58ad703ffb",
+      "authorization_id": "nonlatent-h100-qualification-20260912-01",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6",
+      "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+      "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f",
+      "run_id": "qualification-20260912-01-3257f249-eace-4a74-841f-0d7d8e0e32e2",
+      "nonce": "a9750fd783cc98d70435b185135ebd38",
+      "source_manifest_sha256": "bae0fa5a71aca185d1718757d56de2d8f01a2606575d2d907b7a0d88e82ab68a",
+      "requested_image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+      "scheduler_image_id": "image-7330d118-df9d-4e2e-82b1-c2543e831eb4",
+      "observed_image_digest": null,
+      "authorized_gpu_type": "NVIDIA_H100_SXM_80G",
+      "requested_nodes": 1,
+      "requested_gpus_per_node": 8,
+      "requested_gpus": 8,
+      "maximum_runtime_seconds": 1800,
+      "maximum_gpu_hours": 4,
+      "maximum_job_submissions": 1,
+      "maximum_automatic_retries": 0,
+      "controller_receipt_sha256": "312d37aff1b89318cd8ee18cf8f5b6d7d96ae2a8747903658e99ff1aaf2b06a6"
+    },
+    "run_id": "qualification-20260912-01-3257f249-eace-4a74-841f-0d7d8e0e32e2",
+    "nonce": "a9750fd783cc98d70435b185135ebd38",
+    "source_manifest_sha256": "bae0fa5a71aca185d1718757d56de2d8f01a2606575d2d907b7a0d88e82ab68a",
+    "checkpoint": {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/m2_baseline_triangle/m4loop_endpoint_ckpt/model.pt",
+      "role": "checkpoint_model",
+      "sha256": "ffaa464dabb3291c40749bbac4d6805e8a47082e3e2b082e0240365ffc525c07",
+      "size_bytes": 16367167378
+    },
+    "checkpoint_step": 4750,
+    "checkpoint_state_tensors": 1955,
+    "geometry": {
+      "num_hidden_layers": 32,
+      "hidden_size": 2560,
+      "vocab_size": 65536,
+      "num_heads": 40,
+      "head_dim": 64,
+      "intermediate_size": 10240
+    },
+    "rank": 4,
+    "local_rank": 4,
+    "world_size": 8,
+    "device": "cuda:4"
+  },
+  "before": {
+    "training": false,
+    "inference_mode": true,
+    "grad_enabled": false,
+    "torch_version": "2.8.0a0+5228986c39.nv25.06",
+    "parameter_dtypes": [
+      "torch.bfloat16"
+    ],
+    "parameter_devices": [
+      "cuda:4"
+    ],
+    "cuda_autocast_enabled": false,
+    "cuda_autocast_dtype": "torch.float16",
+    "float32_matmul_precision": "high",
+    "matmul_allow_tf32": true,
+    "fp16_reduced_precision_reduction": true,
+    "bf16_reduced_precision_reduction": true,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "deterministic_algorithms": false,
+    "deterministic_warn_only": false,
+    "cublas_workspace_config": null
+  },
+  "after": {
+    "training": false,
+    "inference_mode": true,
+    "grad_enabled": false,
+    "torch_version": "2.8.0a0+5228986c39.nv25.06",
+    "parameter_dtypes": [
+      "torch.bfloat16"
+    ],
+    "parameter_devices": [
+      "cuda:4"
+    ],
+    "cuda_autocast_enabled": false,
+    "cuda_autocast_dtype": "torch.float16",
+    "float32_matmul_precision": "high",
+    "matmul_allow_tf32": true,
+    "fp16_reduced_precision_reduction": true,
+    "bf16_reduced_precision_reduction": true,
+    "cudnn_allow_tf32": true,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": false,
+    "deterministic_algorithms": false,
+    "deterministic_warn_only": false,
+    "cublas_workspace_config": null
+  },
+  "observations": {
+    "scope": "unbound_full_canvas_lifecycle_observation",
+    "runtime_promoted": false,
+    "device": "cuda:4",
+    "vocab_size": 65536,
+    "inputs": [
+      {
+        "name": "a",
+        "sha256": "0fa16ec28fb83e3665d0ada9e4c44a59f75081d1013b412b6a1b25d16ea3a50a",
+        "shape": [
+          1,
+          48
+        ],
+        "dtype": "int64",
+        "hash_encoding": "row_major_little_endian_int64"
+      },
+      {
+        "name": "b",
+        "sha256": "fdf6511b81189d9a8da6b4ef4d08c212839b686b2962d1d463b40dbf505e6b5c",
+        "shape": [
+          1,
+          48
+        ],
+        "dtype": "int64",
+        "hash_encoding": "row_major_little_endian_int64"
+      },
+      {
+        "name": "edited_a",
+        "sha256": "ef7de2e628dde6b7954302d129e856d560c0ea79000a6e5a13ea8786889187cb",
+        "shape": [
+          1,
+          48
+        ],
+        "dtype": "int64",
+        "hash_encoding": "row_major_little_endian_int64"
+      }
+    ],
+    "steps": [
+      {
+        "scenario": "reference_a",
+        "calls_before": 0,
+        "calls_after": 2,
+        "kind": "comparison",
+        "code": "exact_match",
+        "expected_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_shape": [
+          1,
+          48,
+          65536
+        ],
+        "reference_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_dtype": "torch.bfloat16",
+        "reference_dtype": "torch.bfloat16",
+        "all_finite": true,
+        "exact_equal": true,
+        "max_abs_error": 0.0
+      },
+      {
+        "scenario": "repeat_a",
+        "calls_before": 2,
+        "calls_after": 3,
+        "kind": "comparison",
+        "code": "exact_match",
+        "expected_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_shape": [
+          1,
+          48,
+          65536
+        ],
+        "reference_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_dtype": "torch.bfloat16",
+        "reference_dtype": "torch.bfloat16",
+        "all_finite": true,
+        "exact_equal": true,
+        "max_abs_error": 0.0
+      },
+      {
+        "scenario": "caller_mutation",
+        "calls_before": 3,
+        "calls_after": 4,
+        "kind": "comparison",
+        "code": "exact_match",
+        "expected_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_shape": [
+          1,
+          48,
+          65536
+        ],
+        "reference_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_dtype": "torch.bfloat16",
+        "reference_dtype": "torch.bfloat16",
+        "all_finite": true,
+        "exact_equal": true,
+        "max_abs_error": 0.0
+      },
+      {
+        "scenario": "edit_reference",
+        "calls_before": 4,
+        "calls_after": 6,
+        "kind": "comparison",
+        "code": "exact_match",
+        "expected_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_shape": [
+          1,
+          48,
+          65536
+        ],
+        "reference_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_dtype": "torch.bfloat16",
+        "reference_dtype": "torch.bfloat16",
+        "all_finite": true,
+        "exact_equal": true,
+        "max_abs_error": 0.0
+      },
+      {
+        "scenario": "stale_revision",
+        "calls_before": 6,
+        "calls_after": 6,
+        "kind": "rejection",
+        "expected_code": "stale_canvas",
+        "observed_code": "stale_canvas"
+      },
+      {
+        "scenario": "closed_request",
+        "calls_before": 6,
+        "calls_after": 6,
+        "kind": "rejection",
+        "expected_code": "session_closed",
+        "observed_code": "session_closed"
+      },
+      {
+        "scenario": "reference_b",
+        "calls_before": 6,
+        "calls_after": 8,
+        "kind": "comparison",
+        "code": "exact_match",
+        "expected_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_shape": [
+          1,
+          48,
+          65536
+        ],
+        "reference_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_dtype": "torch.bfloat16",
+        "reference_dtype": "torch.bfloat16",
+        "all_finite": true,
+        "exact_equal": true,
+        "max_abs_error": 0.0
+      },
+      {
+        "scenario": "old_session",
+        "calls_before": 8,
+        "calls_after": 8,
+        "kind": "rejection",
+        "expected_code": "session_mismatch",
+        "observed_code": "session_mismatch"
+      },
+      {
+        "scenario": "foreign_session",
+        "calls_before": 8,
+        "calls_after": 8,
+        "kind": "rejection",
+        "expected_code": "session_mismatch",
+        "observed_code": "session_mismatch"
+      },
+      {
+        "scenario": "a_b_a",
+        "calls_before": 8,
+        "calls_after": 9,
+        "kind": "comparison",
+        "code": "exact_match",
+        "expected_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_shape": [
+          1,
+          48,
+          65536
+        ],
+        "reference_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_dtype": "torch.bfloat16",
+        "reference_dtype": "torch.bfloat16",
+        "all_finite": true,
+        "exact_equal": true,
+        "max_abs_error": 0.0
+      },
+      {
+        "scenario": "reset_retirement",
+        "calls_before": 9,
+        "calls_after": 9,
+        "kind": "rejection",
+        "expected_code": "session_closed",
+        "observed_code": "session_closed"
+      },
+      {
+        "scenario": "reset_reopen",
+        "calls_before": 9,
+        "calls_after": 10,
+        "kind": "comparison",
+        "code": "exact_match",
+        "expected_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_shape": [
+          1,
+          48,
+          65536
+        ],
+        "reference_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_dtype": "torch.bfloat16",
+        "reference_dtype": "torch.bfloat16",
+        "all_finite": true,
+        "exact_equal": true,
+        "max_abs_error": 0.0
+      },
+      {
+        "scenario": "reset_old_session",
+        "calls_before": 10,
+        "calls_after": 10,
+        "kind": "rejection",
+        "expected_code": "session_mismatch",
+        "observed_code": "session_mismatch"
+      },
+      {
+        "scenario": "injected_forward",
+        "calls_before": 10,
+        "calls_after": 11,
+        "kind": "comparison",
+        "code": "exact_match",
+        "expected_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_shape": [
+          1,
+          48,
+          65536
+        ],
+        "reference_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_dtype": "torch.bfloat16",
+        "reference_dtype": "torch.bfloat16",
+        "all_finite": true,
+        "exact_equal": true,
+        "max_abs_error": 0.0
+      },
+      {
+        "scenario": "caller_failure",
+        "calls_before": 10,
+        "calls_after": 11,
+        "kind": "injection",
+        "code": "caller_boundary_failure_injected",
+        "synchronizations_before": 10,
+        "synchronizations_after": 11,
+        "cuda_device_fault_recovery": false
+      },
+      {
+        "scenario": "failure_retirement",
+        "calls_before": 11,
+        "calls_after": 11,
+        "kind": "rejection",
+        "expected_code": "session_closed",
+        "observed_code": "session_closed"
+      },
+      {
+        "scenario": "failure_reopen",
+        "calls_before": 11,
+        "calls_after": 12,
+        "kind": "comparison",
+        "code": "exact_match",
+        "expected_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_shape": [
+          1,
+          48,
+          65536
+        ],
+        "reference_shape": [
+          1,
+          48,
+          65536
+        ],
+        "actual_dtype": "torch.bfloat16",
+        "reference_dtype": "torch.bfloat16",
+        "all_finite": true,
+        "exact_equal": true,
+        "max_abs_error": 0.0
+      },
+      {
+        "scenario": "failure_old_session",
+        "calls_before": 12,
+        "calls_after": 12,
+        "kind": "rejection",
+        "expected_code": "session_mismatch",
+        "observed_code": "session_mismatch"
+      }
+    ],
+    "model_calls": 12,
+    "synchronizations": 12,
+    "completed": true,
+    "failure_code": null,
+    "atol": 0.0,
+    "rtol": 0.0
+  },
+  "rejected_observation_json": null,
+  "issue": null
+}

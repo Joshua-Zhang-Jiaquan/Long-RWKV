@@ -1,0 +1,32 @@
+{
+  "scope": "source_hash_bound_cpu_tests_not_gpu_measurements",
+  "command": "python -m pytest -q scale/experiments/nonlatent_iclr/test_trainer_optimizer_semantics.py scale/experiments/nonlatent_iclr/test_trainer_mask_semantics.py scale/experiments/nonlatent_iclr/test_initialization_boundary.py scale/experiments/nonlatent_iclr/test_initialization_fusion.py scale/experiments/nonlatent_iclr/test_initialization_loop.py",
+  "exit_code": 0,
+  "passed": 72,
+  "trainer_tests": 23,
+  "initialization_tests": 49,
+  "warnings": ["Historical trainer line 301: converting a requires_grad tensor to scalar via loss.item()."],
+  "active_model_optimizer_membership": false,
+  "active_model_mask_loss_semantics": false,
+  "base_block_calls": 32,
+  "recycled_block_calls": 16,
+  "clock_semantics": ["token recurrence within a block", "32 base plus 16 recycled block evaluations per full-canvas invocation", "outer denoising NFE counts separate full-canvas invocations"],
+  "initialization_claims": ["source-extracted zero fusion projection and constant bias sigmoid", "source-extracted zero loop gate identity", "recycled blocks reuse the same objects rather than value-equal clones", "CPU gradient flow through gates and fusion"],
+  "trainer_claims": ["source-extracted optimizer identity groups and freeze selection on tiny CPU modules", "source-extracted learning-rate multipliers and gradient gate policy", "source-extracted corruption eligibility and selected-token mask loss"],
+  "sources": [
+    {"path": "DAN/v7_arch_round/code/train/train_birwkv_diffusion.py", "sha256": "0bee15b5af05a785b70ddfeffa3064161f04beccea36b44e9bfd01029e286b60"},
+    {"path": "DAN/v7_arch_round/code/models/birwkv7_diffusion.py", "sha256": "2591f58b1dfb7b567b979fb1f05cbb8c1e9a60490fc9fba293fcb2da48e0154a"},
+    {"path": "DAN/v7_arch_round/code/models/residual_streams.py", "sha256": "5ba645d5924b1782c60fccd8a17dec26bc904e3675f2f1834d9e948cac7e9b68"},
+    {"path": "scale/experiments/nonlatent_iclr/trainer_semantics.py", "sha256": "6c101b392adc190ad3b295bf235819bacd6fbc3ebbc111cf8e33760d47191a10"},
+    {"path": "scale/experiments/nonlatent_iclr/trainer_semantics_contract.py", "sha256": "1a621477407d198c6aa41b216e1a852a21f7cc4e93a70502efc309e0ed571bb5"},
+    {"path": "scale/experiments/nonlatent_iclr/initialization_contract.py", "sha256": "a398e912c6ccd9b3a3405eb68f387ec18b4dc6d425e17be5ce9315a5fca978b8"},
+    {"path": "scale/experiments/nonlatent_iclr/initialization_extract.py", "sha256": "bedeb25e16278e0e77aaa8be73e8047f03730f505cb1790b94284c44a0ff9c07"},
+    {"path": "scale/experiments/nonlatent_iclr/initialization_fusion.py", "sha256": "e6bc9ee4a8090c059556e3a9d9089a303ef3fe321e456f57172d3f7d09488aed"},
+    {"path": "scale/experiments/nonlatent_iclr/initialization_loop.py", "sha256": "698dfc1ebe999054b0f3b33332b9c529a78467c4bb89164b40d444dcd8189102"},
+    {"path": "scale/experiments/nonlatent_iclr/test_trainer_mask_semantics.py", "sha256": "504852a88f23931de9b0195b7bbbd3d10d381a7aa391a00dad392effe7ef9ac8"},
+    {"path": "scale/experiments/nonlatent_iclr/test_trainer_optimizer_semantics.py", "sha256": "a1d46d51a3a595baed348c1f478747feba3b2058d5863c82eaaf6a949563e3f6"},
+    {"path": "scale/experiments/nonlatent_iclr/test_initialization_boundary.py", "sha256": "7216db03e995f5c96e6bf6ce9238c0a75632ba516fb6d40927af642ecf6d3c02"},
+    {"path": "scale/experiments/nonlatent_iclr/test_initialization_fusion.py", "sha256": "fc8a0a47140fdd9659ac9cb829dd40816c4d25af7ac591041349538476380e1a"},
+    {"path": "scale/experiments/nonlatent_iclr/test_initialization_loop.py", "sha256": "ed7d3c62d09c69d6c46170f37e3264fa55aa7f7520d6d77294f6fa68c25d4dea"}
+  ]
+}

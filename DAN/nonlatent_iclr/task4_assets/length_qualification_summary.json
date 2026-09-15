@@ -1,0 +1,30 @@
+{
+  "artifact": "representative_rwkv_lengths.json",
+  "artifact_sha256": "4aadad8363a554af0e4b32c3b4d389fc89db0427f18abc861ceb3722fb918a05",
+  "declared_length_kind": "logical_character_fixture",
+  "encoding_policy": "plain UTF-8 bytes; no automatic BOS/EOS/special insertion",
+  "external_suites_status": "BLOCKED; not read or qualified",
+  "generation_protocol_status": "UNRESOLVED: config BOS/EOS=1/2 conflicts with generation EOS/PAD=0 and tokenizer EOT/PAD=0",
+  "infeasible_cells": 31,
+  "matrix_token_lengths_qualified": false,
+  "qualified_representative_cells": 689,
+  "replay_evidence_root": "DAN/nonlatent_iclr/task4_assets/tokenizer",
+  "replay_model_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF",
+  "replay_receipt_path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/task-04/tokenizer-qualification/8ef417180818408d8bc65efcb4dcd75c/receipt.json",
+  "representative_token_lengths_qualified": true,
+  "scope": "representative_exact_task_public_prompts; seed=101; instance_index=0",
+  "source_hashes": {
+    "exact_tasks.py": "cd29f3ab5cc155357c37686ad43651083e9860631adea1868eaa0a33eca50ef9",
+    "external_assets.py": "bc014a7084d544266840b6458f9b0c0caee7e4a3aabf220ec93d60e0cf7c9559",
+    "length_qualification.py": "181e9bfbd49c17d3c87d41f8e32659694e5fa28c671d9a475dee59710954b633",
+    "models.py": "60eef3c3abc5eaa0956e5d71a370c0df9e4217dee464712f74d18bbc22617277",
+    "provenance.py": "6a92efad20f371c39640c705d0467c4a3150061cb3072c7134fc7ce8bcb61d6d",
+    "receipt.json": "a18ef80ee1870fa93adfeea52b41e6124c8c388648159f02508f2fddcdd3c22f",
+    "rwkv_tokenizer_manifest.json": "b449a66bd42af5ceb3bb113fca13e98414db99d9a59e06481f97943d9c3f1a2d",
+    "rwkv_tokenizer_results.json": "75d8230dc53be82045f1277f60ad6fa4b562fe40d84ceb0ed1ceeaf6d55b7d6e",
+    "rwkv_vocab_v20230424.txt": "e6dee3d4e31b4d5c40ac99508ac6c701ceef4bed681bf2167ce9a908552bca89",
+    "task_registry.py": "e62130fdca39dad2138df9820ced795acf0d2fbac8c1baf5b2c3176712c74e18",
+    "tokenizer_provenance.py": "681ea7049c3e9d31f485f3cad03752e4154cc7ae19b50837ae0d3cab2c580b56",
+    "tokenizer_qualification.py": "247b3cc10839f499d22d42280ebba07083c3f04e3e67082c6bbdaac5d936fd73"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "attention_initialization": {
+    "classification": "source_backed",
+    "evidence": "models/birwkv7_diffusion.py:452-470,1026-1039",
+    "factory_instances": "separate_attn_fwd_and_attn_bwd",
+    "relationship": "clone_not_tied"
+  },
+  "backbone_loop": {
+    "classification": "source_backed",
+    "evidence": "models/birwkv7_diffusion.py:765-792,978-1002; train/train_birwkv_diffusion.py:838-842",
+    "module_identity": "shared_layers_reexecuted",
+    "outer_denoising_nfe": "distinct_full_canvas_forwards",
+    "trained_inner_block_passes": {
+      "base": 32,
+      "recycled": 16,
+      "total": 48
+    }
+  },
+  "cache_scope": {
+    "classification": "source_backed",
+    "direction": "forward_stream_only",
+    "evidence": "models/birwkv7_diffusion.py:507-558,1165-1180",
+    "kernel_equivalence": "unavailable_without_fla_gpu_runtime",
+    "sampler": "full_canvas_rescan_each_outer_step"
+  },
+  "clocks": {
+    "classification": "source_backed",
+    "outer_denoising_step": "k",
+    "recycled_depth": "r",
+    "token_position": "i"
+  },
+  "contract_version": 1,
+  "external_requirements": [
+    "FLA GPU runtime plus actual cache caller to validate real kernel cache equivalence",
+    "real checkpoint config and tensor-shape artifact to measure full parameter count",
+    "missing models.latent_plan and models.state_hijacking_cache modules to validate trainer caller identity"
+  ],
+  "freeze_and_optimizer": {
+    "classification": "source_backed",
+    "evidence": "train/train_birwkv_diffusion.py:919-927,960-1002",
+    "freeze_backbone": "all_except_latent_cond_requires_grad_false",
+    "optimizer_groups": "requires_grad_filtered_decay_no_decay_cond_and_separate_plan_optimizer"
+  },
+  "masks_and_optional_latent": {
+    "classification": "unavailable",
+    "input_output_mask_contract": "unavailable",
+    "optional_latent_code": "not_an_active_nonlatent_path_assumption"
+  },
+  "parameter_accounting": {
+    "classification": "source_backed",
+    "evidence": "train/train_birwkv_diffusion.py:769-851",
+    "full_checkpoint_parameter_count": {
+      "reason": "no safely derived real config-and-tensor-shape artifact in this bundle",
+      "status": "unavailable"
+    },
+    "nominal_model_size": "not_a_measured_parameter_count",
+    "trainer_count_timing": "before_optional_attachments"
+  },
+  "scope": "staged_v7_nonlatent_path_only",
+  "source_root": "DAN/v7_arch_round/code",
+  "state_ownership": {
+    "canvas_edit": "invalidates_carried_state",
+    "carry": "immutable_prefix_only_when_session_revision_and_prefix_match",
+    "classification": "runtime_verified",
+    "full_canvas_interface": "distinct_from_streaming_prefix_interface",
+    "owner": "nonlatent_caller_session",
+    "reset": "required_for_unrelated_sessions",
+    "verification_scope": "tiny_cpu_state_owner_only_not_fla_kernel_cache"
+  }
+}

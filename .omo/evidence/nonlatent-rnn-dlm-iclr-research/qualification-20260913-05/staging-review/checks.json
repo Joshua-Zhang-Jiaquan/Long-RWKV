@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETED_WITH_DETERMINISTIC_NO_GO",
+  "commands": [
+    {
+      "name": "targeted_v2_regressions",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /usr/bin/python -m pytest -q -p no:cacheprovider .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260913-05/staging-v2/test_release_contract_v2.py .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260913-05/staging-v2/test_runtime_environment_v2.py",
+      "result": "PASS",
+      "detail": "12 passed in 1.32s"
+    },
+    {
+      "name": "global_only_cli_help",
+      "command": "env -i ... PYTHONPATH=<release>:<global-staged-root> CUDA_VISIBLE_DEVICES= /usr/bin/python -m scale.experiments.nonlatent_iclr.qualification.cli --help",
+      "cwd": "/tmp/opencode",
+      "result": "PASS"
+    },
+    {
+      "name": "global_only_probe_help",
+      "command": "env -i ... PYTHONPATH=<release>:<global-staged-root> CUDA_VISIBLE_DEVICES= /usr/bin/python -m scale.experiments.nonlatent_iclr.qualification.probe --help",
+      "cwd": "/tmp/opencode",
+      "result": "PASS"
+    },
+    {
+      "name": "launcher_help_and_shell_syntax",
+      "command": "/usr/bin/bash <global-release>/scale/experiments/nonlatent_iclr/qualification/run_qualification.sh --help && /usr/bin/bash -n <launcher>",
+      "result": "PASS"
+    },
+    {
+      "name": "standalone_early_environment_diagnostic",
+      "command": "env -i ... /usr/bin/python <global-release>/scale/experiments/nonlatent_iclr/qualification/runtime_environment.py --manifest <manifest> --output <temporary-output> --release-root <release> --staged-root <global-staged-root> --checkpoint-root <neutral-alias> --model-root <global-HF-root>",
+      "result": "PASS",
+      "detail": "status MATCH; stdout exactly matched the published temporary file; six distribution versions and eight bounded package-source hashes matched; runtime_modules_loaded was empty"
+    },
+    {
+      "name": "global_only_strict_cli_preflight",
+      "command": "env -i ... PYTHONPATH=<release>:<global-staged-root> CUDA_VISIBLE_DEVICES= /usr/bin/python -m scale.experiments.nonlatent_iclr.qualification.cli validate --nonce eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee --run-id qualification-20260912-01-stagingreviewv2 --controller-receipt /tmp/opencode/qualification05-no-controller-receipt.json --controller-receipt-timeout-seconds 0 --expected-world-size 8 --timeout-seconds 1200 --nccl-timeout-seconds 120 --memory-fraction 0.90 --manifest <manifest> --manifest-sha256 218a0cacbaba8ecf541d2e72386b4bf070cfde6d230fbf0306ebfb50559523fb",
+      "cwd": "/tmp/opencode",
+      "result": "PASS",
+      "detail": "PREFLIGHT_VERIFIED; 41 source files; elapsed 23.773s; no controller receipt was read or created"
+    },
+    {
+      "name": "fresh_process_local_import_closure_audit",
+      "command": "AST-resolve models.* and relative local imports from models/__init__.py plus models.birwkv7_diffusion, then compare resolved paths with staged_source manifest paths",
+      "result": "FAIL",
+      "detail": "64 local candidates resolved; only 5 manifested; models/__init__.py immediately imports unmanifested models/state_hijacking_dit.py"
+    }
+  ],
+  "review_environment": {
+    "python": "/usr/bin/python",
+    "python_version": "3.12.3",
+    "cwd_for_global_checks": "/tmp/opencode",
+    "project_checkout_on_pythonpath": false,
+    "cuda_visible_devices": "",
+    "offline_environment_enabled": true
+  },
+  "observed_packages": [
+    "torch==2.8.0a0+5228986c39.nv25.6",
+    "flash-linear-attention==0.5.0",
+    "fla-core==0.5.0",
+    "transformers==5.3.0",
+    "safetensors==0.5.3",
+    "pytorch-triton==3.3.0+git96316ce52.nvinternal"
+  ],
+  "prohibited_actions": {
+    "actual_job_or_qz_calls": 0,
+    "api_or_network_calls": 0,
+    "controller_receipts_read_or_created": 0,
+    "authorization_or_plan_edits": 0,
+    "project_or_release_source_edits": 0,
+    "subagents": 0,
+    "cuda_calls": 0,
+    "checkpoint_unpickle_or_model_loads": 0
+  },
+  "reviewer_command_corrections": [
+    "The first static reporting command accidentally sent run_qualification.sh through ast.parse and was rerun with a .py suffix filter; no file was changed.",
+    "The first timed preflight wrapper referenced absent /usr/bin/time and was rerun with the Bash time keyword; the failed wrapper never started Python."
+  ]
+}

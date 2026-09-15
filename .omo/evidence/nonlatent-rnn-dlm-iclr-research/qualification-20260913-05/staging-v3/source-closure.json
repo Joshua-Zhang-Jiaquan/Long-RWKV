@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "status": "COMPLETE_OWNED_LOCAL_MODELS_PACKAGE_AND_AST_CLOSURE_BOUND",
+  "entrypoints": [
+    "models",
+    "models.birwkv7_diffusion"
+  ],
+  "original_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale",
+  "owned_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-closure-v3/model_source/scale",
+  "canonical_mapping": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-closure-v3/scale/experiments/nonlatent_iclr/qualification/model_source_inventory.json",
+    "sha256": "dcd874b57a4b3f582534c215b4b7b3713602378e6d3f6f109205163335d83e79",
+    "size_bytes": 53526,
+    "record_count": 72,
+    "fields_per_record": [
+      "module",
+      "classification",
+      "original_path",
+      "original_size_bytes",
+      "original_sha256",
+      "owned_path",
+      "owned_size_bytes",
+      "owned_sha256"
+    ]
+  },
+  "classification_counts": {
+    "runtime_reachable": 64,
+    "copied_inactive_package_member": 8,
+    "complete_python_package": 72
+  },
+  "copied_inactive_package_members": [
+    "models.boundary_field",
+    "models.hidden_block_capture",
+    "models.latent_grid_diffrwkv",
+    "models.state_hijacking_collapse_monitors",
+    "models.state_hijacking_gumbel_schedule",
+    "models.state_hijacking_latent_grid_errors",
+    "models.state_hijacking_latent_grid_lineage",
+    "models.state_token_conditioner"
+  ],
+  "direct_local_dependencies_outside_models": [],
+  "unavailable_local_dependencies": [],
+  "manifest_binding": {
+    "role": "staged_source",
+    "path_count": 72,
+    "covers_every_mapping_record": true,
+    "mutable_qz_stage_source_entries": 0
+  },
+  "reviewer_gap_repaired": {
+    "module": "models.state_hijacking_dit",
+    "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/state_hijacking_dit.py",
+    "owned_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-05-global-ffaa464d-closure-v3/model_source/scale/models/state_hijacking_dit.py",
+    "sha256": "9138cbd1ab210026ab25e45d61409d90922e80053caebaa1018fcf7e6479c0f6",
+    "size_bytes": 60871,
+    "manifest_role": "staged_source"
+  },
+  "proofs": {
+    "all_original_and_owned_sizes_match": true,
+    "all_original_and_owned_sha256_match": true,
+    "owned_origin_resolution_count": 72,
+    "owned_origin_resolution_outside_owned_root": 0,
+    "runtime_modules_loaded_by_origin_test": [],
+    "stale_owned_helper_hash_rejected": true
+  }
+}

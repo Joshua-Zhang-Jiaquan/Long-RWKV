@@ -1,0 +1,27 @@
+{
+  "auto_fault_tolerance": false,
+  "envs": [
+    {
+      "name": "NNODES",
+      "value": "1"
+    }
+  ],
+  "framework": "pytorch",
+  "framework_config": [
+    {
+      "image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
+      "image_type": "SOURCE_PRIVATE",
+      "instance_count": 1,
+      "shm_gi": 1800,
+      "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f"
+    }
+  ],
+  "logic_compute_group_id": "lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e",
+  "max_running_time_ms": "10800000",
+  "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+  "task_priority": 4,
+  "workspace_id": "ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6",
+  "name": "m4-probe-a1-baseline-s9500-obqa-race",
+  "command": "bash -lc 'set -e; export DAN_SCALE_DIR=/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale; export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false; O=/inspire/hdd/global_user/zhangjiaquan-253108540222/m2_baseline_triangle; CK=$O/m4loop_ext_endpoint_ckpt; if [ ! -f $CK/model.pt ]; then echo ===PROBE_ABORT ckpt missing=== >> $O/a1_baseline_s9500_probe.log; exit 3; fi; cd $DAN_SCALE_DIR; CUDA_VISIBLE_DEVICES=0 python -m eval.capability.cola_proxy_generic --model_kind birwkv --ckpt_dir $CK --model_dir /inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF --task_data_dir $O/task_data --output_dir $O/tasks_m4loop_step9500_obqa_race --tasks obqa,race --max_samples 500 --max_new_tokens 32 --steps 16 --commit_group_size 4 --temperature 0.2 --chat_frame 0 --seed 42 > $O/a1_baseline_s9500.log 2>&1; ec=$?; echo \"A1_BASELINE step9500 exit=$ec\" >> $O/a1_baseline_s9500_probe.log; python /inspire/hdd/global_user/zhangjiaquan-253108540222/research/DiffRwkv/baseline/Cola-DLM/scripts/acc_calc.py $O $O/accuracy_summary.csv 2>&1 | tail -6 >> $O/a1_baseline_s9500_probe.log; echo ===A1_BASELINE_DONE_step9500=== '",
+  "description": "v8 campaign A1: the MISSING baseline. No OBQA/RACE reading exists for ANY m4-loop checkpoint (the MMLU curve is a 46-50 random walk over 13 readings, and F2 hit 58.4/54.8 pre-loop), so Lane A's extension has nothing to compare its easier-benchmark performance against. Runs the s9500 neutral copy (m2_baseline_triangle/m4loop_ext_endpoint_ckpt) on obqa+race with the EXACT protocol of the recorded precedents (tasks obqa,race / max_samples 500 / max_new_tokens 32 / steps 16 / commit_group_size 4 / temperature 0.2 / chat_frame 0 / seed 42), matching tasks_f2_s14000_obqa_race and tasks_rwkv7goose_obqa_race byte-for-byte so the new column is directly comparable to the b3 54.80/48.00, f2 58.40/54.80 and rwkv7goose 46.40/31.80 precedents. New alias tasks_m4loop_step9500_obqa_race. NOTE: acc_calc.py OVERWRITES accuracy_summary.csv by re-walking $O (RECURSIVE_SEARCH=True, EVAL_DIR_PREFIX='tasks_', 114 task dirs intact) -- a timestamped backup was taken first and the result must be diffed against it. 1 GPU of an 8-GPU shape, ~30 min."
+}

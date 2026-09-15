@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "captured_before_release": true,
+  "command": "PYTHONDONTWRITEBYTECODE=1 /usr/bin/python -m pytest -q -p no:cacheprovider .omo/evidence/nonlatent-rnn-dlm-iclr-research/qualification-20260913-05/staging/test_staged_release.py",
+  "red_result": "8 failed in 0.42s because the frozen global release did not exist",
+  "green_result": "8 passed in 0.69s",
+  "post_red_fixture_correction": {
+    "issue": "CPU invalid-nonce scenario omitted argparse-required --output-dir",
+    "runtime_proof_without_argument": "the following arguments are required: --output-dir",
+    "runtime_proof_with_argument": "nonce_must_be_32_lower_hex_characters",
+    "scope": "test_fixture_only"
+  }
+}

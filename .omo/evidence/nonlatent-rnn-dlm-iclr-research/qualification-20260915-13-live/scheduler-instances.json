@@ -1,0 +1,21 @@
+{
+  "ResponseMetadata": {
+    "Action": "ListJobInstances",
+    "Service": "train"
+  },
+  "Result": {
+    "items": [
+      {
+        "created_at": "1789459982000",
+        "finished_at": "1789460707000",
+        "instance_status": "instance_success",
+        "instance_type": "instance_type_worker",
+        "name": "job-694b68c9-0699-447b-a5a4-0f56b6d2d12f-worker-0",
+        "node": "qb-prod-gpu038",
+        "running_time_ms": "703000",
+        "started_at": "1789460004000"
+      }
+    ],
+    "total": 1
+  }
+}

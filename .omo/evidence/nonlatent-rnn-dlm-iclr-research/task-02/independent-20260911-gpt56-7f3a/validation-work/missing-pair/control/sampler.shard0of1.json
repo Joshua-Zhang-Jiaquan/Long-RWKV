@@ -1,0 +1,1 @@
+{"schema": "qz_capability_sampler_shard_v1", "num_shards": 1, "shard_index": 0, "n_records": 1, "grid": {"mask_ratios": [0.7], "steps": [1]}, "records": [{"document_id": "doc-2", "seed": 42, "arm": "r70_s1", "metrics": {"max_run_frac": 0.1}}]}

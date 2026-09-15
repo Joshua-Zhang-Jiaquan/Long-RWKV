@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "local_parent_import_closure": [
+    {
+      "path": "scale/experiments/nonlatent_iclr/contract.py",
+      "reason": "imported_by_inventory_and_schema"
+    },
+    {
+      "path": "scale/experiments/nonlatent_iclr/inventory.py",
+      "reason": "eager_parent_import_and_Artifact_View_exports"
+    },
+    {
+      "path": "scale/experiments/nonlatent_iclr/models.py",
+      "reason": "eager_parent_import"
+    },
+    {
+      "path": "scale/experiments/nonlatent_iclr/publication.py",
+      "reason": "eager_parent_import"
+    },
+    {
+      "path": "scale/experiments/nonlatent_iclr/schema.py",
+      "reason": "eager_parent_import_and_models_dependency"
+    }
+  ],
+  "preserved_staged_model_sources": [
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/__init__.py",
+      "role": "package_initializer"
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/birwkv7_diffusion.py",
+      "role": "reviewed_model"
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/residual_streams.py",
+      "role": "direct_model_dependency"
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/state_hijacking_dit_torch_types.py",
+      "role": "direct_type_dependency"
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/qz_stage_traj4096_v7/scale/models/latent_plan.py",
+      "role": "existing_dynamic_slots_to_positions_dependency"
+    }
+  ],
+  "learned_latent_mechanism_activated": false,
+  "model_architecture_changed": false
+}

@@ -1,0 +1,8 @@
+$ cd scale
+$ PYTHONDONTWRITEBYTECODE=1 python -m experiments.nonlatent_iclr.cli verify --task 1 --case happy
+{
+  "blocked_claims": 0,
+  "detail": "ledger exists without a terminal receipt",
+  "status": "PUBLICATION_PENDING"
+}
+exit_code=2

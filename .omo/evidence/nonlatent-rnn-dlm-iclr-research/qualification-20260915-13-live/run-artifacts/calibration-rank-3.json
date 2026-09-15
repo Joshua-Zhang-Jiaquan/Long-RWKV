@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "rank": 3,
+  "nonce": "74dd8b05826d7d90f2c88d5b86bace46",
+  "status": "FAILED",
+  "detail": "OutOfMemoryError: CUDA out of memory. Tried to allocate 256.00 MiB. GPU 3 has a total capacity of 79.18 GiB of which 155.88 MiB is free. Including non-PyTorch memory, this process has 79.02 GiB memory in use. Of the allocated memory 78.26 GiB is allocated by PyTorch, and 27.08 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https:",
+  "scope": "task6_forecast_input_only",
+  "claims_not_made": [
+    "long-context capability",
+    "sustainable goodput",
+    "quality-matched serving",
+    "physical edge-device performance",
+    "training throughput at production sharding"
+  ],
+  "arm_id": "A5_small_loop_fwd",
+  "arm_digest": "4464f32d866e2a892cebc11fc90b938d30d30cd1ba9926ed424db14fdc904a0a",
+  "nominal_label": "A5 forward-only masked denoiser, tied loop",
+  "measured": true,
+  "derived_from": null,
+  "loop_reps_configured": 1,
+  "loop_reps_measured": 1,
+  "force_forward": true,
+  "gradient_checkpointing": true,
+  "model_geometry": null,
+  "parameters": null,
+  "checkpoint_step": null,
+  "checkpoint_sha256": null,
+  "weights_sha256": {},
+  "measurements": [],
+  "warnings": []
+}

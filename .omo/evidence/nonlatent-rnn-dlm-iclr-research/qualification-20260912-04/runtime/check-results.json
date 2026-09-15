@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-13T06:55:09Z",
+  "job_id": "job-e0c9f792-8afb-4902-bb24-5dd8872927e1",
+  "scheduler": {
+    "admitted": "PASS",
+    "resource_identity": "PASS",
+    "terminal_status": "job_failed",
+    "safety_stop_required": false
+  },
+  "payload_artifact_contract": {
+    "expected_rank_records": 8,
+    "observed_rank_records": 0,
+    "exact_nonce_bound_rank_records": "FAIL_ABSENT",
+    "controller_bound_rank_records": "FAIL_ABSENT",
+    "manifest_bound_rank_records": "FAIL_ABSENT",
+    "preflight": "NOT_OBSERVED",
+    "launcher": "NOT_OBSERVED",
+    "aggregate": "NOT_OBSERVED"
+  },
+  "core_checks": {
+    "hardware": "NOT_OBSERVED_AT_RANK_LEVEL",
+    "source_identity": "NOT_OBSERVED",
+    "checkpointload": "NOT_OBSERVED",
+    "parameteridentity": "NOT_OBSERVED",
+    "realFLAcausalcache": "NOT_OBSERVED",
+    "actualmaskedforward": "NOT_OBSERVED",
+    "resource_limits": "SCHEDULER_CONFIG_PASS_RUNTIME_CHECK_NOT_OBSERVED"
+  },
+  "healthy_target": "PARTIAL_QUALIFICATION_corevalid_fullmodelcacheunqualified",
+  "fullmodel_cache_result": "NOT_EVALUATED",
+  "qualification_classification": "FAILED_NO_RUNTIME_PROOF",
+  "failure_cause_classification": "INCONCLUSIVE_PRE_PAYLOAD_OR_LAUNCHER_START",
+  "basis": [
+    "scheduler terminal status job_failed",
+    "running_time_ms 5000",
+    "GPFS output root absent more than 20 minutes after scheduler finish",
+    "zero of eight required rank records",
+    "launcher aggregate and preflight artifacts absent",
+    "GetJobLog returned InternalError without log content"
+  ]
+}
