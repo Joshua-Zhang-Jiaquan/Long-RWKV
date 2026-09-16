@@ -58,33 +58,48 @@ measured: the two-task repository confirmation split, the process-level (not ext
 managed) evaluator sandbox, and the token matrix having run on a CPU host rather than in
 the qz CPU lane.
 
-## A pre-existing defect found while checking self-containment
+## A packaging gap, corrected (and my first reading of it was wrong)
 
-Three source files the architecture contract names as helper/source paths **do not exist
-in the source tree**, and this repository faithfully mirrors that:
+Three source files the architecture contract names as helper paths were absent, and this
+repository initially reproduced that absence:
 
-| Path the contract expects | State |
-| --- | --- |
-| `DAN/v7_arch_round/code/models/latent_plan.py` | absent |
-| `DAN/v7_arch_round/code/models/state_hijacking_cache.py` | absent |
-| `DAN/v7_arch_round/code/models/state_hijacking_dit_torch_types.py` | absent |
+| Path the contract expects | Initial state | Now |
+| --- | --- | --- |
+| `DAN/v7_arch_round/code/models/latent_plan.py` | absent | vendored |
+| `DAN/v7_arch_round/code/models/state_hijacking_cache.py` | absent | vendored |
+| `DAN/v7_arch_round/code/models/state_hijacking_dit_torch_types.py` | vendored | vendored |
 
-This is not a packaging gap. `DAN/v7_arch_round/code/models/residual_streams.py` line 58
-imports `models.state_hijacking_dit_torch_types` unguarded, so that module is
-**unimportable in the source tree as well** — verified by importing it from the original
-location, where it raises the same `ModuleNotFoundError`.
+`models/residual_streams.py:58` imports the third unguarded, so without them the module
+is unimportable and two of the model's own tests can never be collected.
 
-Two consequences worth stating plainly:
+**I first recorded this as a defect in the model code. That was wrong**, and the
+correction matters more than the fix. All three files exist in the live training tree at
+`qz_stage_traj4096_v7/scale/models/`, where `residual_streams.py` imports cleanly and is
+byte-identical to this repository's copy (`5ba645d5924b1782`). The gap was in how this
+repository was assembled — an incomplete copy of an arch-round snapshot — not in the
+model. It is fixed by vendoring, and the model import path now resolves.
 
-1. `DAN/v7_arch_round/code/train/test_residual_streams.py` and
-   `test_backbone_loop.py` cannot be collected anywhere, because their import chain is
-   broken at source. They are excluded from collection here by `testpaths`, and a
-   `conftest.py` supplies the flat import root the model code expects — but neither
-   makes a missing module appear.
-2. The contract's drift checks pass despite the absent files, which means the contract
-   tolerates an unsatisfiable declared path. That is checked rather than assumed: the
-   suite passes, so the binding does not include them.
+A related divergence worth knowing when reading this repository: the in-repo
+`birwkv7_diffusion.py` is a **curated subset** of the training-tree module
+(`2591f58b…` here vs `e6d90ce8…` there), and drops `LatentRefinementMap`,
+`LatentExitGate` and `run_refinement_ladder` entirely. That divergence is deliberate in
+kind. The three helpers were the accidental part.
 
-The packaged repository is therefore self-contained *with respect to the artifacts that
-exist*, and this limitation is inherited rather than introduced. It is recorded here
-because a reader reproducing the architecture will hit it on the first import.
+## A pin that looks stale and must stay that way
+
+`contract.py` binds `outputs_birwkv_diffusion/m4-loop-2p9b/step_00004750/meta.json`,
+which no longer exists, while `qualification/runtime_config.py` resolves its checkpoint
+to the surviving `m2_baseline_triangle/m4loop_endpoint_ckpt`. That asymmetry looks like a
+bug and is not one.
+
+`test_external_hashed_source_drift_is_stale` *writes* that external file and asserts the
+audit reports `STALE`. The pin is a hashed **audit binding whose content is the fact that
+the artifact is gone** — the record of a loss. Repointing it to the surviving copy was
+tried and broke ten tests, correctly: it would make a removed source look present and
+silently erase the effect of the 3.25\,TB deletion from the audit trail. It was reverted.
+`runtime_config` resolving and `contract.py` binding are different jobs; the asymmetry is
+the design.
+
+## Known-good state after these changes
+
+`PYTHONPATH=. python3 -m pytest scale/tests/nonlatent_iclr -q` → **600 passed**.

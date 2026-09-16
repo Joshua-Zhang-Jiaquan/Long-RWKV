@@ -246,6 +246,39 @@ OOM'd above 512 tokens on a single 80\,GiB GPU and no sharded calibration has be
 The ledger states this rather than extrapolating, and it claims no long-context,
 goodput, quality or physical-edge result.
 
+\section{A descriptive capability observation}
+\label{sec:descriptive}
+
+One set of numbers exists and is worth reporting, provided it is reported for what it
+is. On two easy multiple-choice suites --- OpenBookQA and RACE --- the loop s9500
+endpoint measures \textbf{56.60} and \textbf{55.40} respectively, against in-lineage
+comparators of 54.80/48.00 (b3, s1000), 45.40/45.20 (b3, s8000), 58.40/54.80 (f2,
+s14000) and 46.40/31.80 (a released RWKV-7 reference).
+
+Scoped exactly, over the thirteen readings in that summary table: RACE 55.40 is
+\textbf{2nd of 13}, behind the released diffusion baseline at 83.60 and ahead of every
+other in-house run --- i.e. \textbf{first within this program's own lineage}. OBQA 56.60
+is \textbf{4th of 13} and third within the lineage, behind that same released baseline
+(84.80) and two f2 runs (60.20, 58.40). We state the ranks because the naturally
+stronger sentences are false: ``highest of any model measured'' holds for the lineage
+and not for the table, and ``second on OBQA'' holds for neither. Both were asserted
+before this line was checked against the table, and both are corrected here --- the
+second because the comparison set had been assembled by hand from four models and then
+reported as though it were the table.
+
+This is a \emph{descriptive} observation and it is not evidence for the paper's thesis.
+It is single-seed; the comparators sit at different training steps and token budgets;
+and released checkpoints and in-house runs are not the same-data comparison the
+registered protocol requires. Under \S\ref{sec:protocol} it belongs to the
+released-versus-controlled result split as description, not as a confirmed effect, and
+it moves no endpoint in \S\ref{sec:notrun}.
+
+We include it because reporting only the MMLU curve, which is flatter, would understate
+a real and recorded measurement --- and because stating the scope of a favourable-looking
+number is the same discipline as \S\ref{sec:correction}. The per-example files behind it
+(\texttt{obqa\_correct/wrong.jsonl}) live in the evidence tree, so the number is
+auditable rather than quoted.
+
 \section{Theory: targets, not results}
 \label{sec:theory}
 
