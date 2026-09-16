@@ -177,6 +177,53 @@ def _result_task_four(args: argparse.Namespace) -> tuple[AuditResult, int]:
     return AuditResult("BLOCKED_EXTERNAL", f"{blocked} declared requirement(s) unqualified: {first}", blocked), 2
 
 
+def _result_task_five(args: argparse.Namespace) -> tuple[AuditResult, int]:
+    """Route the plan's Task 5 QA contract to the preregistration record."""
+    from .preregistration import (
+        PreregistrationRefusal, build_preregistration, read_preregistration,
+        verify_preregistration, write_preregistration,
+    )
+
+    command = cast(str, args.command)
+    if command not in {"prepare", "verify"}:
+        return AuditResult("UNSUPPORTED", "task 5 supports prepare and verify only"), 2
+    output_root = cast("Path | None", args.output_root) or Path("DAN/nonlatent_iclr")
+    path = output_root / "preregistration.json"
+
+    if command == "prepare":
+        document = build_preregistration()
+        write_preregistration(document, path)
+        state = cast(str, document["seal_state"])
+        open_now = cast("list[str]", document["open_blockers"])
+        if state == "SEALED":
+            return AuditResult("PREREGISTRATION_SEALED", "all sealing blockers closed"), 0
+        return AuditResult(
+            "DRAFT_UNSEALED",
+            f"written as a draft; {len(open_now)} sealing blocker(s) open: {open_now}"), 1
+
+    try:
+        document = read_preregistration(path)
+    except PreregistrationRefusal as error:
+        return AuditResult("UNREADABLE", str(error)[:300]), 2
+
+    case = cast(str, args.case) if args.case else "happy"
+    try:
+        outcome = verify_preregistration(document, case=case)
+    except PreregistrationRefusal as error:
+        if case == "failure":
+            return AuditResult("FAILURE_PROBE_MISSED", str(error)[:300]), 2
+        return AuditResult("PREREGISTRATION_INVALID", str(error)[:300]), 2
+    if case == "failure":
+        return AuditResult(outcome, "all planted preregistration violations were refused"), 0
+    state = cast(str, document["seal_state"])
+    if state != "SEALED":
+        return AuditResult(
+            "DRAFT_UNSEALED",
+            "the record is internally consistent and unedited, but it is a DRAFT: "
+            f"open blockers {document['open_blockers']}"), 1
+    return AuditResult(outcome, "sealed preregistration verified"), 0
+
+
 def _result_task_six(args: argparse.Namespace) -> tuple[AuditResult, int]:
     """Route the plan's Task-6 contract to the allocation ledger entrypoint."""
     command = cast(str, args.command)
@@ -214,10 +261,12 @@ def _calibration_manifest_sha(aggregate: Path) -> str:
 
 def _result(args: argparse.Namespace) -> tuple[AuditResult, int]:
     task = cast(int, args.task)
-    if task not in {1, 2, 4, 6}:
+    if task not in {1, 2, 4, 5, 6}:
         return AuditResult("UNSUPPORTED", f"task {task} is not implemented"), 2
     if task == 4:
         return _result_task_four(args)
+    if task == 5:
+        return _result_task_five(args)
     if task == 6:
         return _result_task_six(args)
     paths = _paths(args)

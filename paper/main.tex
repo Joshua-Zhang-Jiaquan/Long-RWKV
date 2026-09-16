@@ -182,6 +182,17 @@ Everything in this section is frozen before the confirmatory runs and carries th
 failure interpretation agreed in advance. Results appear in \S\ref{sec:notrun}, which is
 empty.
 
+The protocol is machine-readable at \texttt{DAN/nonlatent\_iclr/preregistration.json},
+with its builder and checks in \texttt{scale/experiments/nonlatent\_iclr/preregistration.py}.
+It carries \texttt{seal\_state: DRAFT\_UNSEALED} and cannot state otherwise while a
+blocker is open: sealing is derived from the inputs, not asserted by a caller, and the
+record is written once --- editing it after the fact is detected by digest. Three of its
+four sealing blockers remain open (the development-derived H100 deadlines, the frozen
+common token budget, and external checkpoint identities); the fourth, the BOS/EOS
+generation protocol, closed on 2026-09-15 and is retained in the record as
+\texttt{RESOLVED} with its evidence rather than deleted, because a blocker that vanishes
+without a trace is indistinguishable from one that was edited away.
+
 \paragraph{Controlled arms.} A0 causal RWKV (autoregressive control); A1 forward-only
 denoiser (objective control); A2 bidirectional denoiser (directionality control); A3
 bidirectional tied-loop denoiser (the candidate); A4 bidirectional denoiser with untied

@@ -1,0 +1,179 @@
+{
+  "arms": [
+    {
+      "control_for": "baseline for every arm",
+      "depth": "no loop",
+      "direction": "causal",
+      "key": "A0",
+      "objective": "autoregressive",
+      "parameters_disclosed": true,
+      "purpose": "recurrent autoregressive control"
+    },
+    {
+      "control_for": "A3, isolating directionality",
+      "depth": "no loop",
+      "direction": "forward-only",
+      "key": "A1",
+      "objective": "masked denoiser",
+      "parameters_disclosed": true,
+      "purpose": "objective control"
+    },
+    {
+      "control_for": "A3, isolating depth recycling",
+      "depth": "no loop",
+      "direction": "bidirectional",
+      "key": "A2",
+      "objective": "masked denoiser",
+      "parameters_disclosed": true,
+      "purpose": "directionality control"
+    },
+    {
+      "control_for": "A2 and A4",
+      "depth": "tied loop",
+      "direction": "bidirectional",
+      "key": "A3",
+      "objective": "masked denoiser",
+      "parameters_disclosed": true,
+      "purpose": "main candidate"
+    },
+    {
+      "control_for": "A3, isolating parameter count",
+      "depth": "untied extra blocks, equal executed depth",
+      "direction": "bidirectional",
+      "key": "A4",
+      "objective": "masked denoiser",
+      "parameters_disclosed": true,
+      "purpose": "extra-capacity / compute control"
+    },
+    {
+      "control_for": "A3, isolating directionality under looping",
+      "depth": "tied loop",
+      "direction": "forward-only",
+      "key": "A5",
+      "objective": "masked denoiser",
+      "parameters_disclosed": true,
+      "purpose": "loop x directionality interaction"
+    }
+  ],
+  "checkpoints": [],
+  "common_token_budget": null,
+  "note": "DRAFT_UNSEALED is not a preregistration. Calling it one before the open blockers close is the failure this record exists to prevent.",
+  "open_blockers": [
+    "SLO_DEADLINES",
+    "COMMON_TOKEN_BUDGET",
+    "EXTERNAL_CHECKPOINTS"
+  ],
+  "preregistration_sha256": "07be45cea445449de97b00c5f587a092927dc21c122230bc904731d2c026ba48",
+  "primary_endpoints": [
+    {
+      "endpoint": "depth_recycling_quality",
+      "failure_reading": "extra compute or warm-start effect, not an architecture advantage",
+      "statement": "A3 vs A2 quality at matched MEASURED COMPUTE",
+      "threshold": "gain survives matched-compute comparison"
+    },
+    {
+      "endpoint": "long_context_macro",
+      "failure_reading": "report the limitation; do not substitute maximum accepted input length",
+      "statement": "equal-weight macro over associative recall, overwrite and dataflow at 16K/32K/64K",
+      "threshold": ">= +5 absolute points, adjusted CI excludes zero"
+    },
+    {
+      "endpoint": "serving_goodput",
+      "failure_reading": "no efficiency-superiority claim where the Pareto curve loses",
+      "statement": "verified successful completions meeting a frozen common deadline per wall-clock second",
+      "threshold": ">= 1.5x at the common SLO, or a separately claimed 2x session-capacity stretch"
+    }
+  ],
+  "schema": "nonlatent_iclr_preregistration_v1",
+  "schema_version": 1,
+  "seal_state": "DRAFT_UNSEALED",
+  "sealing_blockers": [
+    {
+      "blocked_on": "Task 13/14 deployment measurements",
+      "id": "SLO_DEADLINES",
+      "may_be_fabricated": false,
+      "needs": "development-derived common H100 deadlines",
+      "state": "OPEN"
+    },
+    {
+      "blocked_on": "Task 6's forecast ledger",
+      "id": "COMMON_TOKEN_BUDGET",
+      "may_be_fabricated": false,
+      "needs": "the frozen common token budget",
+      "state": "OPEN"
+    },
+    {
+      "blocked_on": "checkpoints not present on disk",
+      "id": "EXTERNAL_CHECKPOINTS",
+      "may_be_fabricated": false,
+      "needs": "named external checkpoint versions and their identities",
+      "state": "OPEN"
+    },
+    {
+      "blocked_on": "resolved 2026-09-15 by reading the active vocabulary",
+      "id": "BOS_EOS_GENERATION_PROTOCOL",
+      "may_be_fabricated": false,
+      "needs": "a settled BOS/EOS generation protocol",
+      "resolution": {
+        "correct_convention": "no BOS; EOT stop set {65531, 0} plus eos_token_id",
+        "defective_convention": "config BOS/EOS = 1/2",
+        "evidence": "E/protocol-conflict-resolution/result.json",
+        "id_0": "absent from the vocabulary file",
+        "id_1": "'\\x00' (NUL), an ordinary content token",
+        "id_2": "'\\x01' (SOH), an ordinary content token",
+        "method": "read the vocabulary artifact rather than choosing a convention",
+        "vocabulary_lines": 65529,
+        "why_it_matters": "a prior line in this program treated 65530 as EOS; because the chat prompt ended with a code fence, completions opening with a blank line were truncated to nothing and pass@1 was exactly 0.0 on 164/164 tasks across three rounds"
+      },
+      "state": "RESOLVED"
+    }
+  ],
+  "secondary_endpoints": [
+    {
+      "endpoint": "proxy_memory_feasibility",
+      "failure_reading": "infeasible cells retained; no physical-edge conclusion",
+      "threshold": "complete feasibility/precision/context matrix with measured total memory"
+    },
+    {
+      "endpoint": "theory_finite_horizon",
+      "failure_reading": "empirical hypothesis or limited theorem only; label unsupported premises",
+      "threshold": "non-vacuous constants with held-out predictions"
+    },
+    {
+      "endpoint": "adaptive_inference",
+      "failure_reading": "keep the fixed-policy baseline",
+      "threshold": "quality gain at matched total compute including policy-selection overhead"
+    }
+  ],
+  "slo_deadline_ms": null,
+  "statistics": {
+    "bootstrap": "paired hierarchical, 10000 draws",
+    "correction": "Holm step-down across declared primary comparisons",
+    "quality_non_inferiority": "one-sided 95% lower bound of candidate-minus-baseline >= -1 percentage point",
+    "reporting": "per-seed values, never only a significance label",
+    "resampling_unit": "task or repository cluster"
+  },
+  "stopping_rules": {
+    "saturation": "preregistered stress pass; continue past the latency SLO while retaining every memory/error/isolation limit; stop after two increments improve raw completion throughput by <5% or at concurrency 128; mark all SLO violations; a still-rising curve at 128 is a lower bound, never a proven peak",
+    "sustainable": "stop at the first SLO/quality/memory/error failure, or after two successive concurrency increments improve qualified goodput by <5%; report the last passing level and all failure reasons",
+    "underpowered": "label the interval underpowered rather than invent a tail estimate"
+  },
+  "synthetic_data_seeds": [
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
+  "test_access": {
+    "confirmation_access": "sealed before model selection; no teacher, retrieval index, or policy may read confirmation answers or hidden tests",
+    "result_tables": "released checkpoints and controlled training are separate tables; published checkpoint comparisons are external validity, not same-data causal comparisons",
+    "silent_truncation": "forbidden; OOM and unsupported lengths remain in tables as failures",
+    "task_selection": "frozen at sealing; changing it after unsealing invalidates confirmation"
+  },
+  "training_seeds": [
+    17,
+    29,
+    43
+  ]
+}
