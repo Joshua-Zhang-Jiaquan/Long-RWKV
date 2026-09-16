@@ -125,24 +125,58 @@ silent. One of them cost three rounds of work in a direction that could not have
 succeeded. The paper's later claims inherit the corrected convention, and we record the
 correction rather than the repaired number.
 
+\paragraph{The same shape, found in this manuscript.} While preparing
+\S\ref{sec:architecture} we checked its description against the code it describes and
+found two claims the artifact contradicts; both are corrected in place there. The fusion
+gate was written as a function of the two directional outputs --- it is a function of the
+shared block input, mixing those outputs convexly --- and the repository's own
+architecture note already had it right, so the manuscript was the outlier. The paragraph
+on document handling claimed the scan respects document boundaries and that the token
+shift is zeroed at each document start; neither holds, and the kernel mode that would
+provide per-segment zeroing is never enabled anywhere in the codebase. We record these
+for the same reason as the two above, and note one more property they share with them: a
+description is a claim like any other, and the isolation sentence had already survived
+internal review because it described something obviously desirable rather than something
+measured.
+
 \section{The architecture under study}
+\label{sec:architecture}
 
 The object is a bidirectional RWKV-7 backbone performing masked diffusion directly over
 the token embedding. Each layer holds two distinct RWKV directional modules: a forward
 module scanning $x_1,\dots,x_T$ from a zero state, and a backward module scanning the
 reversed sequence, also from a zero state, whose outputs are reversed back into token
-order. The directions are fused by a learned gate,
-$g_t=\sigma(W_{\mathrm f} y^{\mathrm f}_t + W_{\mathrm b} y^{\mathrm b}_t + b)$.
-Neither direction continues a persistent generation state across calls; both compute
-independent, zero-initialised recurrences over the available window. Documents are
-isolated: the scan and the corruption mask both respect document boundaries, and the
-token shift is zeroed at each document start so no document's history reaches another's
-first token.
+order. The directions are fused by a learned gate applied to the \emph{shared block
+input} $x$ rather than to the two directional outputs:
+$\alpha_t=\sigma(W x_t + b)$ and
+$o_t=\alpha_t o^{\mathrm f}_t+(1-\alpha_t)o^{\mathrm b}_t$ --- a convex mix, with $W$
+zero-initialised against a constant bias so that $\alpha\approx0.98$ at initialisation,
+i.e.\ an almost-causal start. Neither direction continues a persistent generation state
+across calls; both compute independent, zero-initialised recurrences over the available
+window.
+
+\paragraph{What is not isolated.} The recurrence is \emph{not} document-isolated, and we
+state this because it bounds what the architecture can be claimed to do. The backbone's
+forward signature carries no document boundaries --- no segment lengths and no attention
+mask --- and the implementation documents the consequence directly: ``RWKV state simply
+flows through pad positions''. A packed row's recurrent state therefore carries across
+document boundaries and through padding. Document spans exist in the \emph{data} path
+(\texttt{doc\_spans} as \texttt{(doc\_starts, prompt\_ends, doc\_ends)}), where they gate
+one optional corruption lane that masks a single packed document's completion; the
+default block-wise corruption is gated only by padding, so it can and does mask a
+contiguous span across a boundary. Any retention measurement taken on packed rows
+therefore includes cross-document state leakage, which is why the registered protocol
+measures access modes explicitly rather than assuming isolation.
 
 \paragraph{Depth recycling.} The recycled variant re-applies a \emph{tied} block beyond
-the backbone's layer count, so executed depth rises without parameters rising. A
-same-executed-depth untied arm exists as the capacity control, and its unequal parameter
-count is disclosed rather than matched by construction.
+the backbone's layer count --- the contract records 32 base plus 16 recycled block passes
+per full-canvas invocation, distinct from the outer denoising step count --- so executed
+depth rises without parameters rising; only one tanh-bounded scalar gate per extra pass is
+added, and it is exactly $0$ at initialisation. The capacity control is a
+same-executed-depth \emph{untied} arm, registered as A4 with its unequal parameter count
+disclosed rather than matched by construction. A4 is a registered protocol arm and has no
+implementation in the released code, so no A4 measurement exists --- the allocation
+ledger prices it as a declared derivation from A3 rather than a measurement.
 
 \paragraph{Contract.} The architecture is fixed by a machine-checked contract
 (\texttt{DAN/nonlatent\_iclr/architecture\_contract.json}) with 102 passing tests. The
@@ -158,8 +192,10 @@ depends on them.
 The evaluation stack is built to be rights-cleared and replayable. RULER
 (\texttt{NVIDIA/RULER@c3f5e3b4}, Apache-2.0) and LongBench
 (\texttt{THUDM/LongBench@2e00731f}, MIT) are pinned by revision; a 200-task
-repository-execution panel is assembled with per-record licences (MIT/Apache-2.0/
-BSD-3-Clause); and a deterministic exact-task generator covers associative recall,
+repository-execution panel is assembled with per-record licences drawn only from
+\{MIT, Apache-2.0, BSD-3-Clause\}; in the frozen panel every one of the 200 records is
+MIT, and the wider set is the assembly's admission rule rather than a description of the
+mix. A deterministic exact-task generator covers associative recall,
 overwrite/delayed-query tracking, HMM belief tracking and code-dataflow dependency
 queries. The token-length matrix spans 3{,}600 registered units over 720{,}000
 instances, with 689 feasible and 31 infeasible cells checked exactly rather than
@@ -182,8 +218,13 @@ Everything in this section is frozen before the confirmatory runs and carries th
 failure interpretation agreed in advance. Results appear in \S\ref{sec:notrun}, which is
 empty.
 
-The protocol is machine-readable at \texttt{DAN/nonlatent\_iclr/preregistration.json},
-with its builder and checks in \texttt{scale/experiments/nonlatent\_iclr/preregistration.py}.
+The protocol is machine-readable across two files, and they carry different halves of it:
+\texttt{DAN/nonlatent\_iclr/preregistration.json} holds the arms, seeds, statistics and
+decision rules, with its builder and checks in
+\texttt{scale/experiments/nonlatent\_iclr/preregistration.py}; the long-context contract
+below --- lengths, loads, cells and instance counts --- is carried by
+\texttt{DAN/nonlatent\_iclr/task\_registry.json}, whose computed fields are re-derived by
+live replay rather than stored.
 It carries \texttt{seal\_state: DRAFT\_UNSEALED} and cannot state otherwise while a
 blocker is open: sealing is derived from the inputs, not asserted by a caller, and the
 record is written once --- editing it after the fact is detected by digest. Three of its
@@ -298,9 +339,12 @@ it moves no endpoint in \S\ref{sec:notrun}.
 
 We include it because reporting only the MMLU curve, which is flatter, would understate
 a real and recorded measurement --- and because stating the scope of a favourable-looking
-number is the same discipline as \S\ref{sec:correction}. The per-example files behind it
-(\texttt{obqa\_correct/wrong.jsonl}) live in the evidence tree, so the number is
-auditable rather than quoted.
+number is the same discipline as \S\ref{sec:correction}. A caveat on its auditability:
+the per-example files behind it (\texttt{obqa\_correct/wrong.jsonl}) sit in the
+originating program's evidence tree on the cluster, \emph{not} in this repository, so
+the number is reproducible from the recorded evaluation command but is not re-derivable
+from the published tree alone. They are withheld for the same reason the rest of the
+evaluation data is: they contain benchmark items and answers.
 
 \section{Theory: targets, not results}
 \label{sec:theory}

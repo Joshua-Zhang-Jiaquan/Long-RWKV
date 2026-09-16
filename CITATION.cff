@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this code or the associated manuscript, please cite it as below."
+title: "Depth-Recycled Recurrent Diffusion for Long-Context Agent Workloads"
+abstract: >-
+  Code, machine-checked contracts and hash-bound receipts for a study of whether
+  depth recycling improves long-context behaviour in a non-latent, bidirectionally
+  scanned recurrent diffusion model, or merely spends compute. The confirmatory
+  endpoints are registered and not yet measured; the repository states that
+  explicitly rather than filling the cells, and the manuscript should not be cited
+  for an effect size.
+type: software
+authors:
+  # `name` rather than given/family split: the repository's only recorded author
+  # identity is the GitHub handle, and splitting it would be guessing at how the
+  # author writes their own name.
+  - name: "Joshua-Zhang-Jiaquan"
+repository-code: "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV"
+url: "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV"
+version: "0.1.0"
+date-released: "2026-09-16"
+keywords:
+  - diffusion language models
+  - recurrent neural networks
+  - RWKV
+  - long-context
+  - depth recycling
+  - reproducibility
+# NOTE: no `license:` or `license-url:` field is set, deliberately.
+# The repository carries no LICENSE file and the licence has NOT been chosen, so
+# declaring one here would assert terms the author has not granted. Adding the
+# field is a one-line change once the licence is decided.

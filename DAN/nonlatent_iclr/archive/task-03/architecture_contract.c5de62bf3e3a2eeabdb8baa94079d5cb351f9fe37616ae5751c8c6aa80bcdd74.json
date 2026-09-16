@@ -155,17 +155,17 @@
   "historical_source_inventory": [
     {
       "path": "DAN/v7_arch_round/code/models/latent_plan.py",
-      "present": true,
+      "present": false,
       "role": "historical_snapshot_only"
     },
     {
       "path": "DAN/v7_arch_round/code/models/state_hijacking_cache.py",
-      "present": true,
+      "present": false,
       "role": "historical_snapshot_only"
     },
     {
       "path": "DAN/v7_arch_round/code/models/state_hijacking_dit_torch_types.py",
-      "present": true,
+      "present": false,
       "role": "historical_snapshot_only"
     },
     {
