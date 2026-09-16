@@ -70,7 +70,16 @@ repository initially reproduced that absence:
 | `DAN/v7_arch_round/code/models/state_hijacking_dit_torch_types.py` | vendored | vendored |
 
 `models/residual_streams.py:58` imports the third unguarded, so without them the module
-is unimportable and two of the model's own tests can never be collected.
+is unimportable.
+
+Two CPU check scripts depend on it --- `code/train/test_residual_streams.py` and
+`code/train/test_backbone_loop.py`. Despite the names they are **standalone scripts run
+as `python <file>`, not pytest modules**: neither defines a single `def test_*`, and each
+has a `__main__` block. Their import being broken was the real defect, and pytest
+reported it only incidentally, as a collection error on files it tried to import. Both
+now run and pass (`RESIDUAL-STREAMS SUITE: ALL PASS`, `BACKBONE-LOOP SUITE: ALL PASS`).
+Calling them "tests" without that qualification was sloppy; they are checks with a
+script entry point.
 
 **I first recorded this as a defect in the model code. That was wrong**, and the
 correction matters more than the fix. All three files exist in the live training tree at
