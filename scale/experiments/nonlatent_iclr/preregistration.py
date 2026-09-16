@@ -11,7 +11,7 @@ draft may be written now from the Task 3 and Task 4 contracts. Sealing is
 blocked on four inputs this module must not fabricate:
 
 1. development-derived H100 SLO deadlines          -- need Task 13/14 measurements
-2. the frozen common token budget                 -- needs Task 6's forecast ledger
+2. the frozen common token budget                 -- ledger COMPLETE; the CHOICE is open
 3. external checkpoint identities                 -- not present on disk
 4. the BOS/EOS generation-protocol conflict       -- **RESOLVED BY EVIDENCE**
 
@@ -163,8 +163,13 @@ SEALING_BLOCKERS: Final[tuple[dict[str, object], ...]] = (
      "blocked_on": "Task 13/14 deployment measurements",
      "may_be_fabricated": False},
     {"id": "COMMON_TOKEN_BUDGET", "state": "OPEN",
-     "needs": "the frozen common token budget",
-     "blocked_on": "Task 6's forecast ledger",
+     "needs": "a frozen common token budget",
+     "blocked_on": ("Task 6's forecast ledger is COMPLETE and prices every arm, so the "
+                    "input dependency is met; what remains is the CHOICE among the three "
+                    "budgets it prices (2e9/4e9/8e9, a 4x cost range). The ledger prices "
+                    "4e9 for all six arms, which is the proposal recorded in "
+                    "E/task-05/preregistration-forecast/result.json -- a proposal, not a "
+                    "freeze, because choosing a token budget is scientific and financial"),
      "may_be_fabricated": False},
     {"id": "EXTERNAL_CHECKPOINTS", "state": "OPEN",
      "needs": "named external checkpoint versions and their identities",

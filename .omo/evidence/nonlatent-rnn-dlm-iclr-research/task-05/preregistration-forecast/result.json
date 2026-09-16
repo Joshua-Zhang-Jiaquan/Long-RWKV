@@ -1,0 +1,83 @@
+{
+  "schema": "nonlatent_preregistration_forecast_v1",
+  "generated_at_utc": "2026-09-16T00:30:00Z",
+  "item": "the frozen common token budget, one of Task 5's four sealing blockers",
+  "dependency_status": "SATISFIED. The blocker recorded 'needs Task 6's forecast ledger'; Task 6 is complete and the ledger is published at DAN/nonlatent_iclr/allocation_ledger.json with calibration_status PASSED. What remains is not an input but a CHOICE among three budgets the ledger already prices.",
+  "measured_inputs": {
+    "source": "allocation_ledger.json arms[]",
+    "tokens_per_second": {
+      "A0": 799.1303205731086,
+      "A1": 799.1303205731086,
+      "A2": 886.6594840890932,
+      "A3": 958.4180089784328,
+      "A4": 958.4180089784328,
+      "A5": 818.2267449805852
+    },
+    "canvas_tokens": 4096,
+    "derived_not_measured": {
+      "A0": "A1_small_noloop",
+      "A4": "A3_small_loop"
+    },
+    "derivation_note": "A0 and A4 are declared derivations from A1 and A3 rather than measurements; any budget frozen from them inherits that."
+  },
+  "forecast": {
+    "2e9": {
+      "per_arm_gpu_hours": {
+        "A0": 2086,
+        "A1": 2086,
+        "A2": 1880,
+        "A3": 1739,
+        "A4": 1739,
+        "A5": 2037
+      },
+      "total_gpu_hours": 11567
+    },
+    "4e9": {
+      "per_arm_gpu_hours": {
+        "A0": 4171,
+        "A1": 4171,
+        "A2": 3759,
+        "A3": 3478,
+        "A4": 3478,
+        "A5": 4074
+      },
+      "total_gpu_hours": 23131
+    },
+    "8e9": {
+      "per_arm_gpu_hours": {
+        "A0": 8342,
+        "A1": 8342,
+        "A2": 7519,
+        "A3": 6956,
+        "A4": 6956,
+        "A5": 8148
+      },
+      "total_gpu_hours": 46263
+    }
+  },
+  "forecast_basis": [
+    "per-step cost is the sum of a forward, a backward and an optimizer step measured at the training canvas",
+    "a run's GPU-hours are (token budget / measured tokens per second) / 3600",
+    "no multi-GPU scaling factor is applied; the ledger is per-GPU",
+    "no communication, checkpointing pause, evaluation, or restart cost is included"
+  ],
+  "what_the_forecast_excludes": [
+    "no multi-GPU scaling factor: the ledger is per-GPU",
+    "no communication, checkpointing pause, evaluation, or restart cost",
+    "the 2.9B confirmation runs are NOT covered (ledger confirmation_note); A3_large_loop reached only rungs [512] on a single 80 GiB GPU, so a sharded calibration is required rather than an extrapolation"
+  ],
+  "recommendation": {
+    "proposed_freeze": "4e9",
+    "why": "it is the budget the ledger actually prices for all six arms; 2e9 and 8e9 are the ledger's own sensitivity candidates, and freezing a budget other than the priced one would require re-deriving the per-arm forecasts",
+    "status": "PROPOSAL, not a decision: freezing a token budget is a scientific and cost choice with a 4x range, and this artifact must not make it"
+  },
+  "storage_recheck": {
+    "ledger_said": "SAVE_ROOT is on the global_user volume, which was 98% full with ~240 GiB free when this ledger was written, and qz workers do not mount the project volume. Fix the retention policy before launching: a mid-run prune would destroy the failed-attempt evidence Task 7 must preserve, and it has happened before in this program.",
+    "measured_now_gib_available": 4640.9,
+    "matrix_requirement_gb": 212.8,
+    "headroom_multiple": 23.4,
+    "finding": "the ledger's '98% full with ~240 GiB free' warning is STALE. The global_user volume is now 55% full with 4.6 TiB free, because outputs_birwkv_diffusion fell from 3.6 TB to 446 GB when 3.25 TB was removed on 2026-09-15. The Task 7 storage risk it warned about is now 23x smaller than the requirement rather than roughly equal to it.",
+    "still_true": "the retention-policy warning is not about headroom alone: a mid-run prune would destroy the failed-attempt evidence Task 7 must preserve, and the ledger records that this has happened before in this program. That risk stands regardless of free space."
+  },
+  "blocker_effect": "COMMON_TOKEN_BUDGET stays OPEN: its input dependency is met, but the budget is not frozen until a number is chosen. Recording it as closed on the strength of the ledger existing would be exactly the substitution of paperwork for a decision that this record forbids."
+}

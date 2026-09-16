@@ -193,6 +193,18 @@ generation protocol, closed on 2026-09-15 and is retained in the record as
 \texttt{RESOLVED} with its evidence rather than deleted, because a blocker that vanishes
 without a trace is indistinguishable from one that was edited away.
 
+\paragraph{The protocol is costed, not aspirational.} The published allocation ledger
+measures every arm's throughput at the $4{,}096$-token canvas (A1 $799.1$, A2 $886.7$,
+A3 $958.4$, A5 $818.2$ tokens/s; A0 and A4 are declared derivations from A1 and A3, not
+measurements) and prices three candidate common budgets. On its per-GPU basis with no
+scaling factor, three seeds over six arms cost \textbf{11{,}567} GPU-hours at $2$B
+tokens, \textbf{23{,}131} at $4$B, and \textbf{46{,}263} at $8$B. The ledger prices $4$B
+for all six arms, so that is the proposal this record carries --- a proposal and not a
+freeze, because choosing the budget is a scientific and financial decision with a
+$4\times$ range and this record must not make it. The $2.9$B confirmation runs are
+\emph{not} covered: the looped large arm reached only $512$-token rungs on a single
+$80$\,GiB GPU, so a sharded calibration is required rather than an extrapolation.
+
 \paragraph{Controlled arms.} A0 causal RWKV (autoregressive control); A1 forward-only
 denoiser (objective control); A2 bidirectional denoiser (directionality control); A3
 bidirectional tied-loop denoiser (the candidate); A4 bidirectional denoiser with untied
