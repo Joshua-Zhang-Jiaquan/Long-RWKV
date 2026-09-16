@@ -1,0 +1,48 @@
+{
+  "schema": "nonlatent_retention_verification_v1",
+  "generated_at_utc": "2026-09-16T00:35:00Z",
+  "question": "Task 7's launch was gated on a retention policy, because a mid-run prune would destroy the failed-attempt evidence it must preserve. What can be answered from disk is whether the policy discriminates at all.",
+  "deletion_under_review": {
+    "volume": "/inspire/hdd/global_user/zhangjiaquan-253108540222",
+    "when": "2026-09-15T10:05Z-10:32Z",
+    "reported_size": "3.25 TB from outputs_birwkv_diffusion",
+    "user_confirmed_intentional": true
+  },
+  "verified_removed": {
+    "checked": [
+      "f-2p9b-full",
+      "b3-sft-2p9b",
+      "f2-2p9b-ptcorpora",
+      "f3-latent-unfrozen",
+      "smoke-f-2p9b",
+      "f-val-capmix-2p9b"
+    ],
+    "result": "all six absent",
+    "character": "six specific named run directories, not a prefix sweep"
+  },
+  "verified_survived": {
+    "path": "outputs_birwkv_diffusion/m4-loop-2p9b/",
+    "steps_present": [
+      "step_00010500",
+      "step_00011000",
+      "step_00011500"
+    ],
+    "significance": "a LIVE run was untouched while stale runs were removed, which is the discriminating behaviour a retention policy is for"
+  },
+  "current_state": {
+    "outputs_birwkv_diffusion_bytes_gb": 446,
+    "volume_used_percent": 55,
+    "volume_available_tib": 4.6,
+    "matrix_requirement_gb": 212.8,
+    "headroom_multiple": 23.4
+  },
+  "verdict": {
+    "capacity_risk": "largely gone",
+    "policy_risk": "reduced but not eliminated. The policy discriminated once, on a user-ordered removal. It has not been exercised by an AUTOMATIC mid-run prune, which is the failure mode the ledger records having happened before.",
+    "what_would_close_it": "an explicit retention rule for Task 7 (keep-last plus keep-best per arm-seed is already the ledger's stated policy) enforced before launch rather than after, and the failed-attempt evidence placed outside the prune's scope"
+  },
+  "provenance": {
+    "peer_claim_verified": true,
+    "method": "independent directory listing, not acceptance of the peer's statement"
+  }
+}
