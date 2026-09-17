@@ -20,4 +20,8 @@ test = ["pytest>=8.0"]
 [tool.pytest.ini_options]
 # The harness suite is the repository's test surface. Archived submission
 # payloads under .omo/evidence are records, not tests.
-testpaths = ["scale/tests/nonlatent_iclr"]
+# `scale/data` carries the packed-data sampler and the resume-position rule.
+# The paper states its token counts as "N token-steps over a k% slice", which is
+# a claim about that code, so its tests are part of the test surface rather than
+# an internal detail: an uncollected test is a claim nobody re-checks.
+testpaths = ["scale/tests/nonlatent_iclr", "scale/data"]

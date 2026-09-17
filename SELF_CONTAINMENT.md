@@ -8,8 +8,8 @@ an unrecorded edit is indistinguishable from tampering.
 
 | Run | Command | Result |
 | --- | --- | --- |
-| Portable (clean clone, no cluster artifacts) | `PYTHONPATH=. python3 -m pytest scale/tests/nonlatent_iclr -q` | **506 passed, 115 skipped** |
-| Complete (external roots exported) | same, with `NONLATENT_MODEL_DIR` / `NONLATENT_WORKER_ROOT` / `NONLATENT_EXTERNAL_ROOT` set | **621 passed** |
+| Portable (clean clone, no cluster artifacts) | `PYTHONPATH=. python3 -m pytest -q` | **629 passed, 127 skipped** |
+| Complete (external roots exported) | same, with `NONLATENT_MODEL_DIR` / `NONLATENT_WORKER_ROOT` / `NONLATENT_EXTERNAL_ROOT` set | **744 passed, 12 skipped** |
 
 The skip count is not a hidden failure: each skip names the absent artifact and the
 variable that would supply it.
@@ -111,4 +111,4 @@ the design.
 
 ## Known-good state after these changes
 
-`PYTHONPATH=. python3 -m pytest scale/tests/nonlatent_iclr -q` → **621 passed**.
+`PYTHONPATH=. python3 -m pytest -q` → **744 passed, 12 skipped**.

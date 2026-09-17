@@ -41,7 +41,7 @@ repository. Where a cell is missing, it is missing and labelled.
 ```
 scale/experiments/nonlatent_iclr/   the experiment harness: contracts, tasks,
                                     qualifications, registries, CLI
-scale/tests/nonlatent_iclr/         its test suite (621 tests)
+scale/tests/nonlatent_iclr/         its test suite (756 tests)
 scale/data/                         canonical record + split primitives it needs
 scale/eval/capability/sandbox.py    process-level evaluator sandbox
 DAN/v7_arch_round/                  the model and trainer (BiRWKV-7 diffusion),
@@ -72,10 +72,10 @@ rather than a version complaint, which is why it is called out here.
 python3 -m pip install -r requirements.txt
 
 # Portable run: no cluster artifacts needed.
-# Expect 506 passing and 115 skipping with a stated reason.
+# Expect 629 passing and 127 skipping with a stated reason.
 PYTHONPATH=. python3 -m pytest scale/tests/nonlatent_iclr -q
 
-# Complete run: point the three roots at prepared artifacts and all 621 run.
+# Complete run: point the three roots at prepared artifacts and 744 pass.
 export NONLATENT_MODEL_DIR=/path/to/models/RWKV7-Goose-World3-2.9B-HF
 export NONLATENT_WORKER_ROOT=/path/to/nonlatent_iclr_qualification
 export NONLATENT_EXTERNAL_ROOT=/path/to/global_user
