@@ -442,6 +442,18 @@ record identifier, so a bare search would report passes it had not earned. The c
 currently complete --- no value missing, no path missing --- and the only disclosures are
 three ledger totals, which are sums the ledger does not state.
 
+\paragraph{What each claim is allowed to say.} Existence and support are different
+questions, and \texttt{DAN/nonlatent\_iclr/claim\_ceiling.json} answers the second by
+declaring every claim against the \emph{kind} of evidence behind it: a real benchmark
+reading is capped at the scope actually run, a proved result is capped at the hypotheses
+it was proved under, arithmetic over the configuration may not be called a measurement,
+and a claim whose experiment has not happened is \emph{blocked} rather than merely
+absent. The distinction between blocked and not-applicable is deliberate: an H100 proxy
+result can never become an edge-device result, so that claim is out of scope, whereas the
+long-context, serving and depth-recycling claims describe work this program intends and
+has not yet completed. Three of the eight declared claims are in that blocked state, and
+they are the three the confirmatory campaign exists to fill.
+
 It also found one real gap, which is why it is worth running. The loop s9500 OpenBookQA
 and RACE readings of \S\ref{sec:descriptive} occurred \emph{nowhere} in this repository:
 the comparators were recorded, the job that produced the readings was recorded, and the

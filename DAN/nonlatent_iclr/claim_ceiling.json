@@ -1,0 +1,79 @@
+{
+  "schema": "nonlatent_claim_ceiling_v1",
+  "why": "the discipline this program applies to its own numbers: every claim is declared against the KIND of evidence behind it, and the kind caps what may be said. A number that exists is not automatically a number that supports the sentence it sits in, and the cap is written down before the sentence is.",
+  "ceiling_vocabulary": {
+    "real_benchmark": "measured on a real benchmark panel with real ground truth; may be stated as a measurement, but only at the scope actually run",
+    "real_heldout": "measured on held-out documents from a real corpus; may be stated as a measurement at the exposure actually trained",
+    "conditional_mathematics": "proved under stated hypotheses on the parameterization; may NOT be stated as a property of the trained weights",
+    "analytic": "arithmetic over configuration values; may NOT be stated as a measurement",
+    "blocked": "the audit or experiment SHOULD have run and cannot; submission-blocking, and distinct from not-applicable",
+    "not_applicable": "the claim is not in scope for this paper at all"
+  },
+  "claims": [
+    {
+      "claim_id": "descriptive-benchmark-readings",
+      "paper_claim": "loop s9500 measures OBQA 56.60 / RACE 55.40, and ranks within the table",
+      "evidence_kind": "real_benchmark",
+      "ceiling": "descriptive and single-seed. The comparators sit at different training steps and token budgets, and released checkpoints are not the same-data comparison the registered protocol requires. May state the values, the ranks and their scope; may not state an effect.",
+      "status": "MEASURED_AND_CAPPED"
+    },
+    {
+      "claim_id": "token-counts",
+      "paper_claim": "the continuation consumed about 15.5B tokens",
+      "evidence_kind": "real_heldout",
+      "ceiling": "NOT a token count. tokens_seen is steps x batch; the measured unique exposure is ~1.43M rows of a 24.39M-row blend (5.9%) across six resumes. May state token-steps and the measured fraction; may not state a token count as data seen.",
+      "status": "CORRECTED"
+    },
+    {
+      "claim_id": "influence-bound",
+      "paper_claim": "the per-token state transition contracts for every input, and influence decays",
+      "evidence_kind": "conditional_mathematics",
+      "ceiling": "proved for the PARAMETERIZATION (symmetric M = D - a k k^T, closed form matching the kernel to 4.4e-16). It is an UPPER bound on how far a write can reach, so it cannot be stated as retention, and the horizon depends on the trained decay distribution, which is a measurement not yet taken.",
+      "status": "PROVED_AND_CAPPED"
+    },
+    {
+      "claim_id": "state-versus-kv-memory",
+      "paper_claim": "recurrent state is constant in context length where a KV cache is linear",
+      "evidence_kind": "analytic",
+      "ceiling": "arithmetic from the configuration: 20.6 MiB constant against 1.25/5/10/20 GiB at 4K/16K/32K/64K. May be stated as arithmetic with its assumptions named; may not be stated as a measurement, and GQA/MQA would shrink the comparator.",
+      "status": "ANALYTIC_AND_CAPPED"
+    },
+    {
+      "claim_id": "depth-recycling-advantage",
+      "paper_claim": "depth recycling improves quality at matched compute",
+      "evidence_kind": "real_heldout",
+      "ceiling": "the controlled arm matrix (A1/A2/A3/A5 x seeds 17/29/43) is running and has produced no result. May be stated as registered; may not be stated as measured.",
+      "status": "BLOCKED"
+    },
+    {
+      "claim_id": "long-context-macro",
+      "paper_claim": "at least +5 absolute points on the frozen long-context macro score",
+      "evidence_kind": "real_benchmark",
+      "ceiling": "every evaluation this program has run is at <=4096 tokens, the 'long-context' perplexity corpora are 512-token documents, and no token-targeted long-context measurement exists yet. The harness for one is built; the measurement is not.",
+      "status": "BLOCKED"
+    },
+    {
+      "claim_id": "serving-goodput",
+      "paper_claim": "at least 1.5x goodput at a common SLO",
+      "evidence_kind": "real_benchmark",
+      "ceiling": "no deployment measurement has been taken and no SLO deadline exists on disk. Submission-blocking, not merely absent.",
+      "status": "BLOCKED"
+    },
+    {
+      "claim_id": "physical-edge-performance",
+      "paper_claim": "any edge-device latency, energy, thermal or efficiency result",
+      "evidence_kind": "not_applicable",
+      "ceiling": "out of scope by the protocol: H100 measurements are declared resource-constrained PROXIES for edge-oriented workloads, and software memory caps do not reproduce edge compute or bandwidth. This is not-applicable rather than blocked, and the distinction is deliberate -- no experiment here would produce it.",
+      "status": "NOT_APPLICABLE"
+    }
+  ],
+  "summary": {
+    "measured_and_capped": 1,
+    "corrected": 1,
+    "proved_and_capped": 1,
+    "analytic_and_capped": 1,
+    "blocked": 3,
+    "not_applicable": 1
+  },
+  "note": "three BLOCKED claims is the paper's honest state. Each is written down here so it is a recorded verdict rather than a silently empty cell, which is the distinction between 'should have run and could not' and 'does not apply'."
+}
