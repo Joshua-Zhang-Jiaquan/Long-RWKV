@@ -403,7 +403,11 @@
     }
   ],
   "coverage_checked": true,
-  "verdict": "ok",
+  "verdict": {
+    "status": "pass",
+    "withheld_reason": null,
+    "remedy": null
+  },
   "complete": true,
   "uncatalogued": [],
   "uncatalogued_count": 0,

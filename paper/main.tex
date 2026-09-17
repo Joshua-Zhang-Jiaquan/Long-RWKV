@@ -505,9 +505,14 @@ that every gate is exercised on a case drawn from the real target distribution
 it because our own evidence checker violated it: it reported a number that was simply
 not yet catalogued as a failure of coverage, so a new and perfectly correct
 measurement would have read as a defect until someone extended the inventory. The
-verdict is therefore three-valued --- the check \emph{found} a problem, or the check
-has \emph{not yet been extended} to a number, or it is clean --- and only the first is
-a finding.
+verdict is therefore built from \emph{two axes} rather than enumerated: whether the
+check \emph{ran}, and if it ran, what it \emph{found}. That gives three states ---
+pass, finding, and \emph{withheld} --- and every reason the check could not run is data
+attached to the third rather than a state of its own. Enumerating them is the tempting
+form and it is the one that grows an exit per failure discovered, duplicating the axis
+while losing it. A withheld verdict must carry both a reason and a \emph{remedy},
+because a withhold with no route out is a block with better manners: the reason says
+why the check could not run and the remedy says who can make it run.
 
 \paragraph{What each claim is allowed to say.} Existence and support are different
 questions, and \texttt{DAN/nonlatent\_iclr/claim\_ceiling.json} answers the second by

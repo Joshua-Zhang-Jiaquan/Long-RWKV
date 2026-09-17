@@ -172,15 +172,18 @@ def test_the_report_is_incomplete_while_anything_is_missing(tmp_path: Path) -> N
     assert report["counts"]["value_not_found"] == 1
 
 
-def test_a_report_with_only_disclosures_is_complete(tmp_path: Path) -> None:
-    report = pec.check_all([pec.Claim("e", "1", "/x", "external", appears_in="elsewhere")],
-                           tmp_path)
+def test_a_report_with_only_disclosures_is_a_pass_once_coverage_runs(tmp_path: Path) -> None:
+    claims = [pec.Claim("e", "1", "/x", "external", appears_in="elsewhere")]
     # Then: external and derived are disclosures, not failures -- but they are
-    # named so a reader can see what the check could not reach.  `complete` is
-    # False here only because no manuscript was supplied, which is a different
-    # statement from "the claims are wrong" and is reported as such.
-    assert report["verdict"] == "coverage_not_checked"
+    # named so a reader can see what the check could not reach.
+    report = pec.check_all(claims, tmp_path, paper_text="")
+    assert report["verdict"]["status"] == "pass"
     assert report["disclosed"] == ["e"]
+    # and WITHOUT coverage the same claims are withheld, not passed: the pass is
+    # earned by running, not inferred from the absence of findings
+    withheld = pec.check_all(claims, tmp_path)
+    assert withheld["verdict"]["status"] == "withheld"
+    assert withheld["disclosed"] == ["e"]
 
 
 # --------------------------------------------------------------------------
@@ -396,10 +399,14 @@ def test_a_new_number_is_needs_review_not_missing_evidence() -> None:
     claims = [pec.Claim("known", "100", "/elsewhere", "external", appears_in="stated")]
     # When: coverage runs.
     report = pec.check_all(claims, Path("."), paper_text=text)
-    # Then: review is needed, but nothing was found to be WRONG.
-    assert report["verdict"] == "needs_review"
+    # Then: the verdict is WITHHELD -- not a finding, and not a pass.
+    assert report["verdict"]["status"] == "withheld"
     assert report["counts"]["value_not_found"] == 0
     assert report["uncatalogued"] == ["4271"]
+    # and the reason names the remedy, because a withhold with no route out is
+    # just a block with better manners
+    assert "4271" in report["verdict"]["withheld_reason"]
+    assert "paper_claims.json" in report["verdict"]["remedy"]
 
 
 def test_a_missing_value_is_missing_evidence() -> None:
@@ -407,8 +414,10 @@ def test_a_missing_value_is_missing_evidence() -> None:
     report = pec.check_all(
         [pec.Claim("bad", "9", "absent.json", "measured", near=r'"x":\s*[0-9.]+')],
         Path("."))
-    # When/Then: that IS a finding, and it is named as one.
-    assert report["verdict"] == "missing_evidence"
+    # When/Then: that IS a finding, and it is named as one -- a finding needs no
+    # reason or remedy, because the finding IS the statement.
+    assert report["verdict"]["status"] == "finding"
+    assert report["verdict"]["withheld_reason"] is None
     assert report["complete"] is False
 
 
@@ -422,10 +431,10 @@ def test_a_clean_check_reports_ok_only_when_coverage_ran() -> None:
     # coverage run over a manuscript that cites nothing substantive
     report = pec.check_all(claims, Path("."), paper_text="")
     assert report["coverage_checked"] is True
-    assert report["verdict"] == "ok"
+    assert report["verdict"]["status"] == "pass"
     assert report["complete"] is True
-    # and without it, the same claims do NOT earn `ok`
-    assert pec.check_all(claims, Path("."))["verdict"] == "coverage_not_checked"
+    # and without it, the same claims do NOT earn a pass
+    assert pec.check_all(claims, Path("."))["verdict"]["status"] == "withheld"
 
 
 def test_a_verdict_without_coverage_says_so() -> None:
@@ -445,10 +454,11 @@ def test_a_verdict_without_coverage_says_so() -> None:
     report = pec.check_all(claims, Path("."))
     # Then: it does NOT claim coverage.
     assert report["coverage_checked"] is False
-    assert report["verdict"] == "coverage_not_checked"
+    assert report["verdict"]["status"] == "withheld"
     assert report["complete"] is False
-    # and the state is named rather than left to be inferred from an absence
-    assert report["verdict"] != "ok"
+    # and the state is named rather than inferred from an absence, with a route out
+    assert "never run" in report["verdict"]["withheld_reason"]
+    assert "--paper" in report["verdict"]["remedy"]
 
 
 def test_coverage_actually_run_is_reported_as_run() -> None:
@@ -457,5 +467,35 @@ def test_coverage_actually_run_is_reported_as_run() -> None:
     # When/Then: coverage runs, and the verdict may then say so.
     report = pec.check_all(claims, Path("."), paper_text="the ledger holds 11{,}567")
     assert report["coverage_checked"] is True
-    assert report["verdict"] == "needs_review"      # 11,567 is not catalogued here
+    assert report["verdict"]["status"] == "withheld"   # 11,567 is not catalogued here
     assert "11,567" in report["uncatalogued"]
+
+
+def test_the_three_statuses_are_the_product_of_two_axes() -> None:
+    """`withheld` is one state with many reasons, not many states.
+
+    "Did the check run?" and "if it ran, what did it find?" are orthogonal, so
+    every verdict is a point in their product: ran+clean, ran+problem,
+    not-run+why. Naming each not-run reason as its own state duplicates the axis
+    and loses it, and it grows one exit per failure discovered. The reason is
+    DATA; the state is `withheld`.
+    """
+    claims = [pec.Claim("e", "1", "/elsewhere", "external", appears_in="stated")]
+    # Given: two different reasons the check cannot run.
+    no_paper = pec.check_all(claims, Path("."))
+    uncatalogued = pec.check_all(claims, Path("."), paper_text="the value is 4271")
+    # When/Then: the same STATUS, different reasons -- which is the point.
+    assert no_paper["verdict"]["status"] == uncatalogued["verdict"]["status"] == "withheld"
+    assert no_paper["verdict"]["withheld_reason"] != uncatalogued["verdict"]["withheld_reason"]
+    # and each carries a remedy, so neither is a dead end
+    for report in (no_paper, uncatalogued):
+        assert report["verdict"]["remedy"]
+
+
+def test_a_withheld_verdict_is_never_counted_as_a_pass() -> None:
+    """The failure this whole line of work started from."""
+    claims = [pec.Claim("e", "1", "/elsewhere", "external", appears_in="stated")]
+    for report in (pec.check_all(claims, Path(".")),
+                   pec.check_all(claims, Path("."), paper_text="the value is 4271")):
+        assert report["verdict"]["status"] != "pass"
+        assert report["complete"] is False

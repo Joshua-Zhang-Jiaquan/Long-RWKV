@@ -280,6 +280,41 @@ def uncatalogued_numbers(paper_text: str, claims: list[Claim],
     return [token for token in paper_numbers(paper_text) if not covered(token)]
 
 
+#: The two axes, as constants, because the names are the interface.
+STATUS_PASS = "pass"
+STATUS_FINDING = "finding"
+STATUS_WITHHELD = "withheld"
+
+
+def _verdict(*, ran_problem: bool, uncatalogued: list[str],
+             coverage_ran: bool) -> dict[str, object]:
+    """The verdict as (status, reason, remedy), with the axes made explicit.
+
+    ``withheld`` is the absence of a finding, never a finding.  It carries a
+    REQUIRED reason and a REQUIRED remedy, because a withheld verdict with no
+    route out is a block with better manners: the reason says why the check
+    could not run, and the remedy says who can make it run.
+    """
+    if ran_problem:
+        return {"status": STATUS_FINDING, "withheld_reason": None, "remedy": None}
+    if uncatalogued:
+        return {
+            "status": STATUS_WITHHELD,
+            "withheld_reason": (f"{len(uncatalogued)} number(s) the manuscript cites are in no "
+                                f"claim: {uncatalogued[:5]}"),
+            "remedy": ("extend DAN/nonlatent_iclr/paper_claims.json with a claim naming each "
+                       "number's source, or declare it a non-claim with a reason"),
+        }
+    if not coverage_ran:
+        return {
+            "status": STATUS_WITHHELD,
+            "withheld_reason": ("no manuscript was supplied, so coverage was never run; this is "
+                                "not a statement that the paper is covered"),
+            "remedy": "pass --paper to run coverage",
+        }
+    return {"status": STATUS_PASS, "withheld_reason": None, "remedy": None}
+
+
 def check_all(claims: list[Claim], root: Path, paper: Path | None = None,
               inventory: dict | None = None, paper_text: str | None = None) -> dict[str, object]:
     """Every claim, grouped by verdict, worst first."""
@@ -306,17 +341,26 @@ def check_all(claims: list[Claim], root: Path, paper: Path | None = None,
         # failure is indistinguishable from the negative result it destroys, and
         # it surfaces only after the work it was meant to certify -- the quiet
         # half of the same failure the strict direction catches loudly.
-        # FOUR states, because a verdict must not claim what it did not test.  If
-        # no manuscript was supplied, coverage was never RUN, and reporting `ok`
-        # would assert that the paper is covered on the strength of not having
-        # looked -- the same defect as a null that prints a formatted nan and
-        # calls it "NOT separable".  The decision can be right while the claim is
-        # wrong, and a test that reads only the outcome cannot tell.
+        # TWO AXES, not a flat enum.  "Did the check run?" and "if it ran, what
+        # did it find?" are orthogonal, and every state worth naming is a point
+        # in their product:
+        #
+        #   ran,     clean        -> pass
+        #   ran,     a problem    -> finding
+        #   not run, <why>        -> withheld, and the WHY is data rather than a
+        #                            state of its own
+        #
+        # The flat form is what makes this grow one exit per failure discovered:
+        # "no manuscript supplied" and "a number is not catalogued" are both
+        # withheld, and naming them as separate STATES duplicates the axis while
+        # losing the axis. `withheld_reason` carries the difference, and it is
+        # REQUIRED whenever the check did not run -- so a withheld verdict cannot
+        # be silently unexplained, and the remedy travels with it.
         "coverage_checked": text is not None,
-        "verdict": ("missing_evidence" if (by_verdict["value_not_found"]
-                                           or by_verdict["path_missing"])
-                    else ("needs_review" if uncatalogued
-                          else ("ok" if text is not None else "coverage_not_checked"))),
+        "verdict": _verdict(
+            ran_problem=bool(by_verdict["value_not_found"] or by_verdict["path_missing"]),
+            uncatalogued=uncatalogued,
+            coverage_ran=text is not None),
         "complete": (not by_verdict["value_not_found"] and not by_verdict["path_missing"]
                      and not uncatalogued and text is not None),
         "uncatalogued": uncatalogued,
