@@ -323,7 +323,7 @@
       "kind": "measured",
       "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
       "appears_in": "the artifact-null record's degenerate-repetition census",
-      "near": "\"degenerate_repetition\":\\s*\\{[^}]*\"of\":\\s*193"
+      "near": "\"of\":\\s*193"
     },
     {
       "claim_id": "gsm8k-longest-identical-run",
@@ -346,7 +346,7 @@
       "value": "117",
       "kind": "measured",
       "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
-      "near": "\"last_number\":\\s*\\{[^}]*\"items\":\\s*117",
+      "near": "\"last_number\":\\s*\\[\\s*117",
       "appears_in": "the extraction-tier census"
     },
     {
@@ -354,7 +354,7 @@
       "value": "76",
       "kind": "measured",
       "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
-      "near": "\"last_line\":\\s*\\{[^}]*\"items\":\\s*76",
+      "near": "\"last_line\":\\s*\\[\\s*76",
       "appears_in": "the extraction-tier census"
     },
     {
@@ -380,6 +380,38 @@
       "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
       "near": "\"copyable\":\\s*\\{[^}]*\"of\":\\s*13",
       "appears_in": "the copyable-gold enrichment"
+    },
+    {
+      "claim_id": "gsm8k-tier-last-number-t00",
+      "value": "126",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "near": "\"last_number\":\\s*\\[\\s*126",
+      "appears_in": "the second text-bearing cell's tier census"
+    },
+    {
+      "claim_id": "gsm8k-tier-boxed-t00",
+      "value": "1",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "near": "\"boxed\":\\s*\\[\\s*1",
+      "appears_in": "the second cell's boxed-tier count, where the substring is present and the tier still never fires"
+    },
+    {
+      "claim_id": "gsm8k-null-expected-t00",
+      "value": "4.77",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "near": "\"expected\":\\s*4\\.77",
+      "appears_in": "the second cell's null expectation"
+    },
+    {
+      "claim_id": "gsm8k-null-pvalue-t00",
+      "value": "0.56",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "near": "\"p_ge_observed\":\\s*0\\.56",
+      "appears_in": "the second cell's null tail"
     }
   ],
   "non_claims": [
@@ -454,6 +486,10 @@
     {
       "value": "1,8,32,128,",
       "reason": "the same set with its trailing punctuation"
+    },
+    {
+      "value": "9",
+      "reason": "the pooled success count across the two text-bearing cells, stated in prose"
     }
   ]
 }

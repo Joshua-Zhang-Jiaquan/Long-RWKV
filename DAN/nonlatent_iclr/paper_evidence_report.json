@@ -7,14 +7,14 @@
     "ledger-total-8b",
     "registry-total-instances"
   ],
-  "checked": 48,
+  "checked": 52,
   "counts": {
     "value_not_found": 0,
     "path_missing": 0,
     "external": 0,
     "derived": 5,
     "rounding_ok": 2,
-    "verified": 41
+    "verified": 45
   },
   "results": [
     {
@@ -343,7 +343,7 @@
       "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
       "kind": "measured",
       "verdict": "verified",
-      "detail": "'193' occurs inside '\"degenerate_repetition\": {\\n      \"threshold\": 0.75,\\n      \"c' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+      "detail": "'193' occurs inside '\"of\": 193' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
     },
     {
       "claim_id": "gsm8k-longest-identical-run",
@@ -367,7 +367,7 @@
       "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
       "kind": "measured",
       "verdict": "verified",
-      "detail": "'117' occurs inside '\"last_number\": {\\n        \"items\": 117' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+      "detail": "'117' occurs inside '\"last_number\": [\\n          117' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
     },
     {
       "claim_id": "gsm8k-tier-last-line",
@@ -375,7 +375,7 @@
       "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
       "kind": "measured",
       "verdict": "verified",
-      "detail": "'76' occurs inside '\"last_line\": {\\n        \"items\": 76' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+      "detail": "'76' occurs inside '\"last_line\": [\\n          76' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
     },
     {
       "claim_id": "gsm8k-null-expected",
@@ -400,6 +400,38 @@
       "kind": "measured",
       "verdict": "verified",
       "detail": "'13' occurs inside '\"copyable\": {\\n        \"correct\": 2,\\n        \"of\": 13' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+    },
+    {
+      "claim_id": "gsm8k-tier-last-number-t00",
+      "value": "126",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'126' occurs inside '\"last_number\": [\\n          126' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+    },
+    {
+      "claim_id": "gsm8k-tier-boxed-t00",
+      "value": "1",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'1' occurs inside '\"boxed\": [\\n          1' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+    },
+    {
+      "claim_id": "gsm8k-null-expected-t00",
+      "value": "4.77",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'4.77' occurs inside '\"expected\": 4.77' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+    },
+    {
+      "claim_id": "gsm8k-null-pvalue-t00",
+      "value": "0.56",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'0.56' occurs inside '\"p_ge_observed\": 0.56' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
     }
   ],
   "coverage_checked": true,
