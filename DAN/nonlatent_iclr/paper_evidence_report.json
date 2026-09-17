@@ -436,6 +436,8 @@
     }
   ],
   "coverage_checked": true,
+  "manuscript_chars": 41247,
+  "numbers_extracted": 41,
   "verdict": {
     "status": "pass",
     "withheld_reason": null,

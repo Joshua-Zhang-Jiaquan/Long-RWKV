@@ -492,6 +492,16 @@ construction}, so at least one test per gate must read the \emph{reason} a verdi
 reached and not merely the verdict. Our own evidence checker had the same defect and
 we found it by applying this rule to it rather than by inspecting it: run without a
 manuscript it reported a clean, complete result --- having never run coverage at all.
+A second instance followed the same way, and it generalises the point: \emph{a skip is
+a claim}. Every filter in an analysis path should be asked what its output would look
+like if it skipped everything, and if the answer is \emph{a confident finding}, the
+skip is unreported and the filter is the defect. Ours skipped numbers below a
+magnitude threshold and ignored citation patterns; with the extraction pattern broken
+so that it matched nothing at all, every downstream count was zero, nothing was
+uncatalogued, and the verdict read \emph{pass}. The count is now always reported beside
+its denominator, and a number extraction that yields nothing from a non-empty
+manuscript withholds the verdict and names the extractor as the suspect rather than
+sending the reader to inspect a manuscript that is fine.
 
 \paragraph{A gate must be run on the success case, not only the failure case.} A check
 that cannot fail is worthless, but a check that cannot \emph{pass} is worse, because

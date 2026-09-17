@@ -244,7 +244,8 @@ def declared_non_claims(inventory: dict) -> dict[str, str]:
 
 
 def uncatalogued_numbers(paper_text: str, claims: list[Claim],
-                         non_claims: dict[str, str] | None = None) -> list[str]:
+                         non_claims: dict[str, str] | None = None,
+                         extractor=None) -> list[str]:
     """Numbers the manuscript cites that NO claim covers.
 
     This exists because the completeness verdict was about the wrong thing. The
@@ -292,7 +293,7 @@ def uncatalogued_numbers(paper_text: str, claims: list[Claim],
         # every number beginning with 1.
         return any(plain in known for known in catalogued)
 
-    return [token for token in paper_numbers(paper_text) if not covered(token)]
+    return [token for token in (extractor or paper_numbers)(paper_text) if not covered(token)]
 
 
 #: The two axes, as constants, because the names are the interface.
@@ -329,7 +330,8 @@ def _finding_causes(results: list[Result]) -> list[dict[str, object]]:
 
 def _verdict(*, ran_problem: bool, uncatalogued: list[str],
              coverage_ran: bool,
-             causes: list[dict[str, object]] | None = None) -> dict[str, object]:
+             causes: list[dict[str, object]] | None = None,
+             extracted: int = 0, manuscript_chars: int = 0) -> dict[str, object]:
     """The verdict as (status, reason, remedy), with the axes made explicit.
 
     ``withheld`` is the absence of a finding, never a finding.  It carries a
@@ -355,21 +357,42 @@ def _verdict(*, ran_problem: bool, uncatalogued: list[str],
                                 "not a statement that the paper is covered"),
             "remedy": "pass --paper to run coverage",
         }
+    if extracted == 0 and manuscript_chars > 0:
+        # THE EXTRACTOR'S OWN SKIP IS A CLAIM.  If the number pattern silently
+        # matched nothing -- a broken regex, a changed document class, an encoding
+        # change -- then every downstream count is zero, `uncatalogued` is empty,
+        # and the verdict reads `pass`.  That is a confident finding produced by a
+        # filter that skipped everything, and the denominator is the thing that
+        # would have shown it.  The suspect here is the EXTRACTOR, not the paper,
+        # so the message says so rather than sending the reader to inspect a
+        # manuscript that is fine.
+        return {
+            "status": STATUS_WITHHELD, "finding_cause": None,
+            "withheld_reason": (f"the extractor found NO numbers at all in a "
+                                f"{manuscript_chars}-character manuscript, so coverage was "
+                                f"vacuous rather than clean; the suspect is the extraction "
+                                f"pattern, not the paper"),
+            "remedy": "check paper_numbers() against the manuscript's current format",
+        }
     return {"status": STATUS_PASS, "withheld_reason": None, "remedy": None,
             "finding_cause": None}
 
 
 def check_all(claims: list[Claim], root: Path, paper: Path | None = None,
-              inventory: dict | None = None, paper_text: str | None = None) -> dict[str, object]:
+              inventory: dict | None = None, paper_text: str | None = None,
+              extractor=paper_numbers) -> dict[str, object]:
     """Every claim, grouped by verdict, worst first."""
     results = [check_claim(claim, root) for claim in claims]
     uncatalogued: list[str] = []
+    extracted = 0
     text = paper_text
     if text is None and paper is not None and Path(paper).is_file():
         text = Path(paper).read_text(encoding="utf-8")
     if text is not None:
+        extracted = len(extractor(text))
         uncatalogued = uncatalogued_numbers(text, claims,
-                                            declared_non_claims(inventory))
+                                            declared_non_claims(inventory),
+                                            extractor=extractor)
     by_verdict = {verdict: [r for r in results if r.verdict == verdict]
                   for verdict in VERDICTS}
     return {
@@ -401,15 +424,20 @@ def check_all(claims: list[Claim], root: Path, paper: Path | None = None,
         # REQUIRED whenever the check did not run -- so a withheld verdict cannot
         # be silently unexplained, and the remedy travels with it.
         "coverage_checked": text is not None,
+        # The denominator, always: a count with no denominator is how a skip hides.
+        "manuscript_chars": len(text) if text is not None else None,
+        "numbers_extracted": extracted,
         "verdict": _verdict(
             ran_problem=bool(by_verdict["value_not_found"] or by_verdict["path_missing"]
                              or by_verdict["value_outside_context"]),
             uncatalogued=uncatalogued,
             coverage_ran=text is not None,
-            causes=_finding_causes(results)),
+            causes=_finding_causes(results),
+            extracted=extracted, manuscript_chars=len(text) if text is not None else 0),
         "complete": (not by_verdict["value_not_found"] and not by_verdict["path_missing"]
                      and not by_verdict["value_outside_context"] and not uncatalogued
-                     and text is not None),
+                     and text is not None
+                     and not (extracted == 0 and len(text) > 0)),
         "uncatalogued": uncatalogued,
         "uncatalogued_count": len(uncatalogued),
         "disclosed_count": len({r.claim_id for r in
@@ -446,6 +474,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"uncatalogued paper numbers: {report['uncatalogued_count']}")
         for token in report["uncatalogued"]:
             print(f"  [uncatalogued] {token}")
+    print(f"numbers extracted from the manuscript: {report['numbers_extracted']}")
     print(f"complete (no missing evidence): {report['complete']}")
     return 0 if report["complete"] else 1
 

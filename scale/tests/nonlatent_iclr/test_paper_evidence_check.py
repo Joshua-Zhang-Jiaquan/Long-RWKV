@@ -636,3 +636,57 @@ def test_the_real_inventory_is_unaffected_by_the_new_cause() -> None:
                            paper=repo / "paper" / "main.tex")
     assert report["counts"]["value_outside_context"] == 0
     assert report["counts"]["value_not_found"] == 0
+
+
+# --------------------------------------------------------------------------
+# a skip is a claim
+# --------------------------------------------------------------------------
+
+
+def test_an_extractor_that_matched_nothing_cannot_report_a_pass() -> None:
+    r"""The extractor's own skip is a claim, and it is the one nobody audits.
+
+    If the number pattern silently matches nothing -- a broken regex, a changed
+    document class, an encoding change -- then every downstream count is zero,
+    `uncatalogued` is empty, and the verdict reads `pass`. A confident finding
+    produced by a filter that skipped everything. The denominator is the thing
+    that shows it, and the suspect is the EXTRACTOR, not the paper.
+    """
+    claims = [pec.Claim("e", "1", "/elsewhere", "external", appears_in="stated")]
+    manuscript = "the ledger holds 11{,}567 GPU-hours and 3{,}600 units"
+    # Given: the extractor working, then silently matching nothing.
+    good = pec.check_all(claims, Path("."), paper_text=manuscript)
+    assert good["numbers_extracted"] == 2
+    assert good["verdict"]["status"] == "withheld"     # 11,567 is not catalogued
+    broken = pec.check_all(claims, Path("."), paper_text=manuscript,
+                           extractor=lambda _t: [])
+    # When/Then: the broken extractor does NOT pass, and names itself as the suspect.
+    assert broken["verdict"]["status"] == "withheld"
+    assert broken["numbers_extracted"] == 0
+    # the suspect is named in the REASON and the route out in the REMEDY
+    assert "the suspect is the extraction pattern" in broken["verdict"]["withheld_reason"]
+    assert "vacuous" in broken["verdict"]["withheld_reason"]
+    assert "paper_numbers()" in broken["verdict"]["remedy"]
+
+
+def test_the_extracted_count_is_always_reported() -> None:
+    """A count with no denominator is how a skip hides."""
+    claims = [pec.Claim("e", "1", "/elsewhere", "external", appears_in="stated")]
+    for text in ("", "no numbers here at all", "the value is 4271"):
+        report = pec.check_all(claims, Path("."), paper_text=text)
+        assert "numbers_extracted" in report
+        assert "manuscript_chars" in report
+        assert report["manuscript_chars"] == len(text)
+
+
+def test_an_empty_manuscript_is_not_treated_as_a_broken_extractor() -> None:
+    """Zero numbers from a zero-length manuscript is a vacuous input, not a bug.
+
+    The distinction matters: withholding on an empty input would be another
+    over-block, and the over-block's failure mode is a correct result destroyed
+    by a gate that could not tell the two apart.
+    """
+    claims = [pec.Claim("e", "1", "/elsewhere", "external", appears_in="stated")]
+    report = pec.check_all(claims, Path("."), paper_text="")
+    assert report["numbers_extracted"] == 0
+    assert report["verdict"]["status"] == "pass"       # nothing to cover, and that is fine
