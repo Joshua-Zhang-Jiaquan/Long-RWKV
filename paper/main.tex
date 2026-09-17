@@ -132,8 +132,13 @@ text at all. So \emph{none} of the four successes came from the tier the prompt
 requests; all four came from a last-number rule reading a number out of generative
 noise. That the score is noise rather than ability is testable, not merely arguable:
 under the null that the extractor draws uniformly from the numbers each completion
-happens to emit, the expected count is $3.60$ against an observed $4$, with
-$P(X \geq 4) = 0.52$ --- inseparable. The completions are degenerate rather than
+happens to emit --- \emph{scoped to the items the fallback tier scored}, since the
+null's claim is only that the fallback matched by chance --- the expected count is
+$3.60$ against an observed $4$, with $P(X \geq 4) = 0.52$ --- inseparable. (The
+scoping is a no-op on this cell: the requested tier fires zero times, so every item
+enters the null. It matters for the general form, because a real worked solution
+repeats its answer, so an unscoped null's expectation grows with the very format
+correct behaviour produces and would eventually flag a model that works.) The completions are degenerate rather than
 merely wrong, with $33\%$ spending at least three quarters of their tokens on one
 repeated word, a longest identical run of $511$, and extracted values including
 \texttt{'.'} and \texttt{'\$'}. The figure is reported nowhere in this paper --- our
@@ -471,6 +476,19 @@ tree \texttt{56.60} occurs inside an unrelated token count and \texttt{200} insi
 record identifier, so a bare search would report passes it had not earned. The check is
 currently complete --- no value missing, no path missing --- and the only disclosures are
 three ledger totals, which are sums the ledger does not state.
+
+\paragraph{A gate must be run on the success case, not only the failure case.} A check
+that cannot fail is worthless, but a check that cannot \emph{pass} is worse, because
+its failure is indistinguishable from the negative result it destroys: it surfaces
+only after the work it was meant to certify. The rule this program now applies is
+that every gate is exercised on a case drawn from the real target distribution
+\emph{before} the spend it gates, not merely on a case designed to trip it. We record
+it because our own evidence checker violated it: it reported a number that was simply
+not yet catalogued as a failure of coverage, so a new and perfectly correct
+measurement would have read as a defect until someone extended the inventory. The
+verdict is therefore three-valued --- the check \emph{found} a problem, or the check
+has \emph{not yet been extended} to a number, or it is clean --- and only the first is
+a finding.
 
 \paragraph{What each claim is allowed to say.} Existence and support are different
 questions, and \texttt{DAN/nonlatent\_iclr/claim\_ceiling.json} answers the second by

@@ -377,3 +377,42 @@ def test_pinned_git_revisions_are_not_numbers() -> None:
     # When/Then: the hex fragment is not extracted as a claim.
     assert not any(tok.lstrip("0") in {"731"} or tok == "00731"
                    for tok in pec.paper_numbers(text))
+
+
+def test_a_new_number_is_needs_review_not_missing_evidence() -> None:
+    r"""Failing to cover a number is not the same as finding the paper wrong.
+
+    A gate that reports a NEW legitimate number as a failure is indistinguishable
+    from the negative result it destroys -- and unlike a false pass, it surfaces
+    only after the work it was meant to certify. So the two states are named
+    separately: `missing_evidence` means the check looked and found a problem,
+    `needs_review` means the check has not been extended to that number yet.
+    """
+    # Given: a manuscript citing a number the inventory does not yet carry.
+    text = "the new measurement is 4271 tokens"
+    # an external claim verifies without touching disk, so the fixture cannot
+    # itself introduce a path_missing that masks what this test is measuring
+    claims = [pec.Claim("known", "100", "/elsewhere", "external", appears_in="stated")]
+    # When: coverage runs.
+    report = pec.check_all(claims, Path("."), paper_text=text)
+    # Then: review is needed, but nothing was found to be WRONG.
+    assert report["verdict"] == "needs_review"
+    assert report["counts"]["value_not_found"] == 0
+    assert report["uncatalogued"] == ["4271"]
+
+
+def test_a_missing_value_is_missing_evidence() -> None:
+    # Given: a claim whose cited source does not exist.
+    report = pec.check_all(
+        [pec.Claim("bad", "9", "absent.json", "measured", near=r'"x":\s*[0-9.]+')],
+        Path("."))
+    # When/Then: that IS a finding, and it is named as one.
+    assert report["verdict"] == "missing_evidence"
+    assert report["complete"] is False
+
+
+def test_a_clean_check_reports_ok() -> None:
+    report = pec.check_all(
+        [pec.Claim("e", "1", "/elsewhere", "external", appears_in="stated")], Path("."))
+    assert report["verdict"] == "ok"
+    assert report["complete"] is True

@@ -49,7 +49,9 @@
       "expected": 3.6,
       "observed": 4,
       "p_ge_observed": 0.52,
-      "verdict": "INSEPARABLE from the extractor-null"
+      "verdict": "INSEPARABLE from the extractor-null",
+      "scope": "SCOPED to the items the fallback tier scored, not computed over all items. The null's claim is narrow -- 'the last number happened to match, so the FALLBACK scored it' -- and it is only about items the fallback scored. An item whose boxed group fired was scored by the requested tier, at a position the model chose to commit to. Conditioning the null on every item lets its expectation grow with the very format the target behaviour produces: a real worked solution REPEATS its answer, so p_i rises with compliance and the null would eventually block a model that genuinely works. On THIS cell the scoping is a no-op -- the boxed tier fires zero times, so all 200 items enter the null and the figures above are unchanged.",
+      "why_the_scope_matters": "the unconditional form was calibrated against simulated honest post-SFT cells at 2/6/12/20% and blocked ALL of them, reporting a working model as a scorer artifact. The failure direction is opposite to the permissive bugs but the artifact is the same one."
     },
     "copyable_gold_enrichment": {
       "copyable": {

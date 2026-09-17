@@ -281,13 +281,16 @@ def uncatalogued_numbers(paper_text: str, claims: list[Claim],
 
 
 def check_all(claims: list[Claim], root: Path, paper: Path | None = None,
-              inventory: dict | None = None) -> dict[str, object]:
+              inventory: dict | None = None, paper_text: str | None = None) -> dict[str, object]:
     """Every claim, grouped by verdict, worst first."""
     results = [check_claim(claim, root) for claim in claims]
     uncatalogued: list[str] = []
-    if paper is not None and Path(paper).is_file():
-        uncatalogued = uncatalogued_numbers(Path(paper).read_text(encoding="utf-8"),
-                                            claims, declared_non_claims(inventory))
+    text = paper_text
+    if text is None and paper is not None and Path(paper).is_file():
+        text = Path(paper).read_text(encoding="utf-8")
+    if text is not None:
+        uncatalogued = uncatalogued_numbers(text, claims,
+                                            declared_non_claims(inventory))
     by_verdict = {verdict: [r for r in results if r.verdict == verdict]
                   for verdict in VERDICTS}
     return {
@@ -297,6 +300,15 @@ def check_all(claims: list[Claim], root: Path, paper: Path | None = None,
         "checked": len(results),
         "counts": {verdict: len(items) for verdict, items in by_verdict.items()},
         "results": [asdict(r) for r in results],
+        # Three-valued, because "the check found a problem" and "the check has not
+        # been extended to this number yet" are different states and collapsing
+        # them over-blocks.  A gate that reports a NEW legitimate number as a
+        # failure is indistinguishable from the negative result it destroys, and
+        # it surfaces only after the work it was meant to certify -- the quiet
+        # half of the same failure the strict direction catches loudly.
+        "verdict": ("missing_evidence" if (by_verdict["value_not_found"]
+                                           or by_verdict["path_missing"])
+                    else ("needs_review" if uncatalogued else "ok")),
         "complete": (not by_verdict["value_not_found"] and not by_verdict["path_missing"]
                      and not uncatalogued),
         "uncatalogued": uncatalogued,
