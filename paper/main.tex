@@ -136,7 +136,7 @@ testable, not merely arguable: under the null that the extractor draws uniformly
 the numbers each completion happens to emit --- \emph{scoped to the items the fallback
 tier scored}, since the null's claim is only that the fallback matched by chance ---
 the expected counts are $3.60$ and $4.77$ against observed $4$ and $5$, with
-$P(X \geq k) = 0.52$ and $0.56$. Both are inseparable. The completions are degenerate
+$P(X \geq k) = 0.52$ and $0.56$. Both are inseparable. We state the null in its unscoped form --- every completion that emits a number --- which on this data is the more conservative of the two available definitions and needs no reference to a campaign-specific gating decision. A gate needs the scoped form instead, which excludes items the requested tier scored, because a genuine worked solution repeats its answer and an unscoped null therefore penalises the very behaviour it is meant to certify. The completions are degenerate
 rather than merely wrong, with $33\%$ spending at least three quarters of their tokens
 on one repeated word and a longest identical run of $511$. The other cells of that
 grid stored scores but not text, so they are \notrun{} for this question rather than
@@ -149,7 +149,7 @@ be about the thing its label names}. A detail worth keeping: the first statement
 this finding counted whether the \texttt{\textbackslash boxed} \emph{substring}
 appeared. It appears, once, in a completion that emits the token with no braces, which
 the scorer's brace-balanced parser therefore rejects --- so the substring was present
-and the tier never fired. Counting a substring is not counting what the code does.
+and the tier does NOT fire; on the second the group parses, the tier fires, and the answer is simply wrong. Across the four hundred completions of the two text-bearing cells the requested tier therefore fired exactly once and scored zero, which is the sentence that matters and is stronger than either ``it never fires'' or ``it usually fires''. Counting a substring is not counting what the code does --- and neither is counting how often the code runs, without asking what it found.
 
 \paragraph{Why we report this.} The two errors share a shape: a plausible constant,
 never checked against the artifact that defines it, in a position where being wrong is

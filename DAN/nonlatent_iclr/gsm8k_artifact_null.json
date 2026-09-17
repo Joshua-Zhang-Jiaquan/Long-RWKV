@@ -108,5 +108,17 @@
       "ratio": 14.4
     }
   },
-  "consequence_for_claims": "no threshold on the score can separate a model that cannot do arithmetic from a model whose output the extractor cannot read. Any future GSM8K figure from this program must cite the extraction-tier census alongside it, not the percentage."
+  "consequence_for_claims": "no threshold on the score can separate a model that cannot do arithmetic from a model whose output the extractor cannot read. Any future GSM8K figure from this program must cite the extraction-tier census alongside it, not the percentage.",
+  "the_E_discrepancy_resolved": {
+    "note": "v3 recorded our E = 4.77 against the peer's 4.57 as an unexplained difference. It is now fully explained and is not an error on either side.",
+    "the_gap_is_one_item": "gsm8k_test_0019, gold 6, emits 15 numbers of which 3 match the gold, so p_i = 3/15 = 0.2000. 4.7749 - 4.5749 = +0.2000 exactly.",
+    "why": "the peer's null is scoped to items the FALLBACK tier scored, so the one boxed-tier item is excluded and counted as capability; ours is unscoped. Support was never the variable: restricting either support set to items emitting at least one number leaves E bit-identical.",
+    "which_direction": "on this cell the UNSCOPED form is the more conservative one. The scoping buys correct behaviour on compliant cells -- a genuine worked solution repeats its answer, so an unscoped null penalises exactly the behaviour it is meant to certify and would block a working model -- at the cost of a slightly lower E on non-compliant ones.",
+    "what_the_manuscript_uses": "the unscoped 4.77 with n = 127, because on a cell where the requested tier fires zero times the two definitions are identical (which is why the T=0.2 cell reads E = 3.60 either way), so the unscoped figure needs no explanation of a campaign-specific gating decision and is the conservative direction. The gate keeps 4.57 because the gate must survive Phase 3; the manuscript does not."
+  },
+  "the_requested_tier_fires_once_and_scores_zero": {
+    "note": "across the 400 completions of the two text-bearing cells the requested tier fired EXACTLY ONCE and scored zero -- a stronger and more precise statement than 'it never fires'.",
+    "cell_1": "the token appears with no brace group, which the brace-balanced parser rejects, so the substring is present and the tier does not fire",
+    "cell_2": "the group parses, the tier fires, and the answer is simply wrong"
+  }
 }
