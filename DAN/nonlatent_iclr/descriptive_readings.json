@@ -1,0 +1,57 @@
+{
+  "schema": "nonlatent_descriptive_readings_v1",
+  "why": "the manuscript cites loop s9500 OBQA 56.60 / RACE 55.40 as its one set of real measurements, and a deterministic evidence check found those values occur NOWHERE in this repository -- only in the cluster CSV below. A number a reader cannot re-derive from the published tree is a disclosure obligation, so the readings the manuscript cites are transcribed here verbatim, with provenance, and the check now verifies against this file instead of disclosing them as external.",
+  "source": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/m2_baseline_triangle/accuracy_summary.csv",
+    "sha256": "02bac8d5008fcde6f0573000f1073b6c47db016b80a39640ddc65568ec5a7be6",
+    "size_bytes": 5236,
+    "mtime_utc": "2026-09-16T08:03:01Z",
+    "scope": "measured on the cluster; this file is a transcription, so the readings are verifiable here but the measurement is not reproducible from this repository alone"
+  },
+  "table_shape": "benchmarks are rows, models are columns; empty cells omitted",
+  "readings": {
+    "m4loop_step9500_obqa_race": {
+      "obqa": "56.60",
+      "race": "55.40"
+    },
+    "m4loop_step12500_obqa_race": {
+      "obqa": "58.80",
+      "race": "51.60"
+    },
+    "b3_s1000_obqa_race": {
+      "obqa": "54.80",
+      "race": "48.00"
+    },
+    "b3_s8000_obqa_race": {
+      "obqa": "45.40",
+      "race": "45.20"
+    },
+    "f2_s12000_obqa_race": {
+      "obqa": "60.20",
+      "race": "52.60"
+    },
+    "f2_s14000_obqa_race": {
+      "obqa": "58.40",
+      "race": "54.80"
+    },
+    "llada_all": {
+      "obqa": "84.80",
+      "race": "83.60",
+      "mmlu": "63.00"
+    },
+    "rwkv7goose_obqa_race": {
+      "obqa": "46.40",
+      "race": "31.80"
+    },
+    "m4loop_step9500_raw_mmlu200": {
+      "mmlu": "47.00"
+    },
+    "m4loop_step12500_raw_mmlu200": {
+      "mmlu": "46.50"
+    },
+    "rwkv7goose_raw_mmlu200": {
+      "mmlu": "45.50"
+    }
+  },
+  "not_transcribed": "the remaining columns of the 13-reading table; the rank claims (RACE 2nd of 13, OBQA 4th of 13) are derived from the full table and remain external, which the manuscript states"
+}

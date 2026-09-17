@@ -412,6 +412,29 @@ sources that produced them, and the test suite re-checks those bindings, so the
 correspondence between this paper and its evidence is machine-verifiable rather than
 asserted.
 
+\paragraph{That correspondence, actually checked.} The sentence above was itself an
+assertion until it was run. Twenty-five substantive numbers this manuscript cites are
+listed in \texttt{DAN/nonlatent\_iclr/paper\_claims.json} against the artifact that should
+carry each one and the \emph{context} it must appear in, and
+\texttt{scale/experiments/nonlatent\_iclr/paper\_evidence\_check.py} checks all of them
+deterministically, with no model in the loop. It returns five verdicts, and the
+distinctions between them are the point: a value is \emph{verified}, \emph{correctly
+rounded} from the artifact's full precision, \emph{derived} by arithmetic over artifacted
+inputs, \emph{external} (present only outside the published tree), or \emph{missing}.
+Demanding a context rather than accepting a substring is what keeps it honest: on this
+tree \texttt{56.60} occurs inside an unrelated token count and \texttt{200} inside a
+record identifier, so a bare search would report passes it had not earned. The check is
+currently complete --- no value missing, no path missing --- and the only disclosures are
+three ledger totals, which are sums the ledger does not state.
+
+It also found one real gap, which is why it is worth running. The loop s9500 OpenBookQA
+and RACE readings of \S\ref{sec:descriptive} occurred \emph{nowhere} in this repository:
+the comparators were recorded, the job that produced the readings was recorded, and the
+readings themselves were not. They are now transcribed into
+\texttt{DAN/nonlatent\_iclr/descriptive\_readings.json} together with the source path, its
+sha256 and its mtime, so the values cited here are checkable here even though the
+measurement is not reproducible from this repository alone.
+
 \paragraph{A worked example of the discipline.} When this repository was prepared for
 publication, an attempt was made to make host-specific path constants configurable. Ten
 source-drift tests failed --- correctly, because those hashes exist to prove the evidence

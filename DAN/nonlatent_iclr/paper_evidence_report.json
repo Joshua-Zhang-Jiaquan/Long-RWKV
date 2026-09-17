@@ -1,0 +1,222 @@
+{
+  "schema": "nonlatent_paper_evidence_report_v1",
+  "disclosed": [
+    "ledger-total-2b",
+    "ledger-total-4b",
+    "ledger-total-8b"
+  ],
+  "checked": 25,
+  "counts": {
+    "value_not_found": 0,
+    "path_missing": 0,
+    "external": 0,
+    "derived": 3,
+    "rounding_ok": 1,
+    "verified": 21
+  },
+  "results": [
+    {
+      "claim_id": "tokenizer-vocabulary-lines",
+      "value": "65529",
+      "source": "DAN/nonlatent_iclr/preregistration.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'65529' occurs inside '\"vocabulary_lines\": 65529' in DAN/nonlatent_iclr/preregistration.json"
+    },
+    {
+      "claim_id": "tokenizer-stop-set",
+      "value": "65531",
+      "source": "DAN/nonlatent_iclr/preregistration.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'65531' occurs inside 'stop set {65531, 0}' in DAN/nonlatent_iclr/preregistration.json"
+    },
+    {
+      "claim_id": "contract-architecture-tests",
+      "value": "102",
+      "source": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/task-03/completion-verdict-20260914.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'102' occurs inside '\"passed\": 102' in .omo/evidence/nonlatent-rnn-dlm-iclr-research/task-03/completion-verdict-20260914.json"
+    },
+    {
+      "claim_id": "contract-not-ready",
+      "value": "false",
+      "source": "DAN/nonlatent_iclr/architecture_contract.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'false' occurs inside '\"whole_architecture_ready\": false' in DAN/nonlatent_iclr/architecture_contract.json"
+    },
+    {
+      "claim_id": "ledger-a1-throughput",
+      "value": "799.1",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'799.1' occurs inside '\"arm\": \"A1\",\\n      \"assumptions\": [\\n        \"priced from a m' in DAN/nonlatent_iclr/allocation_ledger.json"
+    },
+    {
+      "claim_id": "ledger-a2-throughput",
+      "value": "886.7",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'886.7' is '886.6594840890932' rounded to 1 dp in DAN/nonlatent_iclr/allocation_ledger.json"
+    },
+    {
+      "claim_id": "ledger-a3-throughput",
+      "value": "958.4",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'958.4' occurs inside '\"arm\": \"A3\",\\n      \"assumptions\": [\\n        \"priced from a m' in DAN/nonlatent_iclr/allocation_ledger.json"
+    },
+    {
+      "claim_id": "ledger-a5-throughput",
+      "value": "818.2",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'818.2' occurs inside '\"arm\": \"A5\",\\n      \"assumptions\": [\\n        \"priced from a m' in DAN/nonlatent_iclr/allocation_ledger.json"
+    },
+    {
+      "claim_id": "ledger-total-2b",
+      "value": "11,567",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "sum over six arms x three seeds of gpu_hours_all_seeds at 2B"
+    },
+    {
+      "claim_id": "ledger-total-4b",
+      "value": "23,131",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "the same sum at 4B"
+    },
+    {
+      "claim_id": "ledger-total-8b",
+      "value": "46,263",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "the same sum at 8B"
+    },
+    {
+      "claim_id": "registry-unit-count",
+      "value": "3600",
+      "source": "DAN/nonlatent_iclr/task4_assets/length_matrix.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'3600' occurs inside '\"unit_count\": 3600' in DAN/nonlatent_iclr/task4_assets/length_matrix.json"
+    },
+    {
+      "claim_id": "registry-instances-per-cell",
+      "value": "200",
+      "source": "DAN/nonlatent_iclr/task_registry.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'200' occurs inside '\"instances_per_cell\": 200' in DAN/nonlatent_iclr/task_registry.json"
+    },
+    {
+      "claim_id": "registry-feasible-cells",
+      "value": "689",
+      "source": "DAN/nonlatent_iclr/task_registry.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'689' occurs inside '\"successful_cells\": 689' in DAN/nonlatent_iclr/task_registry.json"
+    },
+    {
+      "claim_id": "registry-infeasible-cells",
+      "value": "31",
+      "source": "DAN/nonlatent_iclr/task_registry.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'31' occurs inside '\"infeasible_cells\": 31' in DAN/nonlatent_iclr/task_registry.json"
+    },
+    {
+      "claim_id": "comparator-b3-s1000",
+      "value": "54.80",
+      "source": "DAN/v7_arch_round/JOBS.md",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'54.80' occurs inside 'b3 54.80/48.00' in DAN/v7_arch_round/JOBS.md"
+    },
+    {
+      "claim_id": "comparator-f2-s14000",
+      "value": "58.40",
+      "source": "DAN/v7_arch_round/JOBS.md",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'58.40' occurs inside 'f2 58.40/54.80' in DAN/v7_arch_round/JOBS.md"
+    },
+    {
+      "claim_id": "comparator-rwkv7goose",
+      "value": "46.40",
+      "source": "DAN/v7_arch_round/JOBS.md",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'46.40' occurs inside 'rwkv7goose 46.40/31.80' in DAN/v7_arch_round/JOBS.md"
+    },
+    {
+      "claim_id": "in-flight-job-id",
+      "value": "job-fd80e224",
+      "source": "DAN/v7_arch_round/JOBS.md",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'job-fd80e224' occurs inside 'job-fd80e224-e5dd-4cc8-ac42-f8125e3ac2df' in DAN/v7_arch_round/JOBS.md"
+    },
+    {
+      "claim_id": "descriptive-obqa-s9500",
+      "value": "56.60",
+      "source": "DAN/nonlatent_iclr/descriptive_readings.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'56.60' occurs inside '\"m4loop_step9500_obqa_race\": {\\n      \"obqa\": \"56.60\"' in DAN/nonlatent_iclr/descriptive_readings.json"
+    },
+    {
+      "claim_id": "descriptive-race-s9500",
+      "value": "55.40",
+      "source": "DAN/nonlatent_iclr/descriptive_readings.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'55.40' occurs inside '\"m4loop_step9500_obqa_race\": {\\n      \"obqa\": \"56.60\",\\n      ' in DAN/nonlatent_iclr/descriptive_readings.json"
+    },
+    {
+      "claim_id": "descriptive-llada",
+      "value": "84.80",
+      "source": "DAN/nonlatent_iclr/descriptive_readings.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'84.80' occurs inside '\"llada_all\": {\\n      \"obqa\": \"84.80\"' in DAN/nonlatent_iclr/descriptive_readings.json"
+    },
+    {
+      "claim_id": "comparator-b3-s8000",
+      "value": "45.40",
+      "source": "DAN/v7_arch_round/JOBS.md",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'45.40' occurs inside 'b3 45.40/45.20' in DAN/v7_arch_round/JOBS.md"
+    },
+    {
+      "claim_id": "descriptive-obqa-f2-s12000",
+      "value": "60.20",
+      "source": "DAN/nonlatent_iclr/descriptive_readings.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'60.20' occurs inside '\"f2_s12000_obqa_race\": {\\n      \"obqa\": \"60.20\"' in DAN/nonlatent_iclr/descriptive_readings.json"
+    },
+    {
+      "claim_id": "descriptive-obqa-s12500",
+      "value": "58.80",
+      "source": "DAN/nonlatent_iclr/descriptive_readings.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'58.80' occurs inside '\"m4loop_step12500_obqa_race\": {\\n      \"obqa\": \"58.80\"' in DAN/nonlatent_iclr/descriptive_readings.json"
+    }
+  ],
+  "complete": true,
+  "disclosed_count": 3,
+  "note": "a check that cannot run is reported as such rather than as a pass; `external` is a disclosure, not a failure"
+}

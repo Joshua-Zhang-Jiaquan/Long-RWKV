@@ -1,0 +1,203 @@
+{
+  "schema": "nonlatent_paper_claims_v1",
+  "scope": "every substantive number the manuscript cites, with the artifact that should carry it and the context it must appear in",
+  "claims": [
+    {
+      "claim_id": "tokenizer-vocabulary-lines",
+      "value": "65529",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/preregistration.json",
+      "near": "\"vocabulary_lines\"\\s*:\\s*[0-9]+",
+      "appears_in": "the preregistration's BOS/EOS resolution record"
+    },
+    {
+      "claim_id": "tokenizer-stop-set",
+      "value": "65531",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/preregistration.json",
+      "near": "stop set \\{[0-9, ]+\\}",
+      "appears_in": "the recorded stop set"
+    },
+    {
+      "claim_id": "contract-architecture-tests",
+      "value": "102",
+      "kind": "measured",
+      "source": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/task-03/completion-verdict-20260914.json",
+      "near": "\"passed\":\\s*102",
+      "appears_in": "the task-03 completion verdict"
+    },
+    {
+      "claim_id": "contract-not-ready",
+      "value": "false",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/architecture_contract.json",
+      "near": "\"whole_architecture_ready\":\\s*false",
+      "appears_in": "the architecture contract"
+    },
+    {
+      "claim_id": "ledger-a1-throughput",
+      "value": "799.1",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "near": "\"arm\":\\s*\"A1\"((?!\"arm\":)[\\s\\S]){0,2000}?\"tokens_per_second\":\\s*[0-9.]+",
+      "appears_in": "A1 tokens_per_second inside that arm's own ledger block (the label is the arm, not the value, so a rounded transcription is still checkable)"
+    },
+    {
+      "claim_id": "ledger-a2-throughput",
+      "value": "886.7",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "near": "\"arm\":\\s*\"A2\"((?!\"arm\":)[\\s\\S]){0,2000}?\"tokens_per_second\":\\s*[0-9.]+",
+      "appears_in": "A2 tokens_per_second inside that arm's own ledger block (the label is the arm, not the value, so a rounded transcription is still checkable)"
+    },
+    {
+      "claim_id": "ledger-a3-throughput",
+      "value": "958.4",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "near": "\"arm\":\\s*\"A3\"((?!\"arm\":)[\\s\\S]){0,2000}?\"tokens_per_second\":\\s*[0-9.]+",
+      "appears_in": "A3 tokens_per_second inside that arm's own ledger block (the label is the arm, not the value, so a rounded transcription is still checkable)"
+    },
+    {
+      "claim_id": "ledger-a5-throughput",
+      "value": "818.2",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "near": "\"arm\":\\s*\"A5\"((?!\"arm\":)[\\s\\S]){0,2000}?\"tokens_per_second\":\\s*[0-9.]+",
+      "appears_in": "A5 tokens_per_second inside that arm's own ledger block (the label is the arm, not the value, so a rounded transcription is still checkable)"
+    },
+    {
+      "claim_id": "ledger-total-2b",
+      "value": "11,567",
+      "kind": "derived",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "appears_in": "sum over six arms x three seeds of gpu_hours_all_seeds at 2B"
+    },
+    {
+      "claim_id": "ledger-total-4b",
+      "value": "23,131",
+      "kind": "derived",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "appears_in": "the same sum at 4B"
+    },
+    {
+      "claim_id": "ledger-total-8b",
+      "value": "46,263",
+      "kind": "derived",
+      "source": "DAN/nonlatent_iclr/allocation_ledger.json",
+      "appears_in": "the same sum at 8B"
+    },
+    {
+      "claim_id": "registry-unit-count",
+      "value": "3600",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/task4_assets/length_matrix.json",
+      "near": "\"unit_count\"\\s*:\\s*3600",
+      "appears_in": "the token-length matrix"
+    },
+    {
+      "claim_id": "registry-instances-per-cell",
+      "value": "200",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/task_registry.json",
+      "near": "\"instances_per_cell\"\\s*:\\s*200",
+      "appears_in": "the task registry"
+    },
+    {
+      "claim_id": "registry-feasible-cells",
+      "value": "689",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/task_registry.json",
+      "near": "\"successful_cells\":\\s*689",
+      "appears_in": "the representative cell check"
+    },
+    {
+      "claim_id": "registry-infeasible-cells",
+      "value": "31",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/task_registry.json",
+      "near": "\"infeasible_cells\":\\s*31",
+      "appears_in": "the representative cell check"
+    },
+    {
+      "claim_id": "comparator-b3-s1000",
+      "value": "54.80",
+      "kind": "measured",
+      "source": "DAN/v7_arch_round/JOBS.md",
+      "near": "b3 54\\.80/48\\.00",
+      "appears_in": "the recorded comparator line"
+    },
+    {
+      "claim_id": "comparator-f2-s14000",
+      "value": "58.40",
+      "kind": "measured",
+      "source": "DAN/v7_arch_round/JOBS.md",
+      "near": "f2 58\\.40/54\\.80",
+      "appears_in": "the recorded comparator line"
+    },
+    {
+      "claim_id": "comparator-rwkv7goose",
+      "value": "46.40",
+      "kind": "measured",
+      "source": "DAN/v7_arch_round/JOBS.md",
+      "near": "rwkv7goose 46\\.40/31\\.80",
+      "appears_in": "the recorded comparator line"
+    },
+    {
+      "claim_id": "in-flight-job-id",
+      "value": "job-fd80e224",
+      "kind": "measured",
+      "source": "DAN/v7_arch_round/JOBS.md",
+      "near": "job-fd80e224[0-9a-f-]*",
+      "appears_in": "the recorded in-flight continuation"
+    },
+    {
+      "claim_id": "descriptive-obqa-s9500",
+      "value": "56.60",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/descriptive_readings.json",
+      "appears_in": "DAN/nonlatent_iclr/descriptive_readings.json, transcribed from the cluster CSV with provenance",
+      "near": "\"m4loop_step9500_obqa_race\":\\s*\\{[^}]*\"obqa\":\\s*\"?[0-9.]+\"?"
+    },
+    {
+      "claim_id": "descriptive-race-s9500",
+      "value": "55.40",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/descriptive_readings.json",
+      "appears_in": "DAN/nonlatent_iclr/descriptive_readings.json, transcribed from the cluster CSV with provenance",
+      "near": "\"m4loop_step9500_obqa_race\":\\s*\\{[^}]*\"race\":\\s*\"?[0-9.]+\"?"
+    },
+    {
+      "claim_id": "descriptive-llada",
+      "value": "84.80",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/descriptive_readings.json",
+      "appears_in": "DAN/nonlatent_iclr/descriptive_readings.json, transcribed from the cluster CSV with provenance",
+      "near": "\"llada_all\":\\s*\\{[^}]*\"obqa\":\\s*\"?[0-9.]+\"?"
+    },
+    {
+      "claim_id": "comparator-b3-s8000",
+      "value": "45.40",
+      "kind": "measured",
+      "source": "DAN/v7_arch_round/JOBS.md",
+      "near": "b3 45\\.40/45\\.20",
+      "appears_in": "the recorded comparator line"
+    },
+    {
+      "claim_id": "descriptive-obqa-f2-s12000",
+      "value": "60.20",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/descriptive_readings.json",
+      "near": "\"f2_s12000_obqa_race\":\\s*\\{[^}]*\"obqa\":\\s*\"?[0-9.]+\"?",
+      "appears_in": "the descriptive readings record"
+    },
+    {
+      "claim_id": "descriptive-obqa-s12500",
+      "value": "58.80",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/descriptive_readings.json",
+      "near": "\"m4loop_step12500_obqa_race\":\\s*\\{[^}]*\"obqa\":\\s*\"?[0-9.]+\"?",
+      "appears_in": "the descriptive readings record"
+    }
+  ]
+}
