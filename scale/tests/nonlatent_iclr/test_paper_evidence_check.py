@@ -499,3 +499,78 @@ def test_a_withheld_verdict_is_never_counted_as_a_pass() -> None:
                    pec.check_all(claims, Path("."), paper_text="the value is 4271")):
         assert report["verdict"]["status"] != "pass"
         assert report["complete"] is False
+
+
+# --------------------------------------------------------------------------
+# a finding must name WHY, not merely that
+# --------------------------------------------------------------------------
+
+
+def _finding(claim: pec.Claim, root: Path) -> dict:
+    return pec.check_all([claim], root, paper_text="")["verdict"]
+
+
+def test_a_reader_can_tell_which_cause_from_the_output_alone(tmp_path: Path) -> None:
+    """The test their note implies: not "did it block", but "can you tell why".
+
+    A `finding` has two causes needing different responses -- a value absent from
+    an artifact that exists (the claim or the artifact is wrong) versus an
+    artifact the repository does not ship (the paper depends on something missing).
+    Reporting both as a bare `finding` forces the reader to go and read the
+    per-claim list, and the withhold reads complete once it exits non-zero.
+    """
+    # Given: one claim of each kind.
+    (tmp_path / "present.json").write_text('{"x": 1}', encoding="utf-8")
+    absent_value = pec.Claim("v", "99999", "present.json", "measured", near=r'"x":\s*[0-9]+')
+    absent_file = pec.Claim("f", "1", "absent.json", "measured", near=r'"x":\s*[0-9]+')
+    # When: each is checked.
+    value_verdict = _finding(absent_value, tmp_path)
+    file_verdict = _finding(absent_file, tmp_path)
+    # Then: the STATUS is the same...
+    assert value_verdict["status"] == file_verdict["status"] == "finding"
+    # ...and the CAUSE differs, from the output alone, without consulting counts.
+    assert value_verdict["finding_cause"][0]["cause"] == "value_not_found"
+    assert file_verdict["finding_cause"][0]["cause"] == "path_missing"
+    assert value_verdict["finding_cause"] != file_verdict["finding_cause"]
+    # and each names the claim it came from and what it means
+    assert value_verdict["finding_cause"][0]["claims"] == ["v"]
+    assert "does not carry the cited value" in value_verdict["finding_cause"][0]["description"]
+    assert "not present in this tree" in file_verdict["finding_cause"][0]["description"]
+
+
+def test_both_causes_are_listed_when_both_occur(tmp_path: Path) -> None:
+    """A finding that reports one cause when there are two under-describes it."""
+    (tmp_path / "present.json").write_text('{"x": 1}', encoding="utf-8")
+    report = pec.check_all(
+        [pec.Claim("v", "99999", "present.json", "measured", near=r'"x":\s*[0-9]+'),
+         pec.Claim("f", "1", "absent.json", "measured", near=r'"x":\s*[0-9]+')],
+        tmp_path, paper_text="")
+    causes = {c["cause"] for c in report["verdict"]["finding_cause"]}
+    assert causes == {"value_not_found", "path_missing"}
+
+
+def test_a_non_finding_carries_no_cause(tmp_path: Path) -> None:
+    """The cause field exists only where there is a cause.
+
+    A pass or a withhold with a stale `finding_cause` would be the
+    three-states-in-one-field problem again, one level down.
+    """
+    claims = [pec.Claim("e", "1", "/elsewhere", "external", appears_in="stated")]
+    for report in (pec.check_all(claims, tmp_path, paper_text=""),   # pass
+                   pec.check_all(claims, tmp_path)):                  # withheld
+        assert report["verdict"]["status"] != "finding"
+        assert report["verdict"]["finding_cause"] is None
+
+
+def test_the_two_axes_hold_for_findings_too() -> None:
+    """`finding` is one state with many causes, exactly as `withheld` is.
+
+    Enumerating causes as states is the same mistake in the other half of the
+    product: it would grow one exit per cause discovered, which is how a single
+    bool became four exits on the peer's gate.
+    """
+    claims = [pec.Claim("e", "1", "/elsewhere", "external", appears_in="stated")]
+    report = pec.check_all(claims, Path("."), paper_text="")
+    # the vocabulary is closed and small; the causes live in a field
+    assert report["verdict"]["status"] in {"pass", "finding", "withheld"}
+    assert set(report["verdict"]) == {"status", "withheld_reason", "remedy", "finding_cause"}

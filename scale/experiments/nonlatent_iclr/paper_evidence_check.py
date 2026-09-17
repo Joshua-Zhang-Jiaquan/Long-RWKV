@@ -286,8 +286,32 @@ STATUS_FINDING = "finding"
 STATUS_WITHHELD = "withheld"
 
 
+def _finding_causes(results: list[Result]) -> list[dict[str, object]]:
+    """WHY the check found a problem, per cause, in worst-first order.
+
+    A `finding` has more than one cause and they need different responses: a value
+    absent from an existing artifact means the claim or the artifact is wrong,
+    while a missing file means the paper depends on something the repository does
+    not ship.  Reporting both as a bare `finding` makes the reader go and read the
+    per-claim list to learn which -- and the test that matters is not whether the
+    check blocked, it is whether a reader can tell WHICH cause from the output
+    alone.
+    """
+    causes: list[dict[str, object]] = []
+    for verdict, description in (
+            ("value_not_found", "the artifact exists and does not carry the cited value"),
+            ("path_missing", "the artifact the claim names is not present in this tree")):
+        hits = [r for r in results if r.verdict == verdict]
+        if hits:
+            causes.append({"cause": verdict, "count": len(hits),
+                           "description": description,
+                           "claims": [r.claim_id for r in hits]})
+    return causes
+
+
 def _verdict(*, ran_problem: bool, uncatalogued: list[str],
-             coverage_ran: bool) -> dict[str, object]:
+             coverage_ran: bool,
+             causes: list[dict[str, object]] | None = None) -> dict[str, object]:
     """The verdict as (status, reason, remedy), with the axes made explicit.
 
     ``withheld`` is the absence of a finding, never a finding.  It carries a
@@ -296,10 +320,11 @@ def _verdict(*, ran_problem: bool, uncatalogued: list[str],
     could not run, and the remedy says who can make it run.
     """
     if ran_problem:
-        return {"status": STATUS_FINDING, "withheld_reason": None, "remedy": None}
+        return {"status": STATUS_FINDING, "withheld_reason": None, "remedy": None,
+                "finding_cause": causes or []}
     if uncatalogued:
         return {
-            "status": STATUS_WITHHELD,
+            "status": STATUS_WITHHELD, "finding_cause": None,
             "withheld_reason": (f"{len(uncatalogued)} number(s) the manuscript cites are in no "
                                 f"claim: {uncatalogued[:5]}"),
             "remedy": ("extend DAN/nonlatent_iclr/paper_claims.json with a claim naming each "
@@ -307,12 +332,13 @@ def _verdict(*, ran_problem: bool, uncatalogued: list[str],
         }
     if not coverage_ran:
         return {
-            "status": STATUS_WITHHELD,
+            "status": STATUS_WITHHELD, "finding_cause": None,
             "withheld_reason": ("no manuscript was supplied, so coverage was never run; this is "
                                 "not a statement that the paper is covered"),
             "remedy": "pass --paper to run coverage",
         }
-    return {"status": STATUS_PASS, "withheld_reason": None, "remedy": None}
+    return {"status": STATUS_PASS, "withheld_reason": None, "remedy": None,
+            "finding_cause": None}
 
 
 def check_all(claims: list[Claim], root: Path, paper: Path | None = None,
@@ -360,7 +386,8 @@ def check_all(claims: list[Claim], root: Path, paper: Path | None = None,
         "verdict": _verdict(
             ran_problem=bool(by_verdict["value_not_found"] or by_verdict["path_missing"]),
             uncatalogued=uncatalogued,
-            coverage_ran=text is not None),
+            coverage_ran=text is not None,
+            causes=_finding_causes(results)),
         "complete": (not by_verdict["value_not_found"] and not by_verdict["path_missing"]
                      and not uncatalogued and text is not None),
         "uncatalogued": uncatalogued,

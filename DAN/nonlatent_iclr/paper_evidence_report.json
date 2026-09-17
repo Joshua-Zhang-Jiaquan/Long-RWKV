@@ -406,7 +406,8 @@
   "verdict": {
     "status": "pass",
     "withheld_reason": null,
-    "remedy": null
+    "remedy": null,
+    "finding_cause": null
   },
   "complete": true,
   "uncatalogued": [],

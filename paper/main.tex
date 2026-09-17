@@ -512,7 +512,15 @@ attached to the third rather than a state of its own. Enumerating them is the te
 form and it is the one that grows an exit per failure discovered, duplicating the axis
 while losing it. A withheld verdict must carry both a reason and a \emph{remedy},
 because a withhold with no route out is a block with better manners: the reason says
-why the check could not run and the remedy says who can make it run.
+why the check could not run and the remedy says who can make it run. The same
+discipline applies to the other half of the product, and we only saw it after asking
+the question of a \emph{finding}: a failure has more than one cause, and they need
+different responses --- a value absent from an artifact that exists means the claim or
+the artifact is wrong, while an artifact the repository does not ship means the paper
+depends on something missing. Both were reported as a bare \emph{finding}, so a reader
+had to open the per-claim list to learn which. The test that matters is therefore not
+whether the check blocked but whether a reader can tell \emph{which} cause from the
+output alone, and a finding now names its cause per claim.
 
 \paragraph{What each claim is allowed to say.} Existence and support are different
 questions, and \texttt{DAN/nonlatent\_iclr/claim\_ceiling.json} answers the second by
