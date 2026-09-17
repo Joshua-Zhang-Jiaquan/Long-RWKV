@@ -81,7 +81,7 @@ def test_the_command_pins_four_cards_and_passes_the_seed() -> None:
     # seed are passed, and the launcher gets the frozen step count.
     assert "CUDA_VISIBLE_DEVICES=8,9,10,11,12,13,14,15" in script
     assert f"RUN_NAME={run.run_name}" in script
-    assert f"--seed={run.seed}" in script
+    assert f"--seed {run.seed}" in script
     assert f"STEPS={run.steps}" in script
     assert "NNODES=1" in script and "NGPUS=8" in script
     for flag in run.extra_args:
@@ -237,8 +237,56 @@ def test_the_dry_run_does_not_claim_a_node_or_a_wave(tmp_path: Path) -> None:
     # Given: a state directory and a dry run.
     state = tmp_path / "state"
     code = rj.main(["--dry-run", "--launcher", "/l.sh",
-                    "--state-dir", str(state), "--log-dir", str(tmp_path / "log")])
+                    "--state-dir", str(state), "--attempt", "a1",
+                    "--log-dir", str(tmp_path / "log")])
     # When/Then: it exits clean and leaves nothing behind -- a dry run that took
     # a node index or wrote a barrier would corrupt the real run's bookkeeping.
     assert code == 0
     assert not state.exists() or not list(state.glob("*"))
+
+
+# --------------------------------------------------------------------------
+# claims are per launch; barriers are per study
+# --------------------------------------------------------------------------
+
+
+def test_claims_are_scoped_to_a_launch(tmp_path: Path) -> None:
+    """A dead attempt's claims must not shift the next attempt's node indices.
+
+    The node index is the POSITION in the sorted claim list, so four stale claims
+    from a failed launch would hand the next launch's hosts indices 4-7 in a
+    4-node job. Every one of them would then match no runs and do nothing --
+    silently, because an out-of-range index simply selects the empty slice.
+    """
+    # Given: a launch that claimed all four nodes and then died.
+    first = rj.claim_root(tmp_path, "attempt-one")
+    first.mkdir(parents=True, exist_ok=True)
+    for host in ("qb-prod-gpu039", "qb-prod-gpu178", "qb-prod-gpu488", "qb-prod-gpu509"):
+        (first / f"node-{host}.claim").write_text("{}")
+    # When: a second launch claims its own index.
+    second = rj.claim_root(tmp_path, "attempt-two")
+    assert second != first
+    # Then: it starts from an empty namespace, so its first host is index 0 --
+    # not index 4.
+    assert not list(second.glob("*.claim"))
+
+
+def test_the_wave_barrier_survives_a_new_launch(tmp_path: Path) -> None:
+    """The other half: a finished wave must still be skipped after a restart."""
+    # Given: a wave completed under an earlier launch.
+    waves = rj.wave_root(tmp_path)
+    waves.mkdir(parents=True, exist_ok=True)
+    rj.mark_wave_done(waves, 0, [0])
+    # When: a later launch checks it, using its OWN claim namespace.
+    assert rj.claim_root(tmp_path, "attempt-two") != waves
+    # Then: the barrier is still visible, so the resubmission skips the wave
+    # instead of re-running it and overwriting its checkpoints.
+    assert rj.wave_already_done(waves, 0, nodes=1) is True
+
+
+def test_an_attempt_id_is_required_for_claims(tmp_path: Path) -> None:
+    # Given: no attempt id.
+    # When/Then: refused, because an unscoped claim directory is exactly the
+    # namespace collision this split exists to prevent.
+    with pytest.raises(rj.JobRefusal, match="attempt id is required"):
+        rj.claim_root(tmp_path, "")

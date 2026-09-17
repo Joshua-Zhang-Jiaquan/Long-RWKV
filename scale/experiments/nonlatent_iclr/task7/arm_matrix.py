@@ -83,6 +83,10 @@ class ArmSpec:
     """One controlled arm, as the flags that select it."""
 
     arm_id: str
+    #: Shell TOKENS, not ``--flag=value`` strings.  The launcher's preflight
+    #: AST-parses the trainer's argparse and rejects any token that is not
+    #: EXACTLY a defined flag name, so ``--seed=17`` fails while ``--seed 17``
+    #: passes.  Values are separate tokens for that reason.
     extra_args: tuple[str, ...]
     force_forward: bool
     loop_reps: int
@@ -110,15 +114,15 @@ ARMS: Final[dict[str, ArmSpec]] = {
     ),
     "A3": ArmSpec(
         arm_id="A3",
-        extra_args=("--gradient-checkpointing", f"--loop-range={SMALL_LOOP_RANGE[0]}:{SMALL_LOOP_RANGE[1]}",
-                    "--loop-reps=1"),
+        extra_args=("--gradient-checkpointing", "--loop-range",
+                    f"{SMALL_LOOP_RANGE[0]}:{SMALL_LOOP_RANGE[1]}", "--loop-reps", "1"),
         force_forward=False, loop_reps=1,
         rationale="the candidate: bidirectional masked denoiser with the tied loop",
     ),
     "A5": ArmSpec(
         arm_id="A5",
-        extra_args=("--force-forward", "--gradient-checkpointing",
-                    f"--loop-range={SMALL_LOOP_RANGE[0]}:{SMALL_LOOP_RANGE[1]}", "--loop-reps=1"),
+        extra_args=("--force-forward", "--gradient-checkpointing", "--loop-range",
+                    f"{SMALL_LOOP_RANGE[0]}:{SMALL_LOOP_RANGE[1]}", "--loop-reps", "1"),
         force_forward=True, loop_reps=1,
         rationale="loop x directionality interaction: forward-only tied loop",
     ),
@@ -223,7 +227,8 @@ class ArmRun:
 
     @property
     def argv_tail(self) -> str:
-        return " ".join((*self.extra_args, f"--seed={self.seed}"))
+        """The arm's flags plus its seed, as space-separated shell tokens."""
+        return " ".join((*self.extra_args, "--seed", str(self.seed)))
 
 
 def run_name_for(arm_id: str, seed: int) -> str:
@@ -308,8 +313,10 @@ def require_matrix(runs: list[ArmRun], *, seeds: tuple[int, ...] = TRAINING_SEED
             msg = (f"run {run.run_name} consumes {run.tokens:,} tokens, under the "
                    f"frozen budget {FROZEN_TOKEN_BUDGET:,}")
             raise MatrixRefusal(msg)
-        if f"--seed={run.seed}" not in run.argv_tail:
-            msg = f"run {run.run_name} does not pass its seed to the trainer"
+        tokens = run.argv_tail.split()
+        if ["--seed", str(run.seed)] != tokens[-2:]:
+            msg = (f"run {run.run_name} does not pass its seed to the trainer as "
+                   f"the trailing '--seed <n>' tokens; got {tokens[-2:]}")
             raise MatrixRefusal(msg)
 
 

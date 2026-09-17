@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import time
 from pathlib import Path
 from typing import Final
 
@@ -77,7 +78,7 @@ class EmitRefusal(RuntimeError):
 def build_command(*, staged_scale_dir: str, launcher: str, state_dir: str,
                   log_dir: str, model_dir: str = am.SMALL_MODEL_DIR,
                   token_dir: str, save_root: str, tb_path: str,
-                  ngpus_per_run: int = 8, nodes: int = 4) -> str:
+                  attempt: str, ngpus_per_run: int = 8, nodes: int = 4) -> str:
     """The pod-side command: run the wave driver, which runs the arms.
 
     The driver is invoked as a FILE, not with ``-m``.  That matters: ``-m``
@@ -88,7 +89,8 @@ def build_command(*, staged_scale_dir: str, launcher: str, state_dir: str,
     """
     for name, value in (("staged_scale_dir", staged_scale_dir), ("launcher", launcher),
                         ("state_dir", state_dir), ("log_dir", log_dir),
-                        ("token_dir", token_dir), ("save_root", save_root)):
+                        ("token_dir", token_dir), ("save_root", save_root),
+                        ("attempt", attempt)):
         if not value:
             raise EmitRefusal(f"{name} must be given")
     staged = staged_scale_dir.rstrip("/")
@@ -101,6 +103,7 @@ def build_command(*, staged_scale_dir: str, launcher: str, state_dir: str,
         f"export LOGDIR={log_dir}; "
         f"python3 {staged}/experiments/nonlatent_iclr/task7/run_matrix_job.py "
         f"--launcher {launcher} --state-dir {state_dir} --log-dir {log_dir} "
+        f"--attempt {attempt} "
         f"--ngpus-per-run {ngpus_per_run} --nodes {nodes}'"
     )
 
@@ -171,6 +174,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--save-root", required=True)
     parser.add_argument("--tb-path", required=True)
     parser.add_argument("--name", default="task7-arm-matrix-32h100")
+    parser.add_argument("--attempt", default=time.strftime("%Y%m%dT%H%M%SZ", time.gmtime()),
+                        help="launch id; defaults to the current UTC time, which "
+                             "is fresh per submission by construction")
     parser.add_argument("--nodes", type=int, default=4)
     parser.add_argument("--ngpus-per-run", type=int, default=8)
     args = parser.parse_args(argv)
@@ -178,14 +184,14 @@ def main(argv: list[str] | None = None) -> int:
     command = build_command(
         staged_scale_dir=args.staged_scale_dir, launcher=args.launcher,
         state_dir=args.state_dir, log_dir=args.log_dir, token_dir=args.token_dir,
-        save_root=args.save_root, tb_path=args.tb_path,
+        save_root=args.save_root, tb_path=args.tb_path, attempt=args.attempt,
         ngpus_per_run=args.ngpus_per_run, nodes=args.nodes)
     body = emit_job_body(name=args.name, command=command,
                          description=describe(ngpus_per_run=args.ngpus_per_run,
                                               nodes=args.nodes),
                          tb_summary_path=args.tb_path, nodes=args.nodes)
     args.out.write_text(json.dumps(body, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"schema": SCHEMA, "job_body": str(args.out),
+    print(json.dumps({"schema": SCHEMA, "job_body": str(args.out), "attempt": args.attempt,
                       "job_report": am.job_report(ngpus_per_run=args.ngpus_per_run,
                                                   job_gpus=args.nodes * 8)}))
     return 0

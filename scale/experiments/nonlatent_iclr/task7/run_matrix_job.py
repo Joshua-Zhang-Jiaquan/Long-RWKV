@@ -22,6 +22,14 @@ Why the design is what it is
   The claim is create-exclusive, so a host that loses the race cannot silently
   take the same slot. With 4 nodes and 4 concurrent runs each node takes exactly
   one run.
+* **Claims are scoped to a LAUNCH; wave barriers are scoped to the study.** They
+  have different lifetimes and conflating them is a real bug: a failed attempt
+  leaves its claims behind, and because the node index is the position in the
+  SORTED claim list, the next attempt's hosts would be handed indices 4-7 in a
+  4-node job and take no runs at all -- silently, since an out-of-range index
+  simply matches nothing. The barrier MUST survive a resubmission (that is how a
+  restarted job skips finished waves), so the two live in different directories
+  and the caller passes a fresh ``--attempt`` per submission.
 * **Waves are separated by a file barrier.** The next wave must not start until
   every node has finished the current one, because the run-to-card assignment
   changes between waves and two nodes launching from different waves would put
@@ -127,7 +135,7 @@ def run_command(run: am.ArmRun, *, launcher: Path, node_env: dict[str, str],
         msg = (f"{gpus} GPUs per run but CUDA_VISIBLE_DEVICES={cuda_devices!r} "
                f"names a different count")
         raise JobRefusal(msg)
-    extra = " ".join((*run.extra_args, f"--seed={run.seed}"))
+    extra = " ".join((*run.extra_args, "--seed", str(run.seed)))
     script = (
         "set -e; "
         f"export CUDA_VISIBLE_DEVICES={cuda_devices}; "
@@ -142,6 +150,24 @@ def run_command(run: am.ArmRun, *, launcher: Path, node_env: dict[str, str],
         f"bash {launcher}"
     )
     return ["bash", "-lc", script]
+
+
+#: Subdirectory of the state root holding wave barriers.  Study-scoped: it MUST
+#: survive a resubmission.
+WAVES_DIR = "waves"
+#: Subdirectory holding node claims.  Launch-scoped: a fresh attempt gets a fresh
+#: directory, because stale claims shift every later host's index.
+CLAIMS_DIR = "claims"
+
+
+def wave_root(state_dir: Path) -> Path:
+    return Path(state_dir) / WAVES_DIR
+
+
+def claim_root(state_dir: Path, attempt: str) -> Path:
+    if not attempt:
+        raise JobRefusal("an attempt id is required; claims are scoped to a launch")
+    return Path(state_dir) / CLAIMS_DIR / attempt
 
 
 def barrier_paths(root: Path, wave_index: int) -> tuple[Path, Path]:
@@ -238,6 +264,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--launcher", required=True, type=Path)
     parser.add_argument("--state-dir", required=True, type=Path,
                         help="GPFS directory for claims and wave barriers")
+    parser.add_argument("--attempt", required=True,
+                        help="launch id; scopes node claims so a resubmission "
+                             "cannot inherit a dead attempt's indices")
     parser.add_argument("--log-dir", required=True, type=Path)
     parser.add_argument("--ngpus-per-run", type=int, default=8)
     parser.add_argument("--nodes", type=int, default=NODES)
@@ -267,11 +296,13 @@ def main(argv: list[str] | None = None) -> int:
                           "waves": len(waves), "plan": plan}, indent=1))
         return 0
 
-    node_index = claim_node_index(args.state_dir, nodes=args.nodes)
+    node_index = claim_node_index(claim_root(args.state_dir, args.attempt),
+                                  nodes=args.nodes)
     print(json.dumps({"schema": SCHEMA, "host": socket.gethostname(),
                       "node_index": node_index, "waves": len(waves)}), flush=True)
     for wave in waves:
-        if wave_already_done(args.state_dir, wave.index, nodes=args.nodes):
+        if wave_already_done(wave_root(args.state_dir), wave.index,
+                             nodes=args.nodes):
             print(f"wave {wave.index} already complete; skipping", flush=True)
             continue
         names = runs_for_node(wave, node_index=node_index, nodes=args.nodes,
@@ -280,7 +311,7 @@ def main(argv: list[str] | None = None) -> int:
                              node_env=node_env, gpus=args.ngpus_per_run,
                              log_dir=args.log_dir)
         try:
-            _ = mark_wave_done(args.state_dir, wave.index, codes)
+            _ = mark_wave_done(wave_root(args.state_dir), wave.index, codes)
         except JobRefusal as exc:
             # Do NOT write the barrier marker: the wave is not done, and a marker
             # written over a failure is how a failed arm becomes a missing arm

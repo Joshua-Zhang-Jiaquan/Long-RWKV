@@ -13,7 +13,7 @@ Two classes of error this file exists to catch before a job is submitted:
 
 from __future__ import annotations
 
-import re
+import ast
 from pathlib import Path
 
 import pytest
@@ -25,11 +25,29 @@ TRAINER = REPO / "DAN" / "v7_arch_round" / "code" / "train" / "train_birwkv_diff
 
 
 def _trainer_flags() -> set[str]:
-    """Every ``--flag`` the trainer's argparse defines."""
+    """Every ``--flag`` the trainer's argparse defines, via the launcher's own AST.
+
+    Deliberately the same technique as the launcher's preflight (AST-walk the
+    ``add_argument`` calls) rather than a regex over the source: a regex and an
+    AST disagree on exactly the cases that matter, and the launcher's verdict is
+    the one that decides whether a job runs.
+    """
     if not TRAINER.is_file():
         pytest.skip(f"trainer absent: {TRAINER}")
-    source = TRAINER.read_text(encoding="utf-8")
-    return set(re.findall(r'"(--[a-z][a-z0-9-]*)"', source))
+    tree = ast.parse(TRAINER.read_text(encoding="utf-8"))
+    return {
+        a.value
+        for n in ast.walk(tree)
+        if isinstance(n, ast.Call) and getattr(n.func, "attr", "") == "add_argument"
+        for a in n.args
+        if isinstance(a, ast.Constant) and isinstance(a.value, str)
+    }
+
+
+def _preflight_rejects(argv: list[str]) -> list[str]:
+    """The launcher's rule: a token starting ``--`` must EQUAL a flag name."""
+    known = _trainer_flags()
+    return [a for a in argv if a.startswith("--") and a not in known]
 
 
 # --------------------------------------------------------------------------
@@ -37,16 +55,33 @@ def _trainer_flags() -> set[str]:
 # --------------------------------------------------------------------------
 
 
-def test_every_arm_flag_is_defined_by_the_trainer() -> None:
-    # Given: the trainer's own argparse and every emitted arm's flags.
-    defined = _trainer_flags()
-    # When/Then: each flag exists. A typo here would fail after the job started,
-    # in one run of twelve, which is exactly the kind of failure that is cheapest
-    # to catch on the host.
+def test_every_arm_flag_passes_the_launchers_preflight() -> None:
+    """The check that would have caught a fired job failing its own preflight.
+
+    The first submission used ``--seed=17`` and ``--loop-range=12:24``. The
+    launcher's preflight compares each ``--`` token to the flag names for EQUALITY,
+    so both were rejected, the run exited before loading a model, and the job's
+    auto-fault-tolerance restarted the identical broken command. A substring
+    match here would have passed it, which is why this mirrors the preflight's
+    own rule instead.
+    """
+    # Given: every arm's argv tail, split the way the shell will split it.
     for arm_id, spec in am.ARMS.items():
-        for flag in spec.extra_args:
-            name = flag.split("=", 1)[0]
-            assert name in defined, f"{arm_id}: trainer has no {name}"
+        argv = list(spec.extra_args)
+        # When/Then: no token is rejected...
+        assert _preflight_rejects(argv) == [], f"{arm_id}: {_preflight_rejects(argv)}"
+        # ...and no token smuggles its value with '='.
+        assert all("=" not in token for token in argv if token.startswith("--")), arm_id
+
+
+def test_every_seed_passes_the_launchers_preflight() -> None:
+    # Given: the real argv tails, which include the seed the driver appends.
+    runs = am.build_matrix(ngpus=8)
+    # When/Then: splitting on whitespace must produce preflight-clean tokens --
+    # this is the exact string the launcher will receive in EXTRA_ARGS.
+    for run in runs:
+        tokens = run.argv_tail.split()
+        assert _preflight_rejects(tokens) == [], (run.run_name, _preflight_rejects(tokens))
 
 
 def test_the_seed_flag_exists_and_is_not_passed_by_the_launcher() -> None:
@@ -54,7 +89,7 @@ def test_the_seed_flag_exists_and_is_not_passed_by_the_launcher() -> None:
     defined = _trainer_flags()
     # When/Then: --seed is a real flag, so passing it through EXTRA_ARGS is
     # sound rather than a hope -- the launcher's preflight validates EXTRA_ARGS
-    # against this same argparse.
+    # against this same argparse, as the two tests above now do for real.
     assert "--seed" in defined
 
 
@@ -118,7 +153,7 @@ def test_every_run_passes_its_seed_to_the_trainer() -> None:
     # When/Then: each run's argv carries its own seed. The trainer defaults to
     # 42, so a run that omitted this would silently be a fourth seed-42 run.
     for run in runs:
-        assert f"--seed={run.seed}" in run.argv_tail
+        assert f"--seed {run.seed}" in run.argv_tail
     assert {r.seed for r in runs} == set(am.TRAINING_SEEDS)
 
 
@@ -157,8 +192,9 @@ def test_the_loop_range_matches_the_measured_small_arm() -> None:
     assert am.SMALL_LOOP_RANGE == (12, 24)
     for arm_id in ("A3", "A5"):
         flags = am.ARMS[arm_id].extra_args
-        assert f"--loop-range={am.SMALL_LOOP_RANGE[0]}:{am.SMALL_LOOP_RANGE[1]}" in flags
-        assert "--loop-reps=1" in flags
+        assert "--loop-range" in flags and "--loop-reps" in flags
+        assert f"{am.SMALL_LOOP_RANGE[0]}:{am.SMALL_LOOP_RANGE[1]}" in flags
+        assert "1" in flags
 
 
 def test_gradient_checkpointing_is_on_for_every_arm() -> None:
@@ -288,4 +324,4 @@ def test_every_arm_in_a_wave_passes_the_wave_seed_to_the_trainer() -> None:
     # shared-data property survives the trip through EXTRA_ARGS.
     seed = next(iter({run.seed for run in wave.runs}))
     for run in wave.runs:
-        assert f"--seed={seed}" in run.argv_tail
+        assert f"--seed {seed}" in run.argv_tail
