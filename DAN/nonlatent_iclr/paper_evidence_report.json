@@ -7,14 +7,14 @@
     "ledger-total-8b",
     "registry-total-instances"
   ],
-  "checked": 43,
+  "checked": 48,
   "counts": {
     "value_not_found": 0,
     "path_missing": 0,
     "external": 0,
     "derived": 5,
-    "rounding_ok": 1,
-    "verified": 37
+    "rounding_ok": 2,
+    "verified": 41
   },
   "results": [
     {
@@ -343,7 +343,7 @@
       "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
       "kind": "measured",
       "verdict": "verified",
-      "detail": "'193' occurs inside '\"nonempty_completions\": 193' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+      "detail": "'193' occurs inside '\"degenerate_repetition\": {\\n      \"threshold\": 0.75,\\n      \"c' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
     },
     {
       "claim_id": "gsm8k-longest-identical-run",
@@ -360,6 +360,46 @@
       "kind": "measured",
       "verdict": "verified",
       "detail": "'184' occurs inside '184' in DAN/nonlatent_iclr/task_registry.json"
+    },
+    {
+      "claim_id": "gsm8k-tier-last-number",
+      "value": "117",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'117' occurs inside '\"last_number\": {\\n        \"items\": 117' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+    },
+    {
+      "claim_id": "gsm8k-tier-last-line",
+      "value": "76",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'76' occurs inside '\"last_line\": {\\n        \"items\": 76' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+    },
+    {
+      "claim_id": "gsm8k-null-expected",
+      "value": "3.60",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'3.60' is '3.6' rounded to 2 dp in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+    },
+    {
+      "claim_id": "gsm8k-null-pvalue",
+      "value": "0.52",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'0.52' occurs inside '\"p_ge_observed\": 0.52' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+    },
+    {
+      "claim_id": "gsm8k-copyable-items",
+      "value": "13",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'13' occurs inside '\"copyable\": {\\n        \"correct\": 2,\\n        \"of\": 13' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
     }
   ],
   "complete": true,

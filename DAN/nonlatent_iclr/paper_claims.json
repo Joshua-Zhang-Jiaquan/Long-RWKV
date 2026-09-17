@@ -322,8 +322,8 @@
       "value": "193",
       "kind": "measured",
       "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
-      "appears_in": "the GSM8K artifact-null record's verified block",
-      "near": "\"nonempty_completions\":\\s*193"
+      "appears_in": "the artifact-null record's degenerate-repetition census",
+      "near": "\"degenerate_repetition\":\\s*\\{[^}]*\"of\":\\s*193"
     },
     {
       "claim_id": "gsm8k-longest-identical-run",
@@ -340,6 +340,46 @@
       "source": "DAN/nonlatent_iclr/task_registry.json",
       "near": "184[^0-9]{0,60}",
       "appears_in": "the repository confirmation split"
+    },
+    {
+      "claim_id": "gsm8k-tier-last-number",
+      "value": "117",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "near": "\"last_number\":\\s*\\{[^}]*\"items\":\\s*117",
+      "appears_in": "the extraction-tier census"
+    },
+    {
+      "claim_id": "gsm8k-tier-last-line",
+      "value": "76",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "near": "\"last_line\":\\s*\\{[^}]*\"items\":\\s*76",
+      "appears_in": "the extraction-tier census"
+    },
+    {
+      "claim_id": "gsm8k-null-expected",
+      "value": "3.60",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "near": "\"expected\":\\s*3\\.6",
+      "appears_in": "the Poisson-binomial null's expectation"
+    },
+    {
+      "claim_id": "gsm8k-null-pvalue",
+      "value": "0.52",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "near": "\"p_ge_observed\":\\s*0\\.52",
+      "appears_in": "the Poisson-binomial null's tail"
+    },
+    {
+      "claim_id": "gsm8k-copyable-items",
+      "value": "13",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "near": "\"copyable\":\\s*\\{[^}]*\"of\":\\s*13",
+      "appears_in": "the copyable-gold enrichment"
     }
   ],
   "non_claims": [

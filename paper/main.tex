@@ -123,19 +123,28 @@ the end-of-text special id.
 ones of their kind in this program, and we record a third because it is the cleanest
 demonstration that the class is systematic rather than incidental. A GSM8K evaluation
 scored a checkpoint at $4/200$, and the score is not a measurement of arithmetic
-ability: the evaluation's prompt asks explicitly for the answer in \texttt{\textbackslash
-boxed\{\}}, and of the $193$ non-empty completions exactly \textbf{one} contains
-\texttt{\textbackslash boxed} and \emph{none} contains the phrase the prompt's own
-fallback tier looks for. The extractor therefore fell through to a last-number-anywhere
-rule and read a number out of generative noise --- the completions are degenerate
-rather than merely wrong, with $33\%$ of them spending at least three quarters of
-their tokens on a single repeated word and a longest identical run of $511$, and the
-extracted values include \texttt{'.'} and \texttt{'\$'}. A nonzero score here is a
-property of the extractor, not of the model, and no threshold on the score could have
-told the difference. The figure is reported nowhere in this paper --- our descriptive
-measurements are OpenBookQA and RACE --- and we record it because the lesson is the
-same one the decode-side stop set taught: \emph{a number can be perfectly reproducible
-and still not be about the thing its label names}.
+ability. The evaluation's prompt asks explicitly for the answer in
+\texttt{\textbackslash boxed\{\}}, and classifying all two hundred completions
+\textbf{by the scorer's own extraction tiers} gives: the boxed tier fired on
+\textbf{zero} items, the last-number fallback on $117$ (of which $4$ were scored
+correct), a last-line fallback on $76$ ($0$ correct), and $7$ completions carried no
+text at all. So \emph{none} of the four successes came from the tier the prompt
+requests; all four came from a last-number rule reading a number out of generative
+noise. That the score is noise rather than ability is testable, not merely arguable:
+under the null that the extractor draws uniformly from the numbers each completion
+happens to emit, the expected count is $3.60$ against an observed $4$, with
+$P(X \geq 4) = 0.52$ --- inseparable. The completions are degenerate rather than
+merely wrong, with $33\%$ spending at least three quarters of their tokens on one
+repeated word, a longest identical run of $511$, and extracted values including
+\texttt{'.'} and \texttt{'\$'}. The figure is reported nowhere in this paper --- our
+descriptive measurements are OpenBookQA and RACE --- and we record it because the
+lesson is the same one the decode-side stop set taught: \emph{a number can be
+perfectly reproducible and still not be about the thing its label names}. A detail
+worth keeping: the first statement of this finding counted whether the
+\texttt{\textbackslash boxed} \emph{substring} appeared --- it appears once, in a
+completion that emits the token with no braces, which the scorer's brace-balanced
+parser therefore rejects. Counting a substring is not counting what the code does,
+and that distinction is what separates the two versions of this paragraph.
 
 \paragraph{Why we report this.} The two errors share a shape: a plausible constant,
 never checked against the artifact that defines it, in a position where being wrong is
