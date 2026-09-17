@@ -50,8 +50,8 @@ SCHEMA: Final = "nonlatent_paper_claims_v1"
 REPORT_SCHEMA: Final = "nonlatent_paper_evidence_report_v1"
 
 #: Verdicts, ordered by how much attention they deserve.
-VERDICTS: Final = ("value_not_found", "path_missing", "external", "derived",
-                   "rounding_ok", "verified")
+VERDICTS: Final = ("value_not_found", "value_outside_context", "path_missing",
+                   "external", "derived", "rounding_ok", "verified")
 
 
 class EvidenceCheckRefusal(ValueError):
@@ -172,10 +172,25 @@ def check_claim(claim: Claim, root: Path) -> Result:
                                   f"{_decimals(claim.value)} dp in {claim.source}")
             except ValueError:
                 continue
+    # BEFORE reporting the artifact as lacking the value, check whether it carries it
+    # SOMEWHERE ELSE.  These are different findings needing different responses and
+    # only one of them is likely: a `near` pattern narrower than the artifact's own
+    # formatting produces exactly the same symptom as a genuinely absent value, and it
+    # is what EVERY real case in this file turned out to be -- the LaTeX thousands
+    # separator, the 886.7 rounding, the `problem`-versus-`question` field.  Reporting
+    # all of them as "the artifact does not carry it" names the improbable case and
+    # sends the reader to inspect the artifact, which is the one thing that is fine.
+    if claim.value in text:
+        return Result(claim.claim_id, claim.value, claim.source, claim.kind,
+                      "value_outside_context",
+                      f"{claim.value!r} IS present in {claim.source} but not inside "
+                      f"/{claim.near}/; either the pattern is too narrow for the "
+                      f"artifact's formatting or the elsewhere-match is coincidental "
+                      f"-- check which, because the artifact itself is not the suspect")
     return Result(claim.claim_id, claim.value, claim.source, claim.kind,
                   "value_not_found",
-                  f"no occurrence of {claim.value!r} inside /{claim.near}/ in "
-                  f"{claim.source}, and no number there rounds to it")
+                  f"no occurrence of {claim.value!r} anywhere in {claim.source}, and no "
+                  f"number inside /{claim.near}/ rounds to it")
 
 
 def paper_numbers(paper_text: str) -> list[str]:
@@ -299,6 +314,9 @@ def _finding_causes(results: list[Result]) -> list[dict[str, object]]:
     """
     causes: list[dict[str, object]] = []
     for verdict, description in (
+            ("value_outside_context",
+             "the artifact DOES carry the value, but not where the claim's context regex "
+             "looks -- the pattern is the suspect, not the artifact"),
             ("value_not_found", "the artifact exists and does not carry the cited value"),
             ("path_missing", "the artifact the claim names is not present in this tree")):
         hits = [r for r in results if r.verdict == verdict]
@@ -384,12 +402,14 @@ def check_all(claims: list[Claim], root: Path, paper: Path | None = None,
         # be silently unexplained, and the remedy travels with it.
         "coverage_checked": text is not None,
         "verdict": _verdict(
-            ran_problem=bool(by_verdict["value_not_found"] or by_verdict["path_missing"]),
+            ran_problem=bool(by_verdict["value_not_found"] or by_verdict["path_missing"]
+                             or by_verdict["value_outside_context"]),
             uncatalogued=uncatalogued,
             coverage_ran=text is not None,
             causes=_finding_causes(results)),
         "complete": (not by_verdict["value_not_found"] and not by_verdict["path_missing"]
-                     and not uncatalogued and text is not None),
+                     and not by_verdict["value_outside_context"] and not uncatalogued
+                     and text is not None),
         "uncatalogued": uncatalogued,
         "uncatalogued_count": len(uncatalogued),
         "disclosed_count": len({r.claim_id for r in

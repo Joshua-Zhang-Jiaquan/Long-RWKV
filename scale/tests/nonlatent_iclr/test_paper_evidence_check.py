@@ -89,8 +89,11 @@ def test_a_coincidental_substring_does_not_verify(tmp_path: Path) -> None:
     # When: the claim names a context the value does not appear in.
     result = pec.check_claim(pec.Claim("c", "56.60", "s.json", "measured",
                                        near=r'"obqa":\s*[0-9.]+'), tmp_path)
-    # Then: it is NOT verified. A bare substring search would have passed it.
-    assert result.verdict == "value_not_found"
+    # Then: it is NOT verified. A bare substring search would have passed it -- and
+    # the finding says the value is present but outside the declared context, which
+    # is more accurate than "the artifact does not carry it" and sends the reader to
+    # the right place.
+    assert result.verdict == "value_outside_context"
 
 
 def test_a_claim_without_a_context_cannot_verify(tmp_path: Path) -> None:
@@ -574,3 +577,62 @@ def test_the_two_axes_hold_for_findings_too() -> None:
     # the vocabulary is closed and small; the causes live in a field
     assert report["verdict"]["status"] in {"pass", "finding", "withheld"}
     assert set(report["verdict"]) == {"status", "withheld_reason", "remedy", "finding_cause"}
+
+
+# --------------------------------------------------------------------------
+# the diagnosis must name the PROBABLE failure, not the one that prompted it
+# --------------------------------------------------------------------------
+
+
+def test_a_value_outside_its_declared_context_is_a_different_finding(tmp_path: Path) -> None:
+    r"""A `near` pattern narrower than the artifact's formatting is the LIKELY defect.
+
+    It produces exactly the same symptom as a genuinely absent value, and reporting
+    both as "the artifact does not carry it" names the improbable case and sends the
+    reader to inspect the artifact -- which is the one thing that is fine. Every real
+    case in this file was this one: the LaTeX thousands separator, the 886.7 rounding,
+    the `problem`-versus-`question` field. A diagnosis tested only on the case that
+    prompted it has encoded the example, not the mechanism.
+    """
+    # Given: an artifact that carries the value, and a pattern too narrow to reach it.
+    _source(tmp_path, "s.json", '{"arm": "A1", "tokens_per_second": 799.1303}')
+    narrow = pec.Claim("t", "799.1", "s.json", "measured",
+                       near=r'"arm":\s*"A1"[\s\S]{0,1}?"tokens_per_second":\s*[0-9.]+')
+    # When: it is checked.
+    result = pec.check_claim(narrow, tmp_path)
+    # Then: the finding names the PATTERN as the suspect, not the artifact.
+    assert result.verdict == "value_outside_context"
+    assert "IS present" in result.detail
+    assert "the pattern is too narrow" in result.detail
+    assert "the artifact itself is not the suspect" in result.detail
+    # and it is a distinct finding from a genuinely absent value
+    absent = pec.Claim("t", "987654321", "s.json", "measured", near=r'"arm"')
+    assert pec.check_claim(absent, tmp_path).verdict == "value_not_found"
+
+
+def test_the_two_artifact_causes_are_distinguishable_in_the_report(tmp_path: Path) -> None:
+    _source(tmp_path, "s.json", '{"arm": "A1", "tokens_per_second": 799.1303}')
+    report = pec.check_all([
+        pec.Claim("outside", "799.1", "s.json", "measured", near=r'"arm":\s*"A1"[\s\S]{0,1}?x'),
+        pec.Claim("absent", "987654321", "s.json", "measured", near=r'"arm"'),
+    ], tmp_path, paper_text="")
+    causes = {c["cause"] for c in report["verdict"]["finding_cause"]}
+    assert causes == {"value_outside_context", "value_not_found"}
+    # each says what to do about it, and they differ
+    by_cause = {c["cause"]: c["description"] for c in report["verdict"]["finding_cause"]}
+    # the two descriptions must point at different suspects
+    assert "pattern is the suspect" in by_cause["value_outside_context"]
+    assert "does not carry" in by_cause["value_not_found"]
+    assert by_cause["value_outside_context"] != by_cause["value_not_found"]
+
+
+def test_the_real_inventory_is_unaffected_by_the_new_cause() -> None:
+    """The distinction must not reclassify the shipped inventory's clean claims."""
+    repo = Path(__file__).resolve().parents[3]
+    inventory = repo / "DAN" / "nonlatent_iclr" / "paper_claims.json"
+    if not inventory.is_file():
+        pytest.skip("inventory absent")
+    report = pec.check_all(pec.load_inventory(inventory), repo,
+                           paper=repo / "paper" / "main.tex")
+    assert report["counts"]["value_outside_context"] == 0
+    assert report["counts"]["value_not_found"] == 0

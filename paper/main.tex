@@ -515,7 +515,13 @@ the question of a \emph{finding}: a failure has more than one cause, and they ne
 different responses --- a value absent from an artifact that exists means the claim or
 the artifact is wrong, while an artifact the repository does not ship means the paper
 depends on something missing. Both were reported as a bare \emph{finding}, so a reader
-had to open the per-claim list to learn which. The test that matters is therefore not
+had to open the per-claim list to learn which --- and the third cause is the
+likely one: a claim's context pattern can be narrower than the artifact's own
+formatting, which produces exactly the same symptom as an absent value while the
+artifact is entirely correct. Every such failure this checker actually met was
+that one, and every one of them was initially diagnosed as the other. A finding
+now says which of the three it is, and says which suspect to look at: the
+pattern, or the artifact. The test that matters is therefore not
 whether the check blocked but whether a reader can tell \emph{which} cause from the
 output alone, and a finding now names its cause per claim.
 

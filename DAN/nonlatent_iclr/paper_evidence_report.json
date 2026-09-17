@@ -10,6 +10,7 @@
   "checked": 52,
   "counts": {
     "value_not_found": 0,
+    "value_outside_context": 0,
     "path_missing": 0,
     "external": 0,
     "derived": 5,
