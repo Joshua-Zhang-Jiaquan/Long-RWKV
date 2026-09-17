@@ -212,8 +212,11 @@ def declared_non_claims(inventory: dict) -> dict[str, str]:
     They are listed with a REASON rather than simply exempted, so the exemption
     is reviewable.
     """
+    # `inventory or {}` rather than `inventory.get`: check_all takes the inventory
+    # as OPTIONAL, so a caller that passes only `paper=` would otherwise crash on
+    # None instead of checking coverage with no exemptions declared.
     return {str(entry["value"]): str(entry["reason"])
-            for entry in inventory.get("non_claims", [])}
+            for entry in (inventory or {}).get("non_claims", [])}
 
 
 def uncatalogued_numbers(paper_text: str, claims: list[Claim],

@@ -304,3 +304,21 @@ def test_the_real_inventory_covers_the_real_manuscript() -> None:
     report = pec.check_all(claims, repo, paper=paper, inventory=inventory)
     assert report["complete"] is True
     assert report["counts"]["value_not_found"] == 0
+
+
+def test_coverage_runs_with_no_inventory_declared(tmp_path: Path) -> None:
+    """`inventory` is optional, and passing only `paper` must not crash.
+
+    It did: check_all passed None into declared_non_claims, which called .get on
+    it. A caller who wanted coverage without exemptions got an AttributeError
+    instead of a coverage report.
+    """
+    # Given: a manuscript and a claim set, but no inventory document.
+    paper = tmp_path / "m.tex"
+    paper.write_text("the ledger holds 11{,}567 GPU-hours", encoding="utf-8")
+    claims = [pec.Claim("c", "11,567", "x.json", "measured", near=r"x")]
+    # When: coverage is checked with paper but no inventory.
+    report = pec.check_all(claims, tmp_path, paper=paper, inventory=None)
+    # Then: a report, not a crash -- and the number IS found, so no gap.
+    assert report["complete"] is False or report["uncatalogued"] == []
+    assert report["uncatalogued"] == []
