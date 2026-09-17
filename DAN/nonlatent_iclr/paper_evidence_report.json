@@ -1,18 +1,19 @@
 {
   "schema": "nonlatent_paper_evidence_report_v1",
   "disclosed": [
+    "exposure-fraction-start",
     "ledger-total-2b",
     "ledger-total-4b",
     "ledger-total-8b"
   ],
-  "checked": 25,
+  "checked": 29,
   "counts": {
     "value_not_found": 0,
     "path_missing": 0,
     "external": 0,
-    "derived": 3,
+    "derived": 4,
     "rounding_ok": 1,
-    "verified": 21
+    "verified": 24
   },
   "results": [
     {
@@ -214,9 +215,41 @@
       "kind": "measured",
       "verdict": "verified",
       "detail": "'58.80' occurs inside '\"m4loop_step12500_obqa_race\": {\\n      \"obqa\": \"58.80\"' in DAN/nonlatent_iclr/descriptive_readings.json"
+    },
+    {
+      "claim_id": "exposure-unique-rows",
+      "value": "1433600",
+      "source": "DAN/nonlatent_iclr/data_exposure.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'1433600' occurs inside '\"unique_rows\": {\\n      \"value\": 1433600' in DAN/nonlatent_iclr/data_exposure.json"
+    },
+    {
+      "claim_id": "exposure-fraction-start",
+      "value": "5.9",
+      "source": "DAN/nonlatent_iclr/data_exposure.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "1,433,600 / 24,390,000 = 5.88%, rounded to 5.9% in the manuscript"
+    },
+    {
+      "claim_id": "exposure-blend-rows",
+      "value": "24390000",
+      "source": "DAN/nonlatent_iclr/data_exposure.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'24390000' occurs inside '\"value\": 24390000' in DAN/nonlatent_iclr/data_exposure.json"
+    },
+    {
+      "claim_id": "exposure-claimed-row-reads",
+      "value": "5300000",
+      "source": "DAN/nonlatent_iclr/data_exposure.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'5300000' occurs inside '\"claimed_row_reads\": {\\n      \"value\": 5300000' in DAN/nonlatent_iclr/data_exposure.json"
     }
   ],
   "complete": true,
-  "disclosed_count": 3,
+  "disclosed_count": 4,
   "note": "a check that cannot run is reported as such rather than as a pass; `external` is a disclosure, not a failure"
 }

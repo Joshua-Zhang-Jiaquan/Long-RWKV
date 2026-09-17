@@ -1,0 +1,32 @@
+{
+  "schema": "nonlatent_data_exposure_v1",
+  "finding": "this lineage's step counts are token-steps, not data exposure. The sampler seeds its permutation from (seed, epoch) and the trainer never advanced the epoch and persisted no data position, so every resume rebuilt the identical permutation and restarted at row 0.",
+  "derivation": {
+    "rows_per_step": {
+      "value": 256,
+      "from": "microbatch 4 x grad_accum 4 x 16 GPUs (2 nodes x 8), the m4-loop extension shape"
+    },
+    "blend_rows": {
+      "value": 24390000,
+      "from": "the four-way TOKEN_DIR blend used by job-fd80e224 and job-49e48c2d"
+    },
+    "longest_segment": {
+      "value": 5600,
+      "steps": "s9500 -> s15100",
+      "from": "the run log's step range before the 36h wall cap stopped job-fd80e224"
+    },
+    "unique_rows": {
+      "value": 1433600,
+      "arithmetic": "5600 steps x 256 rows/step, the LONGEST segment, because each resume restarts at row 0 and therefore re-reads rather than extends"
+    },
+    "fraction_of_blend": 0.0588,
+    "claimed_row_reads": {
+      "value": 5300000,
+      "from": "the independently reported schedule claim"
+    }
+  },
+  "verification": "derived here from the run log's own step range and the recorded batch shape, not transcribed from the report that first stated it: 5600 x 256 = 1,433,600 = 5.88%, which reproduces the reported 1.43M / 5.9%",
+  "consequence_for_claims": "every 'N tokens' figure for this lineage means 'N token-steps over ~6% of the blend, re-read several times'. The matched-token comparisons between arms remain matched -- both arms shared the defect and the seed -- but they are matched at that exposure, not at a single pass over the blend.",
+  "fix": "sampler and launcher, NOT the trainer: the trainer's sha256 is pinned in architecture_contract.json. The launcher derives the resume position from the checkpoint step and passes it as RWKV_DATA_START_STEP/RWKV_DATA_ROWS_PER_STEP; the sampler consumes the skip on its first iteration and advances the epoch on every iteration. Exercised at every segment boundary of the task-7 arm matrix.",
+  "fixed_on": "2026-09-17"
+}

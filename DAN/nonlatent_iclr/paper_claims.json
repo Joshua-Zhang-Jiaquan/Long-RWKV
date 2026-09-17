@@ -198,6 +198,37 @@
       "source": "DAN/nonlatent_iclr/descriptive_readings.json",
       "near": "\"m4loop_step12500_obqa_race\":\\s*\\{[^}]*\"obqa\":\\s*\"?[0-9.]+\"?",
       "appears_in": "the descriptive readings record"
+    },
+    {
+      "claim_id": "exposure-unique-rows",
+      "value": "1433600",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/data_exposure.json",
+      "near": "\"unique_rows\":\\s*\\{[^}]*\"value\":\\s*1433600",
+      "appears_in": "the data-exposure record's derivation"
+    },
+    {
+      "claim_id": "exposure-fraction-start",
+      "value": "5.9",
+      "kind": "derived",
+      "source": "DAN/nonlatent_iclr/data_exposure.json",
+      "appears_in": "1,433,600 / 24,390,000 = 5.88%, rounded to 5.9% in the manuscript"
+    },
+    {
+      "claim_id": "exposure-blend-rows",
+      "value": "24390000",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/data_exposure.json",
+      "near": "\"value\":\\s*24390000",
+      "appears_in": "the blend size in the derivation"
+    },
+    {
+      "claim_id": "exposure-claimed-row-reads",
+      "value": "5300000",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/data_exposure.json",
+      "near": "\"claimed_row_reads\":\\s*\\{[^}]*\"value\":\\s*5300000",
+      "appears_in": "the schedule's claimed row-reads"
     }
   ]
 }

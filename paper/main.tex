@@ -394,10 +394,25 @@ resolution of checkpoints that are not present on disk. Until then the protocol 
 a specification, and a specification is not a result.
 
 \paragraph{One result in flight, described as such.} A continuation run
-(\texttt{job-fd80e224}, resumed from step 9500 toward 25000, $+15.5$B tokens) is mid-run
-at roughly step 11{,}400 with a validation masked-CE near 3.81 --- inside the lineage's
+(\texttt{job-49e48c2d}, resumed from step 9500 and stopping near step 20{,}600 at its
+wall-clock cap) is mid-run with a validation masked-CE near 3.81 --- inside the lineage's
 3.81--3.83 band and therefore indistinguishable from it. It is \emph{in flight}, it is
 not evidence for or against depth recycling, and nothing in this paper depends on it.
+
+\paragraph{What those steps did and did not consume.} This lineage's step counts are
+\emph{token-steps}, not data exposure, and the gap is large enough to change what a
+token count means --- so the distinction is stated rather than left to the reader.
+\texttt{tokens\_seen} is steps $\times$ batch. The data sampler seeds its permutation
+from \texttt{(seed, epoch)}, and until 2026-09-17 the trainer never advanced the epoch
+and no data position was persisted anywhere: every resume rebuilt the identical
+permutation and restarted at row~0, and the iterator was re-created at exhaustion
+pointing at the same rows. Measured on this continuation: about $1.43$M unique rows
+touched of a $24.39$M-row blend, \textbf{5.9\%}, across six resumes, against a schedule
+that claims $5.3$M row-reads. Every ``$N$ tokens'' figure for this lineage should
+therefore be read as ``$N$ token-steps over a small fraction of the blend, several
+times over''. The defect is fixed in the sampler and the launcher rather than in the
+trainer, whose sha256 is pinned by the architecture contract, and the fix is exercised
+by every segment boundary of the arm matrix of \S\ref{sec:protocol}.
 
 \section{Reproducibility}
 
