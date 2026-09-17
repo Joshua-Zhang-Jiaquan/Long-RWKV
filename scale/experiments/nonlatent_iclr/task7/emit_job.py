@@ -36,6 +36,16 @@ SCHEMA: Final = "nonlatent_task7_matrix_job_v1"
 #: Infrastructure read off the reference job.  ``spec_id`` is a SHAPE, not a GPU
 #: model: the LCG decides whether it resolves to an H100 or an H200, which is why
 #: the same id appears in H200 specs and in the H100 reference.
+#:
+#: The create API accepts exactly five keys here -- ``image``, ``image_type``,
+#: ``instance_count``, ``shm_gi``, ``spec_id`` -- and that set is taken from a
+#: WORKING request (the 0.4B pilot spec), not from a response.  ``GetJob`` returns a
+#: richer object carrying ``cpu``, ``gpu_count``, ``mem_gi``, ``replicas_type`` and
+#: ``instance_spec_price_info``, and every one of those is server-side: sending them
+#: back fails with ``InvalidParameter: unknown field "cpu"``, then ``"gpu_count"``,
+#: one per attempt.  A dry run does not catch any of it, because it echoes the body
+#: without proto validation, so a body with them looks clean right up to submission.
+#: The GPU count comes from ``spec_id`` (8 per node); ``instance_count`` is nodes.
 REFERENCE_INFRA: Final[dict[str, object]] = {
     "framework": "pytorch",
     "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
@@ -44,11 +54,14 @@ REFERENCE_INFRA: Final[dict[str, object]] = {
     "image": "docker.sii.shaipower.online/inspire-studio/relay2:v2",
     "image_type": "SOURCE_PRIVATE",
     "spec_id": "7166bd2e-6cbe-4bd9-be38-762d11003e7f",
-    "cpu": 160,
     "gpu_count_per_node": 8,
     "shm_gi": 1800,
     "max_running_time_ms": "129600000",
-    "task_priority": 0,
+    # 4, matching both working specs in this tree (the 0.4B pilot and the 30B
+    # extension).  GetJob reports task_priority 0 for a running job, which is a
+    # server-side echo, not the accepted value: sending it back fails with
+    # "value must be inside range [1, 10]".
+    "task_priority": 4,
     "auto_fault_tolerance": True,
     "fault_tolerance_max_retry": 3,
     "fault_tolerance_retry_interval_sec": 300,
@@ -105,8 +118,6 @@ def emit_job_body(*, name: str, command: str, description: str,
         "command": command,
         "framework": source["framework"],
         "framework_config": [{
-            "cpu": source["cpu"],
-            "gpu_count": source["gpu_count_per_node"],
             "image": source["image"],
             "image_type": source["image_type"],
             "instance_count": nodes,
