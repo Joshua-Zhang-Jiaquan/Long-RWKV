@@ -233,3 +233,57 @@ def test_the_wrong_length_kind_is_refused(tmp_path: Path) -> None:
     path.write_text(json.dumps({"length_kind": "logical_character_fixture", "cells": []}))
     with pytest.raises(ttm.MatrixRefusal, match="not 'rwkv_token_target'"):
         ttm.verify_matrix_artifact(path)
+
+
+# --------------------------------------------------------------------------
+# the agreement must not be an artifact of the test point
+# --------------------------------------------------------------------------
+
+
+def test_the_absolute_mapping_is_pinned_not_merely_self_consistent() -> None:
+    r"""Every other test here is RELATIONAL, and a consistent mutation is invisible to all of them.
+
+    Round-trip, injectivity and cell count all survive a rotation of the family
+    axis applied to the forward map AND its inverse -- measured: 18 of 18 pass
+    while every unit names the wrong family, so every cell would be measured and
+    recorded under the wrong task and the artifact would verify perfectly.
+
+    The general rule, from a peer who lost a pre-registered gate to it: before
+    writing an equivalence test, ask at which parameter values the two
+    implementations are FORCED to agree, and refuse to test there. Round-trip is
+    forced to agree whenever both sides share a bug. This test pins the mapping
+    absolutely, so it has nothing to be consistent with.
+    """
+    # Given: the cut's declared axis order.
+    assert ttm.BOUNDED_FAMILIES == ("associative_recall", "overwrite_delayed_query",
+                                    "code_dataflow")
+    assert ttm.BOUNDED_LENGTHS == (16384, 32768, 65536)
+    assert ttm.BOUNDED_LOADS == (1, 8, 32, 128)
+    # When/Then: named units map to named cells. Written out rather than computed,
+    # because a computed expectation would share the implementation's own bug.
+    expected = {
+        0: ("associative_recall", 16384, 1),
+        1: ("associative_recall", 16384, 8),
+        2: ("associative_recall", 16384, 32),
+        3: ("associative_recall", 16384, 128),
+        4: ("associative_recall", 32768, 1),
+        35: ("code_dataflow", 65536, 128),
+    }
+    for unit, (family, length, load) in expected.items():
+        cell = ttm.cell_coordinates(unit)
+        assert (cell.family, cell.token_length, cell.load) == (family, length, load), unit
+        assert cell.data_seed == 101
+
+
+def test_the_last_unit_is_the_last_cell_of_the_last_family() -> None:
+    """The boundary, pinned separately from the interior."""
+    cell = ttm.cell_coordinates(ttm.cell_count() - 1)
+    assert cell.family == ttm.BOUNDED_FAMILIES[-1]
+    assert cell.token_length == ttm.BOUNDED_LENGTHS[-1]
+    assert cell.load == ttm.BOUNDED_LOADS[-1]
+
+
+def test_the_cell_ids_are_family_length_load_seed_not_merely_unique() -> None:
+    """Uniqueness is relational; the id's CONTENT is not."""
+    assert ttm.CellCoordinates(family="code_dataflow", token_length=32768,
+                               load=8, data_seed=101).cell_id == "code_dataflow@32768L8s101"

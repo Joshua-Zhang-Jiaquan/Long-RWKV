@@ -459,6 +459,25 @@ sources that produced them, and the test suite re-checks those bindings, so the
 correspondence between this paper and its evidence is machine-verifiable rather than
 asserted.
 
+\paragraph{An agreement can be an artifact of the test point.} A companion rule, learned
+the same way: before writing an equivalence test, ask at which parameter values the two
+implementations are \emph{forced} to agree, and refuse to test there. A gate that
+asserted per-item equality between a batched generator and its one-at-a-time
+predecessor \emph{at temperature zero} is the worked example --- at zero the sampler is
+an argmax over the last axis, which is row-independent for any model whatsoever, so the
+gate passes on a port with its padding mis-plumbed and its random stream shared. The
+author had chosen the one setting where the two paths cannot differ. Measured at the
+temperature every recorded number actually uses, naive batching reproduces the
+single-item path for the first row and no other, which is precisely the pattern that
+survives both checks a person would run: the equivalence test, blind by construction,
+and a spot check of the first item. Our own suite had the same shape --- every
+cross-check between our coordinate map and its inverse was \emph{relational}, so a
+rotation applied consistently to both left the round-trip, the injectivity and the cell
+count all green while every cell named the wrong task. The mapping is now pinned
+absolutely, at named units, because an expectation computed by the implementation shares
+its bugs. Both rules are instances of one habit: \emph{check the scope of the claim, not
+only its arithmetic.}
+
 \paragraph{That correspondence, actually checked.} The sentence above was itself an
 assertion until it was run. Forty substantive numbers this manuscript cites are listed
 in \texttt{DAN/nonlatent\_iclr/paper\_claims.json} against the artifact that should carry
