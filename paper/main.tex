@@ -394,7 +394,7 @@ resolution of checkpoints that are not present on disk. Until then the protocol 
 a specification, and a specification is not a result.
 
 \paragraph{One result in flight, described as such.} A continuation run
-(\texttt{job-49e48c2d}, resumed from step 9500 and stopping near step 20{,}600 at its
+(\texttt{job-49e48c2d}, resumed from step 9500 and still running at its 36-hour
 wall-clock cap) is mid-run with a validation masked-CE near 3.81 --- inside the lineage's
 3.81--3.83 band and therefore indistinguishable from it. It is \emph{in flight}, it is
 not evidence for or against depth recycling, and nothing in this paper depends on it.
@@ -428,11 +428,14 @@ correspondence between this paper and its evidence is machine-verifiable rather 
 asserted.
 
 \paragraph{That correspondence, actually checked.} The sentence above was itself an
-assertion until it was run. Twenty-five substantive numbers this manuscript cites are
-listed in \texttt{DAN/nonlatent\_iclr/paper\_claims.json} against the artifact that should
-carry each one and the \emph{context} it must appear in, and
+assertion until it was run. Forty substantive numbers this manuscript cites are listed
+in \texttt{DAN/nonlatent\_iclr/paper\_claims.json} against the artifact that should carry
+each one and the \emph{context} it must appear in, and
 \texttt{scale/experiments/nonlatent\_iclr/paper\_evidence\_check.py} checks all of them
-deterministically, with no model in the loop. It returns five verdicts, and the
+deterministically, with no model in the loop. The numbers the manuscript uses as
+protocol constants rather than as measurements --- the length and load axes, the
+bootstrap draw count, the checkpoint step labels --- are declared as such in the same
+file, each with a stated reason, so an exemption is reviewable rather than silent. It returns five verdicts, and the
 distinctions between them are the point: a value is \emph{verified}, \emph{correctly
 rounded} from the artifact's full precision, \emph{derived} by arithmetic over artifacted
 inputs, \emph{external} (present only outside the published tree), or \emph{missing}.
@@ -453,6 +456,14 @@ result can never become an edge-device result, so that claim is out of scope, wh
 long-context, serving and depth-recycling claims describe work this program intends and
 has not yet completed. Three of the eight declared claims are in that blocked state, and
 they are the three the confirmatory campaign exists to fill.
+
+The check is only worth its verdict if the verdict is about the manuscript rather than
+about the list, and the first version of it was not: it reported completeness while
+\S\ref{sec:limitations} cited an endpoint step that no claim carried, because it
+audited the inventory and never read the paper. It now extracts every substantive
+number from this file and requires each to be either catalogued with a source or
+declared structural with a reason, so \emph{complete} means the manuscript is covered
+and not merely that the list is.
 
 It also found one real gap, which is why it is worth running. The loop s9500 OpenBookQA
 and RACE readings of \S\ref{sec:descriptive} occurred \emph{nowhere} in this repository:

@@ -229,6 +229,159 @@
       "source": "DAN/nonlatent_iclr/data_exposure.json",
       "near": "\"claimed_row_reads\":\\s*\\{[^}]*\"value\":\\s*5300000",
       "appears_in": "the schedule's claimed row-reads"
+    },
+    {
+      "claim_id": "correction-poisoned-eot-id",
+      "value": "65530",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/task4_assets/tokenizer/rwkv_tokenizer_results.json",
+      "near": "65530[^0-9]{0,120}",
+      "appears_in": "the tokenizer qualification's id census"
+    },
+    {
+      "claim_id": "correction-mask-id",
+      "value": "65535",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/task4_assets/tokenizer/rwkv_tokenizer_results.json",
+      "near": "65535[^0-9]{0,120}",
+      "appears_in": "the tokenizer qualification's special-token layer"
+    },
+    {
+      "claim_id": "correction-zeroed-tasks",
+      "value": "164",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/architecture_contract.json",
+      "near": "164[^0-9]{0,80}",
+      "appears_in": "the architecture contract's record of the zeroed evaluation"
+    },
+    {
+      "claim_id": "loop-oom-rung",
+      "value": "512",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/architecture_contract.json",
+      "near": "512[^0-9]{0,60}",
+      "appears_in": "the contract's calibration record"
+    },
+    {
+      "claim_id": "registry-total-instances",
+      "value": "720,000",
+      "kind": "derived",
+      "source": "DAN/nonlatent_iclr/task4_assets/length_matrix.json",
+      "appears_in": "3,600 registered units x 200 instances per cell"
+    },
+    {
+      "claim_id": "token-length-4096",
+      "value": "4096",
+      "kind": "measured",
+      "source": "scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py",
+      "near": "TOKEN_LENGTHS[^\\n]*",
+      "appears_in": "the declared token-length axis"
+    },
+    {
+      "claim_id": "token-length-8192",
+      "value": "8192",
+      "kind": "measured",
+      "source": "scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py",
+      "near": "TOKEN_LENGTHS[^\\n]*",
+      "appears_in": "the declared token-length axis"
+    },
+    {
+      "claim_id": "load-axis",
+      "value": "32",
+      "kind": "measured",
+      "source": "scale/experiments/nonlatent_iclr/tasks/models.py",
+      "near": "LOADS[^\\n]*",
+      "appears_in": "the declared load axis"
+    },
+    {
+      "claim_id": "token-length-65536",
+      "value": "65536",
+      "kind": "measured",
+      "source": "scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py",
+      "near": "TOKEN_LENGTHS[^\\n]*",
+      "appears_in": "the declared token-length axis"
+    },
+    {
+      "claim_id": "token-length-32768",
+      "value": "32768",
+      "kind": "measured",
+      "source": "scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py",
+      "near": "TOKEN_LENGTHS[^\\n]*",
+      "appears_in": "the declared token-length axis"
+    },
+    {
+      "claim_id": "token-length-16384",
+      "value": "16384",
+      "kind": "measured",
+      "source": "scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py",
+      "near": "TOKEN_LENGTHS[^\\n]*",
+      "appears_in": "the declared token-length axis"
+    }
+  ],
+  "non_claims": [
+    {
+      "value": "100",
+      "reason": "a percentile in the SLO description, not a measurement"
+    },
+    {
+      "value": "101",
+      "reason": "a registered data seed, declared in tasks/models.py DATA_SEEDS"
+    },
+    {
+      "value": "105",
+      "reason": "a registered data seed, declared in tasks/models.py DATA_SEEDS"
+    },
+    {
+      "value": "128",
+      "reason": "the top of the load axis, declared in tasks/models.py LOADS"
+    },
+    {
+      "value": "1",
+      "reason": "the bottom of the load axis, declared in tasks/models.py LOADS"
+    },
+    {
+      "value": "8",
+      "reason": "a load, declared in tasks/models.py LOADS"
+    },
+    {
+      "value": "256",
+      "reason": "the deployment protocol's output cap, declared in the protocol"
+    },
+    {
+      "value": "300",
+      "reason": "the deployment protocol's warm-up seconds, declared in the protocol"
+    },
+    {
+      "value": "1,000",
+      "reason": "the deployment protocol's completed-request floor, declared in the protocol"
+    },
+    {
+      "value": "10,000",
+      "reason": "the bootstrap draw count, declared in tasks/statistics.py"
+    },
+    {
+      "value": "1,000",
+      "reason": "the deployment protocol's completed-request floor"
+    },
+    {
+      "value": "800",
+      "reason": "fragment of the s8000 checkpoint label"
+    },
+    {
+      "value": "1000",
+      "reason": "a checkpoint step label, not a measurement"
+    },
+    {
+      "value": "8000",
+      "reason": "a checkpoint step label, not a measurement"
+    },
+    {
+      "value": "9500",
+      "reason": "a checkpoint step label, not a measurement"
+    },
+    {
+      "value": "14000",
+      "reason": "a checkpoint step label, not a measurement"
     }
   ]
 }

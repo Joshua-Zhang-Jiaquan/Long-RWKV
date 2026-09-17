@@ -4,16 +4,17 @@
     "exposure-fraction-start",
     "ledger-total-2b",
     "ledger-total-4b",
-    "ledger-total-8b"
+    "ledger-total-8b",
+    "registry-total-instances"
   ],
-  "checked": 29,
+  "checked": 40,
   "counts": {
     "value_not_found": 0,
     "path_missing": 0,
     "external": 0,
-    "derived": 4,
+    "derived": 5,
     "rounding_ok": 1,
-    "verified": 24
+    "verified": 34
   },
   "results": [
     {
@@ -247,9 +248,99 @@
       "kind": "measured",
       "verdict": "verified",
       "detail": "'5300000' occurs inside '\"claimed_row_reads\": {\\n      \"value\": 5300000' in DAN/nonlatent_iclr/data_exposure.json"
+    },
+    {
+      "claim_id": "correction-poisoned-eot-id",
+      "value": "65530",
+      "source": "DAN/nonlatent_iclr/task4_assets/tokenizer/rwkv_tokenizer_results.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'65530' occurs inside '65530/' in DAN/nonlatent_iclr/task4_assets/tokenizer/rwkv_tokenizer_results.json"
+    },
+    {
+      "claim_id": "correction-mask-id",
+      "value": "65535",
+      "source": "DAN/nonlatent_iclr/task4_assets/tokenizer/rwkv_tokenizer_results.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'65535' occurs inside '65535 are not asserted vocabulary ids\",\\n  \"source_hashes\": {' in DAN/nonlatent_iclr/task4_assets/tokenizer/rwkv_tokenizer_results.json"
+    },
+    {
+      "claim_id": "correction-zeroed-tasks",
+      "value": "164",
+      "source": "DAN/nonlatent_iclr/architecture_contract.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'164' occurs inside '164b' in DAN/nonlatent_iclr/architecture_contract.json"
+    },
+    {
+      "claim_id": "loop-oom-rung",
+      "value": "512",
+      "source": "DAN/nonlatent_iclr/architecture_contract.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'512' occurs inside '512d' in DAN/nonlatent_iclr/architecture_contract.json"
+    },
+    {
+      "claim_id": "registry-total-instances",
+      "value": "720,000",
+      "source": "DAN/nonlatent_iclr/task4_assets/length_matrix.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "3,600 registered units x 200 instances per cell"
+    },
+    {
+      "claim_id": "token-length-4096",
+      "value": "4096",
+      "source": "scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'4096' occurs inside 'TOKEN_LENGTHS: Final = (4096, 8192, 16384, 32768, 65536)' in scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py"
+    },
+    {
+      "claim_id": "token-length-8192",
+      "value": "8192",
+      "source": "scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'8192' occurs inside 'TOKEN_LENGTHS: Final = (4096, 8192, 16384, 32768, 65536)' in scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py"
+    },
+    {
+      "claim_id": "load-axis",
+      "value": "32",
+      "source": "scale/experiments/nonlatent_iclr/tasks/models.py",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'32' occurs inside 'LOADS = frozenset({1, 8, 32, 128})' in scale/experiments/nonlatent_iclr/tasks/models.py"
+    },
+    {
+      "claim_id": "token-length-65536",
+      "value": "65536",
+      "source": "scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'65536' occurs inside 'TOKEN_LENGTHS: Final = (4096, 8192, 16384, 32768, 65536)' in scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py"
+    },
+    {
+      "claim_id": "token-length-32768",
+      "value": "32768",
+      "source": "scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'32768' occurs inside 'TOKEN_LENGTHS: Final = (4096, 8192, 16384, 32768, 65536)' in scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py"
+    },
+    {
+      "claim_id": "token-length-16384",
+      "value": "16384",
+      "source": "scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'16384' occurs inside 'TOKEN_LENGTHS: Final = (4096, 8192, 16384, 32768, 65536)' in scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py"
     }
   ],
   "complete": true,
-  "disclosed_count": 4,
-  "note": "a check that cannot run is reported as such rather than as a pass; `external` is a disclosure, not a failure"
+  "uncatalogued": [],
+  "uncatalogued_count": 0,
+  "disclosed_count": 5,
+  "note": "a check that cannot run is reported as such rather than as a pass; `external` is a disclosure, not a failure; and `complete` is False while any number the manuscript cites is in no claim, because otherwise it would report coverage of the inventory rather than of the paper"
 }

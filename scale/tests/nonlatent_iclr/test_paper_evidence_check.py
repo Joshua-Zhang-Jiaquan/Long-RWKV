@@ -216,3 +216,91 @@ def test_the_disclosure_classes_are_named_in_the_report() -> None:
     # disclosures left now that the descriptive readings are recorded
     assert report["counts"]["derived"] >= 1
     assert report["counts"]["external"] == 0
+
+
+# --------------------------------------------------------------------------
+# coverage of the PAPER, not of the inventory
+# --------------------------------------------------------------------------
+
+
+def test_latex_thousands_separators_are_not_split() -> None:
+    """`{,}` is how LaTeX writes a thousands separator, and splitting it invents gaps.
+
+    A naive digit-run extractor turns `\\textbf{11{,}567}` into `11` and `567`, both
+    of which then read as uncatalogued numbers that do not exist. A coverage report
+    full of phantom gaps trains a reader to ignore it, which is the failure this
+    whole module is written against.
+    """
+    # Given: a manuscript line with a LaTeX-separated number.
+    text = r"The ledger holds \textbf{11{,}567} GPU-hours and 3{,}600 units."
+    # When: its numbers are extracted.
+    found = pec.paper_numbers(text)
+    # Then: the numbers are whole, not fragments.
+    assert "11,567" in found
+    assert "3,600" in found
+    assert "567" not in found
+    assert "600" not in found
+
+
+def test_citations_and_years_are_not_treated_as_claims() -> None:
+    # Given: a line carrying an arXiv id and a year.
+    text = r"See \cite{x} (2605.03042, 2026) for the 4096-token canvas."
+    found = pec.paper_numbers(text)
+    # When/Then: the identifier and the year are excluded, the measurement is not.
+    assert "2605" not in found
+    assert "2026" not in found
+    assert "4096" in found
+
+
+def test_a_number_no_claim_covers_is_reported() -> None:
+    """The hole this was written for: the paper cited a step no claim held."""
+    # Given: a manuscript citing a number and an inventory that does not hold it.
+    text = "stopping near step 20{,}600 at its cap"
+    claims = [pec.Claim("other", "12345", "x.json", "measured", near=r"x")]
+    # When: coverage is checked.
+    gaps = pec.uncatalogued_numbers(text, claims)
+    # Then: the number IS reported -- the old verdict was "complete" while the
+    # manuscript cited a number nothing carried.
+    assert "20,600" in gaps
+
+
+def test_a_fragment_of_a_catalogued_number_is_not_a_gap() -> None:
+    # Given: the load axis written as a set, which yields bare "128" and "8".
+    text = r"loads $\{1,8,32,128\}$"
+    claims = [pec.Claim("load", "128", "x.json", "measured", near=r"x")]
+    # When/Then: a number contained in a catalogued one is not reported, or the
+    # real gaps would be buried under fragments of numbers already accounted for.
+    assert pec.uncatalogued_numbers(text, claims) == []
+
+
+def test_a_declared_non_claim_is_exempt_but_named() -> None:
+    # Given: an inventory that declares a protocol constant structural.
+    inventory = {"non_claims": [{"value": "1000", "reason": "the protocol's request floor"}]}
+    declared = pec.declared_non_claims(inventory)
+    # When: coverage runs.
+    gaps = pec.uncatalogued_numbers("at least 1{,}000 requests", [], declared)
+    # Then: exempt -- but the exemption is a NAMED reason, not a silent skip.
+    assert gaps == []
+    assert "request floor" in declared["1000"]
+
+
+def test_the_real_inventory_covers_the_real_manuscript() -> None:
+    """The verdict must be about the paper, not about the inventory.
+
+    This is the check that would have caught a cited number no claim held: it
+    extracts every substantive number from main.tex and requires each to be
+    catalogued with a source or declared structural with a reason.
+    """
+    repo = Path(__file__).resolve().parents[3]
+    inventory_path = repo / "DAN" / "nonlatent_iclr" / "paper_claims.json"
+    paper = repo / "paper" / "main.tex"
+    if not (inventory_path.is_file() and paper.is_file()):
+        pytest.skip("inventory or manuscript absent")
+    inventory = json.loads(inventory_path.read_text())
+    claims = pec.load_inventory(inventory_path)
+    gaps = pec.uncatalogued_numbers(paper.read_text(), claims,
+                                    pec.declared_non_claims(inventory))
+    assert gaps == [], f"numbers in the manuscript that nothing covers: {gaps}"
+    report = pec.check_all(claims, repo, paper=paper, inventory=inventory)
+    assert report["complete"] is True
+    assert report["counts"]["value_not_found"] == 0
