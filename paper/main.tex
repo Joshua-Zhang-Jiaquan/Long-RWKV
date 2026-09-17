@@ -123,7 +123,10 @@ the end-of-text special id.
 ones of their kind in this program, and we record a third because it is the cleanest
 demonstration that the class is systematic rather than incidental. A GSM8K evaluation
 scored a checkpoint at $4/200$, and the score is not a measurement of arithmetic
-ability. The evaluation's prompt asks explicitly for the answer in
+ability. \emph{On one cell}: it is the only cell in this program that stored its
+generated text, and the others are therefore \notrun{} rather than corroborating ---
+a single cell with $n = 200$ is what the evidence supports, and the count is stated
+rather than a percentage. The evaluation's prompt asks explicitly for the answer in
 \texttt{\textbackslash boxed\{\}}, and classifying all two hundred completions
 \textbf{by the scorer's own extraction tiers} gives: the boxed tier fired on
 \textbf{zero} items, the last-number fallback on $117$ (of which $4$ were scored
@@ -476,6 +479,22 @@ tree \texttt{56.60} occurs inside an unrelated token count and \texttt{200} insi
 record identifier, so a bare search would report passes it had not earned. The check is
 currently complete --- no value missing, no path missing --- and the only disclosures are
 three ledger totals, which are sums the ledger does not state.
+
+\paragraph{A verdict can be right about what to do and wrong about what it knows.} The
+third failure we record is the quietest, because it changes nothing the gate
+\emph{decides} and only what it \emph{claims}. A boolean summarised three states ---
+separable, not separable, and \emph{untestable} --- and on an input where the test
+could not run at all it printed a formatted not-a-number and reported the score as
+\emph{demonstrated} to be an artifact, from no measurement. Every assertion about the
+decision was green throughout: untestable and tested-and-failed must both withhold
+confirmation, so the behaviour was correct in every state and only the stated
+justification was false. That is why it survived two corrections to the same gate that
+did change the decision. The general form is worth stating because it bounds what
+testing can catch: \emph{a failure of this kind is invisible to outcome-based tests by
+construction}, so at least one test per gate must read the \emph{reason} a verdict was
+reached and not merely the verdict. Our own evidence checker had the same defect and
+we found it by applying this rule to it rather than by inspecting it: run without a
+manuscript it reported a clean, complete result --- having never run coverage at all.
 
 \paragraph{A gate must be run on the success case, not only the failure case.} A check
 that cannot fail is worthless, but a check that cannot \emph{pass} is worse, because

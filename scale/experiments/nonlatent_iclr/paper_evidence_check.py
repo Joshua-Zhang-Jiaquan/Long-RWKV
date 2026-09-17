@@ -306,11 +306,19 @@ def check_all(claims: list[Claim], root: Path, paper: Path | None = None,
         # failure is indistinguishable from the negative result it destroys, and
         # it surfaces only after the work it was meant to certify -- the quiet
         # half of the same failure the strict direction catches loudly.
+        # FOUR states, because a verdict must not claim what it did not test.  If
+        # no manuscript was supplied, coverage was never RUN, and reporting `ok`
+        # would assert that the paper is covered on the strength of not having
+        # looked -- the same defect as a null that prints a formatted nan and
+        # calls it "NOT separable".  The decision can be right while the claim is
+        # wrong, and a test that reads only the outcome cannot tell.
+        "coverage_checked": text is not None,
         "verdict": ("missing_evidence" if (by_verdict["value_not_found"]
                                            or by_verdict["path_missing"])
-                    else ("needs_review" if uncatalogued else "ok")),
+                    else ("needs_review" if uncatalogued
+                          else ("ok" if text is not None else "coverage_not_checked"))),
         "complete": (not by_verdict["value_not_found"] and not by_verdict["path_missing"]
-                     and not uncatalogued),
+                     and not uncatalogued and text is not None),
         "uncatalogued": uncatalogued,
         "uncatalogued_count": len(uncatalogued),
         "disclosed_count": len({r.claim_id for r in

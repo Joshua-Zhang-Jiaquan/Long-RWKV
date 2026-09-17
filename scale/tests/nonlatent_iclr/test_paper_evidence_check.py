@@ -176,8 +176,10 @@ def test_a_report_with_only_disclosures_is_complete(tmp_path: Path) -> None:
     report = pec.check_all([pec.Claim("e", "1", "/x", "external", appears_in="elsewhere")],
                            tmp_path)
     # Then: external and derived are disclosures, not failures -- but they are
-    # named so a reader can see what the check could not reach.
-    assert report["complete"] is True
+    # named so a reader can see what the check could not reach.  `complete` is
+    # False here only because no manuscript was supplied, which is a different
+    # statement from "the claims are wrong" and is reported as such.
+    assert report["verdict"] == "coverage_not_checked"
     assert report["disclosed"] == ["e"]
 
 
@@ -202,7 +204,6 @@ def test_the_real_inventory_complete_and_contextual() -> None:
     report = pec.check_all(claims, repo)
     assert report["counts"]["value_not_found"] == 0, [
         r for r in report["results"] if r["verdict"] == "value_not_found"]
-    assert report["complete"] is True
 
 
 def test_the_disclosure_classes_are_named_in_the_report() -> None:
@@ -411,8 +412,50 @@ def test_a_missing_value_is_missing_evidence() -> None:
     assert report["complete"] is False
 
 
-def test_a_clean_check_reports_ok() -> None:
-    report = pec.check_all(
-        [pec.Claim("e", "1", "/elsewhere", "external", appears_in="stated")], Path("."))
+def test_a_clean_check_reports_ok_only_when_coverage_ran() -> None:
+    """`ok` claims two things: the claims verify AND the paper was covered.
+
+    It is reachable only when both were actually done, so the state is not
+    inferred from an absence of findings.
+    """
+    claims = [pec.Claim("e", "1", "/elsewhere", "external", appears_in="stated")]
+    # coverage run over a manuscript that cites nothing substantive
+    report = pec.check_all(claims, Path("."), paper_text="")
+    assert report["coverage_checked"] is True
     assert report["verdict"] == "ok"
     assert report["complete"] is True
+    # and without it, the same claims do NOT earn `ok`
+    assert pec.check_all(claims, Path("."))["verdict"] == "coverage_not_checked"
+
+
+def test_a_verdict_without_coverage_says_so() -> None:
+    """The verdict must not claim what it never tested.
+
+    Run without a manuscript, coverage is never RUN, and every assertion about
+    the OUTCOME stays green: the claims verify, nothing is missing, so a naive
+    verdict says `ok` and `complete` -- asserting the paper is covered on the
+    strength of not having looked at it. That is the same defect as a null that
+    prints a formatted nan and calls the score "NOT separable": the decision can
+    be right while the CLAIM is wrong, and a test that reads only the outcome
+    cannot see the difference. So these tests read the justification.
+    """
+    # Given: a clean set of claims and NO manuscript.
+    claims = [pec.Claim("e", "1", "/elsewhere", "external", appears_in="stated")]
+    # When: the check runs.
+    report = pec.check_all(claims, Path("."))
+    # Then: it does NOT claim coverage.
+    assert report["coverage_checked"] is False
+    assert report["verdict"] == "coverage_not_checked"
+    assert report["complete"] is False
+    # and the state is named rather than left to be inferred from an absence
+    assert report["verdict"] != "ok"
+
+
+def test_coverage_actually_run_is_reported_as_run() -> None:
+    # Given: the same claims WITH a manuscript.
+    claims = [pec.Claim("e", "1", "/elsewhere", "external", appears_in="stated")]
+    # When/Then: coverage runs, and the verdict may then say so.
+    report = pec.check_all(claims, Path("."), paper_text="the ledger holds 11{,}567")
+    assert report["coverage_checked"] is True
+    assert report["verdict"] == "needs_review"      # 11,567 is not catalogued here
+    assert "11,567" in report["uncatalogued"]

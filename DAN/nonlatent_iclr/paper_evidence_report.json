@@ -402,6 +402,7 @@
       "detail": "'13' occurs inside '\"copyable\": {\\n        \"correct\": 2,\\n        \"of\": 13' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
     }
   ],
+  "coverage_checked": true,
   "verdict": "ok",
   "complete": true,
   "uncatalogued": [],
