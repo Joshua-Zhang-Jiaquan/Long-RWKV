@@ -264,13 +264,32 @@ def test_a_number_no_claim_covers_is_reported() -> None:
     assert "20,600" in gaps
 
 
-def test_a_fragment_of_a_catalogued_number_is_not_a_gap() -> None:
-    # Given: the load axis written as a set, which yields bare "128" and "8".
+def test_a_declared_axis_written_as_a_set_is_not_a_gap() -> None:
+    r"""The load axis reads as a comma-grouped number, and that is genuinely ambiguous.
+
+    "\{1,8,32,128\}" ends in ",128", so the pair (32, 128) is character-for-character
+    the thousands-grouped 32,128. The ambiguity cannot be resolved from the token, so
+    coverage accepts either reading -- the whole token if catalogued, or every part
+    if they all are. Rejecting a correctly-declared axis would be a false gap, which
+    is the failure that makes a check ignorable.
+    """
+    # Given: the axis written as a set, with all its members declared.
     text = r"loads $\{1,8,32,128\}$"
-    claims = [pec.Claim("load", "128", "x.json", "measured", near=r"x")]
-    # When/Then: a number contained in a catalogued one is not reported, or the
-    # real gaps would be buried under fragments of numbers already accounted for.
+    claims = [pec.Claim("a", "32", "x.json", "measured", near=r"x"),
+              pec.Claim("b", "128", "x.json", "measured", near=r"x")]
+    # When/Then: no gap -- both readings are covered.
     assert pec.uncatalogued_numbers(text, claims) == []
+
+
+def test_an_ambiguous_token_withan_undeclared_part_is_still_a_gap() -> None:
+    """The ambiguity must not become a loophole.
+
+    If only one part of "32,128" is declared, the token is NOT covered: accepting it
+    anyway would let an undeclared number hide behind a declared neighbour.
+    """
+    text = r"loads $\{1,8,32,128\}$"
+    claims = [pec.Claim("b", "128", "x.json", "measured", near=r"x")]
+    assert pec.uncatalogued_numbers(text, claims) == ["32,128"]
 
 
 def test_a_declared_non_claim_is_exempt_but_named() -> None:
@@ -322,3 +341,39 @@ def test_coverage_runs_with_no_inventory_declared(tmp_path: Path) -> None:
     # Then: a report, not a crash -- and the number IS found, so no gap.
     assert report["complete"] is False or report["uncatalogued"] == []
     assert report["uncatalogued"] == []
+
+
+def test_a_short_declared_constant_does_not_exempt_longer_numbers() -> None:
+    """The containment direction, which was backwards and produced a FALSE PASS.
+
+    The load axis declares "1". An earlier version exempted any paper number that
+    CONTAINED a catalogue entry, so "193" and "511" passed as covered -- because
+    they contain "1" -- while nothing catalogued them. A check that exempts
+    whatever it is shown is worse than no check, because it reports coverage.
+    """
+    # Given: a manuscript citing 193 and 511, and a catalogue holding only "1".
+    text = "of the 193 completions the longest run is 511"
+    claims = [pec.Claim("load", "1", "x.json", "measured", near=r"x")]
+    # When: coverage runs.
+    gaps = pec.uncatalogued_numbers(text, claims)
+    # Then: both are reported, because "1" is not evidence for either.
+    assert "193" in gaps
+    assert "511" in gaps
+
+
+def test_a_fragment_of_a_longer_catalogued_number_is_still_exempt() -> None:
+    """The direction that IS wanted: a fragment of a catalogued number."""
+    # Given: "s8000" yielding "800", where "8000" is declared structural.
+    text = "at s8000 the endpoint is 9{,}500"
+    declared = {"8000": "a checkpoint step label", "9500": "a checkpoint step label"}
+    # When/Then: neither fragment is reported.
+    assert pec.uncatalogued_numbers(text, [], declared) == []
+
+
+def test_pinned_git_revisions_are_not_numbers() -> None:
+    """A commit pin like LongBench@2e00731f must not yield "00731"."""
+    # Given: a bibliography line with a pinned revision.
+    text = r"\bibitem{longbench} THUDM LongBench, \texttt{THUDM/LongBench@2e00731f}."
+    # When/Then: the hex fragment is not extracted as a claim.
+    assert not any(tok.lstrip("0") in {"731"} or tok == "00731"
+                   for tok in pec.paper_numbers(text))

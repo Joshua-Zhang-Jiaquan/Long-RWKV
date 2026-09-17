@@ -7,14 +7,14 @@
     "ledger-total-8b",
     "registry-total-instances"
   ],
-  "checked": 40,
+  "checked": 43,
   "counts": {
     "value_not_found": 0,
     "path_missing": 0,
     "external": 0,
     "derived": 5,
     "rounding_ok": 1,
-    "verified": 34
+    "verified": 37
   },
   "results": [
     {
@@ -336,6 +336,30 @@
       "kind": "measured",
       "verdict": "verified",
       "detail": "'16384' occurs inside 'TOKEN_LENGTHS: Final = (4096, 8192, 16384, 32768, 65536)' in scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py"
+    },
+    {
+      "claim_id": "gsm8k-nonempty-completions",
+      "value": "193",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'193' occurs inside '\"nonempty_completions\": 193' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+    },
+    {
+      "claim_id": "gsm8k-longest-identical-run",
+      "value": "511",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'511' occurs inside '\"longest_identical_word_run\": 511' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+    },
+    {
+      "claim_id": "registry-train-split",
+      "value": "184",
+      "source": "DAN/nonlatent_iclr/task_registry.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'184' occurs inside '184' in DAN/nonlatent_iclr/task_registry.json"
     }
   ],
   "complete": true,

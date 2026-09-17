@@ -316,6 +316,30 @@
       "source": "scale/experiments/nonlatent_iclr/tasks/token_targeted_tasks.py",
       "near": "TOKEN_LENGTHS[^\\n]*",
       "appears_in": "the declared token-length axis"
+    },
+    {
+      "claim_id": "gsm8k-nonempty-completions",
+      "value": "193",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "appears_in": "the GSM8K artifact-null record's verified block",
+      "near": "\"nonempty_completions\":\\s*193"
+    },
+    {
+      "claim_id": "gsm8k-longest-identical-run",
+      "value": "511",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/gsm8k_artifact_null.json",
+      "appears_in": "the GSM8K artifact-null record's verified block",
+      "near": "\"longest_identical_word_run\":\\s*511"
+    },
+    {
+      "claim_id": "registry-train-split",
+      "value": "184",
+      "kind": "measured",
+      "source": "DAN/nonlatent_iclr/task_registry.json",
+      "near": "184[^0-9]{0,60}",
+      "appears_in": "the repository confirmation split"
     }
   ],
   "non_claims": [
@@ -382,6 +406,14 @@
     {
       "value": "14000",
       "reason": "a checkpoint step label, not a measurement"
+    },
+    {
+      "value": "1,8,32,128",
+      "reason": "the load axis written as a set; its members are declared in tasks/models.py"
+    },
+    {
+      "value": "1,8,32,128,",
+      "reason": "the same set with its trailing punctuation"
     }
   ]
 }

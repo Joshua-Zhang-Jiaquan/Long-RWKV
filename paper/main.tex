@@ -119,6 +119,24 @@ vocabulary and belong to the tokenizer's special-token layer, which is why the t
 layers must not be conflated: \texttt{65531} is absent as a content id and present as
 the end-of-text special id.
 
+\paragraph{A third instance, in the same shape.} The two defects above are not the only
+ones of their kind in this program, and we record a third because it is the cleanest
+demonstration that the class is systematic rather than incidental. A GSM8K evaluation
+scored a checkpoint at $4/200$, and the score is not a measurement of arithmetic
+ability: the evaluation's prompt asks explicitly for the answer in \texttt{\textbackslash
+boxed\{\}}, and of the $193$ non-empty completions exactly \textbf{one} contains
+\texttt{\textbackslash boxed} and \emph{none} contains the phrase the prompt's own
+fallback tier looks for. The extractor therefore fell through to a last-number-anywhere
+rule and read a number out of generative noise --- the completions are degenerate
+rather than merely wrong, with $33\%$ of them spending at least three quarters of
+their tokens on a single repeated word and a longest identical run of $511$, and the
+extracted values include \texttt{'.'} and \texttt{'\$'}. A nonzero score here is a
+property of the extractor, not of the model, and no threshold on the score could have
+told the difference. The figure is reported nowhere in this paper --- our descriptive
+measurements are OpenBookQA and RACE --- and we record it because the lesson is the
+same one the decode-side stop set taught: \emph{a number can be perfectly reproducible
+and still not be about the thing its label names}.
+
 \paragraph{Why we report this.} The two errors share a shape: a plausible constant,
 never checked against the artifact that defines it, in a position where being wrong is
 silent. One of them cost three rounds of work in a direction that could not have

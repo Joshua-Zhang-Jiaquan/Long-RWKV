@@ -37,6 +37,7 @@ from typing import Final
 CITATION_PATTERNS: Final = (
     r"\d{4}\.\d{4,5}",      # arXiv ids: 2511.15927
     r"\b(?:19|20)\d{2}\b",   # years
+    r"@[0-9a-f]{6,40}",       # pinned git revisions: THUDM/LongBench@2e00731f
 )
 
 #: Below this magnitude a number is almost always structural (a layer count, a
@@ -190,7 +191,15 @@ def paper_numbers(paper_text: str) -> list[str]:
     for pattern in CITATION_PATTERNS:
         body = re.sub(pattern, " ", body)
     found: list[str] = []
-    for token in re.findall(r"\d[\d,]*(?:\.\d+)?", body):
+    # A thousands separator groups EXACTLY three digits, so the pattern is
+    # \d{1,3}(,\d{3})* rather than \d[\d,]*.  The permissive form read the load
+    # axis "1,8,32,128" as a single number, which then matched nothing and was
+    # reported as a gap in its own right.
+    # EITHER a comma-grouped number, whose separator groups exactly three digits,
+    # OR a plain digit run.  The alternation matters in both directions: a bare
+    # \d[\d,]* reads the load axis "1,8,32,128" as ONE number, and a bare
+    # \d{1,3}(?:,\d{3})* reads "4096" as "409".  Both were live bugs.
+    for token in re.findall(r"(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?", body):
         plain = token.replace(",", "")
         try:
             value = float(plain)
@@ -238,13 +247,37 @@ def uncatalogued_numbers(paper_text: str, claims: list[Claim],
     catalogued |= {claim.value.replace(",", "").rstrip("0").rstrip(".")
                    for claim in claims if "." in claim.value}
     catalogued |= {value.replace(",", "") for value in (non_claims or {})}
-    # A paper number that is a SUBSTRING of a catalogued one is not a gap: the
-    # manuscript writes the load axis as a set, so "\{1,8,32,128\}" yields "128"
-    # on its own, and "s8000" yields "800". Reporting those would bury the real
-    # gaps under fragments of numbers that are already accounted for.
-    return [token for token in paper_numbers(paper_text)
-            if not any(token.replace(",", "") in known or known in token.replace(",", "")
-                       for known in catalogued)]
+    # A paper number that is a FRAGMENT of a catalogued one is not a gap: the
+    # manuscript writes the load axis as a set, so "\{1,8,32,128\}" yields "128",
+    # and "s8000" yields "800" out of "8000". Reporting those would bury the real
+    # gaps under fragments of numbers already accounted for.
+    #
+    # The containment runs in ONE direction only, and getting it backwards is a
+    # false PASS: an earlier version also exempted a token that CONTAINED a
+    # catalogued number, so the declared constant "1" silently exempted every
+    # number beginning with 1 -- "193" and "511" both passed as covered while
+    # nothing catalogued them. A check that exempts whatever it is shown is worse
+    # than no check, so the direction is now pinned by a test.
+    def covered(token: str) -> bool:
+        plain = token.replace(",", "")
+        if plain in catalogued:
+            return True
+        # A comma-grouped number is genuinely AMBIGUOUS, and the ambiguity is not
+        # resolvable from the token: the load axis written "\{...,32,128\}" ends
+        # in ",128", so the pair (32, 128) reads exactly like the thousands-grouped
+        # 32,128. Both readings are accepted -- the whole token if it is
+        # catalogued, or every comma-separated part if they all are -- because
+        # rejecting a correctly-declared axis would be a false gap, and accepting
+        # an ambiguous token only ever hides a number that IS declared.
+        parts = token.split(",")
+        if len(parts) > 1 and all(part in catalogued for part in parts):
+            return True
+        # A FRAGMENT of a longer catalogued number, e.g. "800" out of "8000".
+        # One direction only: reversing it let the declared constant "1" exempt
+        # every number beginning with 1.
+        return any(plain in known for known in catalogued)
+
+    return [token for token in paper_numbers(paper_text) if not covered(token)]
 
 
 def check_all(claims: list[Claim], root: Path, paper: Path | None = None,

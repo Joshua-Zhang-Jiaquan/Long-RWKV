@@ -1,0 +1,41 @@
+{
+  "schema": "nonlatent_gsm8k_artifact_null_v1",
+  "finding": "a GSM8K score of 4/200 on the s9500 checkpoint is not a measurement of arithmetic ability: the prompt asks for the answer in \\boxed{}, and of the 193 non-empty completions exactly ONE contains \\boxed and NONE contains the fallback phrase the extractor looks for, so the extractor fell through to a last-number-anywhere rule over degenerate text.",
+  "why_recorded": "the manuscript reports no GSM8K figure -- its descriptive measurements are OpenBookQA and RACE -- and records this because it is a third instance of the same defect class as the decode-side stop set: a number that is perfectly reproducible and still not about the thing its label names.",
+  "source": {
+    "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/cap_eval_rebaseline_gsm8k/cf0_iter128_T02.json",
+    "sha256": "cffe978c272650a40b949bb13b8dfc790dd1d4607b513d8b44fbfd21aeecb6c2",
+    "size_bytes": 367752,
+    "mtime_utc": "2026-09-17T17:38:10Z",
+    "checkpoint_step": 9500,
+    "temperature": 0.2,
+    "iterations": 128,
+    "chat_frame": 0,
+    "scope": "the only GSM8K cell in this program that stored its generated text; the earlier cells kept scores only, which is why the extractor question could not be asked of them"
+  },
+  "verified_here": {
+    "records": 200,
+    "nonempty_completions": 193,
+    "containing_boxed": 1,
+    "containing_answer_is_phrase": 0,
+    "completions_mostly_one_word": {
+      "threshold": 0.75,
+      "count": 64,
+      "of": 193,
+      "fraction": 0.33
+    },
+    "longest_identical_word_run": 511,
+    "score": {
+      "correct": 4,
+      "of": 200,
+      "fraction": 0.02
+    },
+    "extracted_values_include": [
+      ".",
+      "$"
+    ],
+    "method": "re-derived from the artifact by this session (word-run length, \\boxed search, word-frequency fraction, and pred/gold equality); NOT transcribed from the report that first stated them",
+    "not_verified_here": "the copyable-gold enrichment (11 items, 17.2x, Fisher p=0.023): this artifact carries no question text, so the gold-in-question test cannot be run from it. Recorded as unverified rather than quoted."
+  },
+  "consequence_for_claims": "no threshold on the score can separate a model that cannot do arithmetic from a model whose output the extractor cannot read. Any future GSM8K figure from this program must cite the extraction-tier census alongside it, not the percentage."
+}
