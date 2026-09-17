@@ -1,32 +1,34 @@
 """Run the task-7 arm matrix as ONE job, in waves of concurrent runs.
 
-The owner's decision: one job on the reference shape (2 nodes x 8 = 16 H100),
-4 GPUs per run, so 4 runs run concurrently and the 12-run matrix is 3 waves.
+The owner's decision: 8 H100 per run, 4 runs at once, so one job spans
+4 nodes x 8 = 32 H100 and the 12-run matrix is 3 waves of 4.
 
 Why the design is what it is
 ----------------------------
 
-* **4 GPUs per run is a fixed matrix-wide constant, not a per-run choice.** The
-  global batch at 4 GPUs x microbatch 8 x accum 4 is 524,288 tokens/step; at 8
-  GPUs it is 1,048,576. Mixing the two would give the arms different effective
-  batches and they would stop being exposure-matched, so every run in the study
-  gets the same card count even though the machine could hold a bigger one.
+* **8 GPUs per run is a fixed matrix-wide constant, not a per-run choice.**
+  Microbatch 8 x accum 4 at 8 cards is 1,048,576 tokens/step, which is exactly
+  the global batch the 2.9B continuation trains at. Mixing card counts across
+  arms would change that batch and the arms would stop being exposure-matched,
+  so every run in the study gets the same count even though the machine could
+  hold a different one.
 * **Each run is its own single-node ``torchrun --standalone`` group.** Verified
   empirically that ``--standalone`` ignores ``MASTER_PORT`` and discovers a free
   port per invocation, so concurrent groups on one node do not collide and no
   port has to be reserved or threaded through.
 * **Nodes claim their cards through a marker directory, not an environment
-  variable.** A 2-node job runs the same command on both hosts and nothing
+  variable.** A 4-node job runs the same command on every host and nothing
   assigns them an index, so the first node to create its claim file takes node 0.
   The claim is create-exclusive, so a host that loses the race cannot silently
-  take the same slot.
+  take the same slot. With 4 nodes and 4 concurrent runs each node takes exactly
+  one run.
 * **Waves are separated by a file barrier.** The next wave must not start until
   every node has finished the current one, because the run-to-card assignment
   changes between waves and two nodes launching from different waves would put
   two runs on the same four cards.
 
-A wall-cap stop does not auto-resume, and the forecast here is ~174 h per wave
-against a 36 h cap, so this job will stop and need manual resubmission about 15
+A wall-cap stop does not auto-resume, and the forecast here is ~87 h per wave
+against a 36 h cap, so this job will stop and need manual resubmission about 9
 times. ``--resume-from`` makes each restart continue rather than restart, and the
 barrier directory is deliberately left in place across restarts so a resumed job
 can tell which waves already finished.
@@ -86,7 +88,7 @@ def _load_arm_matrix():
 am = _load_arm_matrix()
 
 SCHEMA = "nonlatent_task7_matrix_wave_v1"
-NODES = 2
+NODES = 4
 
 
 def runs_for_node(wave: am.Wave, *, node_index: int, nodes: int = NODES,
@@ -114,7 +116,7 @@ def runs_for_node(wave: am.Wave, *, node_index: int, nodes: int = NODES,
 
 
 def run_command(run: am.ArmRun, *, launcher: Path, node_env: dict[str, str],
-                gpus: int = 4, cuda_devices: str = "0,1,2,3") -> list[str]:
+                gpus: int = 8, cuda_devices: str = "0,1,2,3,4,5,6,7") -> list[str]:
     """The argv for one arm run, pinned to ``gpus`` visible cards.
 
     ``EXTRA_ARGS`` carries the arm's flags plus its seed.  The launcher's
@@ -237,7 +239,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--state-dir", required=True, type=Path,
                         help="GPFS directory for claims and wave barriers")
     parser.add_argument("--log-dir", required=True, type=Path)
-    parser.add_argument("--ngpus-per-run", type=int, default=4)
+    parser.add_argument("--ngpus-per-run", type=int, default=8)
     parser.add_argument("--nodes", type=int, default=NODES)
     parser.add_argument("--dry-run", action="store_true",
                         help="print the plan and exit without launching")

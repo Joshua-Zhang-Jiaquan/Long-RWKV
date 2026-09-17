@@ -64,7 +64,7 @@ class EmitRefusal(RuntimeError):
 def build_command(*, staged_scale_dir: str, launcher: str, state_dir: str,
                   log_dir: str, model_dir: str = am.SMALL_MODEL_DIR,
                   token_dir: str, save_root: str, tb_path: str,
-                  ngpus_per_run: int = 4, nodes: int = 2) -> str:
+                  ngpus_per_run: int = 8, nodes: int = 4) -> str:
     """The pod-side command: run the wave driver, which runs the arms.
 
     The driver is invoked as a FILE, not with ``-m``.  That matters: ``-m``
@@ -129,7 +129,7 @@ def emit_job_body(*, name: str, command: str, description: str,
     return body
 
 
-def describe(*, ngpus_per_run: int = 4, nodes: int = 2,
+def describe(*, ngpus_per_run: int = 8, nodes: int = 4,
              budget: int = am.FROZEN_TOKEN_BUDGET) -> str:
     """The description carried into the job, stating what it will and will not do."""
     report = am.job_report(ngpus_per_run=ngpus_per_run, job_gpus=nodes * 8, budget=budget)
@@ -159,9 +159,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--token-dir", required=True)
     parser.add_argument("--save-root", required=True)
     parser.add_argument("--tb-path", required=True)
-    parser.add_argument("--name", default="task7-arm-matrix-16h100")
-    parser.add_argument("--nodes", type=int, default=2)
-    parser.add_argument("--ngpus-per-run", type=int, default=4)
+    parser.add_argument("--name", default="task7-arm-matrix-32h100")
+    parser.add_argument("--nodes", type=int, default=4)
+    parser.add_argument("--ngpus-per-run", type=int, default=8)
     args = parser.parse_args(argv)
 
     command = build_command(

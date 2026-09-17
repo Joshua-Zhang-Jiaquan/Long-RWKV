@@ -262,7 +262,7 @@ def test_the_trainer_wires_the_seed_into_the_data_sampler() -> None:
 def test_within_a_wave_every_arm_shares_one_seed() -> None:
     """The controlled comparison: architecture is the only variable."""
     # Given: the wave packing.
-    waves = am.wave_plan(ngpus_per_run=4)
+    waves = am.wave_plan(ngpus_per_run=8)
     # When/Then: each wave is exactly one seed across every arm, so all four arms
     # read the same permutation -- which is what makes an arm difference
     # attributable to the arm.
@@ -276,14 +276,14 @@ def test_within_a_wave_every_arm_shares_one_seed() -> None:
 def test_across_waves_the_seed_changes() -> None:
     """So the three seeds are data-level replication, not three initials."""
     # Given: the wave packing.
-    waves = am.wave_plan(ngpus_per_run=4)
+    waves = am.wave_plan(ngpus_per_run=8)
     # When/Then: the wave seeds are the three training seeds, in order.
     assert [next(iter({r.seed for r in w.runs})) for w in waves] == list(am.TRAINING_SEEDS)
 
 
 def test_every_arm_in_a_wave_passes_the_wave_seed_to_the_trainer() -> None:
     # Given: a wave.
-    wave = am.wave_plan(ngpus_per_run=4)[1]
+    wave = am.wave_plan(ngpus_per_run=8)[1]
     # When/Then: every run in it carries that same seed on its argv, so the
     # shared-data property survives the trip through EXTRA_ARGS.
     seed = next(iter({run.seed for run in wave.runs}))

@@ -41,10 +41,11 @@ TRAINING_SEEDS: Final = (17, 29, 43)
 #: The packaged row length.  The launcher defaults to it and no arm overrides it.
 PACK_LEN: Final = 4096
 
-#: Microbatch and accumulation chosen so that the global batch is the same
-#: 1,048,576 tokens/step the 2.9B continuation uses at 16 GPUs: 8 x 4 x 4096 x 8.
-#: Matching it keeps the small matrix and the large run commensurate, and makes
-#: steps-per-budget a clean function of the GPU count.
+#: Microbatch and accumulation chosen so the global batch is 1,048,576 tokens/step
+#: at `GPUS_PER_RUN` cards: 8 x 4 x 4096 x 8 = 1,048,576.  That is EXACTLY the
+#: batch the 2.9B continuation trains at (4 x 4 x 16 x 4096), so the small arms
+#: and the large run share an optimization shape rather than merely a token
+#: budget.  It also makes steps-per-budget a clean function of the card count.
 DEFAULT_MICROBATCH: Final = 8
 DEFAULT_GRAD_ACCUM: Final = 4
 
@@ -362,8 +363,20 @@ def matrix_report(*, ngpus: int, budget: int = FROZEN_TOKEN_BUDGET) -> dict[str,
 #   must all use the same ``ngpus_per_run`` or they stop being exposure-matched.
 #   :func:`wave_plan` keeps one value for the whole matrix for that reason.
 
-#: GPUs inside the job, from the reference job: 2 nodes x 8.
-JOB_GPUS: Final = 16
+#: GPUs inside the job.  The reference job ran 2 nodes x 8 = 16; this matrix
+#: takes 4 nodes x 8 = 32 so that 4 runs of 8 GPUs can go at once.  Four nodes
+#: rather than two is a deliberate departure and it buys two things:
+#:
+#: * 8 GPUs per run with microbatch 8 and accum 4 gives 1,048,576 tokens/step --
+#:   EXACTLY the global batch the 2.9B continuation trains at, so the small arms
+#:   and the large run share an optimization shape rather than merely a budget;
+#: * 4 concurrent runs still cover all four arms of a wave at once, so a wave is
+#:   one seed across every arm and the controlled comparison is unchanged.
+JOB_GPUS: Final = 32
+
+#: Cards per run.  Fixed for the whole matrix: mixing this across arms would
+#: change the global batch and the arms would stop being exposure-matched.
+GPUS_PER_RUN: Final = 8
 
 
 @dataclass(frozen=True, slots=True)
@@ -390,7 +403,7 @@ class Wave:
                    for run in self.runs)
 
 
-def wave_plan(*, ngpus_per_run: int = 4, job_gpus: int = JOB_GPUS,
+def wave_plan(*, ngpus_per_run: int = GPUS_PER_RUN, job_gpus: int = JOB_GPUS,
               budget: int = FROZEN_TOKEN_BUDGET,
               seeds: tuple[int, ...] = TRAINING_SEEDS,
               arms: tuple[str, ...] = tuple(sorted(ARMS))) -> list[Wave]:
@@ -447,7 +460,7 @@ def require_wave_coverage(waves: list[Wave], *,
         raise MatrixRefusal(msg)
 
 
-def job_report(*, ngpus_per_run: int = 4, job_gpus: int = JOB_GPUS,
+def job_report(*, ngpus_per_run: int = GPUS_PER_RUN, job_gpus: int = JOB_GPUS,
                budget: int = FROZEN_TOKEN_BUDGET) -> dict[str, object]:
     """What one job would contain, and how many segments it needs."""
     waves = wave_plan(ngpus_per_run=ngpus_per_run, job_gpus=job_gpus, budget=budget)
