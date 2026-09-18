@@ -1,0 +1,156 @@
+{
+  "schema": "nonlatent_efficiency_matrix_v1",
+  "at_utc": "2026-09-18T04:03:50Z",
+  "job_id": "job-9df49d2f-ff96-49f1-afa8-c85379e8940d",
+  "status": "job_succeeded, 24 of 24 cells written",
+  "method": "one GPU, torch.inference_mode, one untimed warm-up forward per rung, five timed; peak from reset_peak_memory_stats. OOM recorded as a row.",
+  "why_not_the_training_calibration": "the existing calibration builds an autograd graph and calls backward, so it overstates inference cost and OOMed at 4096 for the loop arm. Every number here is inference-only.",
+  "throughput_tokens_per_second": {
+    "birwkv-2.9b": {
+      "4096": 16989.70383053926,
+      "16384": 17715.95472750129,
+      "32768": 17810.474039429693,
+      "65536": 18017.035523851267
+    },
+    "llada-8b-base": {
+      "4096": null,
+      "16384": null,
+      "32768": null,
+      "65536": null
+    },
+    "llama-3.2-3b": {
+      "4096": 65330.90280936155,
+      "16384": 53067.595070611125,
+      "32768": 43542.59502242909,
+      "65536": 31994.945357722536
+    },
+    "mamba2-2.7b": {
+      "4096": null,
+      "16384": null,
+      "32768": null,
+      "65536": null
+    },
+    "qwen2.5-3b": {
+      "4096": 68444.58632658287,
+      "16384": 58752.90248706325,
+      "32768": 48539.252050755415,
+      "65536": 35156.21817193784
+    },
+    "rwkv7-goose-world3-2.9b": {
+      "4096": 26405.252677267454,
+      "16384": 27968.87234444104,
+      "32768": 28061.3016864913,
+      "65536": 28476.803098025142
+    }
+  },
+  "peak_allocated_bytes": {
+    "birwkv-2.9b": {
+      "4096": 9118532096,
+      "16384": 11823956480,
+      "32768": 15431188992,
+      "65536": 22645654016
+    },
+    "llada-8b-base": {
+      "4096": null,
+      "16384": null,
+      "32768": null,
+      "65536": null
+    },
+    "llama-3.2-3b": {
+      "4096": 8005213184,
+      "16384": 12642114560,
+      "32768": 18824649728,
+      "65536": 31189720064
+    },
+    "mamba2-2.7b": {
+      "4096": null,
+      "16384": null,
+      "32768": null,
+      "65536": null
+    },
+    "qwen2.5-3b": {
+      "4096": 7732716544,
+      "16384": 11969061888,
+      "32768": 17618920448,
+      "65536": 28918637568
+    },
+    "rwkv7-goose-world3-2.9b": {
+      "4096": 13458853888,
+      "16384": 17894428672,
+      "32768": 23808528384,
+      "65536": 35636727808
+    }
+  },
+  "analytic_state_bytes": {
+    "birwkv-2.9b": {
+      "4096": 20971520,
+      "16384": 20971520,
+      "32768": 20971520,
+      "65536": 20971520
+    },
+    "llada-8b-base": {
+      "4096": null,
+      "16384": null,
+      "32768": null,
+      "65536": null
+    },
+    "llama-3.2-3b": {
+      "4096": 469762048,
+      "16384": 1879048192,
+      "32768": 3758096384,
+      "65536": 7516192768
+    },
+    "mamba2-2.7b": {
+      "4096": null,
+      "16384": null,
+      "32768": null,
+      "65536": null
+    },
+    "qwen2.5-3b": {
+      "4096": 150994944,
+      "16384": 603979776,
+      "32768": 1207959552,
+      "65536": 2415919104
+    },
+    "rwkv7-goose-world3-2.9b": {
+      "4096": 10485760,
+      "16384": 10485760,
+      "32768": 10485760,
+      "65536": 10485760
+    }
+  },
+  "nfe": {
+    "birwkv-2.9b": 100,
+    "llada-8b-base": null,
+    "llama-3.2-3b": 1,
+    "mamba2-2.7b": null,
+    "qwen2.5-3b": 1,
+    "rwkv7-goose-world3-2.9b": 1
+  },
+  "THE_FINDING_THE_TABLE_FORCES": {
+    "per_forward": "birwkv's per-forward throughput is FLAT across context (16,990 -> 18,017 tok/s from 4K to 64K) where the transformers fall by about half (llama 65.3k -> 32.0k; qwen 68.4k -> 35.2k). Its peak memory grows x2.48 where llama grows x3.90 and qwen x3.74, and its analytic state is CONSTANT at 20.0 MiB where llama's KV cache is 448 -> 7,168 MiB and qwen's 144 -> 2,304 MiB. At 64K that is 20.0 MiB against 7,168 MiB: 358x.",
+    "per_answer": "but nfe is 100 for the masked-diffusion arm and 1 for every autoregressive baseline, so at 64K the answer-level throughput is 180 tok/s against llama's 31,995 and qwen's 35,156. Producing one answer costs about 175x more forward work in wall-clock terms.",
+    "the_honest_shape": "a TRADE, not a win: the recurrent arm holds a 358x smaller state and degrades far less with context per forward, and pays for it with a 100-forward answer. Any sentence claiming this model is cheaper in compute must be rewritten; the memory claim stands, the compute claim does not, and the per-forward throughput claim stands only if nfe is named in the same breath."
+  },
+  "holes": {
+    "llada-8b-base": "load_failed on all four contexts: 'LLaDAModelLM' object has no attribute 'all_tied_weights_keys', a transformers-version incompatibility. Four rows with the error text, not an abort.",
+    "mamba2-2.7b": "load_failed on all four contexts: no model_type, so it needs its own loader -- the adapter's own refusal names this case, which is why the message reads 'no modeling code (the BiRWKV release) or no model_type (mamba2)'. Four rows with the error text.",
+    "correction": "the first version of this record said mamba2 had 'no rows written'. It has four -- all load_failed. The claim was written from the absence of a measurement rather than from reading the artifact, which is the same error this campaign has spent the day characterising."
+  },
+  "not_a_measurement": "analytic_state_bytes is ARITHMETIC from the configuration, not a measurement, and the adapter says so. GQA/MQA would shrink the transformer side.",
+  "census": {
+    "cells_total": 24,
+    "cells_ok": 16,
+    "cells_load_failed": 8,
+    "models_measured": [
+      "birwkv-2.9b",
+      "llama-3.2-3b",
+      "qwen2.5-3b",
+      "rwkv7-goose-world3-2.9b"
+    ],
+    "models_load_failed": [
+      "llada-8b-base",
+      "mamba2-2.7b"
+    ]
+  }
+}
