@@ -1,0 +1,94 @@
+{
+  "schema": "nonlatent_task7_ablation_results_v1",
+  "at_utc": "2026-09-18T12:51:58Z",
+  "status": "all twelve runs complete at step 1908 of the frozen budget",
+  "metric": "mask_ce, the training-time validation metric the runs log",
+  "arms": {
+    "A1": {
+      "contrast_role": "reference: forward-only, no loop",
+      "n": 3,
+      "mean": 5.4541,
+      "spread": 0.5295,
+      "values": {
+        "17": 5.6091,
+        "29": 5.1118,
+        "43": 5.6413
+      }
+    },
+    "A2": {
+      "contrast_role": "directionality",
+      "n": 2,
+      "mean": 4.5436,
+      "spread": 0.4075,
+      "values": {
+        "29": 4.3399,
+        "43": 4.7474
+      },
+      "missing": "the s17 log is absent though its checkpoint reached 1908"
+    },
+    "A3": {
+      "contrast_role": "the loop on a bidirectional backbone",
+      "n": 3,
+      "mean": 4.6011,
+      "spread": 0.4084,
+      "values": {
+        "17": 4.7162,
+        "29": 4.3394,
+        "43": 4.7478
+      }
+    },
+    "A5": {
+      "contrast_role": "the loop alone",
+      "n": 3,
+      "mean": 5.4541,
+      "spread": 0.5296,
+      "values": {
+        "17": 5.609,
+        "29": 5.1118,
+        "43": 5.6414
+      }
+    }
+  },
+  "contrasts": {
+    "directionality_A2_minus_A1": {
+      "difference": -0.9104,
+      "must_clear": 0.5295,
+      "separable": true,
+      "reading": "SEPARABLE"
+    },
+    "loop_on_bidirectional_A3_minus_A2": {
+      "difference": 0.0575,
+      "must_clear": 0.4084,
+      "separable": false,
+      "reading": "not separable"
+    },
+    "loop_on_forward_only_A5_minus_A1": {
+      "difference": 0.0,
+      "must_clear": 0.5296,
+      "separable": false,
+      "reading": "not separable"
+    }
+  },
+  "THE_FINDING_THAT_CHANGES_THE_READING": {
+    "observation": "A5 reproduces A1 seed by seed to four decimals: 5.6090/5.6091, 5.1118/5.1118, 5.6414/5.6413. A tie at that precision is not a small effect, it is the absence of one.",
+    "cause_measured_in_the_checkpoints": {
+      "loop.gates_raw": {
+        "task7-a5-s17": {
+          "at_step_1500": 0.002973,
+          "at_step_1750": 0.003012,
+          "at_step_1908": 0.003039
+        },
+        "task7-a3-s17": {
+          "at_step_1500": 0.000404,
+          "at_step_1750": 0.000433,
+          "at_step_1908": 0.000442
+        },
+        "note": "a scalar. The trainer initialises it so the loop is an IDENTITY until trained, and after 1908 steps it sits at O(1e-3) -- the loop's output is scaled by roughly 0.3%."
+      },
+      "a1_has_no_loop_tensors": "confirmed: task7-a1-s17's checkpoint carries no loop.* keys"
+    },
+    "consequence": "the two loop contrasts are NOT null results about depth recycling. They are results about a mechanism that never engaged. A5 == A1 because the loop was a 0.3% perturbation, and A3 - A2 = +0.0575 is inside the seed spread for the same reason. Reporting them as 'recycling does not help' would attribute a null to the architecture when the measurement is of an inert gate.",
+    "what_can_be_said": "(1) DIRECTIONALITY IS SEPARABLE: A2 - A1 = -0.9104 against a required 0.5295, a real architectural effect measured at matched budget and parameters. (2) The loop, as configured and initialised here, did not engage within 2e9 tokens on a 0.4B backbone, and the ablation cannot speak to whether it would at larger scale, a longer budget, or a different gate initialisation."
+  },
+  "open": "A2's s17 run log is missing while its checkpoint reached 1908, so A2 is n=2. The seed spread is computed over the seeds present; the contrast is separable with n=2 and would need the third seed to be reported at n=3."
+}
