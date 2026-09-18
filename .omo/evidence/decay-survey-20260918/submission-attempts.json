@@ -1,0 +1,22 @@
+{
+  "schema": "nonlatent_decay_survey_attempts_v1",
+  "at_utc": "2026-09-18T05:03:04Z",
+  "what_it_is": "contribution 3's key datum: the trained decay distribution and per-layer half-lives of the RWKV-7 recurrence, through forward hooks on the s9500 endpoint. Lemma 1 is proved from the parameterization; this measures the horizon the parameterization PREDICTS.",
+  "attempts": [
+    {
+      "job_id": "job-1cb35699-42b9-42dc-9ebf-aa4756a67684",
+      "outcome": "job_fail_reserving"
+    },
+    {
+      "job_id": "job-7e046717-8f24-4434-a9a5-103f6fa0a98d",
+      "outcome": "job_failed"
+    },
+    {
+      "job_id": "job-0eeef682-491c-4129-8011-9990f1047629",
+      "outcome": "job_failed"
+    }
+  ],
+  "diagnosis": "NOT a spec or command defect. The same spec (79fe954a, 1 GPU) is what the efficiency probe used, and that succeeded on its third attempt; the failure mode here is job_fail_reserving, which is the scheduler assigning a node and being unable to reserve it. The cause is this program's OWN matrix holding 72+ GPUs: the arm matrix is the thing competing with the survey.",
+  "not_a_blind_retry_rationale": "each attempt is a NEW submission of a body that has been validated, against a transient family of failure with a terminal status -- not a retry after an UNKNOWN outcome, which is the case that must never be retried.",
+  "plan": "retry when the matrix drains. Its last arm is projected to finish near 10:20 UTC, and the survey needs one card."
+}
