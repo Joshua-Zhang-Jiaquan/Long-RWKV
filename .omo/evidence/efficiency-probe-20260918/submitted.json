@@ -1,0 +1,13 @@
+{
+  "schema": "nonlatent_efficiency_probe_submission_v1",
+  "submitted_utc": "2026-09-18T01:41:12Z",
+  "job_id": "job-636ed1ba-956c-4d76-b492-4127ae0435d3",
+  "name": "efficiency-probe-1gpu",
+  "what_it_is": "paper contribution 1: measured peak memory and throughput for six models at 4K/16K/32K/64K on ONE GPU, inference_mode with an untimed warm-up",
+  "why_a_fresh_run": "every number in the efficiency table must come from this run rather than the training-shape calibration, which builds an autograd graph and calls backward -- it overstates inference cost and OOMed at 4096 for the loop arm",
+  "single_gpu_verified": "the job reports gpu_count 1, so the per-device claim the probe is built for is backed by one card rather than by the 8-GPU shape the multiplexed design used",
+  "spec_id": "79fe954a-be92-4772-ac0b-94ad8a79b7bb",
+  "spec_chosen_because": "a recorded 1-node generation-eval shape. The price API returns an empty shape list for this LCG, so the shape was identified from the specs that use it rather than enumerated -- and then CONFIRMED from the job's own gpu_count",
+  "checkpoint_override": "NONLATENT_BIRWKV_RELEASE points at m4loop_ext_endpoint_ckpt, because the default is an in-repo release path that is not in this tree",
+  "oom_policy": "an OOM is a row; only an import or load failure aborts the grid"
+}
