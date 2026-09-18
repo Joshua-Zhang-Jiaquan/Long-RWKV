@@ -1,0 +1,61 @@
+{
+  "schema": "nonlatent_task7_matrix_progress_v1",
+  "at_utc": "2026-09-18T04:04:57Z",
+  "target_steps": 1908,
+  "runs": {
+    "task7-a1-s17": {
+      "newest_step": 1908,
+      "complete": true,
+      "n_checkpoints": 3
+    },
+    "task7-a1-s29": {
+      "newest_step": 1750,
+      "complete": false,
+      "n_checkpoints": 3
+    },
+    "task7-a1-s43": {
+      "newest_step": 1750,
+      "complete": false,
+      "n_checkpoints": 3
+    },
+    "task7-a2-s17": {
+      "newest_step": 1500,
+      "complete": false,
+      "n_checkpoints": 3
+    },
+    "task7-a2-s29": {
+      "newest_step": 1250,
+      "complete": false,
+      "n_checkpoints": 3
+    },
+    "task7-a3-s17": {
+      "newest_step": 1000,
+      "complete": false,
+      "n_checkpoints": 3
+    },
+    "task7-a3-s29": {
+      "newest_step": 750,
+      "complete": false,
+      "n_checkpoints": 3
+    },
+    "task7-a3-s43": {
+      "newest_step": null,
+      "complete": false,
+      "n_checkpoints": 0
+    },
+    "task7-a5-s17": {
+      "newest_step": 1250,
+      "complete": false,
+      "n_checkpoints": 3
+    },
+    "task7-a5-s29": {
+      "newest_step": 1250,
+      "complete": false,
+      "n_checkpoints": 3
+    }
+  },
+  "completed": [
+    "task7-a1-s17"
+  ],
+  "note": "the first completed arm of the controlled ablation. Completion is read from the run's own checkpoint directory -- the same glob the launcher resumes from -- rather than from a job status, because a job can stop short of its budget at a wall-clock cap and still report success."
+}
