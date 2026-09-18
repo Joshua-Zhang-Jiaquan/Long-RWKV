@@ -14,9 +14,14 @@
     {
       "job_id": "job-0eeef682-491c-4129-8011-9990f1047629",
       "outcome": "job_failed"
+    },
+    {
+      "job_id": "job-479ad709-06c3-47d1-b9e9-70f8bf210dae",
+      "outcome": "job_fail_reserving",
+      "at_utc": "2026-09-18T16:06:27Z"
     }
   ],
-  "diagnosis": "NOT a spec or command defect. The same spec (79fe954a, 1 GPU) is what the efficiency probe used, and that succeeded on its third attempt; the failure mode here is job_fail_reserving, which is the scheduler assigning a node and being unable to reserve it. The cause is this program's OWN matrix holding 72+ GPUs: the arm matrix is the thing competing with the survey.",
+  "diagnosis": "NOT my matrix. All twelve matrix jobs report job_succeeded, so the program's own 96 GPUs have been released -- and the survey STILL cannot reserve a node. The contention is external to this session, from other lanes on the same LCG. ListJobs returns only ResponseMetadata with no Result, so the pool cannot be enumerated from here and the holders cannot be identified; that matches this program's earlier note that quota reads are AccessForbidden in places.",
   "not_a_blind_retry_rationale": "each attempt is a NEW submission of a body that has been validated, against a transient family of failure with a terminal status -- not a retry after an UNKNOWN outcome, which is the case that must never be retried.",
-  "plan": "retry when the matrix drains. Its last arm is projected to finish near 10:20 UTC, and the survey needs one card."
+  "plan": "retry later. The survey is one 1-GPU card and produces contribution 3's key datum -- the trained decay distribution and per-layer half-lives -- so it is worth re-attempting rather than dropping."
 }
