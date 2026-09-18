@@ -1,0 +1,23 @@
+{
+  "schema": "nonlatent_efficiency_first_measurements_v1",
+  "at_utc": "2026-09-18T03:41:40Z",
+  "job_id": "job-11452333-5623-4c59-8025-eb7e3fa3bc94",
+  "what_was_measured": "the four BiRWKV contexts at 4K/16K/32K/64K, status ok, before the grid aborted on an unrelated model's load failure",
+  "sample_row_4k": {
+    "model": "birwkv-2.9b",
+    "family": "linear_attention",
+    "objective": "masked_diffusion",
+    "nfe": 100,
+    "context": 4096,
+    "status": "ok",
+    "wall_ms": 1208.685,
+    "tokens_per_second": 16944.03,
+    "peak_allocated_bytes": 9118532096,
+    "peak_reserved_bytes": 10120855552,
+    "analytic_weights_bytes": 7219660451,
+    "analytic_state_bytes": 20971520
+  },
+  "why_this_matters": "the first measured throughput and peak memory for the model the paper is about, from an inference_mode run rather than the training-shape calibration. The analytic state figure is 20 MiB, matching the constant-state claim the manuscript makes.",
+  "the_policy_defect_it_exposed": "the grid ABORTED on a load failure for a different model (llada-8b-base: 'LLaDAModelLM' object has no attribute 'all_tied_weights_keys', a transformers-version incompatibility rather than a missing loader). The abort cost the twenty cells the other five models would have produced, having already measured four. A load failure is a fact about the ARTIFACT and the other models' measurements do not depend on it, so it is now a `load_failed` ROW carrying the refusal text, and the grid continues. An IMPORT failure still aborts, because every cell after it would be meaningless -- the distinction the original policy wanted is real and was drawn one level too coarse.",
+  "still_open": "llada-8b-base cannot be loaded under the installed transformers; that is now a recorded hole in the table rather than a reason to have no table"
+}

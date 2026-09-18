@@ -5,8 +5,12 @@
 # context) cell on ONE GPU and writes one JSON per cell to $OUTDIR/<model_key>_<context>.json.
 # This experiment is the evidence for the paper's efficiency claim, so a cell that does not
 # fit is recorded as the probe's own "oom" row and the grid keeps going; only a failure to
-# IMPORT the runner or to LOAD a checkpoint aborts the grid, because those are defects in the
-# run rather than measurements that did not fit.
+# IMPORT the runner aborts the grid, because that is a defect in the run rather than a
+# measurement that did not fit.  A failure to LOAD one checkpoint does NOT abort it: it is
+# written as a `load_failed` row and the grid continues, because a model that cannot be
+# loaded is a fact about the artifact and the other models' measurements do not depend on it.
+# The original policy aborted on both and cost twenty cells to report one, having already
+# measured four.
 #
 # The runner has no CLI, so it is driven through `python - ` importing probe_ladder and
 # adapters -- see the payload below. A single-rung probe_ladder per cell (rather than one
@@ -251,6 +255,7 @@ for key in "${MODEL_KEY_LIST[@]}"; do
   # -- an import or load failure -- aborts the rest of the grid.
   "$PYTHON_BIN" - "$RUNNER_PACKAGE" "$key" "$OUTDIR" "$MODELS_ROOT" "$DEVICE" "${CONTEXT_LIST[@]}" <<'PYPROBE' 2>&1 | tee -a "$RUNLOG"
 import importlib
+import json
 import sys
 from pathlib import Path
 
@@ -300,9 +305,37 @@ class _ProbeArm:
 try:
     adapter = adapters.build(key, models_root=models_root)
     adapter.load(device)
-except Exception as exc:  # noqa: BLE001 - build/load failure is the other fatal case
-    print(f"LOAD FAIL: model key {key!r} could not be built and loaded on {device}: {exc!r}")
-    raise SystemExit(3)
+except Exception as exc:  # noqa: BLE001 - recorded below, not raised
+    # A LOAD FAILURE IS A ROW, NOT AN ABORT.  The first run of this grid aborted here on
+    # LLaDA and lost the twenty cells the other five models would have produced, having
+    # already written four -- so the policy cost more evidence than the defect it was
+    # reporting.  A model that cannot be loaded is a fact about the ARTIFACT, and the other
+    # models' measurements do not depend on it; recording why and continuing yields a table
+    # with a named hole instead of no table.
+    #
+    # An IMPORT failure still aborts (SystemExit(2) earlier in this driver): that is a
+    # defect in the run, and every cell after it would be meaningless.  The distinction the
+    # original policy was reaching for is real; it was drawn one level too coarse.
+    message = f"model key {key!r} could not be built and loaded on {device}: {exc!r}"
+    print(f"LOAD FAIL: {message}")
+    for context in contexts:
+        target = Path(out_dir) / f"{key}_{context}.json"
+        target.write_text(json.dumps({
+            "model": key,
+            "device": device,
+            "contexts_requested": [context],
+            "contexts_measured": [],
+            "stopped_at_oom": False,
+            "rows": [{
+                "model": key, "context": context, "status": "load_failed",
+                "wall_ms": None, "tokens_per_second": None,
+                "peak_allocated_bytes": None, "peak_reserved_bytes": None,
+                "analytic_weights_bytes": None, "analytic_state_bytes": None,
+                "error": message,
+            }],
+        }, indent=1) + "\n")
+        print(f"CELL key={key} context={context} status=load_failed")
+    raise SystemExit(0)
 
 for context in contexts:
     arm = _ProbeArm(adapter, context)

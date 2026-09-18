@@ -450,9 +450,20 @@ def test_an_oom_row_is_kept_and_does_not_abort_the_grid(
     assert "SUMMARY: cells written=1 cells failed=2" in combined
 
 
-def test_a_load_failure_aborts_the_grid(
+def test_a_load_failure_is_recorded_and_the_grid_continues(
     tmp_path: Path, fake_scale_tree: Path, fake_cuda_python: Path
 ) -> None:
+    r"""A load failure must not cost the cells the OTHER models would have produced.
+
+    This test used to assert the opposite -- that the grid aborts, "because a load failure
+    is a defect in the run". The first real run showed what that policy costs: it measured
+    all four BiRWKV contexts, hit a load failure on LLaDA, and aborted, losing the twenty
+    cells the other five models would have produced. The aborting policy reported one
+    defect and destroyed five models' worth of evidence to do it.
+
+    So the failure is now a row: the model gets a `load_failed` cell per requested context
+    carrying the refusal text, and the run exits ZERO so the next model is attempted.
+    """
     # Given: two models, the second of which cannot be loaded.
     env = _fake_grid_env(tmp_path, fake_scale_tree, fake_cuda_python, FAKE_LOAD_FAIL="fake-b")
 
@@ -460,15 +471,24 @@ def test_a_load_failure_aborts_the_grid(
     result = _run(tmp_path, env)
     combined = _combined(result)
 
-    # Then: the run aborts -- a load failure is a defect in the run, not a rung that did not
-    # fit -- and the model that loaded before the abort still has its cells.
-    assert result.returncode != 0, combined
+    # Then: the run completes -- the grid CONTINUES past the failure...
+    assert result.returncode == 0, combined
     assert "LOAD FAIL" in combined
     assert "fake-b" in combined
-    assert "aborting the grid" in combined
+    assert "aborting the grid" not in combined
     out = tmp_path / "out"
+    # ...the model that loaded has its cells...
     assert (out / "fake-a_4096.json").exists()
-    assert not (out / "fake-b_4096.json").exists()
+    # ...and the model that did not has a cell recording WHY, rather than a hole.
+    failed = out / "fake-b_4096.json"
+    assert failed.exists(), "a load failure must leave a row, not an absence"
+    import json as _json
+    document = _json.loads(failed.read_text())
+    row = document["rows"][0]
+    assert row["status"] == "load_failed"
+    assert row["error"], "the hole must carry its reason"
+    assert row["tokens_per_second"] is None, "no number may be printed where a load failed"
+    assert row["peak_allocated_bytes"] is None
 
 
 def test_the_campaign_code_root_is_on_the_import_path() -> None:
@@ -493,3 +513,35 @@ def test_the_campaign_code_root_is_on_the_import_path() -> None:
     assert path_line.index("${IMPORT_ROOT}") < path_line.index("${DAN_CODE_ROOT}")
     # the BOOT log records it, so a reader can tell which backbone tree a row came from
     assert "DAN_CODE_ROOT=$DAN_CODE_ROOT" in script
+
+
+def test_a_load_failure_is_a_row_not_an_abort() -> None:
+    """The policy that cost twenty cells to report one.
+
+    The first real run of this grid measured all four BiRWKV contexts, then hit a load
+    failure on LLaDA and aborted -- losing the twenty cells the other five models would
+    have produced. A model that cannot be loaded is a fact about the ARTIFACT, and the
+    other models' measurements do not depend on it, so the honest output is a table with a
+    named hole rather than no table.
+
+    The distinction the original policy was reaching for is real but was drawn one level
+    too coarse: an IMPORT failure still aborts, because every cell after it would be
+    meaningless.
+    """
+    script = (Path(__file__).resolve().parents[3]
+              / "scale" / "qz" / "launch_efficiency_probe.sh").read_text()
+    lines = script.splitlines()
+    start = next(i for i, l in enumerate(lines) if "<<'PYPROBE'" in l) + 1
+    end = next(i for i, l in enumerate(lines) if l.strip() == "PYPROBE" and i > start)
+    driver = "\n".join(lines[start:end])
+
+    # Then: the load failure writes rows and exits ZERO, so the grid continues.
+    assert 'status": "load_failed"' in driver
+    assert "raise SystemExit(0)" in driver, "a load failure must not abort the grid"
+    assert "raise SystemExit(3)" not in driver, "the abort is what lost twenty cells"
+    # the import failure still aborts -- that IS a run defect
+    assert "raise SystemExit(2)" in driver
+    # and the error text reaches the row, so the hole has a reason
+    assert '"error": message' in driver
+    # the header's stated policy must match the behaviour
+    assert "does NOT abort it" in script
