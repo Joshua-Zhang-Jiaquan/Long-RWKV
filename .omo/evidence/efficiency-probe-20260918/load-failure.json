@@ -1,0 +1,21 @@
+{
+  "schema": "nonlatent_efficiency_probe_load_failure_v1",
+  "at_utc": "2026-09-18T02:53:05Z",
+  "job_id": "job-f5412cc6-9b59-431b-add1-77ae876b1afe",
+  "status": "job_failed after 32 s with a clean preflight and zero cells written",
+  "failure": "LOAD FAIL: birwkv-2.9b could not be built by the generic hub loader; Unrecognized model in m4loop_ext_endpoint_ckpt. Should have a `model_type` key in its config.json.",
+  "why_the_preflight_could_not_have_caught_it": "the preflight checks that weights EXIST at the resolved path, and they do. It cannot check that they are LOADABLE without loading a 16.4 GB checkpoint, which is the measurement it is gating. A path check and a load check are different claims, and the preflight can only make the first.",
+  "root_cause": "the checkpoint is a raw training state dict -- model.pt (16.4 GB) plus meta.json -- with NO config.json, so AutoModelForCausalLM.from_pretrained can never work on it. The generic hub path is not merely untested for this model, it is inapplicable.",
+  "the_adapter_behaved_correctly": "it refused with a named error naming the reason (a checkpoint that ships no modeling code needs its own loader) rather than falling back to something that would have produced a number. A silent fallback here would have put a wrong model in the table under a step label.",
+  "consequence_for_the_paper": "contribution 1's table cannot include the paper's OWN model until a BiRWKV loader exists -- which is the same defect as the path gap found earlier, one layer deeper: the path now resolves and the artifact still cannot be read.",
+  "the_loader_that_already_exists": "DAN/v7_arch_round/code/eval/birwkv_diffusion_model.py: load_birwkv_diffusion(ckpt_dir, model_dir, device, latent_cond, block_size). It builds geometry from an HF dir, then loads the flat state dict from model.pt, and it carries its own guards (a load-slot gate because 8 concurrent 4.1B loads wedge a pod with no traceback; a refusal when block_t_cond keys appear without a block size).",
+  "meta_json_available": {
+    "path": "m4loop_ext_endpoint_ckpt/meta.json",
+    "content": {
+      "step": 9500,
+      "tokens_seen": 9961472000.0
+    },
+    "why_it_matters": "the manuscript labels every number by the step that produced it, so a table row that cannot be traced to a checkpoint step is not usable"
+  },
+  "not_yet_measured": "the five hub models, which the grid would have measured had the birwkv load not aborted it. The launcher aborts on a load failure by its own stated policy -- a load failure is a defect in the run, not a measurement that did not fit -- and that policy is correct; the fix is the loader, not the policy."
+}
