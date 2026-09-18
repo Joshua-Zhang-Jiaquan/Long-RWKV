@@ -1,0 +1,55 @@
+{
+  "schema": "nonlatent_task7_matrix_submissions_v2",
+  "submitted_utc": "2026-09-18T00:47:30Z",
+  "design": "twelve independent 1-node jobs, all submitted concurrently",
+  "runs": {
+    "task7-a1-s17": {
+      "job_id": "job-67d29a9d-d8ef-4f18-9076-d9f2b6230b74",
+      "wave": 0
+    },
+    "task7-a2-s17": {
+      "job_id": "job-c272c118-a1de-4fcf-9c98-4682cd89bb62",
+      "wave": 0
+    },
+    "task7-a3-s17": {
+      "job_id": "job-fb4f697f-2ff3-4426-82e0-a3cd938f01a1",
+      "wave": 0
+    },
+    "task7-a5-s17": {
+      "job_id": "job-e4b6204d-71e7-4050-ae6b-2823def8ba5e",
+      "wave": 0
+    },
+    "task7-a1-s29": {
+      "job_id": "job-7b1b8c9d-9e4c-44bb-82d3-2cdc99c04d00",
+      "wave": 1
+    },
+    "task7-a2-s29": {
+      "job_id": "job-5889c9aa-25b1-4496-9737-ac4c95c5a0fc",
+      "wave": 1
+    },
+    "task7-a3-s29": {
+      "job_id": "job-f02290f1-53ab-43f5-b59c-d39fe96cf316",
+      "wave": 1
+    },
+    "task7-a5-s29": {
+      "job_id": "job-8f84a8e2-c6c0-49be-8bea-9d5326d6922b",
+      "wave": 1
+    },
+    "task7-a1-s43": {
+      "job_id": "job-55e3bce0-cd96-42ae-addc-dfb1854aa5a2",
+      "wave": 2
+    },
+    "task7-a2-s43": {
+      "job_id": "job-ceb0970e-c1b4-4d17-92f6-b1c262008c57",
+      "wave": 2
+    },
+    "task7-a3-s43": {
+      "job_id": "job-0be97039-4385-4595-b903-c88bf84884ec",
+      "wave": 2
+    },
+    "task7-a5-s43": {
+      "job_id": "job-a93356a5-4072-4fbe-b4ac-3e6a397e74ea",
+      "wave": 2
+    }
+  }
+}
