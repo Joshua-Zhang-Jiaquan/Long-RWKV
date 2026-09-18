@@ -647,6 +647,78 @@
       "kind": "derived",
       "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
       "appears_in": "throughput at 65536 divided by nfe=100; arithmetic over two artifacted values, so a reader must redo the division"
+    },
+    {
+      "claim_id": "abl-a1-mean",
+      "value": "5.4541",
+      "kind": "measured",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "near": "\"A1\":\\s*\\{[^}]*\"mean\":\\s*5\\.4541",
+      "appears_in": "A1's mean over seeds"
+    },
+    {
+      "claim_id": "abl-a1-spread",
+      "value": "0.5295",
+      "kind": "measured",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "near": "\"A1\":\\s*\\{[^}]*\"spread\":\\s*0\\.5295",
+      "appears_in": "A1's seed spread"
+    },
+    {
+      "claim_id": "abl-a2-mean",
+      "value": "4.5436",
+      "kind": "measured",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "near": "\"A2\":\\s*\\{[^}]*\"mean\":\\s*4\\.5436",
+      "appears_in": "A2's mean over seeds"
+    },
+    {
+      "claim_id": "abl-a3-mean",
+      "value": "4.6011",
+      "kind": "measured",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "near": "\"A3\":\\s*\\{[^}]*\"mean\":\\s*4\\.6011",
+      "appears_in": "A3's mean over seeds"
+    },
+    {
+      "claim_id": "abl-a5-mean",
+      "value": "5.4541",
+      "kind": "measured",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "near": "\"A5\":\\s*\\{[^}]*\"mean\":\\s*5\\.4541",
+      "appears_in": "A5's mean over seeds"
+    },
+    {
+      "claim_id": "abl-directionality",
+      "value": "0.9104",
+      "kind": "measured",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "near": "\"difference\":\\s*-0\\.9104",
+      "appears_in": "the directionality contrast"
+    },
+    {
+      "claim_id": "abl-loop-bidir",
+      "value": "0.0575",
+      "kind": "measured",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "near": "\"difference\":\\s*0\\.0575",
+      "appears_in": "the loop-on-bidirectional contrast"
+    },
+    {
+      "claim_id": "abl-gate-a5",
+      "value": "0.003039",
+      "kind": "measured",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "near": "\"at_step_1908\":\\s*0\\.003039",
+      "appears_in": "A5's loop gate at the end"
+    },
+    {
+      "claim_id": "abl-gate-a3",
+      "value": "0.000442",
+      "kind": "measured",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "near": "\"at_step_1908\":\\s*0\\.000442",
+      "appears_in": "A3's loop gate at the end"
     }
   ],
   "non_claims": [
@@ -741,6 +813,14 @@
     {
       "value": "27,968.9",
       "reason": "quoted in the table caption as the exact value the earlier rounding misstated, not a claim of its own"
+    },
+    {
+      "value": "1,908",
+      "reason": "the frozen step budget, declared in the protocol"
+    },
+    {
+      "value": "1,500",
+      "reason": "a checkpoint step label named in the gate trace"
     }
   ]
 }

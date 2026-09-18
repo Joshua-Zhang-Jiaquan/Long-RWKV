@@ -20,7 +20,7 @@
     "ledger-total-8b",
     "registry-total-instances"
   ],
-  "checked": 83,
+  "checked": 92,
   "counts": {
     "value_not_found": 0,
     "value_outside_context": 0,
@@ -28,7 +28,7 @@
     "external": 1,
     "derived": 17,
     "rounding_ok": 19,
-    "verified": 46
+    "verified": 55
   },
   "results": [
     {
@@ -694,11 +694,83 @@
       "kind": "derived",
       "verdict": "derived",
       "detail": "throughput at 65536 divided by nfe=100; arithmetic over two artifacted values, so a reader must redo the division"
+    },
+    {
+      "claim_id": "abl-a1-mean",
+      "value": "5.4541",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'5.4541' occurs inside '\"A1\": {\\n      \"contrast_role\": \"reference: forward-only, no ' in .omo/evidence/task7-arm-matrix-20260917/ablation-results.json"
+    },
+    {
+      "claim_id": "abl-a1-spread",
+      "value": "0.5295",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'0.5295' occurs inside '\"A1\": {\\n      \"contrast_role\": \"reference: forward-only, no ' in .omo/evidence/task7-arm-matrix-20260917/ablation-results.json"
+    },
+    {
+      "claim_id": "abl-a2-mean",
+      "value": "4.5436",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'4.5436' occurs inside '\"A2\": {\\n      \"contrast_role\": \"directionality\",\\n      \"n\": ' in .omo/evidence/task7-arm-matrix-20260917/ablation-results.json"
+    },
+    {
+      "claim_id": "abl-a3-mean",
+      "value": "4.6011",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'4.6011' occurs inside '\"A3\": {\\n      \"contrast_role\": \"the loop on a bidirectional ' in .omo/evidence/task7-arm-matrix-20260917/ablation-results.json"
+    },
+    {
+      "claim_id": "abl-a5-mean",
+      "value": "5.4541",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'5.4541' occurs inside '\"A5\": {\\n      \"contrast_role\": \"the loop alone\",\\n      \"n\": ' in .omo/evidence/task7-arm-matrix-20260917/ablation-results.json"
+    },
+    {
+      "claim_id": "abl-directionality",
+      "value": "0.9104",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'0.9104' occurs inside '\"difference\": -0.9104' in .omo/evidence/task7-arm-matrix-20260917/ablation-results.json"
+    },
+    {
+      "claim_id": "abl-loop-bidir",
+      "value": "0.0575",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'0.0575' occurs inside '\"difference\": 0.0575' in .omo/evidence/task7-arm-matrix-20260917/ablation-results.json"
+    },
+    {
+      "claim_id": "abl-gate-a5",
+      "value": "0.003039",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'0.003039' occurs inside '\"at_step_1908\": 0.003039' in .omo/evidence/task7-arm-matrix-20260917/ablation-results.json"
+    },
+    {
+      "claim_id": "abl-gate-a3",
+      "value": "0.000442",
+      "source": ".omo/evidence/task7-arm-matrix-20260917/ablation-results.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'0.000442' occurs inside '\"at_step_1908\": 0.000442' in .omo/evidence/task7-arm-matrix-20260917/ablation-results.json"
     }
   ],
   "coverage_checked": true,
-  "manuscript_chars": 56926,
-  "numbers_extracted": 72,
+  "manuscript_chars": 58983,
+  "numbers_extracted": 74,
   "verdict": {
     "status": "pass",
     "withheld_reason": null,

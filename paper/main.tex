@@ -624,28 +624,73 @@ deadlines (which need the deployment measurements), the frozen common token budg
 resolution of checkpoints that are not present on disk. Until then the protocol above is
 a specification, and a specification is not a result.
 
-\paragraph{The controlled ablation, running and partial.} The arm matrix of
-\S\ref{sec:protocol} is in flight, and one of its four arms has completed all three seeds.
-Reporting it now is worth doing, because the number that has arrived is not a result about
-the architecture --- it is the \emph{yardstick} every result will be judged against.
+\paragraph{The controlled ablation: one lever engaged, one did not.} All twelve runs
+reached the frozen $2$B-token budget, and the result is not the one the design anticipated.
+The four arms, on seeds $17$/$29$/$43$, at $\mathrm{mask\_ce}$:
 
-Arm A1 (forward-only, no recycling) finished its frozen $2$B-token budget at
-$\mathrm{mask\_ce}$ of $5.6091$, $5.1118$ and $5.6413$ on seeds $17$, $29$ and $43$: a mean
-of $5.4541$ and a \textbf{seed spread of $0.5295$}. The analysis reports a contrast as
-separable only when it exceeds the larger of the two arms' spreads, so any between-arm
-difference smaller than about $0.53$ in this metric is not a finding. We state the yardstick
-before the contrast deliberately: with three seeds, a difference inside the seed spread is
-indistinguishable from noise, and the pre-registered interpretation of an arm that does not
-clear it is that recycling bought no detectable quality at this scale and budget --- which
-is a result, not a failure.
+\begin{center}
+\begin{tabular}{llrrr}
+\toprule
+arm & configuration & $n$ & mean & seed spread \\
+\midrule
+A1 & forward-only, no recycling & $3$ & $5.4541$ & $0.5295$ \\
+A2 & bidirectional, no recycling & $2$ & $4.5436$ & $0.4075$ \\
+A3 & bidirectional, tied loop & $3$ & $4.6011$ & $0.4084$ \\
+A5 & forward-only, tied loop & $3$ & $5.4541$ & $0.5296$ \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-Against that bar, the contrasts the protocol declares --- directionality (A2 against A1),
-the loop on a bidirectional backbone (A3 against A2), and the loop alone (A5 against A1)
---- are all \notrun{} and will remain so until the remaining nine runs finish. The
-comparison is made on the runs' own training-time validation metric, not on a benchmark: a
-separable difference here would justify a benchmark evaluation, and its absence would not by
-itself rule the mechanism out at larger scale, which would need its own budget. Both
-readings are pre-registered.
+Against the pre-registered bar --- a contrast counts only if it exceeds the larger of the two
+arms' seed spreads --- the declared comparisons give:
+
+\begin{center}
+\begin{tabular}{llrrl}
+\toprule
+contrast & arms & difference & must clear & \\
+\midrule
+directionality & A2 $-$ A1 & $-0.9104$ & $0.5295$ & \textbf{separable} \\
+the loop, bidirectional & A3 $-$ A2 & $+0.0575$ & $0.4084$ & not separable \\
+the loop, forward-only & A5 $-$ A1 & $+0.0000$ & $0.5296$ & not separable \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Why the loop contrasts are not a result about recycling.} A5 reproduces A1 seed
+by seed to four decimals: $5.6090$ against $5.6091$, $5.1118$ against $5.1118$, $5.6414$
+against $5.6413$. A tie at that precision is not a small effect; it is the absence of one,
+so we inspected the checkpoints rather than accepting the number. The recycling gate is a
+scalar, initialised so that the loop is an \emph{identity} until trained, and after $1{,}908$
+steps it sits at \textbf{$0.003039$} in A5 and \textbf{$0.000442$} in A3 --- having drifted
+from $0.002973$ and $0.000404$ at step $1{,}500$. The loop's output is scaled by roughly
+$0.3\%$. A1's checkpoint carries no \texttt{loop.*} keys at all, confirming that the arm
+difference is what its name says.
+
+So \emph{neither loop contrast is evidence about depth recycling}. They are measurements of
+a mechanism that never engaged, and reporting them as ``recycling does not help'' would
+attribute a null to the architecture when what was measured is an inert gate. This is the
+``extra compute or a warm-start effect rather than demonstrated architecture advantage''
+failure the protocol names in advance, arriving from a direction the protocol did not
+anticipate: not a gain that fails to survive a matched comparison, but a mechanism that
+never produced a gain to compare.
+
+\paragraph{What the ablation does establish.} One lever moved, and by a wide margin.
+\textbf{Directionality is separable at matched budget and parameter count}: A2 beats A1 by
+$0.9104$ against a required $0.5295$, roughly $1.7$ times the bar. Bidirectional scanning
+inside the denoising canvas is a real architectural effect on this object, measured, and it
+is this paper's first confirmatory result. It is also the lever that costs nothing --- no
+parameters, no cache, no extra forward passes.
+
+The claim we therefore make, and the one we do not: \emph{direction helps; the recycled
+depth, as initialised and configured here, did not engage within $2 \times 10^9$ tokens on a
+$0.4$B backbone}. Whether it would at larger scale, on a longer budget, or under a different
+gate initialisation is a question this measurement does not answer, and we do not answer it
+by implication. A run whose gate opened would be a different experiment and would need its
+own budget.
+
+One caveat on precision: A2 is $n = 2$, because its seed-$17$ run log is absent although its
+checkpoint reached step $1{,}908$. The directionality contrast is separable at $n = 2$
+against the bar, but it is reported as $n = 2$ rather than as three.
 
 \paragraph{One result in flight, described as such.} A continuation run
 (\texttt{job-49e48c2d}, resumed from step 9500 and still running at its 36-hour
