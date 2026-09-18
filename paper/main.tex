@@ -512,6 +512,22 @@ Second, \emph{per-forward throughput is flat across context} for the recurrent a
 ($65,331 \rightarrow 31{,}995$ for Llama). This is the recurrence doing what it is
 supposed to do: no cache to grow means no cache to walk.
 
+\paragraph{What the timing method does not support.} The throughput figures are a
+\emph{short-burst} measurement: one untimed warm-up and five timed forwards per cell, taken
+over seconds. They are not a sustained-load measurement, and the two differ for exactly the
+workload this section is about. Long-context inference is memory-bandwidth bound, and a
+sustained run can see clocks settle and bandwidth utilisation saturate in ways a five-forward
+average cannot show. A gate that certifies a submission on a sustained device-memory
+bandwidth median --- a shape this program has had proposed internally, requiring on the order
+of a hundred rows per rank to reach a $90\%$ median --- is measuring a quantity this
+experiment does not produce, and we do not present our numbers as if it did.
+
+What this means for the claims above: the \emph{rank ordering} and the \emph{growth with
+context} are robust to the caveat, because every model was measured the same way and the
+comparison is between arms rather than against an absolute ceiling. The absolute tokens per
+second are a burst rate. A serving claim would need a sustained measurement at a declared
+load, which is part of the registered deployment protocol and remains \notrun{}.
+
 \paragraph{What the measurement forbids.} A compute claim. At $64$K the model under study
 produces $180$ tokens per second of wall clock against Llama's $31{,}995$ and Qwen's
 $35{,}156$, because producing one answer requires $100$ forward passes. That is roughly a
