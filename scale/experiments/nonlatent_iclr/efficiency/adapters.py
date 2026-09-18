@@ -37,6 +37,7 @@ that are actually on disk, taken 2026-09-17 from the files named by each
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import os
 from pathlib import Path
 from typing import Final, Protocol
 
@@ -84,6 +85,26 @@ FP16_BYTES: Final = 2
 #: would stat the filesystem at import time, which the module forbids).
 _REPO_ROOT: Final = Path(__file__).absolute().parents[4]
 _BIRWKV_RELEASE: Final = str(_REPO_ROOT / "release" / "StateDiffRWKV-2.9B-trajectory4096-pretrained")
+
+#: The registry key of the model under study, named so the override below can target it
+#: without a string literal scattered through the module.
+BIRWKV_KEY: Final = "birwkv-2.9b"
+
+#: An override for the BiRWKV release directory.
+#:
+#: The default is the in-repo release path, which is the right DEFAULT -- the release is
+#: meant to ship with the repository, and a path derived from the module's own location
+#: cannot be wrong about where the repository is.  But the checkpoint this program
+#: actually MEASURES is a training endpoint that lives on the cluster
+#: (``m2_baseline_triangle/m4loop_*_endpoint_ckpt``), not in the tree, and the
+#: manuscript labels every number by the STEP that produced it.  Without an override the
+#: efficiency matrix refuses to run against the model it is about, or worse, runs
+#: against whatever happens to sit at the default path and records it under a step label
+#: it never had.
+#:
+#: Whatever this resolves to is RECORDED in the probe row, so a table entry can be read
+#: back to the checkpoint that produced it.
+BIRWKV_RELEASE_ENV: Final = "NONLATENT_BIRWKV_RELEASE"
 
 
 class AdapterRefusal(ValueError):
@@ -294,7 +315,18 @@ _GEOMETRY: Final[dict[str, AttentionGeometry | RecurrentGeometry]] = {
 
 
 def _absolute_path(spec: ModelSpec, models_root: str) -> Path:
-    """A hub path is relative to ``models_root``; a recorded absolute path stands."""
+    """A hub path is relative to ``models_root``; a recorded absolute path stands.
+
+    The BiRWKV release is the one entry an environment variable may redirect, for the
+    reason :data:`BIRWKV_RELEASE_ENV` gives: the measured checkpoint is a cluster
+    endpoint rather than a shipped release.  The override applies to that key ONLY --
+    an override that could redirect any key would make the registry's paths advisory,
+    and a table built from advisory paths cannot be checked against the models it names.
+    """
+    if spec.key == BIRWKV_KEY:
+        override = os.environ.get(BIRWKV_RELEASE_ENV)
+        if override:
+            return Path(override)
     recorded = Path(spec.path)
     return recorded if recorded.is_absolute() else Path(models_root) / recorded
 
@@ -417,16 +449,18 @@ def build(key: str, *, models_root: str) -> Adapter:
     geometry = _GEOMETRY[key]
     resolved = _absolute_path(spec, models_root)
     if not resolved.exists():
+        hint = (f"; set {BIRWKV_RELEASE_ENV} to the measured checkpoint's directory"
+                if key == BIRWKV_KEY else "check models_root")
         raise AdapterRefusal(
-            f"weights for {key!r} are absent at {resolved}; check models_root, which "
-            f"is currently {models_root!r}")
+            f"weights for {key!r} are absent at {resolved}{hint}; models_root is "
+            f"currently {models_root!r}")
     return CheckpointAdapter(spec=spec, geometry=geometry, resolved_path=resolved)
 
 
 __all__ = [
     "AUTOREGRESSIVE", "Adapter", "AdapterRefusal", "AttentionGeometry", "BF16_BYTES",
     "CheckpointAdapter", "FAMILIES", "FP16_BYTES", "LINEAR_ATTENTION", "LoadedModel",
-    "MASKED_DIFFUSION", "ModelSpec", "NFE_AUTOREGRESSIVE", "NFE_BIRWKV", "NFE_LLADA",
+    "BIRWKV_KEY", "BIRWKV_RELEASE_ENV", "MASKED_DIFFUSION", "ModelSpec", "NFE_AUTOREGRESSIVE", "NFE_BIRWKV", "NFE_LLADA",
     "OBJECTIVES", "RECORDED_MODELS_ROOT", "REGISTRY", "RecurrentGeometry", "STATE_SPACE",
     "TRANSFORMER", "build",
 ]

@@ -230,3 +230,65 @@ def test_import_does_not_touch_the_disk_or_import_cuda() -> None:
     payload = json.loads(line.removeprefix("RESULT"))
     assert payload["touched"] == []
     assert payload["heavy"] == []
+
+
+# --------------------------------------------------------------------------
+# the measured checkpoint is not the shipped release
+# --------------------------------------------------------------------------
+
+
+def test_the_birwkv_release_can_be_redirected_to_the_measured_checkpoint(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """The matrix must be able to measure the model the paper is ABOUT.
+
+    The default is the in-repo release path, which is the right default -- a path
+    derived from the module's own location cannot be wrong about where the repository
+    is. But the checkpoint this program measures is a training endpoint on the cluster,
+    and the manuscript labels every number by the STEP that produced it. Without an
+    override the matrix refuses to run against the model it is about.
+    """
+    # Given: a directory standing in for the measured endpoint.
+    endpoint = tmp_path / "m4loop_ext_endpoint_ckpt"
+    endpoint.mkdir()
+    (endpoint / "config.json").write_text("{}")
+    monkeypatch.setenv(efficiency.BIRWKV_RELEASE_ENV, str(endpoint))
+    # When: it is resolved.
+    adapter = efficiency.build(efficiency.BIRWKV_KEY, models_root=str(tmp_path))
+    # Then: the override is what was used, and the resolved path is on the adapter so a
+    # table entry can be read back to the checkpoint that produced it.
+    assert adapter.resolved_path == endpoint
+
+
+def test_the_override_applies_to_that_key_only(tmp_path: Path,
+                                               monkeypatch: pytest.MonkeyPatch) -> None:
+    """A redirect that could move ANY key would make the registry advisory.
+
+    A table built from advisory paths cannot be checked against the models it names,
+    because the registry would no longer be the thing that determined them.
+    """
+    # Given: the override set, and a hub model that exists under models_root.
+    monkeypatch.setenv(efficiency.BIRWKV_RELEASE_ENV, str(tmp_path))
+    hub = tmp_path / "Llama-3.2-3B"
+    hub.mkdir()
+    other = next(k for k in efficiency.REGISTRY if k != efficiency.BIRWKV_KEY)
+    # When: the other key is resolved.
+    adapter = efficiency.build(other, models_root=str(tmp_path))
+    # Then: it came from the registry, NOT from the override.
+    assert adapter.resolved_path != tmp_path
+    assert adapter.resolved_path.name == efficiency.REGISTRY[other].path.split("/")[-1]
+
+
+def test_without_the_override_the_default_path_is_used(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv(efficiency.BIRWKV_RELEASE_ENV, raising=False)
+    spec = efficiency.REGISTRY[efficiency.BIRWKV_KEY]
+    assert efficiency._absolute_path(spec, str(tmp_path)) == Path(spec.path)
+
+
+def test_the_absence_refusal_names_the_override_for_that_key(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """The route out must be in the message, not only in the docstring."""
+    monkeypatch.delenv(efficiency.BIRWKV_RELEASE_ENV, raising=False)
+    with pytest.raises(efficiency.AdapterRefusal) as caught:
+        efficiency.build(efficiency.BIRWKV_KEY, models_root=str(tmp_path))
+    assert efficiency.BIRWKV_RELEASE_ENV in str(caught.value)
