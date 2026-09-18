@@ -177,8 +177,20 @@ def run_grid(*, encode, generate: Generate, access_mode: str = FULL_CANVAS,
                               access_mode=access_mode, instances=instances,
                               stream_chunk=stream_chunk))
 
-    measured = {(c.family, c.token_length): c.accuracy for c in cells
-                if c.measured and c.accuracy is not None}
+    # THE LOAD AXIS IS AVERAGED WITHIN A CELL, NOT DROPPED.  The macro key is
+    # (family, token_length) -- nine cells, as the protocol declares -- but the cut has four
+    # LOAD values per family and length, so keying on (family, length) alone let each load
+    # OVERWRITE the previous one. Measured on the bounded cut: 36 cells collapsed to 9 keys
+    # and 27 cells vanished from the score with no error, because a dict assignment over a
+    # duplicate key is not a failure. The macro then reported one load as if it were the
+    # cell. Averaging within the cell is what the protocol's "equal-weight mean over three
+    # families at three lengths" actually describes, and the per-load values are kept so the
+    # averaging is inspectable rather than trusted.
+    by_cell: dict[tuple[str, int], list[float]] = {}
+    for cell in cells:
+        if cell.measured and cell.accuracy is not None:
+            by_cell.setdefault((cell.family, cell.token_length), []).append(cell.accuracy)
+    measured = {key: sum(v) / len(v) for key, v in by_cell.items()}
     unmeasured = [f"{c.family}@{c.token_length}L{c.load}" for c in cells if not c.measured]
     macro = macro_score(measured) if measured else None
 
@@ -188,6 +200,13 @@ def run_grid(*, encode, generate: Generate, access_mode: str = FULL_CANVAS,
         "access_mode_semantics": MODE_SEMANTICS[access_mode],
         "cells": [asdict(c) for c in cells],
         "cells_measured": len(measured),
+        # The COUNT is the property that distinguishes averaging from overwriting: under
+        # the collapse every cell reads 1, because a duplicate key keeps only the last
+        # value. A test that asserted only the averaged value could not tell the two apart,
+        # which is exactly what the first version of that test did.
+        "cells_averaged": {f"{k[0]}@{k[1]}": {"accuracy": round(sum(v) / len(v), 6),
+                                              "n_loads": len(v)}
+                           for k, v in sorted(by_cell.items())},
         "cells_unmeasured": unmeasured,
         "macro_score": macro,
         "note": ("the macro score is over measured cells only; `cells_unmeasured` names "

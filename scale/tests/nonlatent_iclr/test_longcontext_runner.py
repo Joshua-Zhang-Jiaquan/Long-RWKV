@@ -188,3 +188,39 @@ def test_the_grid_round_trips_through_disk(tmp_path: Path, encode: FakeEncoder) 
     again = json.loads(path.read_text())
     assert again["schema"] == rn.SCHEMA
     assert again["cells_measured"] == 1
+
+
+def test_the_macro_key_does_not_silently_drop_the_load_axis(encode: FakeEncoder) -> None:
+    r"""Four loads per (family, length) overwrote each other under a two-part key.
+
+    The macro key is (family, token_length) -- nine cells, as the protocol declares -- but
+    the bounded cut has four LOADS per family and length. Keying on the first two alone let
+    each load overwrite the previous one: measured on the cut, 36 cells collapsed to 9 keys
+    and 27 vanished from the score with no error, because assigning over a duplicate dict
+    key is not a failure. The macro then reported one load as if it were the cell.
+
+    A skip is a claim, and this was a skip with no denominator.
+    """
+    from scale.experiments.nonlatent_iclr.tasks.token_targeted_matrix import (
+        BOUNDED_LOADS, cell_coordinates, cell_count)
+
+    # Given: units that share a family and length but differ in load.
+    units = [u for u in range(cell_count())
+             if (lambda c: (c.family, c.token_length) == ("associative_recall", LENGTHS[0]))
+             (cell_coordinates(u))]
+    assert len(units) == len(BOUNDED_LOADS), "the cut must have one cell per load"
+    # When: the grid runs.
+    grid = rn.run_grid(encode=encode, generate=_gen("v1"), units=units, instances=2)
+    # Then: ONE macro cell, averaged over all four loads -- and the per-cell average is
+    # reported, so the averaging is inspectable rather than trusted.
+    assert grid["cells_measured"] == 1
+    assert len(grid["cells_averaged"]) == 1
+    key, cell = next(iter(grid["cells_averaged"].items()))
+    assert key == f"associative_recall@{LENGTHS[0]}"
+    # THE COUNT IS THE ASSERTION. Averaging reads 4; overwriting reads 1, because a
+    # duplicate dict key keeps only the last value. The first version of this test asserted
+    # only the averaged value and could not tell the two apart -- it survived the mutation
+    # restoring the collapse, which is what a decoration test does.
+    assert cell["n_loads"] == len(BOUNDED_LOADS), (
+        f"the macro cell averaged {cell['n_loads']} loads, not {len(BOUNDED_LOADS)}: the "
+        f"load axis is being dropped rather than averaged")
