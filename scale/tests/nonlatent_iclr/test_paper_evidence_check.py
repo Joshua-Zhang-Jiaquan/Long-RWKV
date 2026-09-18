@@ -219,10 +219,16 @@ def test_the_disclosure_classes_are_named_in_the_report() -> None:
     if not inventory.is_file():
         pytest.skip(f"inventory absent: {inventory}")
     report = pec.check_all(pec.load_inventory(inventory), repo)
-    # the ledger totals are sums and cannot be greped; they are the only
-    # disclosures left now that the descriptive readings are recorded
+    # The disclosures must be NAMED, which is the property worth asserting -- not that
+    # there are none. An earlier version of this test asserted `external == 0`; adding the
+    # efficiency table made that false for a legitimate reason (the backbone's per-axis
+    # geometry lives in its HF config, which the architecture contract does not restate), and
+    # a test that fails when a disclosure is ADDED would push toward hiding disclosures
+    # rather than making them.
     assert report["counts"]["derived"] >= 1
-    assert report["counts"]["external"] == 0
+    assert report["disclosed"], "the report must name what it could not reach"
+    for claim_id in report["disclosed"]:
+        assert any(r["claim_id"] == claim_id for r in report["results"])
 
 
 # --------------------------------------------------------------------------
@@ -690,3 +696,24 @@ def test_an_empty_manuscript_is_not_treated_as_a_broken_extractor() -> None:
     report = pec.check_all(claims, Path("."), paper_text="")
     assert report["numbers_extracted"] == 0
     assert report["verdict"]["status"] == "pass"       # nothing to cover, and that is fine
+
+
+def test_a_comma_grouped_claim_value_can_satisfy_the_rounding_path(tmp_path: Path) -> None:
+    r"""float("68,444.6") raises, so a grouped value could never match by rounding.
+
+    Every comma-grouped claim silently failed the rounding path and was reported as
+    ABSENT EVIDENCE -- the loudest possible wrong answer for the quietest possible cause.
+    Found by cataloguing the efficiency table, all of whose values are large enough to be
+    written with separators.
+    """
+    # Given: an artifact holding the full-precision value and a claim written grouped.
+    _source(tmp_path, "s.json", '{"qwen": {"4096": 68444.58632658287}}')
+    claim = pec.Claim("t", "68,444.6", "s.json", "measured",
+                      near=r'"4096":\s*[0-9.]+')
+    # When: it is checked.
+    result = pec.check_claim(claim, tmp_path)
+    # Then: it is a correct rounding of the artifact's value, not missing evidence.
+    assert result.verdict == "rounding_ok"
+    # and a grouped value that is NOT the artifact's rounding is still caught
+    wrong = pec.Claim("w", "68,444.9", "s.json", "measured", near=r'"4096":\s*[0-9.]+')
+    assert pec.check_claim(wrong, tmp_path).verdict == "value_not_found"

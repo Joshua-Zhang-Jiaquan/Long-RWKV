@@ -163,9 +163,16 @@ def check_claim(claim: Claim, root: Path) -> Result:
         # 886.659... and the paper writes 886.7.  Comparing numerically at the
         # claimed precision separates "rounded correctly" from "wrong number",
         # and a check that blurred those two would train a reader to ignore it.
+        # THE CLAIM'S OWN VALUE may carry thousands separators -- "68,444.6" is how a paper
+        # writes it -- and float() rejects the comma. Without stripping it, EVERY
+        # comma-grouped claim silently failed the rounding path and was reported as absent
+        # evidence, which is the loudest possible wrong answer for the quietest possible
+        # cause. Found by cataloguing the efficiency table, whose values are all large
+        # enough to be grouped.
+        wanted = claim.value.replace(",", "")
         for candidate in numbers.findall(found):
             try:
-                if round(float(candidate), _decimals(claim.value)) == float(claim.value):
+                if round(float(candidate), _decimals(wanted)) == float(wanted):
                     return Result(claim.claim_id, claim.value, claim.source, claim.kind,
                                   "rounding_ok",
                                   f"{claim.value!r} is {candidate!r} rounded to "

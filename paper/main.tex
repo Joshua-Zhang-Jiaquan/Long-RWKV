@@ -43,31 +43,105 @@ number is absent.
 
 \section{Introduction}
 
-An autoregressive recurrent model carries a fixed-size state forward and reads the next
-token from it. That state is the mechanism by which context reaches the present, and it
-is also a bottleneck: whatever does not fit is gone. Bidirectional scanning and
-iterative denoising both attack this from different sides. Bidirectional scanning lets
-every position see left \emph{and} right context within the window. Denoising lets the
-model revise rather than commit. Depth recycling --- running a tied block more times
-than the backbone has layers --- is a third, cheaper lever: it adds executed depth
-without adding parameters.
+A recurrent language model carries a fixed-size state forward and reads the next token
+from it. That state is the only channel through which context reaches the present, and it
+is also the bottleneck: whatever does not fit is gone. The promise is a cost that does not
+grow with context; the price is that the same object must serve as the memory. Attention
+sidesteps the bottleneck by keeping every token addressable and paying for it with a cache
+that grows linearly, which is why a served long-context system is usually measured in cache
+gigabytes rather than in parameters.
 
-This paper asks whether that third lever does anything, and it is organised around the
-possibility that the answer is \emph{no}. Two failure modes are live and both are
-unremarkable: recycling may be an expensive way to spend compute that a wider baseline
-would have spent better, and any short-context benefit may simply not transfer to long
-context, where a fixed-size state is the binding constraint. We therefore commit in
-advance to the comparisons that would distinguish a real architectural advantage from
-those two, and to the interpretation of a null result.
+This paper studies a model that tries to take the recurrent bargain seriously. It is a
+\emph{non-latent} recurrent diffusion model: a \textbf{bidirectionally scanned RWKV-7
+backbone that denoises masked tokens in place}, with \textbf{no learned latent sidecar} and
+\textbf{no separate decoder}. The object under study is concrete and fixed. The backbone is
+RWKV-7 with $4{,}091{,}581{,}441$ parameters, hidden width $2{,}560$, $32$ layers, $40$
+heads of dimension $64$, and a vocabulary of $65{,}536$; it is scanned once forward and once
+backward and the two scans are fused by a learned gate. Denoising happens on the token
+canvas itself: masked positions are replaced by predictions, and the process repeats,
+so the model can revise a token rather than commit to it. There is no sidecar latent to
+carry meaning between steps and no separate decoder to render it --- the state, the canvas,
+and the output are all the same object.
 
-\paragraph{Why this manuscript looks the way it does.} The program this paper belongs to
-has completed its evidence audit, its architecture contract, its asset qualification and
-its runtime calibration, and has \emph{not} run the confirmatory training and evaluation
-campaign. We have written the paper to that state: the completed work is reported as
-results, the protocol is reported as a registrable protocol, and the cells that the
-protocol defines are left visibly empty. We think this is more useful than either a
-premature results paper or a plan, and the alternative --- filling the cells with
-fixture numbers --- is excluded by the program's own rules.
+We call this \emph{non-latent} to make the contrast explicit, because the latent variant is
+the default in the diffusion-language-model literature and it changes what is being
+measured. A model that denoises \emph{in place} must represent its partial answer in the
+same tokens it will emit, so every intermediate state is directly inspectable and directly
+scorable. A model with a learned latent sidecar can accumulate information that its decoder
+never emits, which is a capability, and also a confound: a long-context gain may come from
+the sidecar rather than from the recurrent state, and no measurement of the emitted tokens
+can tell the difference. Our object has no such place to hide, which is what makes the
+questions below well posed --- and it is a deliberate restriction we pay for, not a
+capability we claim.
+
+Against that object we ask about three levers, in increasing order of how cheaply they
+might buy depth:
+
+\begin{itemize}
+  \item \textbf{Direction.} A causal scan lets a token see only its past. A bidirectional
+  scan lets every position see left \emph{and} right context within the window, at equal
+  parameter count and without a cache.
+  \item \textbf{Denoising.} An autoregressive model commits to each token as it emits it.
+  An iterative denoiser can withdraw a decision, which is exactly what a token whose
+  meaning depends on a later one needs.
+  \item \textbf{Depth recycling.} Re-applying a \emph{tied} block more times than the
+  backbone has layers adds executed depth without adding parameters. It is the cheapest of
+  the three, because the cost is compute rather than memory or storage, and it is the one
+  this paper is organised around.
+\end{itemize}
+
+The paper's central question is whether that third lever does anything. It is organised
+around the possibility that the answer is \emph{no}, and we state the two failure modes in
+advance because both are unremarkable. Recycling may be an expensive way to spend compute
+that a wider baseline would have spent better --- extra depth that is merely extra, wearing
+an architectural story. And any short-context benefit may simply not transfer to long
+context, where a fixed-size state rather than executed depth is the binding constraint. We
+therefore commit to the comparisons that would distinguish a real architectural advantage
+from those two, and to the interpretation of a null result, before running them.
+
+\paragraph{What we can already measure, and what it forbids us from claiming.} One part of
+the architecture's cost is measurable today, without any training campaign, and its answer
+is not the one a casual reading of ``linear attention is cheaper'' would predict. We measure
+peak device memory and throughput for the model under study and for four other checkpoints
+across four context lengths, on one H100, with an untimed warm-up and \texttt{inference\_mode}
+(\S\ref{sec:efficiency}). The recurrent arm's state is constant --- $20.0$\,MiB at every
+context, against a same-size transformer's key--value cache of $7{,}168$\,MiB at $64$K ---
+and its per-forward throughput is flat across context where the transformers roughly halve.
+Its \emph{answer}-level throughput, however, is about $175\times$ lower, because a
+masked-diffusion answer costs $100$ forward passes against an autoregressive model's one.
+The honest reading is a \textbf{trade}: a structurally smaller state and far flatter
+degradation with context, paid for in forward passes per answer. Any sentence claiming this
+model is cheaper in \emph{compute} is one this paper will not write, and we report the two
+readings side by side precisely so that the flattering one cannot be quoted alone.
+
+\paragraph{Corrections, treated as a contribution rather than a preface.} A substantial part
+of this paper is about the program's own earlier evidence, because several of its prior
+conclusions do not survive re-analysis. A generation path truncated at the wrong
+end-of-text id silently zeroed an entire evaluation --- \emph{exactly} $0.0$ on $164$ of
+$164$ tasks across three successive training-data revisions, a number whose invariance
+across corpus changes was itself the tell. An internal record carried an unresolved
+tokenizer-id conflict that had to be settled from the vocabulary rather than by choice. A
+GSM8K score turned out to measure an answer extractor rather than a model: the prompt asks
+for the answer in \texttt{\textbackslash boxed\{\}}, the requested extraction tier fired on
+$0$ and $1$ items of $200$ across the two cells that stored their text, and every success
+came from a last-number fallback over degenerate completions. These share one shape --- a
+plausible constant, never checked against the artifact that defines it, in a position where
+being wrong is silent --- and we document the class rather than the three instances,
+including two further instances the same audit found in \emph{this} manuscript
+(\S\ref{sec:correction}).
+
+\paragraph{Why this manuscript looks the way it does.} The program has completed its
+evidence audit, its architecture contract, its asset qualification and its runtime
+calibration, and has \emph{not} completed the confirmatory training and evaluation campaign.
+We have written the paper to that state: the completed work is reported as results, the
+protocol is reported as a registrable protocol, and the cells the protocol defines are left
+visibly empty and \emph{named} as empty. Two claims are in a different condition from
+``not yet measured'' and we distinguish them throughout: the long-context, serving and
+depth-recycling claims describe work this program intends and has not finished, while the
+physical edge-device claim is out of scope permanently, because a software memory cap on an
+H100 cannot become a statement about edge silicon. We think a paper written to this state is
+more useful than either a premature results paper or a plan, and the alternative --- filling
+the empty cells with fixture numbers --- is excluded by the program's own rules.
 
 \section{Positioning}
 
@@ -342,6 +416,130 @@ OOM'd above 512 tokens on a single 80\,GiB GPU and no sharded calibration has be
 The ledger states this rather than extrapolating, and it claims no long-context,
 goodput, quality or physical-edge result.
 
+\section{Efficiency, measured}
+\label{sec:efficiency}
+
+This is the part of the paper's cost story that does not wait for the training campaign. It
+is a measurement of the architecture as it exists, on one H100, with every number taken in
+\texttt{torch.inference\_mode}, one untimed warm-up forward per rung and five timed ones, and
+peak device memory read from \texttt{reset\_peak\_memory\_stats}. It is \emph{not} the
+existing training-shape calibration, which builds an autograd graph and calls backward and
+therefore overstates inference cost; that calibration also exhausted memory at $4{,}096$
+tokens for the recycled arm, which is why an inference-only ladder was necessary before any
+claim about serving could be made.
+
+Four of the six registered checkpoints load in this environment. Two do not, and they are
+reported as holes rather than omitted (\S\ref{sec:efficiency-holes}).
+
+\begin{table}[t]
+\centering
+\begin{tabular}{lrrrrr}
+\toprule
+model & family & objective & NFE & params & state at $64$K \\
+\midrule
+the model under study & linear attention & masked diffusion & $100$ & $4,092$M & $20.0$\,MiB \emph{constant} \\
+RWKV7-Goose-World3   & linear attention & autoregressive   & $1$   & $2,948$M & $10.0$\,MiB \emph{constant} \\
+Qwen2.5-3B           & transformer      & autoregressive   & $1$   & $3,086$M & $2{,}304$\,MiB \\
+Llama-3.2-3B         & transformer      & autoregressive   & $1$   & $3,213$M & $7{,}168$\,MiB \\
+\bottomrule
+\end{tabular}
+\caption{The four checkpoints that load. \emph{State} is arithmetic from the configuration,
+not a measurement --- the adapter that computes it says so --- and it is the one column here
+that does not depend on the run. A same-size transformer's key--value cache grows linearly
+and reaches $7{,}168$\,MiB at $64$K where the recurrent state is $20.0$\,MiB at every
+length: a factor of $358$. Grouped-query attention would shrink the transformer side and is
+not modelled.}
+\label{tab:eff-state}
+\end{table}
+
+\begin{table}[t]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+ & $4$K & $16$K & $32$K & $64$K \\
+\midrule
+\multicolumn{5}{l}{\emph{per-forward throughput}, tok/s} \\
+the model under study & 16,990 & 17,716 & 17,810 & 18,017 \\
+RWKV7-Goose-World3   & 26,405 & 27,969 & 28,061 & 28,477 \\
+Qwen2.5-3B           & 68,445 & 58,753 & 48,539 & 35,156 \\
+Llama-3.2-3B         & 65,331 & 53,068 & 43,543 & 31,995 \\
+\midrule
+\multicolumn{5}{l}{\emph{answer} throughput, tok/s, i.e. per-forward $\div$ NFE} \\
+the model under study & 16,990 & 17,716 & 17,810 & 18,017 \\
+\bottomrule
+\end{tabular}
+\caption{Measured on one H100 with an untimed warm-up, five timed forwards per cell, peak
+from \texttt{reset\_peak\_memory\_stats}. The two panels are the SAME measurements read at
+two units of work, and they are printed together because either alone misleads: the
+per-forward row is flat across context where the transformers roughly halve, and the answer
+row is $175\times$ lower because a masked-diffusion answer costs $100$ forwards against an
+autoregressive model's one. Values are the artifact's, rounded to the nearest integer --
+earlier drafts of this table rounded to round numbers, which turned $68{,}444.6$ into
+$68{,}400$ and $27{,}968.9$ into $28{,}000$: a display choice that silently misstates the
+measurement.}
+\label{tab:eff-measured}
+\end{table}
+
+\begin{table}[t]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+peak allocated memory, GiB & $4$K & $16$K & $32$K & $64$K \\
+\midrule
+the model under study & $8.49$ & $11.01$ & $14.37$ & $21.09$ \\
+RWKV7-Goose-World3   & $12.53$ & $16.67$ & $22.17$ & $33.19$ \\
+Qwen2.5-3B           & $7.20$ & $11.15$ & $16.41$ & $26.93$ \\
+Llama-3.2-3B         & $7.46$ & $11.77$ & $17.53$ & $29.05$ \\
+\bottomrule\end{tabular}
+\caption{Peak allocated device memory, same runs. The margin between the recurrent arms and
+the transformers widens with context, which is the shape a constant state predicts: the
+model under study grows $2.48\times$ from $4$K to $64$K where Llama grows $3.90\times$.}
+\label{tab:eff-peak}
+\end{table}
+
+\paragraph{What the measurement supports.} Two claims, and neither more.
+
+First, \emph{the state is structurally smaller and does not grow with context}. In the
+current implementation the recurrent state is $20.0$\,MiB at every length tested, against a
+same-size transformer's $7{,}168$\,MiB at $64$K --- a factor of $358$, from arithmetic on
+the configuration rather than a measurement. The measured peak memory corroborates the
+direction at the margin: the model under study grows $2.48\times$ from $4$K to $64$K where
+Llama grows $3.90\times$ and Qwen $3.74\times$, and the residual growth is activations and
+the canvas rather than the state.
+
+Second, \emph{per-forward throughput is flat across context} for the recurrent arms
+($16{,}990 \rightarrow 18{,}017$) where the transformers fall by about half
+($65,331 \rightarrow 31{,}995$ for Llama). This is the recurrence doing what it is
+supposed to do: no cache to grow means no cache to walk.
+
+\paragraph{What the measurement forbids.} A compute claim. At $64$K the model under study
+produces $180$ tokens per second of wall clock against Llama's $31{,}995$ and Qwen's
+$35{,}156$, because producing one answer requires $100$ forward passes. That is roughly a
+$175\times$ deficit, and it is not an implementation artifact: the iterative refinement
+\emph{is} the model. A paper claiming this architecture is cheaper to \emph{serve} would be
+claiming something its own measurements contradict.
+
+What remains open, and is the honest form of the claim: whether the state advantage can be
+\emph{exploited}. A constant state is only cheap if a served system can keep it and skip the
+recomputation a cache would have avoided; this program's prefix-cache path is
+\textsc{not yet measured} (the model's forward-stream state is unwired through the FFN
+token-shift), so the $358\times$ figure is a statement about a memory \emph{footprint}, not
+about a served latency or a dollar cost. We state it as the former.
+
+\paragraph{The two holes.}
+\label{sec:efficiency-holes}
+Two of the six registered checkpoints could not be loaded in the measured environment and
+appear as \texttt{load\_failed} rows with their error text, not as omissions:
+\emph{LLaDA-8B-Base}, whose remote modelling code expects a \texttt{transformers} attribute
+that version $5.3$ no longer provides, and \emph{mamba2-2.7b}, whose configuration carries
+no \texttt{model\_type} and therefore needs its own loader. Both are recorded in the
+artifact with the reason. We would rather print a table with two named holes than a complete
+table whose rows were produced by shimming a loader whose correctness we could not check.
+
+What this does \emph{not} yet have is the paired comparison the protocol registers: the
+serving measurement at a common SLO, and the long-context evaluation. Those remain
+\notrun{}, and \S\ref{sec:not-measured} names them.
+
 \section{A descriptive capability observation}
 \label{sec:descriptive}
 
@@ -401,6 +599,7 @@ and no inference of global superiority from local spectral stability. Fitted eig
 inside the unit circle do not justify assuming the full dynamics are contractive.
 
 \section{What is not yet measured}
+\label{sec:not-measured}
 \label{sec:notrun}
 
 \begin{center}
@@ -424,6 +623,29 @@ that cannot yet be sealed, because sealing requires development-derived H100 SLO
 deadlines (which need the deployment measurements), the frozen common token budget, and
 resolution of checkpoints that are not present on disk. Until then the protocol above is
 a specification, and a specification is not a result.
+
+\paragraph{The controlled ablation, running and partial.} The arm matrix of
+\S\ref{sec:protocol} is in flight, and one of its four arms has completed all three seeds.
+Reporting it now is worth doing, because the number that has arrived is not a result about
+the architecture --- it is the \emph{yardstick} every result will be judged against.
+
+Arm A1 (forward-only, no recycling) finished its frozen $2$B-token budget at
+$\mathrm{mask\_ce}$ of $5.6091$, $5.1118$ and $5.6413$ on seeds $17$, $29$ and $43$: a mean
+of $5.4541$ and a \textbf{seed spread of $0.5295$}. The analysis reports a contrast as
+separable only when it exceeds the larger of the two arms' spreads, so any between-arm
+difference smaller than about $0.53$ in this metric is not a finding. We state the yardstick
+before the contrast deliberately: with three seeds, a difference inside the seed spread is
+indistinguishable from noise, and the pre-registered interpretation of an arm that does not
+clear it is that recycling bought no detectable quality at this scale and budget --- which
+is a result, not a failure.
+
+Against that bar, the contrasts the protocol declares --- directionality (A2 against A1),
+the loop on a bidirectional backbone (A3 against A2), and the loop alone (A5 against A1)
+--- are all \notrun{} and will remain so until the remaining nine runs finish. The
+comparison is made on the runs' own training-time validation metric, not on a benchmark: a
+separable difference here would justify a benchmark evaluation, and its absence would not by
+itself rule the mechanism out at larger scale, which would need its own budget. Both
+readings are pre-registered.
 
 \paragraph{One result in flight, described as such.} A continuation run
 (\texttt{job-49e48c2d}, resumed from step 9500 and still running at its 36-hour
@@ -592,6 +814,7 @@ instead. We report this because it is the same principle as \S\ref{sec:correctio
 a check and a convenience disagree, the check is the one that is doing work.
 
 \section{Limitations}
+\label{sec:limitations}
 
 Beyond the three recorded asset limitations of \S5: the model has not been shown to
 qualify prefix caching, so no constant-history claim is available; the only live

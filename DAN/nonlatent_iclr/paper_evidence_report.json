@@ -1,21 +1,34 @@
 {
   "schema": "nonlatent_paper_evidence_report_v1",
   "disclosed": [
+    "arch-hidden",
+    "eff-answer-tps-16384",
+    "eff-answer-tps-32768",
+    "eff-answer-tps-4096",
+    "eff-answer-tps-65536",
+    "eff-params-birwkv",
+    "eff-params-goose",
+    "eff-params-llama",
+    "eff-params-qwen",
+    "eff-state-birwkv-const",
+    "eff-state-llama-64k",
+    "eff-state-qwen-64k",
+    "eff-state-ratio",
     "exposure-fraction-start",
     "ledger-total-2b",
     "ledger-total-4b",
     "ledger-total-8b",
     "registry-total-instances"
   ],
-  "checked": 52,
+  "checked": 83,
   "counts": {
     "value_not_found": 0,
     "value_outside_context": 0,
     "path_missing": 0,
-    "external": 0,
-    "derived": 5,
-    "rounding_ok": 2,
-    "verified": 45
+    "external": 1,
+    "derived": 17,
+    "rounding_ok": 19,
+    "verified": 46
   },
   "results": [
     {
@@ -433,11 +446,259 @@
       "kind": "measured",
       "verdict": "verified",
       "detail": "'0.56' occurs inside '\"p_ge_observed\": 0.56' in DAN/nonlatent_iclr/gsm8k_artifact_null.json"
+    },
+    {
+      "claim_id": "arch-params",
+      "value": "4,091,581,441",
+      "source": "DAN/nonlatent_iclr/architecture_contract.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'4,091,581,441' is '4091581441' rounded to 0 dp in DAN/nonlatent_iclr/architecture_contract.json"
+    },
+    {
+      "claim_id": "arch-hidden",
+      "value": "2,560",
+      "source": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF/config.json",
+      "kind": "external",
+      "verdict": "external",
+      "detail": "the backbone's HF config, which the architecture contract does not restate -- the contract pins the PARAMETER count and the source hash, not the per-axis geometry"
+    },
+    {
+      "claim_id": "eff-state-llama-64k",
+      "value": "7,168",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "the analytic KV cache for llama at 64K, divided by 2^20 because the artifact stores BYTES and the manuscript writes MiB"
+    },
+    {
+      "claim_id": "eff-state-qwen-64k",
+      "value": "2,304",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "the analytic KV cache for qwen at 64K, divided by 2^20 because the artifact stores BYTES and the manuscript writes MiB"
+    },
+    {
+      "claim_id": "eff-state-birwkv-const",
+      "value": "20.0",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "the constant recurrent state at 64K, divided by 2^20 because the artifact stores BYTES and the manuscript writes MiB"
+    },
+    {
+      "claim_id": "eff-state-ratio",
+      "value": "358",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "the ratio between the two states at 64K, divided by 2^20 because the artifact stores BYTES and the manuscript writes MiB"
+    },
+    {
+      "claim_id": "eff-params-birwkv",
+      "value": "4,092",
+      "source": "DAN/nonlatent_iclr/architecture_contract.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "the architecture contract's runtime evidence divided by 10^6, because the manuscript writes the count in millions while the source writes it in units"
+    },
+    {
+      "claim_id": "eff-params-goose",
+      "value": "2,948",
+      "source": "scale/experiments/nonlatent_iclr/efficiency/adapters.py",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "the adapter registry's parameter count for rwkv7-goose-world3-2.9b divided by 10^6, because the manuscript writes the count in millions while the source writes it in units"
+    },
+    {
+      "claim_id": "eff-params-qwen",
+      "value": "3,086",
+      "source": "scale/experiments/nonlatent_iclr/efficiency/adapters.py",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "the adapter registry's parameter count for qwen2.5-3b divided by 10^6, because the manuscript writes the count in millions while the source writes it in units"
+    },
+    {
+      "claim_id": "eff-params-llama",
+      "value": "3,213",
+      "source": "scale/experiments/nonlatent_iclr/efficiency/adapters.py",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "the adapter registry's parameter count for llama-3.2-3b divided by 10^6, because the manuscript writes the count in millions while the source writes it in units"
+    },
+    {
+      "claim_id": "eff-answer-ratio",
+      "value": "175",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "verified",
+      "detail": "'175' occurs inside '175x' in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-birwkv-16384",
+      "value": "17,716",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'17,716' is '17715.95472750129' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-birwkv-32768",
+      "value": "17,810",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'17,810' is '17810.474039429693' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-birwkv-4096",
+      "value": "16,990",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'16,990' is '16989.70383053926' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-birwkv-65536",
+      "value": "18,017",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'18,017' is '18017.035523851267' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-llama-16384",
+      "value": "53,068",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'53,068' is '53067.595070611125' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-llama-32768",
+      "value": "43,543",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'43,543' is '43542.59502242909' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-llama-4096",
+      "value": "65,331",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'65,331' is '65330.90280936155' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-llama-65536",
+      "value": "31,995",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'31,995' is '31994.945357722536' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-qwen-16384",
+      "value": "58,753",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'58,753' is '58752.90248706325' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-qwen-32768",
+      "value": "48,539",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'48,539' is '48539.252050755415' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-qwen-4096",
+      "value": "68,445",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'68,445' is '68444.58632658287' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-qwen-65536",
+      "value": "35,156",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'35,156' is '35156.21817193784' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-goose-16384",
+      "value": "27,969",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'27,969' is '27968.87234444104' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-goose-32768",
+      "value": "28,061",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'28,061' is '28061.3016864913' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-goose-4096",
+      "value": "26,405",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'26,405' is '26405.252677267454' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-tps-goose-65536",
+      "value": "28,477",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "measured",
+      "verdict": "rounding_ok",
+      "detail": "'28,477' is '28476.803098025142' rounded to 0 dp in DAN/nonlatent_iclr/efficiency_matrix.json"
+    },
+    {
+      "claim_id": "eff-answer-tps-4096",
+      "value": "170",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "throughput at 4096 divided by nfe=100; arithmetic over two artifacted values, so a reader must redo the division"
+    },
+    {
+      "claim_id": "eff-answer-tps-16384",
+      "value": "177",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "throughput at 16384 divided by nfe=100; arithmetic over two artifacted values, so a reader must redo the division"
+    },
+    {
+      "claim_id": "eff-answer-tps-32768",
+      "value": "178",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "throughput at 32768 divided by nfe=100; arithmetic over two artifacted values, so a reader must redo the division"
+    },
+    {
+      "claim_id": "eff-answer-tps-65536",
+      "value": "180",
+      "source": "DAN/nonlatent_iclr/efficiency_matrix.json",
+      "kind": "derived",
+      "verdict": "derived",
+      "detail": "throughput at 65536 divided by nfe=100; arithmetic over two artifacted values, so a reader must redo the division"
     }
   ],
   "coverage_checked": true,
-  "manuscript_chars": 42711,
-  "numbers_extracted": 41,
+  "manuscript_chars": 56926,
+  "numbers_extracted": 72,
   "verdict": {
     "status": "pass",
     "withheld_reason": null,
@@ -447,6 +708,6 @@
   "complete": true,
   "uncatalogued": [],
   "uncatalogued_count": 0,
-  "disclosed_count": 5,
+  "disclosed_count": 18,
   "note": "a check that cannot run is reported as such rather than as a pass; `external` is a disclosure, not a failure; and `complete` is False while any number the manuscript cites is in no claim, because otherwise it would report coverage of the inventory rather than of the paper"
 }
