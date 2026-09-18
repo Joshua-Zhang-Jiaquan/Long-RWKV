@@ -27,7 +27,13 @@ trusted:
   release ships inside this repository under ``release/``, so its path is
   derived from this module's location rather than from ``models_root``.  A key
   whose weights are absent refuses with the path, so a missing checkpoint cannot
-  be scored as a present one.
+  be scored as a present one.  The BiRWKV checkpoint is the one model that needs
+  a SECOND path -- an HF geometry directory -- because it ships as a flat
+  ``model.pt`` with no ``config.json``; that directory is resolved by its own
+  env knob and its absence is a separate, named refusal, so "wrong geometry" and
+  "weights not downloaded" cannot be confused.  The step that produced the
+  endpoint is read from its ``meta.json`` and carried on the loaded record, so a
+  table row is traceable to the checkpoint that produced it.
 
 The ``params``/``weights_bytes`` numbers below are measurements of the bytes
 that are actually on disk, taken 2026-09-17 from the files named by each
@@ -37,9 +43,10 @@ that are actually on disk, taken 2026-09-17 from the files named by each
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import json
 import os
 from pathlib import Path
-from typing import Final, Protocol
+from typing import Final, Iterable, Protocol
 
 #: The directory the hub checkpoints were measured under.  ``build`` takes its
 #: own ``models_root``; this constant records where the baked numbers came from
@@ -105,6 +112,35 @@ BIRWKV_KEY: Final = "birwkv-2.9b"
 #: Whatever this resolves to is RECORDED in the probe row, so a table entry can be read
 #: back to the checkpoint that produced it.
 BIRWKV_RELEASE_ENV: Final = "NONLATENT_BIRWKV_RELEASE"
+
+#: The HF directory whose ``config.json`` and safetensors define the BiRWKV *geometry*.
+#:
+#: The measured checkpoint is a flat ``model.pt`` plus ``meta.json`` with NO ``config.json``, so
+#: ``AutoModelForCausalLM.from_pretrained`` can never build it; the architecture has to come from
+#: the HF RWKV-7 release the denoiser was warm-started from. The default is the recorded hub
+#: directory for the same 2.9B backbone (verified present 2026-09-18), which is also the path the
+#: ``rwkv7-goose-world3-2.9b`` registry entry resolves to under ``RECORDED_MODELS_ROOT``;
+#: :data:`BIRWKV_GEOMETRY_ENV` redirects it for a run whose model tree lives elsewhere. The path is
+#: never resolved here (resolving would stat the filesystem at import time, which the module
+#: forbids).
+BIRWKV_GEOMETRY_DIR: Final = str(Path(RECORDED_MODELS_ROOT) / "RWKV7-Goose-World3-2.9B-HF")
+
+#: An override for the BiRWKV geometry directory (see :data:`BIRWKV_GEOMETRY_DIR`).
+#:
+#: Deliberately a SEPARATE knob from :data:`BIRWKV_RELEASE_ENV`: "which weights" and "which
+#: architecture" are different faults, and one override for both would let a run point at the
+#: right weights and the wrong geometry (or vice versa) with nothing to tell the two apart. The
+#: absence of the directory named here is a NAMED refusal that prints the path, so "wrong
+#: model_dir" and "model not downloaded" surface as the different faults they are.
+BIRWKV_GEOMETRY_ENV: Final = "NONLATENT_BIRWKV_GEOMETRY"
+
+#: An override for the BiRWKV training-time block size.
+#:
+#: Consulted only for a checkpoint that carries ``block_t_cond.*`` keys. The block size is a
+#: training-time contract (the arm that produced the measured endpoint used 64), so it is never
+#: defaulted: a wrong value silently misaligns every block's timestep and no downstream number
+#: reveals it. Without this value such a checkpoint is refused, and the refusal names this knob.
+BIRWKV_BLOCK_SIZE_ENV: Final = "NONLATENT_BIRWKV_BLOCK_SIZE"
 
 
 class AdapterRefusal(ValueError):
@@ -221,12 +257,20 @@ class RecurrentGeometry:
 
 @dataclass(frozen=True, slots=True)
 class LoadedModel:
-    """A materialized checkpoint plus the provenance needed to trust the row."""
+    """A materialized checkpoint plus the provenance needed to trust the row.
+
+    ``step`` is the checkpoint step that produced the weights, read from ``meta.json`` for a model
+    whose release carries one. It is ``None`` for a hub checkpoint, whose provenance is its
+    directory name rather than a training step; for BiRWKV it is always an int, because the
+    manuscript labels every efficiency number by the step that produced it and a row that cannot be
+    traced to a step is not usable.
+    """
 
     spec: ModelSpec
     path: str
     device: str
     model: object
+    step: int | None = None
 
 
 class Adapter(Protocol):
@@ -331,6 +375,135 @@ def _absolute_path(spec: ModelSpec, models_root: str) -> Path:
     return recorded if recorded.is_absolute() else Path(models_root) / recorded
 
 
+def _birwkv_geometry_dir() -> Path:
+    """The HF geometry directory for the BiRWKV denoiser, override first.
+
+    Never resolved (stat'd) here: presence is the caller's check, so a missing directory surfaces
+    as a refusal in :meth:`CheckpointAdapter._load_birwkv` that names the path rather than as an
+    import-time filesystem probe.
+    """
+    override = os.environ.get(BIRWKV_GEOMETRY_ENV)
+    return Path(override) if override else Path(BIRWKV_GEOMETRY_DIR)
+
+
+def _birwkv_block_size() -> int:
+    """The BiRWKV training-time block size, or 0 when the knob is unset.
+
+    0 means "not supplied"; it is not a default block size. A non-integer or non-positive value is
+    a caller defect and is refused rather than coerced -- a coerced block size would misalign every
+    block's timestep, which no downstream number reveals.
+    """
+    raw = os.environ.get(BIRWKV_BLOCK_SIZE_ENV, "").strip()
+    if not raw:
+        return 0
+    try:
+        value = int(raw)
+    except ValueError as exc:
+        raise AdapterRefusal(f"{BIRWKV_BLOCK_SIZE_ENV} must be an integer, got {raw!r}") from exc
+    if value <= 0:
+        raise AdapterRefusal(f"{BIRWKV_BLOCK_SIZE_ENV} must be positive, got {value}")
+    return value
+
+
+def _refuse_block_t_cond_without_block_size(keys: Iterable[object], block_size: int) -> None:
+    """Refuse a timestep-conditioned checkpoint whose block size was not supplied.
+
+    A checkpoint carrying ``block_t_cond.*`` was trained with a per-block noise level. Loading it
+    without first attaching the arm makes those keys *unexpected* and the load dies before its first
+    cell (gate (ii) attempt 1, job-74707291). Attaching it with a GUESSED block size is worse: the
+    block size is a training-time contract, so a wrong value silently misaligns every block's ``t``
+    with its positions and no downstream metric would reveal it. Hence a refusal that names the
+    route out rather than a default.
+
+    No-op either when no ``block_t_cond.*`` key is present or when ``block_size > 0``.
+    """
+    if block_size > 0:
+        return
+    for key in keys:
+        if str(key).startswith("block_t_cond."):
+            raise AdapterRefusal(
+                "the checkpoint carries block_t_cond.* keys but no block size was supplied; the "
+                "block size is a training-time contract and guessing it would misalign every "
+                f"block's timestep. Set {BIRWKV_BLOCK_SIZE_ENV}=<training block size> to load it.")
+
+
+def _read_birwkv_step(ckpt_dir: Path) -> int:
+    """Read the checkpoint step from ``meta.json`` beside ``model.pt``.
+
+    The measured endpoint's ``meta.json`` is ``{"step": 9500, "tokens_seen": 9961472000.0}``, and
+    the manuscript labels every efficiency number by that step. An absent file, or a payload without
+    ``step``, therefore refuses with the path rather than recording a fabricated ``0`` that would
+    silently relabel the row -- the same fail-closed choice the block-size guard makes.
+    """
+    meta = ckpt_dir / "meta.json"
+    if not meta.is_file():
+        raise AdapterRefusal(
+            f"the BiRWKV checkpoint at {ckpt_dir} carries no meta.json, so the step that produced "
+            f"it cannot be recorded; every table row must be traceable to a checkpoint step")
+    payload = json.loads(meta.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict) or "step" not in payload:
+        raise AdapterRefusal(
+            f"the BiRWKV meta.json at {meta} carries no 'step'; every table row must be traceable "
+            f"to the checkpoint step that produced it")
+    return int(payload["step"])
+
+
+def _load_birwkv_model(*, ckpt_dir: str, model_dir: str, device: str, block_size: int) -> object:
+    """Build the BiRWKV geometry from the HF dir, then apply the flat training state dict.
+
+    This reproduces the contract of the eval loader ``load_birwkv_diffusion`` in
+    ``DAN/v7_arch_round/code/eval/birwkv_diffusion_model.py`` rather than importing it: that module
+    pulls ``eval.capability.load_gate`` -- the shard-serializing host-RAM gate that exists only
+    inside a multi-process GPU eval pod -- and loads a tokenizer this single-process memory probe
+    never calls, so it is not on this tree's import surface. Every guard it documents is kept here,
+    because each one cost a job:
+
+    * a ``block_t_cond`` checkpoint without a block size is REFUSED (see
+      :func:`_refuse_block_t_cond_without_block_size`), not guessed;
+    * ``residual_streams.*`` / ``loop.*`` arms are attached BEFORE the state dict is applied, so
+      their trained tensors map onto live modules instead of landing in ``unexpected`` -- the shape
+      of the stored tensors recovers the config (``m_res_raw [L,n,n]`` gives ``n_streams``,
+      ``gates_raw`` gives the trained reps, ``lo``/``hi`` give the loop range);
+    * the state dict is cast tensor-by-tensor and the fp32 source dropped as it goes, so the fp32
+      and bf16 copies are never both fully resident.
+
+    ``model_dir`` supplies only the geometry (``config.json`` + safetensors); ``ckpt_dir`` supplies
+    ``model.pt``. The two are separate paths because the measured endpoint ships no config of its
+    own. ``torch`` and ``models.birwkv7_diffusion`` are imported here, inside the call, so importing
+    this module stays a pure table read on a CPU box with no CUDA.
+    """
+    import torch
+    from models.birwkv7_diffusion import BiRWKV7ForMaskedDiffusion
+
+    ckpt_path = Path(ckpt_dir)
+    model = BiRWKV7ForMaskedDiffusion.from_hf_pretrained(model_dir, dtype=torch.bfloat16)
+    state = torch.load(ckpt_path / "model.pt", map_location="cpu", weights_only=True)
+    _refuse_block_t_cond_without_block_size(state.keys(), block_size)
+    if any(str(k).startswith("block_t_cond.") for k in state):
+        _ = model.attach_block_timestep_conditioner(default_block_size=block_size)
+    if any(str(k).startswith("residual_streams.") for k in state):
+        ns_v = int(state["residual_streams.m_res_raw"].shape[1])
+        _ = model.attach_residual_streams(n_streams=ns_v)
+        model.residual_streams = model.residual_streams.to(torch.bfloat16)
+    if any(str(k).startswith("loop.") for k in state):
+        lo_v = int(state["loop.lo"])
+        hi_v = int(state["loop.hi"])
+        reps_v = int(state["loop.gates_raw"].shape[0])
+        _ = model.attach_backbone_loop((lo_v, hi_v), reps_v)
+        model.loop = model.loop.to(torch.bfloat16)
+    for key in list(state.keys()):
+        state[key] = state[key].to(torch.bfloat16)
+    missing, unexpected = model.load_state_dict(state, strict=False)
+    # Only the fusion gates may be missing (they are fresh, warm-start-only parameters); anything
+    # else is a mapping bug, and an unexpected key is a checkpoint that does not belong to this
+    # architecture. Both abort before the checkpoint is measured.
+    bad = [key for key in missing if "fuse_" not in key] + list(unexpected)
+    if bad:
+        raise RuntimeError(f"checkpoint/model mismatch: {bad[:8]}")
+    del state  # release the bf16 copy before the next rung
+    return model.to(device).eval()
+
+
 @dataclass(slots=True)
 class CheckpointAdapter:
     """The single adapter implementation, parameterized by spec and geometry."""
@@ -340,6 +513,13 @@ class CheckpointAdapter:
     resolved_path: Path
     _model: object | None = field(default=None, init=False, repr=False)
     _device: str | None = field(default=None, init=False, repr=False)
+    #: The checkpoint step, recorded on load for a model whose release carries a ``meta.json``.
+    _step: int | None = field(default=None, init=False, repr=False)
+
+    @property
+    def step(self) -> int | None:
+        """The loaded checkpoint's training step, or ``None`` before load / for a hub model."""
+        return self._step
 
     def analytic_state_bytes(self, context: int) -> int:
         """Running state in bytes at ``context`` tokens, from the closed forms.
@@ -392,17 +572,19 @@ class CheckpointAdapter:
     def load(self, device: str) -> LoadedModel:
         """Materialize the checkpoint on ``device``.
 
-        Deliberately not run at import time: the registry is a table of constants
-        and the matrix must be enumerable without loading -- or even reading --
-        any weights.  ``transformers`` and ``torch`` are imported here, inside the
-        call, for that reason.
+        Deliberately not run at import time: the registry is a table of constants and the matrix
+        must be enumerable without loading -- or even reading -- any weights. ``transformers`` and
+        ``torch`` are imported inside the branch that needs them, for that reason.
 
-        A checkpoint that ships no modeling code alongside its weights (the
-        BiRWKV release is ``model.pt`` plus a config, nothing importable) cannot
-        be built by the generic hub loader.  That refusal names the model rather
-        than returning a half-built object, so a matrix row is never produced
-        from a model that was not actually loaded.
+        Two load paths, chosen by key.  The five hub checkpoints go through
+        ``AutoModelForCausalLM``; ``birwkv-2.9b`` cannot, because its checkpoint is a flat
+        ``model.pt`` plus ``meta.json`` with no ``config.json`` at all, so it takes
+        :meth:`_load_birwkv` instead.  A checkpoint that ships no modeling code and is NOT BiRWKV
+        (the generic hub refusal) still refuses with the message below rather than being routed
+        somewhere that would invent an architecture for it.
         """
+        if self.spec.key == BIRWKV_KEY:
+            return self._load_birwkv(device)
         try:
             import torch
             from transformers import AutoModelForCausalLM
@@ -422,6 +604,49 @@ class CheckpointAdapter:
         self._model = model
         self._device = device
         return LoadedModel(spec=self.spec, path=str(self.resolved_path), device=device, model=model)
+
+    def _load_birwkv(self, device: str) -> LoadedModel:
+        """Build the BiRWKV denoiser from the HF geometry dir plus the flat endpoint checkpoint.
+
+        Three things happen before the weights are touched, each a named refusal:
+
+        * the HF geometry directory is resolved (env override first) and its ABSENCE is refused with
+          the path it looked for -- "wrong model_dir" and "model not downloaded" are different
+          faults, and the adapter must let a reader tell them apart;
+        * the checkpoint step is read from ``meta.json``, because the manuscript labels every number
+          by the step that produced it and a row without one is not usable;
+        * the block size is read from its own knob, so a ``block_t_cond`` checkpoint is refused
+          rather than mis-timed (the refusal lives in :func:`_load_birwkv_model`).
+        """
+        geometry_dir = _birwkv_geometry_dir()
+        if not geometry_dir.exists():
+            raise AdapterRefusal(
+                f"{self.spec.key}: the HF geometry directory (config.json + safetensors) is absent "
+                f"at {geometry_dir}; the measured checkpoint is a flat model.pt that carries no "
+                f"config of its own, so the architecture cannot be built without it. Set "
+                f"{BIRWKV_GEOMETRY_ENV} to the RWKV7-Goose-World3-2.9B-HF directory.")
+        step = _read_birwkv_step(self.resolved_path)
+        block_size = _birwkv_block_size()
+        try:
+            model = _load_birwkv_model(
+                ckpt_dir=str(self.resolved_path), model_dir=str(geometry_dir),
+                device=device, block_size=block_size)
+        except AdapterRefusal:
+            raise
+        except ImportError as exc:
+            raise AdapterRefusal(
+                f"{self.spec.key}: the torch/fla runtime or the model code "
+                f"(models.birwkv7_diffusion, on the DAN/v7_arch_round/code import root) is "
+                f"unavailable ({exc}), so the BiRWKV denoiser cannot be built") from exc
+        except Exception as exc:  # noqa: BLE001 - surfaced as a named refusal below
+            raise AdapterRefusal(
+                f"{self.spec.key}: the BiRWKV loader failed on checkpoint {self.resolved_path} "
+                f"with geometry {geometry_dir}. Underlying error: {exc}") from exc
+        self._model = model
+        self._device = device
+        self._step = step
+        return LoadedModel(spec=self.spec, path=str(self.resolved_path), device=device,
+                           model=model, step=step)
 
     def forward(self, tokens: object) -> object:
         """One forward over ``tokens``; the unit ``nfe`` counts.
@@ -460,6 +685,7 @@ def build(key: str, *, models_root: str) -> Adapter:
 __all__ = [
     "AUTOREGRESSIVE", "Adapter", "AdapterRefusal", "AttentionGeometry", "BF16_BYTES",
     "CheckpointAdapter", "FAMILIES", "FP16_BYTES", "LINEAR_ATTENTION", "LoadedModel",
+    "BIRWKV_BLOCK_SIZE_ENV", "BIRWKV_GEOMETRY_DIR", "BIRWKV_GEOMETRY_ENV",
     "BIRWKV_KEY", "BIRWKV_RELEASE_ENV", "MASKED_DIFFUSION", "ModelSpec", "NFE_AUTOREGRESSIVE", "NFE_BIRWKV", "NFE_LLADA",
     "OBJECTIVES", "RECORDED_MODELS_ROOT", "REGISTRY", "RecurrentGeometry", "STATE_SPACE",
     "TRANSFORMER", "build",

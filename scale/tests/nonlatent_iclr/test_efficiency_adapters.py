@@ -16,6 +16,7 @@ import os
 import subprocess
 import sys
 import textwrap
+import types
 from pathlib import Path
 from typing import Final
 
@@ -292,3 +293,212 @@ def test_the_absence_refusal_names_the_override_for_that_key(
     with pytest.raises(efficiency.AdapterRefusal) as caught:
         efficiency.build(efficiency.BIRWKV_KEY, models_root=str(tmp_path))
     assert efficiency.BIRWKV_RELEASE_ENV in str(caught.value)
+
+
+# --------------------------------------------------------------------------
+# the BiRWKV endpoint has its own load path: HF geometry dir + flat model.pt
+#
+# The measured checkpoint is ``model.pt`` plus ``meta.json`` with no config.json, so the hub
+# loader can never build it (commit 5038e1d). These tests exercise the BiRWKV path's CONTRACT
+# without a 16 GB load: the heavy loader is monkeypatched and the assertions are about the
+# dispatch, the named refusals, and the recorded step.
+# --------------------------------------------------------------------------
+
+
+class _FakeHubModel:
+    """Stands in for ``AutoModelForCausalLM``'s return so the hub path is observable on CPU."""
+
+    def to(self, device: object) -> _FakeHubModel:
+        self.device = device
+        return self
+
+    def eval(self) -> _FakeHubModel:
+        return self
+
+
+def _install_fake_transformers(monkeypatch: pytest.MonkeyPatch, calls: list[str]) -> None:
+    """Replace the ``transformers`` module so a hub load records its path and needs no weights."""
+    module = types.ModuleType("transformers")
+
+    class _AutoModelForCausalLM:
+        @staticmethod
+        def from_pretrained(path: str, trust_remote_code: bool = True) -> _FakeHubModel:
+            calls.append(path)
+            return _FakeHubModel()
+
+    module.AutoModelForCausalLM = _AutoModelForCausalLM  # type: ignore[attr-defined]
+    monkeypatch.setitem(sys.modules, "transformers", module)
+
+
+def _birwkv_endpoint(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch, *, step: int = 9500
+) -> tuple[Path, Path]:
+    """A stand-in endpoint (model.pt + meta.json) and its HF geometry dir, wired through the env.
+
+    No weight bytes are written -- the heavy loader is always monkeypatched in these tests -- but
+    ``build`` stats the checkpoint directory and the step is read from ``meta.json``, so both must
+    exist for the load path to run at all.
+    """
+    ckpt = tmp_path / "m4loop_ext_endpoint_ckpt"
+    ckpt.mkdir()
+    (ckpt / "model.pt").write_bytes(b"flat training state dict stands in for 16 GB")
+    (ckpt / "meta.json").write_text(json.dumps({"step": step, "tokens_seen": 9_961_472_000.0}))
+    geometry = tmp_path / "RWKV7-Goose-World3-2.9B-HF"
+    geometry.mkdir()
+    (geometry / "config.json").write_text("{}")
+    monkeypatch.setenv(efficiency.BIRWKV_RELEASE_ENV, str(ckpt))
+    monkeypatch.setenv(efficiency.BIRWKV_GEOMETRY_ENV, str(geometry))
+    return ckpt, geometry
+
+
+def test_a_birwkv_key_takes_the_birwkv_load_path_not_the_hub(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """The endpoint cannot go through the hub loader, so the key must pick the BiRWKV path.
+
+    A hub load of this checkpoint raises on the first cell -- no config.json, "Unrecognized
+    model" -- so a dispatch that fell through to it would not merely be slow, it would measure
+    nothing. Both loaders are observable here: the BiRWKV one is a recording fake, and the hub
+    one is a fake ``transformers`` whose call list must stay empty.
+    """
+    ckpt, geometry = _birwkv_endpoint(tmp_path, monkeypatch)
+    sentinel = object()
+    seen: dict[str, object] = {}
+
+    def fake_birwkv(**kwargs: object) -> object:
+        seen.update(kwargs)
+        return sentinel
+
+    monkeypatch.setattr(efficiency, "_load_birwkv_model", fake_birwkv)
+    hub_calls: list[str] = []
+    _install_fake_transformers(monkeypatch, hub_calls)
+
+    adapter = efficiency.build(efficiency.BIRWKV_KEY, models_root=str(tmp_path))
+    loaded = adapter.load("cpu")
+
+    # Given/When/Then: the BiRWKV loader got the endpoint and the HF geometry, not the release.
+    assert seen["ckpt_dir"] == str(ckpt)
+    assert seen["model_dir"] == str(geometry)
+    assert seen["device"] == "cpu"
+    assert loaded.model is sentinel
+    assert hub_calls == []
+
+
+def test_an_unresolvable_birwkv_geometry_dir_refuses_naming_the_path(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """A wrong geometry dir is a different fault from absent weights, so it refuses by path.
+
+    The checkpoint carries no config.json of its own; without the HF geometry dir the architecture
+    cannot be built. The refusal must print the directory it looked for -- and name the env knob
+    that redirects it -- so a reader can tell "model_dir is wrong" from "the checkpoint is not
+    downloaded", which would otherwise both surface as a generic load failure.
+    """
+    _birwkv_endpoint(tmp_path, monkeypatch)
+    missing = tmp_path / "not-downloaded" / "RWKV7-Goose-World3-2.9B-HF"
+    monkeypatch.setenv(efficiency.BIRWKV_GEOMETRY_ENV, str(missing))
+    calls: list[dict[str, object]] = []
+    monkeypatch.setattr(
+        efficiency, "_load_birwkv_model", lambda **kwargs: calls.append(kwargs) or object())
+
+    adapter = efficiency.build(efficiency.BIRWKV_KEY, models_root=str(tmp_path))
+    with pytest.raises(efficiency.AdapterRefusal) as caught:
+        adapter.load("cpu")
+
+    message = str(caught.value)
+    assert str(missing) in message
+    assert efficiency.BIRWKV_GEOMETRY_ENV in message
+    # The refusal happens before the heavy loader, so no 16 GB state dict was ever touched.
+    assert calls == []
+
+
+def test_the_checkpoint_step_from_meta_reaches_the_loaded_record(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Every efficiency number is labelled by the step that produced it, so the step must travel.
+
+    The endpoint's ``meta.json`` says step 9500; a row that cannot be read back to that step is not
+    usable for the manuscript. The step is read from the file (asserted at the file too, so a
+    hard-coded constant would not pass) and carried on both the loaded record and the adapter.
+    """
+    ckpt, _ = _birwkv_endpoint(tmp_path, monkeypatch, step=9500)
+    monkeypatch.setattr(efficiency, "_load_birwkv_model", lambda **kwargs: object())
+
+    adapter = efficiency.build(efficiency.BIRWKV_KEY, models_root=str(tmp_path))
+    loaded = adapter.load("cpu")
+
+    assert json.loads((ckpt / "meta.json").read_text())["step"] == 9500
+    assert loaded.step == 9500
+    assert adapter.step == 9500
+
+
+def test_the_block_size_knob_reaches_the_birwkv_loader(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """A block_t_cond checkpoint is only loadable with the training-time block size, unguessed.
+
+    The knob is the route out the refusal names, so it must be read on the load path and passed to
+    the loader; an adapter that dropped it would leave a conditioned checkpoint unloadable.
+    """
+    _birwkv_endpoint(tmp_path, monkeypatch)
+    monkeypatch.setenv(efficiency.BIRWKV_BLOCK_SIZE_ENV, "64")
+    seen: dict[str, object] = {}
+    monkeypatch.setattr(
+        efficiency, "_load_birwkv_model", lambda **kwargs: seen.update(kwargs) or object())
+
+    adapter = efficiency.build(efficiency.BIRWKV_KEY, models_root=str(tmp_path))
+    adapter.load("cpu")
+
+    assert seen["block_size"] == 64
+
+
+def test_block_t_cond_keys_without_a_block_size_are_refused() -> None:
+    """The block size is a training-time contract; guessing it is refused, not defaulted.
+
+    A checkpoint with ``block_t_cond.*`` keys trained with a per-block timestep. Loading without the
+    arm attached makes those keys unexpected and kills the job (job-74707291); attaching with a
+    guessed size misaligns every block's ``t`` and no downstream metric reveals it. The guard is
+    exercised directly, so it must go red if the body is deleted.
+    """
+    guard = efficiency._refuse_block_t_cond_without_block_size
+
+    # Given: a checkpoint with no timestep arm -- nothing to refuse at any block size.
+    guard(["layers.0.attn_fwd.r_proj.weight"], 0)
+    # Given: a timestep arm and its block size -- allowed.
+    guard(["block_t_cond.trunk.0.weight"], 64)
+    # When/Then: a timestep arm with no block size refuses and names the route out.
+    with pytest.raises(efficiency.AdapterRefusal) as caught:
+        guard(["layers.0.attn_fwd.r_proj.weight", "block_t_cond.trunk.0.weight"], 0)
+    assert efficiency.BIRWKV_BLOCK_SIZE_ENV in str(caught.value)
+
+
+def test_the_five_hub_models_still_take_the_hub_path(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Adding the BiRWKV path must not change where the five hub models resolve or load.
+
+    The hub loader is a fake ``transformers`` recording every path it was asked to build, so a
+    dispatch that routed a hub key through the BiRWKV loader (or resolved it elsewhere) turns this
+    red rather than silently measuring the wrong thing.
+    """
+    hub_calls: list[str] = []
+    _install_fake_transformers(monkeypatch, hub_calls)
+    monkeypatch.setattr(
+        efficiency, "_load_birwkv_model",
+        lambda **kwargs: pytest.fail("the BiRWKV loader must not run for a hub key"))
+
+    root = _materialized_root(tmp_path, *HUB_KEYS)
+    for key in HUB_KEYS:
+        adapter = efficiency.build(key, models_root=str(root))
+        loaded = adapter.load("cpu")
+        # A hub checkpoint has no training step of its own, so no step is fabricated for it.
+        assert loaded.step is None
+
+    assert set(hub_calls) == {str(root / efficiency.REGISTRY[key].path) for key in HUB_KEYS}
+
+
+def test_the_birwkv_geometry_default_is_the_recorded_hub_backbone() -> None:
+    """The default geometry dir is the recorded 2.9B backbone, not an invented path.
+
+    The adapter's geometry default must point at a path that is actually used elsewhere in the
+    repository (``qualification.calibration_arms.LARGE_MODEL_ROOT``), so a reader can verify the
+    architecture the denoiser is built from without guessing where it lives.
+    """
+    from scale.experiments.nonlatent_iclr.qualification.calibration_arms import LARGE_MODEL_ROOT
+
+    assert Path(efficiency.BIRWKV_GEOMETRY_DIR) == LARGE_MODEL_ROOT

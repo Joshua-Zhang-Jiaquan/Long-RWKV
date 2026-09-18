@@ -49,10 +49,25 @@ readonly DEFAULT_MODELS_ROOT="/inspire/hdd/global_user/zhangjiaquan-253108540222
 # three cannot silently run under different runtimes.
 readonly PYTHON_BIN="${PYTHON_BIN:-python3}"
 
+# Root the BIRWKV BACKBONE is imported from.  `models.birwkv7_diffusion` -- the model the
+# BiRWKV adapter builds -- lives in the training campaign's code tree, not in the scale
+# package, because the backbone is shared with the trainer and the eval lanes rather than
+# owned by this experiment.  Without it the adapter refuses with a named error, which is
+# correct behaviour and a useless deployment: the grid would abort on the one model the
+# paper is about, having measured nothing.  Verified present at the default on this
+# cluster; a different tree must be given explicitly so a run cannot silently measure a
+# backbone other than the one the checkpoint was trained against.
+readonly DEFAULT_DAN_CODE_ROOT="${REPO_ROOT}/DAN/v7_arch_round/code"
+readonly DAN_CODE_ROOT="${DAN_CODE_ROOT:-$DEFAULT_DAN_CODE_ROOT}"
+
 # Put the import root first on sys.path.  The python steps below import the scale package
 # from here, and prepending means an IMPORT_ROOT the caller set is the tree under test even
 # when the ambient PYTHONPATH already names a different copy of it.
-export PYTHONPATH="${IMPORT_ROOT}${PYTHONPATH:+:${PYTHONPATH}}"
+#
+# DAN_CODE_ROOT goes after it: `scale` must resolve to the tree under test, and `models` to
+# the campaign tree.  Ordering them the other way would let a stale copy of scale shadow the
+# one being measured, which is the same class of silent switch IMPORT_ROOT exists to prevent.
+export PYTHONPATH="${IMPORT_ROOT}:${DAN_CODE_ROOT}${PYTHONPATH:+:${PYTHONPATH}}"
 
 # The probe is a single-device measurement.  A peak-memory reading describes the device it
 # was taken on, so a run that spread cells over several GPUs could not support the table's
@@ -112,7 +127,7 @@ RUNLOG="$OUTDIR/${HOST}.run.log"
   echo "==== BOOT(efficiency-probe:$MODE) $(date -u +%Y-%m-%dT%H:%M:%SZ) ===="
   echo "host=$HOST NGPUS=$NGPUS DEVICE=$DEVICE DRY_RUN=$DRY_RUN"
   echo "OUTDIR=$OUTDIR MODEL_KEYS=$MODEL_KEYS CONTEXTS=$CONTEXTS"
-  echo "MODELS_ROOT=$MODELS_ROOT IMPORT_ROOT=$IMPORT_ROOT"
+  echo "MODELS_ROOT=$MODELS_ROOT IMPORT_ROOT=$IMPORT_ROOT DAN_CODE_ROOT=$DAN_CODE_ROOT"
   nvidia-smi -L 2>&1 || echo "<nvidia-smi unavailable>"
 
   echo "---- PREFLIGHT: torch + CUDA ----"

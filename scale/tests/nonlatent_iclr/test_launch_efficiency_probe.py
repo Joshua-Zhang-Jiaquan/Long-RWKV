@@ -469,3 +469,27 @@ def test_a_load_failure_aborts_the_grid(
     out = tmp_path / "out"
     assert (out / "fake-a_4096.json").exists()
     assert not (out / "fake-b_4096.json").exists()
+
+
+def test_the_campaign_code_root_is_on_the_import_path() -> None:
+    """The BiRWKV backbone lives in the campaign tree, not in the scale package.
+
+    `models.birwkv7_diffusion` is shared with the trainer and the eval lanes, so it is not
+    owned by this experiment and does not ship inside `scale`. Without the campaign root on
+    sys.path the adapter refuses with a named error -- correct behaviour, useless
+    deployment: the grid aborts on the one model the paper is about, having measured
+    nothing.
+    """
+    script = (Path(__file__).resolve().parents[3]
+              / "scale" / "qz" / "launch_efficiency_probe.sh").read_text()
+    # Then: the root is declared, defaulted relative to the repo, and exported on the path.
+    assert "DAN_CODE_ROOT" in script
+    assert "DEFAULT_DAN_CODE_ROOT" in script
+    assert "export PYTHONPATH=" in script
+    path_line = next(l for l in script.splitlines() if l.startswith("export PYTHONPATH="))
+    assert "${DAN_CODE_ROOT}" in path_line
+    # and IMPORT_ROOT comes FIRST, so `scale` resolves to the tree under test rather than
+    # to a copy that happens to sit inside the campaign tree
+    assert path_line.index("${IMPORT_ROOT}") < path_line.index("${DAN_CODE_ROOT}")
+    # the BOOT log records it, so a reader can tell which backbone tree a row came from
+    assert "DAN_CODE_ROOT=$DAN_CODE_ROOT" in script
