@@ -1,13 +1,29 @@
 {
-  "schema": "nonlatent_efficiency_probe_submission_v1",
-  "submitted_utc": "2026-09-18T01:41:12Z",
-  "job_id": "job-636ed1ba-956c-4d76-b492-4127ae0435d3",
+  "schema": "nonlatent_efficiency_probe_submission_v2",
+  "submitted_utc": "2026-09-18T02:26:43Z",
+  "job_id": "job-f5412cc6-9b59-431b-add1-77ae876b1afe",
   "name": "efficiency-probe-1gpu",
-  "what_it_is": "paper contribution 1: measured peak memory and throughput for six models at 4K/16K/32K/64K on ONE GPU, inference_mode with an untimed warm-up",
-  "why_a_fresh_run": "every number in the efficiency table must come from this run rather than the training-shape calibration, which builds an autograd graph and calls backward -- it overstates inference cost and OOMed at 4096 for the loop arm",
-  "single_gpu_verified": "the job reports gpu_count 1, so the per-device claim the probe is built for is backed by one card rather than by the 8-GPU shape the multiplexed design used",
+  "status": "running with a clean preflight",
+  "grid": "6 registry models x 4 contexts (4K/16K/32K/64K) = 24 cells, ONE GPU",
+  "what_it_produces": "paper contribution 1: measured peak memory and throughput, inference_mode with an untimed warm-up, OOM kept as a row",
+  "three_defects_on_the_way_here": [
+    {
+      "defect": "IMPORT_ROOT was the scale package root, not the tree containing it",
+      "why": "the launcher prepends IMPORT_ROOT to sys.path and imports <root>/scale, so pointing it at the package itself makes the import look for <package>/scale",
+      "found_by": "running the launcher locally with DRY_RUN before trusting the submission"
+    },
+    {
+      "defect": "the new modules were never staged",
+      "why": "the staged tree had no experiments/nonlatent_iclr/efficiency, so the pod's import would have failed even with the right root",
+      "found_by": "listing the staged tree rather than assuming the copy step was enough"
+    },
+    {
+      "defect": "two scheduling failures before one succeeded",
+      "why": "job_fail_reserving: the scheduler assigned a node and could not reserve it, under contention from this program's own matrix holding 72 GPUs. The third attempt took it. This is a transient family, not a spec or command defect -- the job that succeeded used the identical body that failed",
+      "found_by": "reading the intermediate status rather than only the terminal one"
+    }
+  ],
   "spec_id": "79fe954a-be92-4772-ac0b-94ad8a79b7bb",
-  "spec_chosen_because": "a recorded 1-node generation-eval shape. The price API returns an empty shape list for this LCG, so the shape was identified from the specs that use it rather than enumerated -- and then CONFIRMED from the job's own gpu_count",
-  "checkpoint_override": "NONLATENT_BIRWKV_RELEASE points at m4loop_ext_endpoint_ckpt, because the default is an in-repo release path that is not in this tree",
-  "oom_policy": "an OOM is a row; only an import or load failure aborts the grid"
+  "gpu_count_verified": 1,
+  "checkpoint_override": "NONLATENT_BIRWKV_RELEASE -> m2_baseline_triangle/m4loop_ext_endpoint_ckpt"
 }
