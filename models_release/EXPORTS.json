@@ -87,9 +87,10 @@
       "tensor_identity_verified": true
     }
   },
+  "release_id": 394413148,
   "release_tag": "original-inference-v1",
   "repository": "Joshua-Zhang-Jiaquan/Long-RWKV",
   "scope": "All model tensors and checkpoint contracts preserved; optimizer state omitted. New container hashes, not byte-identical original resume.pt files. No new neural inference is claimed by this export audit.",
-  "status": "prepared locally; publication pending",
+  "status": "verified lossless inference exports",
   "tensor_digest": "sorted names; JSON(name,dtype,shape) then contiguous raw tensor bytes; excludes optimizer state"
 }

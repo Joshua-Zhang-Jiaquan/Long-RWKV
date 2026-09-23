@@ -1,12 +1,12 @@
 # Archived-study inference checkpoints
 
-Seven lossless inference exports are prepared: the selected initial seed71 model
+Seven lossless inference exports are provided: the selected initial seed71 model
 and all six near/balanced adaptations. Each contains every original model tensor
 and the original checkpoint contract. Optimizer state is omitted, reducing each
 file from about 5.1 GiB to about 1.7 GiB. `EXPORTS.json` maps original checkpoint
 hashes to new export hashes and verified tensor-content hashes.
 
-Publication is pending; download availability is not yet claimed.
+Download from the [archived checkpoint release](https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/tag/original-inference-v1). All seven uploaded model assets have server-side SHA256 digests and byte counts matching this registry.
 
 These are the models underlying the earlier completed positional, exhaustive
 history-response and header/task-layout studies. They are not the newly training
@@ -15,7 +15,7 @@ six-lineage transfer models. Source weights derive from
 model card identifies Apache-2.0 licensing. Upstream component notices remain
 applicable; this release does not add a blanket license grant over unrelated code.
 
-Download a chosen role and check its recorded SHA256 (after publication):
+Download a chosen role and check its recorded SHA256:
 
 ```bash
 python tools/fetch_inference_checkpoint.py --role balanced_seed20271011 \

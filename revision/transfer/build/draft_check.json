@@ -1,6 +1,6 @@
 {
   "status": "working draft; prospective results pending",
-  "pdf_sha256": "99d4a870fe0c5a5bfa860091e64bbc0ddb1d9b67ea3f55023e9203ddbed2ba11",
+  "pdf_sha256": "e85b2c29d0ec1baf13c7869e20c21533950e297981e59d5814ab9fd722b54188",
   "compile_passes": 3,
   "undefined_references": false,
   "overfull_boxes": false,
@@ -8,5 +8,7 @@
     "page1 abstract/introduction",
     "page2 sampler and architecture"
   ],
-  "historical_pdf_unchanged": true
+  "historical_pdf_unchanged": true,
+  "prior_visual_check_pdf_sha256": "99d4a870fe0c5a5bfa860091e64bbc0ddb1d9b67ea3f55023e9203ddbed2ba11",
+  "visual_check_scope": "Prior page 1/2 visual review; this rebuild changes appendix study labels only. Final full-paper visual review remains pending."
 }

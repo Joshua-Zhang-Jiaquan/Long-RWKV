@@ -280,7 +280,7 @@ outcomes. Both distance-intervention arms start from this same checkpoint.
 An earlier fixed 200-update adaptation at mostly 1K inputs improves performance
 at its trained length but fails the 16K aggregate. That completed study and all
 640 evaluated conditions are retained in Appendix~\ref{app:context-study}.
-The new study controls training length at 16K and varies public-block position.
+The completed position study controls training length at 16K and varies public-block position.
 
 \input{paper/distance_intervention_methods.tex}
 
@@ -309,7 +309,7 @@ public syntax and labelled output slots to a contiguous binary suffix, so it
 does not isolate initialization or context length. Both fixed outcomes are
 retained; no long accuracy sweep or full baseline task training follows their
 failed gates. These results motivated preserving the learned interface in the
-main context probe.
+earlier context probe.
 
 The separate cost screen uses the released-initialization 600-update RWKV
 checkpoint and discarded 20-update qualification checkpoints for the Pythia

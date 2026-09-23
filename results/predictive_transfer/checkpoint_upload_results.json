@@ -1,0 +1,52 @@
+[
+  {
+    "asset": "balanced_seed20271011.pt",
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "asset": "balanced_seed20271012.pt",
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "asset": "balanced_seed20271013.pt",
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "asset": "near_seed20271011.pt",
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "asset": "near_seed20271012.pt",
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "asset": "near_seed20271013.pt",
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "asset": "original.pt",
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "asset": "EXPORTS.json",
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "asset": "README.md",
+    "returncode": 0,
+    "output": ""
+  },
+  {
+    "asset": "APACHE-2.0.txt",
+    "returncode": 0,
+    "output": ""
+  }
+]

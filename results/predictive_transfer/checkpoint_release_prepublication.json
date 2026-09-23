@@ -1,0 +1,63 @@
+{
+  "at": "2026-09-23T08:17:29.750675+00:00",
+  "release_id": 394413148,
+  "draft": true,
+  "models": [
+    {
+      "role": "balanced_seed20271011",
+      "asset_id": 583275874,
+      "name": "balanced_seed20271011.pt",
+      "bytes": 1820331389,
+      "digest": "sha256:da9fef79d639f8375f5a996ad2b279378186e554997724ffcc5f2c96fd633ecd",
+      "status": "verified"
+    },
+    {
+      "role": "balanced_seed20271012",
+      "asset_id": 583275876,
+      "name": "balanced_seed20271012.pt",
+      "bytes": 1820331389,
+      "digest": "sha256:89056cd7659bb4a3499073172164509d25e3f2ff4d71de7753796bb060332dcb",
+      "status": "verified"
+    },
+    {
+      "role": "balanced_seed20271013",
+      "asset_id": 583275875,
+      "name": "balanced_seed20271013.pt",
+      "bytes": 1820331389,
+      "digest": "sha256:df2658891ea60d787d38b5d8e8dee632c6f87637ec194401ffff3713bbc78b52",
+      "status": "verified"
+    },
+    {
+      "role": "near_seed20271011",
+      "asset_id": 583280423,
+      "name": "near_seed20271011.pt",
+      "bytes": 1820327813,
+      "digest": "sha256:63605e29952580b5083865fc5c4e0c23903fe2b231794f4e4d53e9b18aa0aec3",
+      "status": "verified"
+    },
+    {
+      "role": "near_seed20271012",
+      "asset_id": 583284055,
+      "name": "near_seed20271012.pt",
+      "bytes": 1820327813,
+      "digest": "sha256:3f82d9ca38e2474180cee5fbb224196efd21c49ea0716b548449003592f83ab1",
+      "status": "verified"
+    },
+    {
+      "role": "near_seed20271013",
+      "asset_id": 583305587,
+      "name": "near_seed20271013.pt",
+      "bytes": 1820327813,
+      "digest": "sha256:007ed7d58623533802b10598d14ef182598c60ec48eef4454c56b35e152ce57d",
+      "status": "verified"
+    },
+    {
+      "role": "original",
+      "asset_id": 583288761,
+      "name": "original.pt",
+      "bytes": 1820319399,
+      "digest": "sha256:6ffa34ccc0e58f302af369458a0676a2b348ab6773012175f723e7b9cce3ba06",
+      "status": "verified"
+    }
+  ]
+}
