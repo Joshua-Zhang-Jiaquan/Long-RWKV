@@ -44,7 +44,9 @@ The primary estimand is KL reduction against the dependence-only content-hash
 tie. We also report fixed-basis, random-in-expectation, source-unconditional,
 and uncalibrated fan-in baselines, together with regret to the retrospective
 best policy. Uncertainty resamples training lineages and held-out code classes,
-then prompts within classes, retaining their paired positions.
+then prompts within classes, retaining their paired positions. The interval
+conditions on the fixed source-calibration panel and shared pretrained backbone;
+it does not include uncertainty from choosing another calibration panel.
 
 The predeclared success criteria require a mean improvement of at least 0.1 nat,
 a positive 95\% interval, at least 80\% supported decisions, six complete

@@ -128,6 +128,15 @@ $\epsilon_{\mathrm{chosen}}+\epsilon_{\mathrm{optimal}}$. This standard
 stability observation follows by adding and subtracting the two predictions.
 It does not guarantee source-to-target calibration. The experiment below tests
 that empirical premise on contexts outside the source dependency classes.
+For supported decisions, let $n_\pi(z,c)$ count output predictions with
+public feature bin $z$ and let $\widehat r(z)$ be the source-calibrated error.
+The score is $\widehat E_\pi(c)=\sum_z n_\pi(z,c)\widehat r(z)$.
+Thus its policy contrast depends on the difference in feature counts. A common
+additive calibration offset cancels because each policy predicts eight outputs;
+feature-dependent residuals need not cancel. The held-out test asks whether
+these structural differences forecast the direction and useful magnitude of
+learned-error differences, rather than merely recovering the known $D$ gap.
+
 \section{Prospective experiment}
 \input{revision/transfer/paper_methods.tex}
 \input{revision/transfer/draft_results.tex}

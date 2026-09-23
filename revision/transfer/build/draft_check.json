@@ -1,6 +1,6 @@
 {
   "status": "working draft; prospective results pending",
-  "pdf_sha256": "4886167b673f69d023ce3bc2a01064d0ab0a051f757baaba995e23a80ac222b0",
+  "pdf_sha256": "99d4a870fe0c5a5bfa860091e64bbc0ddb1d9b67ea3f55023e9203ddbed2ba11",
   "compile_passes": 3,
   "undefined_references": false,
   "overfull_boxes": false,
