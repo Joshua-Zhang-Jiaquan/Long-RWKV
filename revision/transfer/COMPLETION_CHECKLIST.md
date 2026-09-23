@@ -17,7 +17,7 @@ checking the listed artifacts and live execution state.
 | Report real compute and memory use, including failed attempts | Scheduler receipts, training/evaluation/GPU traces, allocation audit | Pending final accounting; cap enforced during admission |
 | Revise paper according to actual findings | Final abstract/results, complete tables/figure, retained negatives | Working draft compiled; new outcomes explicitly pending |
 | Close the reconstruction-workflow gap | Pinned public assets, original parent/branch/adaptation/evaluation commands; exact new-study stage | Full original/new-study command workflows and exact capsules complete; portable dry-run checks passed; second-environment neural replication not claimed |
-| Release original inference checkpoints | Seven public assets, file/tensor hashes, anonymous download checks and evaluation wrapper | Complete; no independent neural rerun claimed |
+| Original inference checkpoint publication | User clarification: later separate Hugging Face job | Deferred by user instruction; erroneous GitHub release removed; local exports preserved and full reconstruction workflow available |
 | Preserve and package all evidence | Historical seal; new raw/stage/prediction release indexes and hashes | Historical seal unchanged; deterministic 96-rank packager prepared, awaiting complete raw panels |
 | Verify final paper and release | Independent audit, CPU tests, clean TeX build, visual inspection, source/result/claim audit | Pending final data |
 | Synchronize reviewable final artifacts | Revision branch commits and passing GitHub checks | Draft/tools synchronized; final revision pending |

@@ -1,6 +1,6 @@
 {
   "status": "working draft; prospective results pending",
-  "pdf_sha256": "de84f8055efe56b727f005a9d312a7a509a2d388a0c5828fe793b4499ae508e7",
+  "pdf_sha256": "058febc24431763f5b4230dab6e8dd7decda0ffcc222aa5b0695651558194e27",
   "compile_passes": 3,
   "undefined_references": false,
   "overfull_boxes": false,
@@ -10,9 +10,9 @@
   ],
   "historical_pdf_unchanged": true,
   "prior_visual_check_pdf_sha256": "99d4a870fe0c5a5bfa860091e64bbc0ddb1d9b67ea3f55023e9203ddbed2ba11",
-  "visual_check_scope": "Page21 model access/reproduction inspected on current PDF; earlier page1/page2 checks refer to prior draft. Final full-paper visual review remains pending.",
+  "visual_check_scope": "Current page21 inspected after publication-scope correction. Earlier page1/page2 checks refer to prior draft; final full-paper visual review remains pending.",
   "pages": 21,
   "current_visual_checks": [
-    "page21 model access and reproduction; table and text fit without clipping"
+    "page21 model access/reproduction accurately states deferred adapted-weight publication; table/text fit without clipping"
   ]
 }

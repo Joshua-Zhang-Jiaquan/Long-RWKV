@@ -24,6 +24,8 @@ def main():
     parser.add_argument('--out', type=Path, required=True)
     args = parser.parse_args()
     registry = json.loads((ROOT / 'models_release/EXPORTS.json').read_text())
+    if not registry.get('release_id'):
+        parser.error('The GitHub checkpoint release was withdrawn. Publication is deferred to a later separate Hugging Face job.')
     api = f"https://api.github.com/repos/{registry['repository']}/releases/{registry['release_id']}"
     _, raw = get(api)
     release = json.loads(raw)

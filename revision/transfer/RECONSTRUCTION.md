@@ -4,10 +4,10 @@
 public pretrained RWKV weights to the selected initial checkpoint, all six
 adaptations, and new evaluations. This is a reconstruction workflow, not a
 claim that independent retraining has already reproduced the archived numbers.
-No pretrained/adapted weights are bundled in Git. To evaluate the actual archived
-models without retraining, use the [seven released inference exports](../../models_release/README.md).
-The exports preserve all model tensors and contracts while omitting optimizer
-state; the reconstruction workflow below remains the route to new training runs.
+No pretrained/adapted weights are bundled in Git. Seven [lossless inference exports](../../models_release/README.md) are prepared locally;
+publication is deferred to a separate Hugging Face job. They preserve model
+tensors and contracts while omitting optimizer state. The complete reconstruction
+workflow below is available without public adapted-weight downloads.
 
 Use eight local H100s and the numerical environment recorded in
 `REPRODUCIBILITY.md`. The base directory must contain the native tokenizer,

@@ -1,0 +1,91 @@
+{
+  "at": "2026-09-23T09:09:38.819457+00:00",
+  "instruction": "Checkpoint publication belongs to a later separate Hugging Face job.",
+  "action": "Deleted the session-created GitHub release and its assets, then removed its tag. Local original checkpoints and all seven inference exports preserved.",
+  "github_checks": [
+    {
+      "endpoint": "releases/394413148",
+      "authenticated_status": 404
+    },
+    {
+      "endpoint": "git/ref/tags/original-inference-v1",
+      "authenticated_status": 404
+    }
+  ],
+  "anonymous_download_probes": [
+    {
+      "role": "balanced_seed20271011",
+      "cache_busting": false,
+      "status": 404
+    },
+    {
+      "role": "balanced_seed20271011",
+      "cache_busting": true,
+      "status": 404
+    },
+    {
+      "role": "balanced_seed20271012",
+      "cache_busting": false,
+      "status": 404
+    },
+    {
+      "role": "balanced_seed20271012",
+      "cache_busting": true,
+      "status": 404
+    },
+    {
+      "role": "balanced_seed20271013",
+      "cache_busting": false,
+      "status": 404
+    },
+    {
+      "role": "balanced_seed20271013",
+      "cache_busting": true,
+      "status": 404
+    },
+    {
+      "role": "near_seed20271011",
+      "cache_busting": false,
+      "status": 404
+    },
+    {
+      "role": "near_seed20271011",
+      "cache_busting": true,
+      "status": 404
+    },
+    {
+      "role": "near_seed20271012",
+      "cache_busting": false,
+      "status": 404
+    },
+    {
+      "role": "near_seed20271012",
+      "cache_busting": true,
+      "status": 404
+    },
+    {
+      "role": "near_seed20271013",
+      "cache_busting": false,
+      "status": 404
+    },
+    {
+      "role": "near_seed20271013",
+      "cache_busting": true,
+      "status": 404
+    },
+    {
+      "role": "original",
+      "cache_busting": false,
+      "status": 404
+    },
+    {
+      "role": "original",
+      "cache_busting": true,
+      "status": 404
+    }
+  ],
+  "all_fresh_downloads_denied": true,
+  "all_canonical_downloads_denied": true,
+  "limitation": "Withdrawal cannot recall copies previously obtained or guarantee immediate expiration of cached signed URLs.",
+  "supersedes": "checkpoint_publication_verification.json records the earlier exposure only; it is not current availability evidence."
+}

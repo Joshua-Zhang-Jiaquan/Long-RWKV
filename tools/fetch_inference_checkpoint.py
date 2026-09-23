@@ -32,6 +32,8 @@ def main():
     if not target.exists():
         if args.verify_only:
             raise FileNotFoundError(target)
+        if not record.get('download_url'):
+            parser.error('Checkpoint publication is deferred to a later separate Hugging Face job; no download URL is registered. Use --verify-only for an existing local export.')
         temporary = target.with_suffix(target.suffix + '.download')
         # Exclusive creation preserves incomplete downloads for inspection.
         with temporary.open('xb') as dest:
