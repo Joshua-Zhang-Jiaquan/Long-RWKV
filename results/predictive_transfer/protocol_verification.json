@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "protocol_sha256": "cccbd5a39dcf3bb9153a1b8dd927925618819cec80e5168cb9cea2a417fd4f73",
+  "source_files": 7,
+  "calibration_conditions_per_model": 180,
+  "heldout_conditions_per_model": 240,
+  "lineages": 6
+}
