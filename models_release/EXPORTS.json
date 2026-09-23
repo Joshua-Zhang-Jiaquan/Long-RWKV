@@ -1,0 +1,95 @@
+{
+  "base_repository": "fla-hub/rwkv7-0.4B-world",
+  "base_revision": "793168635c21ffa8882ed20f908bbb65a964e48b",
+  "exports": {
+    "balanced_seed20271011": {
+      "asset_name": "balanced_seed20271011.pt",
+      "bytes": 1820331389,
+      "contract_sha256": "05ac9597b072e2ed2dafdf6869f244c90e57f8615691228d7dc8dad7138db2de",
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/balanced_seed20271011.pt",
+      "export_sha256": "da9fef79d639f8375f5a996ad2b279378186e554997724ffcc5f2c96fd633ecd",
+      "model_tensor_sha256": "436d7adc404460daf01bf3e8eb6f7546e180c772becc2a1558c6152c950177f2",
+      "model_tensors": 872,
+      "original_checkpoint_sha256": "6770ce1883f6482e591917925c1f4de4f047ad637c483bb0b51da6c60a05566c",
+      "step": 600,
+      "tensor_identity_verified": true
+    },
+    "balanced_seed20271012": {
+      "asset_name": "balanced_seed20271012.pt",
+      "bytes": 1820331389,
+      "contract_sha256": "5e35f2aa6ac72139ffa6cd46b9301f5fe506724c9193ba45c19eb29f96eec915",
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/balanced_seed20271012.pt",
+      "export_sha256": "89056cd7659bb4a3499073172164509d25e3f2ff4d71de7753796bb060332dcb",
+      "model_tensor_sha256": "b1db5b8f5f967d0a8501f3af4f3539d64c4910008c6f29fc8668502cd5b7b39a",
+      "model_tensors": 872,
+      "original_checkpoint_sha256": "f3e34a63627d38ef132fac9ffee3b00d94437754956896324ec92fba7ac7588e",
+      "step": 600,
+      "tensor_identity_verified": true
+    },
+    "balanced_seed20271013": {
+      "asset_name": "balanced_seed20271013.pt",
+      "bytes": 1820331389,
+      "contract_sha256": "941bd325110f6b594ba4d70606b0ca9cebd944657fe531b42d06aa33908d4836",
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/balanced_seed20271013.pt",
+      "export_sha256": "df2658891ea60d787d38b5d8e8dee632c6f87637ec194401ffff3713bbc78b52",
+      "model_tensor_sha256": "bfa5fed02d652848370423fcdc94b3e40979de27871b517c119fbdce1db199bc",
+      "model_tensors": 872,
+      "original_checkpoint_sha256": "8ebf9eddc02e47ea108bbce66807502ca4f3cc0d721bb561001b4562a9aa4493",
+      "step": 600,
+      "tensor_identity_verified": true
+    },
+    "near_seed20271011": {
+      "asset_name": "near_seed20271011.pt",
+      "bytes": 1820327813,
+      "contract_sha256": "c372a0704ef976dfe0696cb6c2d6ea3d992fc3ba315ad6af1a3c81f868386297",
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/near_seed20271011.pt",
+      "export_sha256": "63605e29952580b5083865fc5c4e0c23903fe2b231794f4e4d53e9b18aa0aec3",
+      "model_tensor_sha256": "ade419b50f4a6e58670c29db837dbbe2674f04fccd2231fc5725b240354ef09e",
+      "model_tensors": 872,
+      "original_checkpoint_sha256": "3a79d25b13ce2a75ae8cac4e432dd220ad4951304ab5703aa4a8cb38c946dd27",
+      "step": 600,
+      "tensor_identity_verified": true
+    },
+    "near_seed20271012": {
+      "asset_name": "near_seed20271012.pt",
+      "bytes": 1820327813,
+      "contract_sha256": "28cc9d2df890dced5fef7c66fca76da58869bcc720290f33d58594c11e3f4790",
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/near_seed20271012.pt",
+      "export_sha256": "3f82d9ca38e2474180cee5fbb224196efd21c49ea0716b548449003592f83ab1",
+      "model_tensor_sha256": "8aa0dec8288708f318eb6706986aece439c6ebbc61e35cd4e06bf41933bf8102",
+      "model_tensors": 872,
+      "original_checkpoint_sha256": "1caba6a6a402616a0a2f4f64f6ceb4547b5109db9c2501b278b58d87de488243",
+      "step": 600,
+      "tensor_identity_verified": true
+    },
+    "near_seed20271013": {
+      "asset_name": "near_seed20271013.pt",
+      "bytes": 1820327813,
+      "contract_sha256": "15d8d123df49925587382581f4cb8f3825884ee8f7789e826edae5a48b38e1d6",
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/near_seed20271013.pt",
+      "export_sha256": "007ed7d58623533802b10598d14ef182598c60ec48eef4454c56b35e152ce57d",
+      "model_tensor_sha256": "2f378a0c4a092f1551b300ee695a4e95ff53418e6ec76e1639ce5b87b2a1c5e1",
+      "model_tensors": 872,
+      "original_checkpoint_sha256": "c2cf9940ccecb091fb4edf68b21a03fb1f3758e42a127c9812f0c9d34dd7ed52",
+      "step": 600,
+      "tensor_identity_verified": true
+    },
+    "original": {
+      "asset_name": "original.pt",
+      "bytes": 1820319399,
+      "contract_sha256": "af58673e0cc8960f1a6b19091f023abbeb46fc59762fd0718ea30185417a9a74",
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/original.pt",
+      "export_sha256": "6ffa34ccc0e58f302af369458a0676a2b348ab6773012175f723e7b9cce3ba06",
+      "model_tensor_sha256": "1884d98ace838c098dbfc1508e10a6f87d9c720c1ef61504c03dd3d34128bfb1",
+      "model_tensors": 872,
+      "original_checkpoint_sha256": "52dbc7f289513e475d10422dbccffa52f74ec55fc887253ea13ae0476dc3e2c9",
+      "step": 2500,
+      "tensor_identity_verified": true
+    }
+  },
+  "release_tag": "original-inference-v1",
+  "repository": "Joshua-Zhang-Jiaquan/Long-RWKV",
+  "scope": "All model tensors and checkpoint contracts preserved; optimizer state omitted. New container hashes, not byte-identical original resume.pt files. No new neural inference is claimed by this export audit.",
+  "status": "prepared locally; publication pending",
+  "tensor_digest": "sorted names; JSON(name,dtype,shape) then contiguous raw tensor bytes; excludes optimizer state"
+}

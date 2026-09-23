@@ -1,59 +1,81 @@
-# Reproduce the prospective training study locally
+# Reproduce the complete prospective study locally
 
-The new six-lineage study does not require any externally supplied adapted
-checkpoint. `reproduction/stages/predictive_transfer_training/` is an exact copy
-of the stage used for the discarded qualification and all six main jobs.
-`TRAINING_CAPSULE.json` binds all68 files; `FROZEN.json` fixes the scientific
-protocol. Some unused predecessor modules remain in the inherited closure;
-the new worker initializes from public base weights and loads no predecessor
-adaptation.
-
-Fetch the pinned public base with `tools/fetch_public_base.py` as described in
-`RECONSTRUCTION.md`. Use the recorded PyTorch/CUDA/FLA numerical environment and
-eight H100 GPUs. From the repository root, set your local paths:
+The six-lineage study starts from public weights and requires no externally
+supplied adapted checkpoint. The exact training and evaluation source closures
+are in `reproduction/stages/predictive_transfer_training/` (68 files) and
+`reproduction/stages/predictive_transfer_evaluation/` (71 files). Their capsule
+manifests and `FROZEN.json` bind the files and scientific protocol. Verify them:
 
 ```bash
-export TRANSFER_STAGE="$PWD/reproduction/stages/predictive_transfer_training"
-export TRANSFER_PROTOCOL="$PWD/revision/transfer/FROZEN.json"
+python tools/verify_transfer_protocol.py
+```
+
+Fetch the pinned public base with `tools/fetch_public_base.py`, as described in
+`RECONSTRUCTION.md`. Use eight local H100 GPUs and the PyTorch/CUDA/FLA environment
+recorded in `REPRODUCIBILITY.md`. The wrapper below submits no scheduler jobs.
+It validates public assets and source hashes, runs unchanged workers, and puts
+new outputs in a separate workspace. It refuses existing run directories and
+performs no automatic retries or checkpoint selection.
+
+From the repository root, set your paths:
+
+```bash
 export TRANSFER_BASE=/your/models/rwkv7-0.4B
-export TRANSFER_RUNS=/your/new-transfer-replication
-export TRITON_F32_DEFAULT=ieee CUBLAS_WORKSPACE_CONFIG=:4096:8
-export OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 PYTHONUNBUFFERED=1
-cd "$TRANSFER_STAGE"
+export TRANSFER_REPLICA=/your/new-transfer-replication
 ```
 
-First run the discarded qualification (eight updates spanning all curriculum
-shapes, plus document-isolation checks). It is not a learning-success screen:
+First run the discarded source-only qualification. Omit `--execute` to inspect
+its launch command without starting a GPU process.
 
 ```bash
-torchrun --standalone --nproc_per_node=8 \
-  -m lrwkv_evidence.predictive_transfer.worker \
-  --base "$TRANSFER_BASE" --model-root "$TRANSFER_STAGE/model_source" \
-  --out "$TRANSFER_RUNS/qualification" --seed 202709230 --qualification
+python tools/run_transfer_replication.py --phase qualification \
+  --base "$TRANSFER_BASE" --work "$TRANSFER_REPLICA" --execute
 ```
 
-Then run each of the six fixed training seeds. This loop uses eight GPUs at a
-time; running copies concurrently requires separate GPU allocations. It does
-not perform checkpoint selection or retry a failed lineage.
+Run all six fixed seeds. This loop runs sequentially on eight GPUs; parallel
+copies require separate GPU allocations. The worker includes700 small-task,
+1,800 source-code and600 long-context updates, for3,100 total.
 
 ```bash
 for seed in 202709231 202709232 202709233 202709234 202709235 202709236; do
-  torchrun --standalone --nproc_per_node=8 \
-    -m lrwkv_evidence.predictive_transfer.worker \
-    --base "$TRANSFER_BASE" --model-root "$TRANSFER_STAGE/model_source" \
-    --out "$TRANSFER_RUNS/seed$seed" --seed "$seed" \
-    --qualification-out "$TRANSFER_RUNS/qualification" || exit 1
+  python tools/run_transfer_replication.py --phase train --seed "$seed" \
+    --base "$TRANSFER_BASE" --work "$TRANSFER_REPLICA" --execute || exit 1
 done
 ```
 
-The workers validate the frozen source digest and protocol, train to update3100,
-and record checkpoint hashes. Fresh task-training seeds share the public
-pretrained backbone. New checkpoint files and new measurements must be identified
-as a new replication; historical results are not copied into it.
+Calibrate all terminal checkpoints on the fixed source panel, then seal all
+six prediction artifacts. Sealing invokes the original frozen analysis functions
+with only their filesystem roots relocated into this replication workspace.
+No score, threshold, panel, seed or algorithm is changed.
 
-The independent CPU checker is `tools/verify_transfer_evidence.py`. It parses
-public equations and verifies all256 generated endpoints, not only the16 valid
-targets. The release's calibration/held-out raw-output capsule and portable
-evaluation instructions will be added after those jobs have completed. Do not
-claim an independent replication merely from the training commands or synthetic
-checker tests.
+```bash
+for seed in 202709231 202709232 202709233 202709234 202709235 202709236; do
+  python tools/run_transfer_replication.py --phase calibration --seed "$seed" \
+    --base "$TRANSFER_BASE" --work "$TRANSFER_REPLICA" --execute || exit 1
+done
+python tools/run_transfer_replication.py --phase seal \
+  --work "$TRANSFER_REPLICA" --execute
+```
+
+Only then run held-out evaluation. The wrapper and evaluator require the complete
+prediction seal, matching checkpoint identities and unchanged prediction hashes.
+
+```bash
+for seed in 202709231 202709232 202709233 202709234 202709235 202709236; do
+  python tools/run_transfer_replication.py --phase heldout --seed "$seed" \
+    --base "$TRANSFER_BASE" --work "$TRANSFER_REPLICA" --execute || exit 1
+done
+python tools/run_transfer_replication.py --phase report \
+  --work "$TRANSFER_REPLICA" --execute
+```
+
+The last command writes the frozen report and independently checks public
+constraints, all256 endpoint probabilities, source calibration, sealed choices,
+all reported strata and the hierarchical interval. The original archived
+results are never copied into the replication. New checkpoint files and
+measurements must be identified as a new replication, including every failure.
+
+Dry-run/source validation and synthetic checker tests have passed locally.
+The complete portable workflow has not been rerun on a second GPU environment;
+do not treat these checks as independent neural replication. The active cluster
+study uses the same frozen scientific source bytes under its recorded launcher.

@@ -28,6 +28,14 @@ def main():
     source_hash=hashlib.sha256(json.dumps(staged,sort_keys=True,separators=(',',':')).encode()).hexdigest()
     assert source_hash==capsule['training_source_sha256']==protocol['training_source_sha256']
     assert capsule['protocol_sha256']==sha(path)
-    print(json.dumps(dict(status='passed',protocol_sha256=sha(path),training_capsule_files=len(capsule['files']),source_files=sum(len(protocol[x]) for x in ('scientific_sources','analysis_sources')),
+    evaluation=json.loads((ROOT/'revision/transfer/EVALUATION_CAPSULE.json').read_text())
+    eval_stage=ROOT/'reproduction/stages/predictive_transfer_evaluation'
+    for relative,digest in evaluation['files'].items():
+        if sha(eval_stage/relative)!=digest:raise ValueError('evaluation stage changed: '+relative)
+    eval_sources=json.loads((eval_stage/'transfer_eval_sources.json').read_text())
+    assert set(evaluation['files'])==set(eval_sources)|{'transfer_eval_sources.json'}
+    assert evaluation['protocol_sha256']==sha(path)
+    for relative,digest in protocol['scientific_sources'].items():assert eval_sources[relative]==digest
+    print(json.dumps(dict(status='passed',protocol_sha256=sha(path),training_capsule_files=len(capsule['files']),evaluation_capsule_files=len(evaluation['files']),source_files=sum(len(protocol[x]) for x in ('scientific_sources','analysis_sources')),
                           calibration_conditions_per_model=len(calibration),heldout_conditions_per_model=len(heldout),lineages=6),indent=2))
 if __name__=='__main__':main()

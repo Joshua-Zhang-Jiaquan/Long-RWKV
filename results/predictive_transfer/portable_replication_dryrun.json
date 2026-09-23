@@ -1,0 +1,30 @@
+{
+  "cwd": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/long-rwkv-paper-release/reproduction/stages/predictive_transfer_training",
+  "command": [
+    "torchrun",
+    "--standalone",
+    "--nproc_per_node=8",
+    "-m",
+    "lrwkv_evidence.predictive_transfer.worker",
+    "--base",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/rwkv7-0.4B",
+    "--model-root",
+    "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/long-rwkv-paper-release/reproduction/stages/predictive_transfer_training/model_source",
+    "--out",
+    "/tmp/transfer_portable_preflight_20260923/runs/qualification",
+    "--seed",
+    "202709230",
+    "--qualification"
+  ],
+  "environment_overrides": {
+    "TRITON_F32_DEFAULT": "ieee",
+    "TRITON_CACHE_DIR": "/tmp/transfer_portable_preflight_20260923/triton_ieee_cache",
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "OMP_NUM_THREADS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "PYTHONUNBUFFERED": "1",
+    "TRANSFER_PROTOCOL": "/tmp/transfer_portable_preflight_20260923/revision/transfer/FROZEN.json"
+  },
+  "execute": false
+}

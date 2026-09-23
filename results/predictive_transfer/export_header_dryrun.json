@@ -1,0 +1,34 @@
+{
+  "execute": false,
+  "command": [
+    "torchrun",
+    "--standalone",
+    "--nproc_per_node=8",
+    "-m",
+    "lrwkv_evidence.header_distance.evaluate",
+    "--base",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/rwkv7-0.4B",
+    "--model-root",
+    "/tmp/long_rwkv_export_bind_header_20260923/stage/model_source",
+    "--checkpoint",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_inference_exports_20260923/balanced_seed20271011.pt",
+    "--out",
+    "/tmp/long_rwkv_export_bind_header_20260923/evaluation"
+  ],
+  "environment": {
+    "DISTANCE_ROLE": "balanced_seed20271011",
+    "DISTANCE_CHECKPOINT_SHA256": "da9fef79d639f8375f5a996ad2b279378186e554997724ffcc5f2c96fd633ecd",
+    "DISTANCE_EXECUTION": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/long-rwkv-paper-release/results/distance_intervention/FROZEN_EXECUTION.json",
+    "TRITON_F32_DEFAULT": "ieee",
+    "TRITON_CACHE_DIR": "/tmp/long_rwkv_export_bind_header_20260923/triton_ieee_cache",
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "OMP_NUM_THREADS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "PYTHONUNBUFFERED": "1"
+  },
+  "source_manifest_sha256": "e467d6a45a7266bc2c60a0cbf9619694bd1daf837c954f4c141c63db24c26c5c",
+  "rebound_manifest_sha256": "3c4759c5a3dcc49b0ab37119a2d3de62d3630346d0db11c694e68ab37d3abaf7",
+  "tensor_identity": "436d7adc404460daf01bf3e8eb6f7546e180c772becc2a1558c6152c950177f2",
+  "interpretation": "Same model tensors and frozen numerical evaluation; export container hash rebound in separate manifest."
+}
