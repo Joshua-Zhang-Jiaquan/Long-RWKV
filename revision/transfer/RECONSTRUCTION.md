@@ -10,7 +10,21 @@ Use eight local H100s and the numerical environment recorded in
 `REPRODUCIBILITY.md`. The base directory must contain the native tokenizer,
 config and weights whose `model.safetensors` SHA256 is
 `e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524`.
-All commands validate this hash and the archived source closure. They print
+The exact public source is [fla-hub/rwkv7-0.4B-world](https://huggingface.co/fla-hub/rwkv7-0.4B-world/tree/793168635c21ffa8882ed20f908bbb65a964e48b), pinned to revision
+`793168635c21ffa8882ed20f908bbb65a964e48b`. Remote weight metadata matches the
+weight hash, and the three runtime configuration/tokenizer assets were downloaded
+and verified byte for byte against the local inputs. Obtain the four required
+assets with:
+
+```bash
+python tools/fetch_public_base.py --out /your/models/rwkv7-0.4B
+```
+
+This standard-library downloader verifies every file hash, refuses conflicting
+existing files, and never executes downloaded code. The training worker loads the
+verified native tokenizer in the recorded numerical environment.
+
+All reconstruction commands validate the weight hash and archived source closure. They print
 commands and prepare isolated stages by default; add `--execute` to train/evaluate.
 Use a new work directory for execution after inspecting a dry-run directory.
 

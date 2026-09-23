@@ -1,0 +1,8 @@
+{
+  "complete": true,
+  "sealed_files": 1117,
+  "historical_delivery_files": 211,
+  "frozen_stage_source_checks": 279,
+  "latex_sources": 16,
+  "scope": "Portable artifact integrity, complete frozen local source stages, raw relocation hashes, paper dependencies and recorded CPU/build checks. External model weights and GPU execution are outside this seal."
+}

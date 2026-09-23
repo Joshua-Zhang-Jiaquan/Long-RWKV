@@ -1,0 +1,36 @@
+\section{Secondary cells and resource accounting for the matched study}
+\label{app:distance-supplement}
+Table~\ref{tab:distance-secondary} retains every secondary length/position
+cell for all seven fixed selectors. Each cell contains eight paired-parity
+problems. The 32K cells are exploratory tests at an untrained length.
+The original checkpoint is descriptive, not a fourth adaptation replicate.
+The complete machine-readable results additionally retain every policy,
+endpoint law, evidence-flip probe, and timing request.
+
+\begin{table}[h]
+\centering\small
+\caption{Secondary information-set KL (nats). Seed suffixes 11, 12, 13 denote
+20271011, 20271012, 20271013. No cell is removed by a competence gate.
+These eight-problem cells are separate from the 32-problem 16K primary panel.}
+\resizebox{\linewidth}{!}{\input{results/distance_intervention/paper_secondary_table.tex}}
+\label{tab:distance-secondary}
+\end{table}
+
+Each main adaptation processes 315,283,200 native input tokens over 600 updates;
+the six matched runs therefore process 1,891,699,200 tokens.
+The discarded six-update qualification adds 3,152,832 tokens. Scheduler
+accounting for this follow-up totals 106.34 H100-hours, including qualification,
+all seven evaluations, the matched attention timing job, and three failed
+launches before model loading. It excludes the earlier checkpoint-training
+history described in the main text and preceding studies.
+Failed-launch receipts and resource-reservation/utilization details remain in
+the repository operations record. No failed attempt is removed from the cost.
+
+Reproduction starts from the source and checkpoint hashes in the frozen
+training/evaluation manifests. The collectors validate raw endpoints,
+counterfactual token changes, numerical screens, and complete selectors before
+analysis. The paired report, figure, and matched certificate can then be
+regenerated with the report, figures, and cost-certificate scripts under
+\texttt{theory\_mvp/distance\_intervention/}.
+Publication tables copy the complete report; figure reflow changes typography
+only and checks that all plotted coordinates and uncertainty bands stay fixed.

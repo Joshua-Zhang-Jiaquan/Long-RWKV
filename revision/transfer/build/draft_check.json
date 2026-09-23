@@ -1,0 +1,12 @@
+{
+  "status": "working draft; prospective results pending",
+  "pdf_sha256": "4886167b673f69d023ce3bc2a01064d0ab0a051f757baaba995e23a80ac222b0",
+  "compile_passes": 3,
+  "undefined_references": false,
+  "overfull_boxes": false,
+  "visual_checks": [
+    "page1 abstract/introduction",
+    "page2 sampler and architecture"
+  ],
+  "historical_pdf_unchanged": true
+}

@@ -44,6 +44,9 @@ def main():
     ap.add_argument('--role',choices=['original',*ROLES]);ap.add_argument('--execute',action='store_true');args=ap.parse_args()
     base=args.base.resolve();work=args.work.resolve();work.mkdir(parents=True,exist_ok=True)
     if sha(base/'model.safetensors')!=BASE_SHA:raise ValueError('wrong public base weights')
+    assets=json.loads((ROOT/'results/predictive_transfer/public_base_resolution.json').read_text())
+    for record in assets['files']:
+        if sha(base/record['file'])!=record['local_sha256']:raise ValueError('wrong public base asset: '+record['file'])
     env=dict(CUBLAS_WORKSPACE_CONFIG=':4096:8',OMP_NUM_THREADS='4',MKL_NUM_THREADS='4',OPENBLAS_NUM_THREADS='4',PYTHONUNBUFFERED='1')
     historical=ROOT/'reproduction/stages/training'
     if args.phase=='initial':

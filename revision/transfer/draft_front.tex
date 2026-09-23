@@ -1,0 +1,51 @@
+\begin{abstract}
+Linear-cost recurrent denoisers make repeated scans of long contexts affordable,
+but useful refinement also requires accurate conditional predictions.
+We use established learning/factorization-error accounting to distinguish these
+requirements and study a 455M-parameter bidirectional RWKV denoiser on exactly
+enumerable binary posterior tasks. A completed within-lineage intervention
+shows that balancing evidence positions during fixed-length training reduces
+far-context conditional error by 6.051 nats, with a conditional 95\% interval
+$[5.392,6.735]$. This result motivates a stronger prospective test: can
+source-calibrated errors select a reveal schedule on unseen dependency classes?
+The frozen experiment trains six fresh task-training lineages and compares
+policies with identical scan count and zero discarded dependence, sealing their
+predicted rankings before held-out evaluation. \emph{Revision status: the new
+experiment is running; no transfer outcome or independent-lineage success is
+claimed in this working draft.} The earlier implementation-specific cost
+certificate remains supporting evidence, rather than an optimized deployment
+frontier.
+\end{abstract}
+
+\section{Introduction}
+Long-context generation must extract distant evidence and coordinate the answer
+tokens that depend on it. Linear attention and recurrent sequence mixers reduce
+the arithmetic required to process the input. Masked diffusion provides a
+separate mechanism: later calls condition unrevealed answer positions on tokens
+revealed earlier. Combining the two can make informative additional scans
+affordable, provided the learned conditionals remain accurate.
+
+The usual factorization-error account explains why a suitable reveal schedule
+helps an oracle. It does not predict whether a trained model can use that
+schedule on a new context. An observed policy gain close to an oracle dependence
+gap is consequently a consistency check once both learned errors are small.
+Our scientific question is stronger: can measured conditional errors on source
+tasks predict which equally costly schedule will work better on unseen
+dependency structures?
+
+We separate retrospective mechanism evidence from prospective prediction.
+The completed position intervention holds context length, examples and update
+count fixed; it supports improved distant-evidence use within one selected
+training lineage. The new experiment compares two public information bases of
+an invertible binary code. Both two-round policies have zero factorization loss,
+so their difference isolates learned error. A source-calibrated predictor makes
+its choices before target inference. Splitting whole code-invariant classes
+prevents the held-out set from being only a relabeling of training structures.
+
+The intended contribution is an empirical test of transferable conditional-error
+prediction, grounded in established divergence accounting. Neither the KL
+identity nor recurrent diffusion is claimed as new. Six fresh task-training
+lineages address selection sensitivity for the new task, and all terminal
+outcomes are retained. The older quality--cost certificate is kept within its
+restricted comparison set; establishing a practical frontier would additionally
+require competent matched causal and optimized attention baselines.

@@ -1,0 +1,4 @@
+{"file": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/rwkv7-0.4B/config.json", "sha256": "1131b80caf1fe16e5f67dd8c2965fa61467a5188be52de479deecde3fabbfa5a", "status": "verified"}
+{"file": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/rwkv7-0.4B/hf_rwkv_tokenizer.py", "sha256": "3a546f28385ecaf537dad4fabd288dfb99c5b8cbb2d34b8ddbffd278d2c815c9", "status": "verified"}
+{"file": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/rwkv7-0.4B/rwkv_vocab_v20230424.txt", "sha256": "e6dee3d4e31b4d5c40ac99508ac6c701ceef4bed681bf2167ce9a908552bca89", "status": "verified"}
+{"file": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/rwkv7-0.4B/model.safetensors", "sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524", "status": "verified"}

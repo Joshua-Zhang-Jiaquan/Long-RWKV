@@ -7,7 +7,9 @@ and $P=BU\oplus s$, where $B$ is invertible over $\mathrm{GF}(2)$ and $s$ is pub
 Both $U$ and $P$ have independent fair marginals. Revealing either basis first
 therefore gives a two-round policy with $D=0$. Both policies read the same full
 context twice. Their forward-KL difference is entirely a difference in learned
-conditional error, so dependence accounting alone cannot rank them.
+conditional error, so dependence accounting alone cannot rank them. All eight unconditional
+marginals are fair and the joint entropy is $4\log2$, so every one-call product
+sampler has forward KL at least $8\log2-4\log2=4\log2$.
 
 We enumerate the 20,160 invertible matrices and partition their 25 homogeneous-code
 weight-enumerator classes by a fixed hash: 15 source classes and 10 held-out

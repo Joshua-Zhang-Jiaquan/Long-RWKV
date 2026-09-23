@@ -1,0 +1,24 @@
+The failed launches used a project-local execution-manifest path that was
+unavailable on workers; the repair changed storage location without changing
+manifest bytes, training source, or selectors. All failed-launch receipts
+remain in the accounting. No GPU job was automatically retried.
+
+Authoritative created-to-finished scheduler intervals, including queue
+reservations, show a peak of 48 H100s: at most 32 in the primary project and 16
+in the additional project, with at most eight GPUs per job.
+All 18 study jobs are terminal and the final campaign census is zero.
+Main-run steady GPU-busy measurements range from 95.6\% to 96.3\%, while memory
+occupancy is approximately 25.9\%. GPU busy is not achieved FLOP utilization.
+Memory occupancy did not reach 80\%; fixed experiments followed the authorized
+priority of fastest completion without changing the scientific protocol.
+
+
+
+results/history_response/paper_results.tex
+The seven evaluation jobs consume 11.89 additional scheduler H100-hours, with no retraining or failed launches. Peak queued-plus-running reservation is 48 GPUs, split 32 plus 16 across the authorized projects; all jobs are terminal.
+Whole-job mean GPU busy ranges from 84.0\% to 88.0\%, including loading and numerical checks, while mean memory occupancy is 8.7--9.0\%. GPU busy is not achieved FLOP utilization; the memory target is not met under the stated fastest-completion priority.
+
+
+results/header_distance/paper_results.tex
+The six completed evaluations and one stopped startup attempt use 6.60 additional H100-hours. All are terminal; peak reservation is 48 GPUs within the primary32 plus extra16 allocation. The stopped attempt produced no predictions and was manually replaced with the same frozen evaluation; its scheduler reports zero runtime despite startup logs.
+Across completed jobs, whole-job mean GPU busy is 55.1--80.7\%, and memory occupancy is 6.6--8.1\%. GPU busy is not achieved FLOP utilization. These measurements include startup, numerical screens and waiting for slower ranks; they do not satisfy an 80\% utilization target.

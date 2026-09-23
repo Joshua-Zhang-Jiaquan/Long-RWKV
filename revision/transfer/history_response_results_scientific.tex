@@ -1,0 +1,45 @@
+\paragraph{Exhaustive results.}
+The audit retains all 672 conditions and 43,008 paired interventions. The far near-only minus balanced paired-CE contrast is 1.4779 nats (conditional 95\% interval [1.3275, 1.6371]).
+The three individual seed contrasts are 1.9903, 1.7501, 0.6931 nats.
+Recomputed archived metrics agree to within $8.3\times10^{-5}$ in absolute value.
+Table~\ref{tab:history-response} reports every checkpoint and placement. The response-based upper bound is an additional algebraic diagnostic; the frozen primary analysis uses the paired-CE contrast.
+\begin{table}[t]
+\centering\small
+\caption{Exhaustive response audit. $\bar L$ averages all histories and constraints; ``both'' is the fraction for which both evidence variants predict the required target correctly. $U=E_{\mathrm{first}}+8\bar L$ upper-bounds the original information-set error $E$. Last column is the worst paired CE over all 32 problems, 16 histories and four constraints, not the mean of per-problem maxima. All errors are nats.}
+\label{tab:history-response}
+\begin{tabular}{llrrrrr}
+\toprule
+Model & Position & $\bar L$ & Both & $E$ & $U$ & Max CE\\
+\midrule
+Original & far & 5.256 & 0.06738 & 21.85 & 42.05 & 17.96\\
+Original & middle & 5.201 & 0.05469 & 21.05 & 41.61 & 17.1\\
+Original & near & 0.2027 & 0.9307 & 1.104 & 1.622 & 11.48\\
+Near 11 & far & 1.99 & 0.04834 & 8.304 & 15.92 & 13.07\\
+Near 11 & middle & 2.484 & 0.1255 & 10.26 & 19.87 & 13.66\\
+Near 11 & near & 7.966e-05 & 1 & 0.000177 & 0.0006503 & 0.1119\\
+Balanced 11 & far & 2.78e-05 & 1 & 0.000102 & 0.0002264 & 0.02725\\
+Balanced 11 & middle & 0.0002888 & 0.9995 & 0.0004865 & 0.002317 & 0.3739\\
+Balanced 11 & near & 8.537e-08 & 1 & 7.762e-06 & 8.244e-06 & 9.726e-05\\
+Near 12 & far & 1.75 & 0.03955 & 7.076 & 14 & 13.57\\
+Near 12 & middle & 1.856 & 0.09229 & 7.503 & 14.85 & 14.52\\
+Near 12 & near & 1.157e-06 & 1 & 1.246e-06 & 9.951e-06 & 0.0008701\\
+Balanced 12 & far & 1.214e-06 & 1 & 1.154e-05 & 1.404e-05 & 0.00178\\
+Balanced 12 & middle & 8.617e-07 & 1 & 1.161e-05 & 1.231e-05 & 0.001531\\
+Balanced 12 & near & 7.958e-09 & 1 & 4.058e-06 & 4.065e-06 & 1.189e-05\\
+Near 13 & far & 0.6931 & 0.008789 & 2.772 & 5.545 & 0.6937\\
+Near 13 & middle & 0.6931 & 0.02441 & 2.772 & 5.545 & 0.6942\\
+Near 13 & near & 7.602e-09 & 1 & 6.989e-06 & 7.025e-06 & 2.549e-06\\
+Balanced 13 & far & 2.973e-05 & 1 & 0.0001511 & 0.0002625 & 0.01098\\
+Balanced 13 & middle & 4.269e-05 & 1 & 0.0001843 & 0.0003577 & 0.02056\\
+Balanced 13 & near & 0.0001104 & 1 & 0.0004362 & 0.000905 & 0.06811\\
+\bottomrule
+\end{tabular}
+\end{table}
+Every balanced checkpoint satisfies the conservative response-based criterion for every one of the 32 problems at every measured position. This statement is limited to the enumerated problem panel.
+The largest unaffected-target probability change among all balanced interventions is 0.992. This worst-case value is reported separately from average selectivity.
+\paragraph{Rare collateral failures.}
+A post hoc inspection of these large shifts finds 3 correct-to-incorrect changes among 55,296 unaffected-target comparisons across the three balanced models, 32 problems, all positions, histories and constraints. These are dependent comparisons within the enumerated panel, not independent test examples.
+Averaging complete second-round errors on the flipped prompts, including unaffected targets, gives at most 0.002384 nats for any balanced model/position cell. The first-round flipped-prompt error was not measured, so this is not a full counterfactual endpoint KL.
+The findings support low average conditional error and mostly selective responses, while ruling out a claim of uniform selectivity. The conservative certificate in Eq.~\eqref{eq:response-certificate} concerns the original target law and does not certify the complete counterfactual prompt.
+\paragraph{Additional resources.}
+The seven evaluations consume 11.89 additional H100-hours, with no retraining or failed launches. Detailed resource and utilization records remain in the repository.
