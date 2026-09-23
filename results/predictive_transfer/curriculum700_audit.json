@@ -1,0 +1,67 @@
+{
+  "status": "all six lineages crossed the fixed700-update curriculum boundary",
+  "at": "2026-09-23T07:39:40.572887+00:00",
+  "rows": [
+    {
+      "seed": 202709231,
+      "checkpoint_step": 700,
+      "observed_updates": 770,
+      "all_observed_gradients_and_losses_finite": true,
+      "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+      "checkpoint_model_tensor_count": 872,
+      "initial_seed": 202709231,
+      "base_sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524"
+    },
+    {
+      "seed": 202709232,
+      "checkpoint_step": 700,
+      "observed_updates": 735,
+      "all_observed_gradients_and_losses_finite": true,
+      "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+      "checkpoint_model_tensor_count": 872,
+      "initial_seed": 202709232,
+      "base_sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524"
+    },
+    {
+      "seed": 202709233,
+      "checkpoint_step": 700,
+      "observed_updates": 745,
+      "all_observed_gradients_and_losses_finite": true,
+      "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+      "checkpoint_model_tensor_count": 872,
+      "initial_seed": 202709233,
+      "base_sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524"
+    },
+    {
+      "seed": 202709234,
+      "checkpoint_step": 700,
+      "observed_updates": 768,
+      "all_observed_gradients_and_losses_finite": true,
+      "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+      "checkpoint_model_tensor_count": 872,
+      "initial_seed": 202709234,
+      "base_sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524"
+    },
+    {
+      "seed": 202709235,
+      "checkpoint_step": 700,
+      "observed_updates": 738,
+      "all_observed_gradients_and_losses_finite": true,
+      "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+      "checkpoint_model_tensor_count": 872,
+      "initial_seed": 202709235,
+      "base_sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524"
+    },
+    {
+      "seed": 202709236,
+      "checkpoint_step": 700,
+      "observed_updates": 755,
+      "all_observed_gradients_and_losses_finite": true,
+      "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+      "checkpoint_model_tensor_count": 872,
+      "initial_seed": 202709236,
+      "base_sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524"
+    }
+  ],
+  "scope": "Checkpoint metadata and complete observed training traces; no learned competence or target transfer inferred."
+}
