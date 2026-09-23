@@ -3,7 +3,7 @@
 Seven lossless inference exports are prepared: the selected initial seed71 model
 and all six near/balanced adaptations. Each contains every original model tensor
 and the original checkpoint contract. Optimizer state is omitted, reducing each
-file from about5.1GiB to about1.7GiB. `EXPORTS.json` maps original checkpoint
+file from about 5.1 GiB to about 1.7 GiB. `EXPORTS.json` maps original checkpoint
 hashes to new export hashes and verified tensor-content hashes.
 
 Publication is pending; download availability is not yet claimed.
@@ -14,6 +14,13 @@ six-lineage transfer models. Source weights derive from
 [fla-hub/rwkv7-0.4B-world](https://huggingface.co/fla-hub/rwkv7-0.4B-world), whose
 model card identifies Apache-2.0 licensing. Upstream component notices remain
 applicable; this release does not add a blanket license grant over unrelated code.
+
+Download a chosen role and check its recorded SHA256 (after publication):
+
+```bash
+python tools/fetch_inference_checkpoint.py --role balanced_seed20271011 \
+  --out /your/exports
+```
 
 After obtaining an export, validate it and print an eight-GPU evaluation command:
 

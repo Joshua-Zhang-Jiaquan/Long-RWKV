@@ -16,8 +16,8 @@ checking the listed artifacts and live execution state.
 | Independently verify joint laws and selection | `tools/verify_transfer_evidence.py` on actual raw files | Checker fixture-tested; actual-data audit pending |
 | Report real compute and memory use, including failed attempts | Scheduler receipts, training/evaluation/GPU traces, allocation audit | Pending final accounting; cap enforced during admission |
 | Revise paper according to actual findings | Final abstract/results, complete tables/figure, retained negatives | Working draft compiled; new outcomes explicitly pending |
-| Close the reconstruction-workflow gap | Pinned public assets, original parent/branch/adaptation/evaluation commands; exact new-study stage | Training workflows and original-study dry-runs complete; new-study evaluation portability pending |
-| Preserve and package all evidence | Historical seal; new raw/stage/prediction release indexes and hashes | Historical seal unchanged; new raw package pending |
+| Close the reconstruction-workflow gap | Pinned public assets, original parent/branch/adaptation/evaluation commands; exact new-study stage | Full original/new-study command workflows and exact capsules complete; portable dry-run checks passed; second-environment neural replication not claimed |
+| Preserve and package all evidence | Historical seal; new raw/stage/prediction release indexes and hashes | Historical seal unchanged; deterministic 96-rank packager prepared, awaiting complete raw panels |
 | Verify final paper and release | Independent audit, CPU tests, clean TeX build, visual inspection, source/result/claim audit | Pending final data |
 | Synchronize reviewable final artifacts | Revision branch commits and passing GitHub checks | Draft/tools synchronized; final revision pending |
 
@@ -27,3 +27,10 @@ failure. Completing the requested revision does not establish conference
 acceptance, optimized practical superiority, or a successful predictive method.
 No failed lineage may disappear and no post-outcome replacement recipe may be
 presented as the original prospective test.
+
+After the actual experiment completes, archive its raw panels with
+`python tools/package_transfer_evidence.py`, then check the portable copy with
+`python tools/verify_transfer_evidence.py --raw-index results/predictive_transfer/raw/INDEX.json`.
+The packager requires the complete report and all six sealed prediction artifacts,
+checks all 96 original hashes and lossless compression, and refuses to overwrite
+an existing package. Packaging itself is not a scientific audit.
