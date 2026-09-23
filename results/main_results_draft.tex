@@ -1,0 +1,99 @@
+% ARCHIVAL DRAFT: not included in the active manuscript. Current results are in the main source and generated result tables.
+\section{Measured results and current scope}
+\label{m:results-summary}
+
+We evaluate a fixed F2 step-14,000 payload with 4,091,581,440 stored elements,
+independently parameterized forward and backward mixers, and no depth-loop or latent
+conditioner. Its digest and tensor inventory identify the evaluated artifact; its
+correspondence to the cited public Hub revision remains unresolved. The payload stores
+FP32 tensors and is evaluated in BF16. Detailed artifact qualification, complete tables,
+and execution records appear in Sections~\ref{m:identity}--\ref{m:notmeasured}.
+
+\paragraph{Capability under causal option scoring.}
+Table~\ref{tab:main-capability} summarizes complete capability panels. Adapted checkpoints
+use the causal \texttt{fwdce} scoring path and released checkpoints use \texttt{raw};
+both compute the same length-normalized option-span likelihood statistic. MMLU uses
+one-token answer labels. These evaluations measure a causal inference path through the
+adapted weights, not iterative masked denoising or bidirectional generation. They
+therefore characterize retained capability without establishing the proposed
+long-context refinement benefit. Tokenizer-specific prompt trees fix the input
+convention; RACE, OpenBookQA, and MMLU-Redux additionally pass exact unique-document
+coverage checks. Upstream harness fields marked \texttt{unpinned} remain provenance
+limitations despite the subsequently recorded source hashes.
+
+\begin{table}[t]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Model & MMLU & HellaSwag & RACE & OBQA & Redux\\
+Items & 14,042 & 10,042 & 4,887 & 500 & 5,700\\
+\midrule
+F2 (4.09B) & 46.9 & 71.0 & 46.90 & 35.80 & 38.67\\
+RWKV-7 2.9B & 54.6 & 74.3 & 47.64 & 41.20 & 42.74\\
+RWKV-7 1.5B & 42.0 & 68.6 & 45.98 & 39.40 & 40.21\\
+RWKV-7 0.4B & 26.0 & 53.4 & 40.58 & 34.80 & 33.95\\
+\bottomrule
+\end{tabular}
+\caption{Complete-panel accuracy (\%); model sizes are total F2 stored elements or
+released-model labels. OBQA is OpenBookQA and Redux is MMLU-Redux. MMLU/Redux use test
+splits; the other panels use validation splits. Training histories and parameter counts
+are unmatched. Full precision, uncertainty, and further comparators are in the detailed
+results; no cross-dataset aggregate is formed.}
+\label{tab:main-capability}
+\end{table}
+
+F2 trails released RWKV-7 2.9B on all five panels, including differences of
+$-7.7$ percentage points on MMLU and $-3.3$ on HellaSwag. Paired-document bootstrap
+intervals for F2 minus that release are $-0.74$ points $[-1.74,0.25]$ on RACE,
+$-5.40$ $[-9.00,-2.00]$ on OpenBookQA, and $-4.07$ $[-5.04,-3.09]$ on
+MMLU-Redux. These intervals condition on the evaluated checkpoints and executions;
+they do not isolate architecture, objective, or pretraining exposure. F2 exceeds the
+0.4B release on every panel, while its comparison with the 1.5B release is mixed.
+MMLU-Redux is a separate benchmark, not a replacement for full MMLU.
+
+\paragraph{Controlled direction and tied-depth adaptation.}
+A separate matrix adapts a common 0.4B initialization on the same corpus and approximately
+2.0B tokens, with three training seeds per cell (Table~\ref{tab:main-direction}).
+Forward-only arms average 1.04 points higher on MMLU and 0.88 points higher on HellaSwag
+than bidirectional arms under causal option scoring. Tied-loop mean differences are
+at most 0.05 points. These observations establish neither a general direction penalty
+nor a general loop null. Every adapted arm falls below its initialization on HellaSwag;
+an equal-budget causal-continuation control would be needed to attribute that change
+to the diffusion objective.
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}llrr@{}}
+\toprule
+Direction & Tied loop & MMLU & HellaSwag\\
+\midrule
+Released initialization & --- & 26.04 & 53.38\\
+Forward-only & absent & 26.86 & 51.92\\
+Forward-only & present & 26.89 & 51.95\\
+Bidirectional & absent & 25.84 & 51.08\\
+Bidirectional & present & 25.83 & 51.03\\
+\bottomrule
+\end{tabular}
+\caption{Controlled 0.4B adaptation: accuracy (\%), means over three training seeds.
+The initialization is a single released checkpoint. Seed ranges and interpretation
+limits are reported in Section~\ref{m:direction}.}
+\label{tab:main-direction}
+\end{table}
+
+\paragraph{Execution sensitivity, resources, and open endpoints.}
+Repeated MMLU executions disagree on 0.20\% of F2 item verdicts and 0.75\% for two
+looped checkpoints. Opposite changes can cancel in aggregate accuracy; these fractions
+are not a universal resolution floor. Exploratory 4K--64K full-context forward probes
+show approximately flat processed-input throughput for recurrent mixers and a roughly
+$2\times$ decrease for transformers. The BiRWKV probe lacks resolved checkpoint
+identity, so its memory figures are not F2 measurements. Neither input throughput nor
+configured NFE establishes generation speed or deployment goodput.
+
+The primary long-context study is underway. Its decoder must be selected on the
+separate development panel and frozen before confirmation; no confirmation accuracy is
+reported here. The theory specifies the law and approximation terms such an experiment
+must distinguish. The current empirical results establish capability and measurement
+boundaries, without claiming long-context superiority.
+% Reserved integration point: add the frozen-decoder long-context table here only
+% after complete, provenance-checked confirmation measurements are available.

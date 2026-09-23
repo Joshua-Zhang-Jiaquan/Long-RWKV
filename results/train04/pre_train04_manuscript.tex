@@ -1,0 +1,1909 @@
+\documentclass{article}
+\usepackage{iclr2027_conference,times}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,tabularx,array,longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+\usepackage{listings}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\TV}{\operatorname{TV}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\KL}{\operatorname{KL}}
+\newcommand{\mask}{\mathtt{[MASK]}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\pending}{\textit{Not measured}}
+\newcommand{\sha}{\textit{anonymized source snapshot}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\lstset{basicstyle=\small\ttfamily,breaklines=true,columns=fullflexible,keepspaces=true,frame=single}
+\hypersetup{pdftitle={Long-RWKV: State-Based Diffusion for Long-Context Language Modeling},pdfauthor={},pdfsubject={ICLR 2027-format manuscript; frozen F2 checkpoint evaluation}}
+\begin{document}
+\title{Long-RWKV: State-Based Diffusion for\\Long-Context Language Modeling}
+\author{Anonymous authors}
+\maketitle
+\begin{abstract}
+Diffusion language models repeatedly estimate missing tokens, but attention-based denoisers can make long-context generation expensive. We study Long-RWKV, a direct-token diffusion model with a bidirectional generalized delta-rule denoiser that rebuilds transient recurrent state from the current token canvas at each denoising call. Starting from DDPM and D3PM variational objectives, we separate the denoising law from its neural parameterization: finite-feature attention admits an exact recurrent realization, while delta writes and RWKV gates introduce additional operator approximation. For absorbing diffusion, we decompose error into posterior estimation, architectural approximation, simultaneous-reveal dependence, and information lost through history compression. We evaluate the existing F2 release, distinguishing causal option-scoring capability from masked generation. F2 scores 46.9\% on full MMLU and 71.0\% on HellaSwag. A development-frozen decoder and released causal RWKV-7 each complete 52,800 synthetic examples across 16K, 32K, and 64K, covering 264 of 324 declared cells; 60 generator refusals remain explicit exclusions. F2 and causal RWKV obtain 15 and 14 exact matches, respectively, with conditional macro accuracies of 0.031\% and 0.029\%. The paired difference is 0.002 percentage points (95\% conditional bootstrap interval: $[-0.021,0.025]$). Evidence-only controls also fail, so this near-floor result does not isolate long-context retention or demonstrate a refinement advantage. We additionally report controlled direction-and-loop comparisons, execution sensitivity, and qualified resource measurements. The theory identifies constraints and testable mechanisms; the evaluated release does not establish long-context superiority.
+\end{abstract}
+
+\section{Introduction}
+\label{m:intro}
+
+Long-context language modeling presents two different challenges: accessing distant evidence and using that evidence to generate a coherent answer. Softmax attention preserves direct access to token representations, but incurs sequence-dependent computation and storage. Recurrent models replace the history with a fixed-size state, whose contents can interfere or become stale. Masked diffusion introduces a complementary choice: estimate missing tokens from a partially visible canvas and refine the canvas over several calls \citep{mdlm,llada}. The denoiser need not itself be a Transformer.
+
+We investigate a specific combination: a bidirectional RWKV-7 network \citep{rwkv7} serves as the denoiser of a categorical diffusion process. The network reads corrupted tokens and produces clean-token probabilities through its own output head. There is no latent diffusion planner, frozen renderer, or post-diffusion autoregressive decoder. Delta-rule writes correct a memory's current prediction; bidirectional scans make both sides of the current canvas available; and each denoising call reconstructs transient state rather than inheriting the previous call's terminal scan state.
+
+These mechanisms require careful separation. Linearizing a softmax kernel does not derive every RWKV gate. Recomputing representations from retained history is not the same as recovering discarded information. The Markov property of a diffusion process does not imply contraction or eliminate errors already written into the canvas. We therefore connect an explicit probabilistic objective, an explicit mixer replacement, and an explicit inference-access regime before making a performance claim.
+
+Our contributions are threefold. First, we formulate a direct-token recurrent diffusion model and derive its likelihood-matched objective, with a resource model that includes the canvas and vocabulary head. Second, we evaluate frozen checkpoints under capability panels and a development-selected long-context protocol, separating practical model comparisons from controlled adaptation and state-only retention. Third, we connect attention approximation and recurrent-state perturbation to a finite-horizon output-distribution bound, retaining both compression loss and the dependence missed by simultaneous independent reveals. Section~\ref{m:experiments} uses existing F2 weights rather than requiring a new pretraining campaign; cross-backbone training and causal architectural attribution remain separate extensions. Architectural construction and conditional mathematical results are not presented as measured superiority.
+
+\section{Related work}
+\label{m:related}
+\paragraph{Diffusion and denoising objectives.}
+Diffusion models learn a reverse process for a specified forward corruption law \citep{sohl,ddpm}. Score-based SDEs provide a continuous-time counterpart \citep{scoresde}; DDIM and diffusion solvers change the sampling procedure rather than requiring a different denoiser architecture \citep{ddim,dpmsolver}. D3PM extends the construction to categorical transitions \citep{d3pm}. SEDD learns discrete distribution ratios, while MDLM and MD4 derive simplified absorbing-mask objectives \citep{sedd,mdlm,md4}. LLaDA and block diffusion develop language-modeling and blockwise generation settings \citep{llada,blockdiffusion}. Our token model uses absorbing categorical corruption. The Gaussian DDPM derivation is an analytical counterpart, not a claim that embedding-space MSE is a discrete-token likelihood.
+
+\paragraph{Attention and recurrent representations.}
+DiT parameterizes a diffusion denoiser with condition-modulated Transformer blocks \citep{transformer,dit}. FlashAttention accelerates exact softmax attention without changing its operator \citep{flashattention}. Linear Transformers and Performers instead exploit finite feature maps and recurrent sufficient statistics of a selected kernel \citep{lineartransformer,performer}. Fast-weight and delta-rule models add residual-correcting memory writes \citep{fastweights,deltanet}; gated variants modify retention and erase/write behavior \citep{gla,gateddelta,gateddelta2}. RWKV-7 uses a generalized delta rule \citep{rwkv7}, while Mamba and state-space duality provide related recurrent sequence-modeling constructions \citep{mamba,mamba2}. Mamba-3, Kimi Delta Attention (KDA), and Gated DeltaNet-2 further develop state tracking and memory editing \citep{mamba3,kimi,gateddelta2}. We distinguish pure recurrent mixers from attention hybrids; our derivation preserves the gap between a kernel-state identity and generalized-delta replacement.
+
+\paragraph{The closest diffusion alternatives.}
+DiffuMamba combines masked diffusion with bidirectional Mamba, and its hybrid variant includes attention \citep{diffumamba}. Triplet-Block Diffusion RWKV supplies an existing RWKV-based diffusion construction \citep{triplet}. Partial-bidirectional block diffusion restricts cross-block interactions to support caching \citep{partial}. Retrofitted hybrid diffusion keeps exact attention within the active block and linearizes preceding context \citep{retrofit}. Thus neither recurrent diffusion nor linear-attention diffusion is a firstness claim here. Our focus is the full recurrent denoiser together with an objective-to-output error decomposition and comparisons that distinguish rereading from state retention. These alternatives delimit the related-work scope; they are not claimed as executed empirical baselines. Long-context evaluation includes multi-query recall \citep{zoology} and tasks beyond literal matching \citep{nolima}; accepting a long input is not itself evidence of using it.
+
+\section{Method}
+\label{m:method}
+\subsection{From the diffusion process to its denoiser}
+Let $H$ be history, $Q$ a query, and $Y\in\mathcal V^N$ the target. The condition $c$ is either $(H,Q)$ or $(C,Q)$ with $C=E(H)$. The history and query are never corrupted. Token index $i$, diffusion time $t$, layer index $\ell$, and executed denoiser-call count $K$ are distinct. All theoretical losses below are in nats per target sequence; reported per-token losses divide by $N$.
+
+Both DDPM and D3PM use a forward path $q(z_{1:T}\mid z_0)$ and a reverse model $p_T(z_T)\prod_t P_{\theta,t}(z_{t-1}\mid z_t,c)$. Jensen's inequality gives
+\begin{align}
+\mathcal L_{\rm VLB}
+={}&\KL(q_T(\cdot\mid z_0)\Vert p_T)
+-\E\log P_{\theta,1}(z_0\mid Z_1,c)\nonumber\\
+&+\sum_{t=2}^{T}\E\KL\bigl(q(Z_{t-1}\mid Z_t,z_0)\Vert P_{\theta,t}(\cdot\mid Z_t,c)\bigr).
+\label{m:vlb}
+\end{align}
+The denoiser parameterizes the reverse kernel; replacing its backbone does not change this objective. For DDPM, $Z_t=\sqrt{\bar a_t}Z_0+\sqrt{1-\bar a_t}\epsilon$, $a_t=1-\beta_t$, and $\bar a_t=\prod_{s\le t}a_s$. With fixed reverse variance $\sigma_t^2I$,
+\begin{equation}
+\mu_\theta=\frac{Z_t-\beta_t\epsilon_\theta(Z_t,t,c)/\sqrt{1-\bar a_t}}{\sqrt{a_t}},
+\qquad
+\lambda_t^\epsilon=\frac{\beta_t^2}{2\sigma_t^2a_t(1-\bar a_t)}.
+\label{m:ddpm}
+\end{equation}
+Each interior transition contributes $\lambda_t^\epsilon\E\|\epsilon-\epsilon_\theta\|^2$ plus parameter-independent terms. The endpoint terms and clean/noise/score/velocity equivalences are derived in Appendix~\ref{sec:ddpm}. We use the categorical branch for the language model.
+
+For D3PM, a row-stochastic matrix $Q_t$ defines each forward transition. Its clean-conditioned posterior is
+\begin{equation}
+q(X_{t-1}^i=j\mid X_t^i=b,Y_i=a)
+=\frac{\bar Q_{t-1}[a,j]Q_t[j,b]}{\bar Q_t[a,b]},
+\qquad \bar Q_t=Q_1\cdots Q_t.
+\label{m:d3pm}
+\end{equation}
+Specialize to an absorbing mask with survival schedule $1=\rho_0>\rho_1>\cdots>\rho_T=0$. Then $X_t^i=Y_i$ with probability $\rho_t$ and $\mask$ otherwise, independently across positions conditional on $Y$. Given a clean-token head $\pi_\theta^i(\cdot\mid X_t,t,c)$, define
+\begin{equation}
+P_{\theta,t}^i=\begin{cases}
+\delta_{X_t^i},&X_t^i\ne\mask,\\
+(1-\omega_t)\delta_{\mask}+\omega_t\pi_\theta^i,&X_t^i=\mask,
+\end{cases}
+\quad
+\omega_t=\frac{\rho_{t-1}-\rho_t}{1-\rho_t}.
+\label{m:reverse}
+\end{equation}
+The analyzed probability model factorizes these transitions across target positions. Substitution into Eq.~\eqref{m:vlb}, including its reconstruction term, gives the exact absorbing negative ELBO
+\begin{equation}
+\boxed{\mathcal L_D(\theta)=\sum_{t=1}^{T}\omega_t\E\sum_{i:X_t^i=\mask}-\log\pi_\theta^i(Y_i\mid X_t,t,c).}
+\label{m:loss}
+\end{equation}
+For $t\sim r(t)>0$, an unbiased per-token estimator is $\omega_t/(Nr(t))$ times the selected-token loss sum. A mean over the $m$ selected tokens therefore needs multiplier $\omega_t m/(Nr(t))$; empty masks contribute zero. The recorded selected-mask average plus causal replay and the likelihood-matched loss are separate experimental arms, not retrospectively equivalent training recipes. Appendix~\ref{sec:d3pm} derives the general categorical case and the continuous-time limit.
+
+\subsection{From attention to state, then to a delta-rule mixer}
+A condition-modulated DiT block supplies the attention reference. For one head,
+\begin{equation}
+y_i^A=\frac{\sum_j\kappa(q_i,k_j)v_j}{\sum_j\kappa(q_i,k_j)},
+\qquad \kappa(q,k)=\exp(q^\top k/\sqrt{d_k}).
+\label{m:attn}
+\end{equation}
+An infinite tensor-feature expansion represents this kernel exactly. A finite feature map $\phi:\R^{d_k}\to\R^r$ approximates it by $\widehat\kappa(q,k)=\phi(q)^\top\phi(k)$. Provided $|\widehat\kappa-\kappa|\le\eta\kappa$ with $\eta<1$ and $\|v_j\|\le V_0$, normalized readout satisfies
+\begin{equation}
+\|y_i^A-y_i^\phi\|_2\le\frac{2V_0\eta}{1-\eta}.
+\label{m:kernelbound}
+\end{equation}
+The denominator condition is essential. Appendix~\ref{sec:linearization} supplies explicit finite-feature constructions and the proof.
+
+For this selected kernel, recurrence is an \emph{exact implementation}, not another approximation:
+\begin{equation}
+S_i=S_{i-1}+v_i\phi(k_i)^\top,\quad z_i=z_{i-1}+\phi(k_i),\quad
+ y_i^\phi=\frac{S_i\phi(q_i)}{z_i^\top\phi(q_i)}.
+\label{m:additive}
+\end{equation}
+For full bidirectional attention, combine the two directional numerators and denominators and subtract the duplicated current-token contribution before normalization. A learned fusion of separately normalized directional outputs is a different operator.
+
+Additive accumulation cannot replace a stale value without a compensating write. One gradient step on $\frac12\|Sk_i-v_i\|^2$ instead gives the delta update
+\begin{equation}
+S_i=S_{i-1}+\beta_i(v_i-S_{i-1}k_i)k_i^\top.
+\label{m:delta}
+\end{equation}
+For a unit-norm key, its write residual is multiplied by $1-\beta_i$. This motivates the error-correcting memory, but does not establish universal superiority to softmax attention. The generalized RWKV-7 core used by our denoiser is
+\begin{equation}
+S_i=S_{i-1}A_i+v_i k_i^\top,\qquad
+A_i=\diag(w_i)-u_i(a_i\odot u_i)^\top,
+\qquad y_i=S_i r_i,
+\label{m:rwkv}
+\end{equation}
+with token-dependent retention $w_i$, erase gate $a_i$, normalized erase direction $u_i$, write key $k_i$, and read vector $r_i$. The complete block includes the RWKV projections, shifts, normalization, and feed-forward branch. The additive-to-delta and scalar-to-vector-gated changes are explicit operator replacements; their error is retained in the analysis rather than set to zero because both mechanisms are called linear attention.
+
+\subsection{Bidirectional denoising and long-context access}
+The input sequence concatenates clamped history/query tokens with the corrupted target. At each layer, two RWKV modules independently scan the current hidden sequence in forward and reverse order, starting from zero transient state. The backward output is returned to the original order, and
+\begin{equation}
+ o_i^\ell=g_i^\ell\odot o_{i,\rightarrow}^\ell+(1-g_i^\ell)\odot o_{i,\leftarrow}^\ell,
+ \qquad g_i^\ell=\sigma(W_g^\ell h_i^\ell+b_g^\ell).
+\label{m:fuse}
+\end{equation}
+Residual and feed-forward updates produce $h_i^{\ell+1}$; the model's own vocabulary head gives $\pi_\theta^i=\operatorname{softmax}(W_{\rm out}h_i^L)$. Conditioning on time can use a blockwise embedding; it is optional for the time-redundant absorbing posterior and tested separately. The Gaussian counterpart changes the output head to $\epsilon_\theta$ and uses Eq.~\eqref{m:ddpm}, not the categorical loss.
+
+Every reverse call reconstructs the directional states from the \emph{current} canvas. Requests must be isolated; packed-document and padding isolation require separate qualification. Repeated denoising therefore does not concatenate its $K$ scans into one hidden recurrent trajectory. Nevertheless, erroneous tokens already committed to the canvas remain inputs to later calls. Resetting numerical state does not erase semantic errors.
+
+\begin{table}[t]
+\centering\small
+\caption{The likelihood-matched sampler. Its reverse law, unlike confidence-ranked argmax, is the law analyzed in Section~\ref{m:theory}. The actual number of network calls is recorded.}
+\begin{tabularx}{\linewidth}{@{}rY@{}}
+\toprule
+1 & Clamp $c$ and initialize every target position to $\mask$.\\
+2 & For $t=T,T-1,\ldots,1$, rebuild transient state and compute $\pi_\theta(\cdot\mid X_t,t,c)$.\\
+3 & Independently select each currently masked position with probability $\omega_t$; sample its clean token from $\pi_\theta^i$. Preserve other tokens.\\
+4 & Return $X_0$. At $t=1$, $\omega_1=1$ ensures that no masks remain.\\
+\bottomrule
+\end{tabularx}
+\label{m:algorithm}
+\end{table}
+
+The framework interface is $D_{\theta,b}(X_t,t,c)$, where $b$ identifies the recurrent backbone. Substituting a Mamba or gated-delta block preserves the corruption law, clean-token head, loss, and sampler; its directional states still reset on each call. These are proposed controlled instantiations, not already trained releases. The path-risk theorem is backbone-independent, whereas the RWKV gate-specific stability and overwrite results are not transferred to Mamba.
+
+Two access contracts distinguish refinement from retention. In \emph{full-canvas} mode, each call may reread the entire observed history. In \emph{state-only} mode, an encoder produces $C=E(H)$ before the query is revealed, after which history tokens are unavailable; the denoiser receives only $(C,Q)$ and the current target. This extension requires a separately qualified condition interface. Retrieval is a third, explicitly labeled contract. Full-model prefix caching is not assumed: an edited target can alter later-layer history representations through backward scans.
+
+The F2 release uses independently parameterized directional modules and reports approximately 4.09B total parameters; its nominal 2.9B label identifies the causal initialization \citep{f2release}. The inspected F2-facing model has no tied-depth attachment or state-only condition interface. Those mechanisms are extensions, not properties inferred from a different lineage. No untrained loop is added to the primary checkpoint.
+
+\subsection{Training and resource accounting}
+Equation~\eqref{m:loss} defines the likelihood-matched training construction. F2 instead reports blockwise masked cross-entropy plus causal replay; its frozen weights are not retrospectively labeled as trained with this ELBO \citep{f2release}. A conditional attention teacher can optionally supply $\lambda_{\rm KD}\E\KL(\pi_A\Vert\pi_R)$, with teacher and student seeing the same corruption and history access. Causal replay, explicit time modulation, stability penalties, and tied depth are separately named ablations. None is part of the ELBO unless explicitly included in the model. Both directional parameters receive gradients; for a fixed-coefficient state transition, the state adjoint obeys $G_{i-1}=G_iA_i^\top$ plus local readout terms. Appendix~\ref{sec:training} derives all parameter and output gradients, including coefficient dependence.
+
+Let $n=|H|+|Q|+N$, hidden width $d$, number of heads $h$, and executed depth $D$. At fixed widths, a full-canvas call has cost
+\begin{equation}
+\mathcal O\!\left(Dn(d^2+h d_kd_v)+ndV\right),
+\label{m:cost}
+\end{equation}
+multiplied by the actual call count $K$. It is linear in $n$ \emph{per call}; a sampler making $K=\Theta(N)$ calls is not linear-time in total target length. Recurrent state is bounded in $n$, but canvas activations remain linear in $n$. Position-tiled vocabulary projection limits temporary logit storage to $\mathcal O(bV)$ for tile size $b$, rather than $\mathcal O(nV)$; equivalence must be checked for the selected sampler. Training additionally stores gradients, optimizer state, and checkpointed activations. Resource claims use total measured memory and completed-request latency, not state size alone.
+
+\section{An error decomposition for recurrent diffusion}
+\label{m:theory}
+Let $\pi_t^{*,i}=p_0(Y_i\mid X_t,c)$ and let $U_t$ be the currently masked positions. Define posterior-estimation risk and the dependence missed by simultaneous independent reveals:
+\begin{align}
+\mathcal E_D(R)&=\sum_t\omega_t\E\sum_{i\in U_t}\KL(\pi_t^{*,i}\Vert\pi_{R,t}^i),\\
+\mathcal B_\rho&=\sum_t\E\,\E_{J\sim\operatorname{Bern}(\omega_t)^{U_t}}
+\operatorname{TC}\bigl(p_0(Y_J\mid X_t,c)\bigr).
+\label{m:budgetterms}
+\end{align}
+Here $\operatorname{TC}(p_J)=\sum_{i\in J}H(p_i)-H(p_J)$ and the empty-set value is zero. The reveal set is identifiable from the output mask pattern. The KL chain rule therefore separates each exact reverse-kernel error into its total correlation and its sum of marginal posterior errors.
+
+\begin{theorem}[Loss-to-distribution error budget]
+\label{m:thm}
+Assume finite target entropy and expected cross-entropies, strictly positive clean-token model probabilities, independent absorbing corruption with $\rho_T=0$, and the sampler in Table~\ref{m:algorithm}. Then
+\begin{equation}
+\mathcal L_D(R)-H(Y\mid c)=\mathcal E_D(R)+\mathcal B_\rho,
+\quad
+\E_c\KL(p_0(Y\mid c)\Vert p_R(Y\mid c))\le\mathcal E_D(R)+\mathcal B_\rho.
+\label{m:path}
+\end{equation}
+For deterministic compression $C=E(H)$ and attention and recurrent denoisers evaluated on the same $(X_t,t,C,Q)$ with unit-temperature logits $\ell_A,\ell_R$, define
+\begin{equation}
+\mathcal A_{A\to R}=2\sum_t\omega_t\E\sum_{i\in U_t}\|\ell_{A,ti}-\ell_{R,ti}\|_\infty.
+\end{equation}
+Their endpoint error satisfies
+\begin{equation}
+\boxed{\E_{H,Q}\KL\bigl(p_0(Y\mid H,Q)\Vert p_R(Y\mid C,Q)\bigr)
+\le I(Y;H\mid C,Q)+\mathcal E_D(A)+\mathcal A_{A\to R}+\mathcal B_\rho.}
+\label{m:master}
+\end{equation}
+All denoising risks on the right use condition $(C,Q)$.
+\end{theorem}
+\begin{proof}[Proof sketch]
+Reverse-factorize the data-forward path and apply the KL chain rule. The common all-mask terminal law contributes zero; each transition contributes the two terms in Eq.~\eqref{m:budgetterms}. Marginalizing to $Y$ cannot increase KL. Next, $\log\operatorname{softmax}$ changes by at most $2\|\ell_A-\ell_R\|_\infty$ componentwise, yielding the teacher-to-recurrent risk bound without a KL triangle inequality. Finally insert $p_0(Y\mid C,Q)$ into the endpoint log ratio; the remaining term is $I(Y;H\mid C,Q)$. Appendix~\ref{sec:endtoend} gives the complete proof.
+\end{proof}
+
+Equation~\eqref{m:master} is a conditional guarantee, not a theorem that RWKV approximates arbitrary attention better. It isolates four targets for improvement. Full-history access makes the compression term zero but retains rereading cost. A teacher with full history cannot stand in for a teacher with the same compressed condition. Even exact marginal denoisers can leave $\mathcal B_\rho>0$. For vocabulary size $V$,
+\begin{equation}
+\mathcal B_\rho\le\binom N2\log V\sum_t(\rho_{t-1}-\rho_t)^2,
+\label{m:mesh}
+\end{equation}
+which becomes $\binom N2\log V/T$ for uniform survival increments. This worst-case bound may be loose; $N$ counts diffused target positions, not the clamped history.
+
+The approximation term includes more than finite features. Inserting an exact kernel-state implementation between attention and RWKV separates kernel error, changed erase/write dynamics, directional fusion, conditioning, and numerical perturbations. Layerwise Lipschitz composition propagates these discrepancies to output logits. For the generalized transition, $P_i=\diag(a_i)^{1/2}$ makes $P_iA_iP_i^{-1}$ symmetric. The fixed-path perturbation recursion is
+\begin{equation}
+ e_i\le \underbrace{\|P_iA_iP_i^{-1}\|_2\|P_{i-1}P_i^{-1}\|_2}_{q_i}e_{i-1}+\xi_i,
+ \qquad e_i=\|E_iP_i^{-1}\|_F.
+\label{m:statebound}
+\end{equation}
+A geometric ceiling requires a uniform $q_i<1$ and bounded disturbances; individual eigenvalues are insufficient. Coupled full-network changes additionally require input-sensitivity control. These assumptions must be tested rather than inferred from the model name; no trained-checkpoint contraction certificate is claimed here. A restricted overwrite theorem in Appendix~\ref{sec:overwrite} shows strict improvement over additive memory for orthogonal replacement keys and a recency-sensitive attention comparator; averaging-sensitive tasks provide a necessary negative control.
+
+Resetting scans removes cross-call terminal-state carry, but not errors in the token canvas. For any alternative sampler, a finite-horizon Markov perturbation bound accounts for its transition discrepancy (Appendix~\ref{sec:markov}); strict contraction is an additional assumption. This is why confidence-ranked decoding and the likelihood-matched stochastic sampler receive separate evaluations.
+
+\section{Experimental design}
+\label{m:design-summary}
+We study the existing F2 step-14,000 checkpoint, evaluated in BF16, rather than train a new model. Its 4.09B stored elements include independent forward and backward mixers. Released causal RWKV-7 checkpoints provide practical comparators with different parameter counts and training histories. The 0.4B direction-and-loop matrix separately holds initialization, data and adaptation budget fixed. Artifact identity and unavailable baselines are documented in Appendix~\ref{m:experiments}.
+
+Capability panels use complete MMLU test, HellaSwag/RACE/OpenBookQA validation, and MMLU-Redux test sets. Each option is scored by causal span likelihood; MMLU uses a single answer-label token. Thus these panels test retained causal capability, not iterative generation. Comparisons are paired by document where records support it, with 10,000 document-bootstrap replicates for the additional panels. Training seeds and repeated executions are reported separately.
+
+The primary long-context design crosses three synthetic task families (recall, overwrite and dataflow), three lengths (16K/32K/64K), three evidence positions, four binding loads and three distractor conditions. Its 324 cells contain 264 feasible cells and 60 generator refusals; each feasible cell has 200 examples. Both models receive the same visible evidence and a supplied target length. Development-only decoder selection precedes confirmation. The 72-example development panel crosses 16 sampler/step/temperature configurations, with a fixed selection and tie-breaking rule (Appendix~\ref{app:protocol}). Full-canvas access is distinct from state-only retention; no result here establishes a state-only interface.
+
+Finite-system verification reruns 21 grouped mathematical checks. For two correlated binary targets and a perfect marginal posterior head, the exact endpoint KL decreases from 0.368064 at one reverse step to 0.000209 at 64 steps, while the path dependence term decreases from 0.368064 to 0.005751. The loss--path identity residual is below $2.3\times10^{-15}$. These checks verify stated finite examples, not trained-model quality (Appendix~\ref{app:checks}).
+
+\section{Measured results and current scope}
+\label{m:results-summary}
+
+We evaluate a fixed F2 step-14,000 payload with 4,091,581,440 stored elements,
+independently parameterized forward and backward mixers, and no depth-loop or latent
+conditioner. Its digest and tensor inventory identify the evaluated artifact; its
+correspondence to the pinned public Hub revision is verified by exact BF16-export
+SHA-256 reconstruction. The local payload intentionally stores FP32 tensors; its
+BF16 conversion matches the public export byte for byte and is used for evaluation. Detailed artifact qualification, complete tables,
+and execution records appear in Sections~\ref{m:identity}--\ref{m:notmeasured}.
+
+\paragraph{Capability under causal option scoring.}
+Table~\ref{tab:main-capability} summarizes complete capability panels. Adapted checkpoints
+use the causal \texttt{fwdce} scoring path and released checkpoints use \texttt{raw};
+both compute the same length-normalized option-span likelihood statistic. MMLU uses
+one-token answer labels. These evaluations measure a causal inference path through the
+adapted weights, not iterative masked denoising or bidirectional generation. They
+therefore characterize retained capability without establishing the proposed
+long-context refinement benefit. Tokenizer-specific prompt trees fix the input
+convention; RACE, OpenBookQA, and MMLU-Redux additionally pass exact unique-document
+coverage checks. Upstream harness fields marked \texttt{unpinned} remain provenance
+limitations despite the subsequently recorded source hashes.
+
+\begin{table}[t]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Model & MMLU & HellaSwag & RACE & OBQA & Redux\\
+Items & 14,042 & 10,042 & 4,887 & 500 & 5,700\\
+\midrule
+F2 (4.09B) & 46.9 & 71.0 & 46.90 & 35.80 & 38.67\\
+RWKV-7 2.9B & 54.6 & 74.3 & 47.64 & 41.20 & 42.74\\
+RWKV-7 1.5B & 42.0 & 68.6 & 45.98 & 39.40 & 40.21\\
+RWKV-7 0.4B & 26.0 & 53.4 & 40.58 & 34.80 & 33.95\\
+\bottomrule
+\end{tabular}
+\caption{Complete-panel accuracy (\%); model sizes are total F2 stored elements or
+released-model labels. OBQA is OpenBookQA and Redux is MMLU-Redux. MMLU/Redux use test
+splits; the other panels use validation splits. Training histories and parameter counts
+are unmatched. Full precision, uncertainty, and further comparators are in the detailed
+results; no cross-dataset aggregate is formed.}
+\label{tab:main-capability}
+\end{table}
+
+F2 trails released RWKV-7 2.9B on all five panels, including differences of
+$-7.7$ percentage points on MMLU and $-3.3$ on HellaSwag. Paired-document bootstrap
+intervals for F2 minus that release are $-0.74$ points $[-1.74,0.25]$ on RACE,
+$-5.40$ $[-9.00,-2.00]$ on OpenBookQA, and $-4.07$ $[-5.04,-3.09]$ on
+MMLU-Redux. These intervals condition on the evaluated checkpoints and executions;
+they do not isolate architecture, objective, or pretraining exposure. F2 exceeds the
+0.4B release on every panel, while its comparison with the 1.5B release is mixed.
+MMLU-Redux is a separate benchmark, not a replacement for full MMLU.
+
+\paragraph{Controlled direction and tied-depth adaptation.}
+A separate matrix adapts a common 0.4B initialization on the same corpus and approximately
+2.0B tokens, with three training seeds per cell (Table~\ref{tab:main-direction}).
+Forward-only arms average 1.04 points higher on MMLU and 0.88 points higher on HellaSwag
+than bidirectional arms under causal option scoring. Tied-loop mean differences are
+at most 0.05 points. These observations establish neither a general direction penalty
+nor a general loop null. Every adapted arm falls below its initialization on HellaSwag;
+an equal-budget causal-continuation control would be needed to attribute that change
+to the diffusion objective.
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}llrr@{}}
+\toprule
+Direction & Tied loop & MMLU & HellaSwag\\
+\midrule
+Released initialization & --- & 26.04 & 53.38\\
+Forward-only & absent & 26.86 & 51.92\\
+Forward-only & present & 26.89 & 51.95\\
+Bidirectional & absent & 25.84 & 51.08\\
+Bidirectional & present & 25.83 & 51.03\\
+\bottomrule
+\end{tabular}
+\caption{Controlled 0.4B adaptation: accuracy (\%), means over three training seeds.
+The initialization is a single released checkpoint. Seed ranges and interpretation
+limits are reported in Section~\ref{m:direction}.}
+\label{tab:main-direction}
+\end{table}
+
+\paragraph{Execution sensitivity, resources, and open endpoints.}
+Repeated MMLU executions disagree on 0.20\% of F2 item verdicts and 0.75\% for two
+looped checkpoints. Opposite changes can cancel in aggregate accuracy; these fractions
+are not a universal resolution floor. Exploratory 4K--64K full-context forward probes
+show approximately flat processed-input throughput for recurrent mixers and a roughly
+$2\times$ decrease for transformers. The BiRWKV probe lacks resolved checkpoint
+identity, so its memory figures are not F2 measurements. Neither input throughput nor
+configured NFE establishes generation speed or deployment goodput.
+
+\paragraph{Frozen-decoder long-context results.}
+All 16 F2 development configurations and the causal comparator score $0/72$. The fixed tie rule selects eight matched-Bernoulli stages at temperature $0.7$ (Appendix~\ref{m:devselection}), frozen before confirmation. Table~\ref{tab:e3-confirmation-conditional} reports all 105,600 paired-model outcomes: 52,800 per model over 264 supported cells. The remaining 60 declared cells are generator refusals, not zero-scored failures. F2 yields 15 exact matches and R0 yields 14, all in dataflow; recall and overwrite have none. The conditional macro difference is $+0.002$ percentage points, with a paired 95\% interval of $[-0.021,0.025]$. This does not establish superiority or equivalence. Intervals condition on the generated cells and executed decoder seed, excluding execution variability and unsupported cells.
+
+Evidence-only, no-evidence, and same-task 4K/8K controls each yield 0/72 correct and 0/72 parseable answers for both models (Appendix~\ref{m:competence}). Even removing all filler, leaving 175--180 tokens, does not restore task execution. Thus the near-floor long-context result under this supplied-length symbolic serialization cannot isolate retention or refinement. Exploratory 32-token canaries produce some useful ordinary-language continuations, but change both prompt and output budget (Appendix~\ref{m:canary}). F2 averages 2.14--2.16 actual neural calls after qualified unchanged-canvas reuse; request costs are reported in the appendix without an optimized-AR speedup claim.
+
+\input{results/e3_confirmation_summary.tex}
+
+\section{Limitations and conclusion}
+\label{m:conclusion}
+The method connects a specified diffusion law to a state-based denoiser without equating generalized RWKV with exact softmax attention. The error decomposition explains four distinct limitations: imperfect posterior estimates, architectural approximation, simultaneous-reveal dependence, and discarded history information. Repeated denoising changes the computation and opportunities for rereading, not these information-theoretic constraints. The bounds can be loose, and local state conditions do not certify a trained nonlinear network. Generation uses the recorded FLA implementation; independent official-kernel parity has not been established.
+
+The main empirical object is the existing F2 checkpoint, not a newly trained model. Its published metadata motivates a reproducible long-context comparison, but does not establish the new endpoints. Weight/source/tokenizer reconciliation and qualification of the implemented decoder are reported in Section~\ref{m:identity}; the historical grouped decoder remains unrecovered. The proposed state-only interface and exact-objective training remain extensions. Claims are restricted to tested releases and resource envelopes; cross-backbone transfer requires separate paired training. The measured capability panels characterize these fixed checkpoints under causal option scoring. The completed synthetic long-context comparison exposes a near-floor task interface and supplies no evidence of a refinement advantage. Broader baseline comparisons, full-grid short-context degradation anchors, and deployment goodput remain unmeasured.
+\label{m:mainend}
+
+\clearpage
+\section*{AI use statement}
+Generative AI assisted with literature retrieval, mathematical formulations and proof development, finite-example verification code, experiment design and execution, evidence auditing, and manuscript drafting and restructuring. Mathematical checks and trained-model measurements are reported separately. The manuscript includes completed capability, development, confirmation, diagnostic, and resource panels, but does not assert completed human verification. Before submission, the authors must verify the proofs, citations, implementation correspondence, and empirical claims, and finalize the disclosure and responsibility statement.
+
+\section*{Reproducibility statement}
+The supplementary sections specify forward laws, reverse kernels, loss estimators, architecture assumptions, and proofs. The source package includes mathematical checks, the frozen executed F2 protocol, task generators, collectors, verification tests, and portable compressed receipts for all 105,600 confirmation outcomes, with hashes and paired coverage checks. The broader inherited experiment design remains separate from the executed subset. The evaluated F2 payload is pinned by its SHA-256 digest and tensor inventory; reconstructing its public BF16 export from the local FP32 tensors reproduces the revision-pinned SHA-256 exactly (Section~\ref{m:identity}). The development-frozen decoder, feasible-cell restrictions, inference seed, and runtime qualifications are recorded. Descriptive confirmation request costs and separate exploratory forward-pass probes are supplied; optimized autoregressive latency, concurrent goodput, independent official-kernel parity, and completed human review are not. No new pretraining is required for the reported checkpoint study.
+
+\section*{Ethics statement}
+Training data and evaluation assets require source-level license and privacy review; a corpus name does not confer redistribution permission. Code-generation tests must execute without network or credential access in an externally enforced sandbox. We report missing measurements, failures, and AI assistance rather than substitute generated performance values. Deployment claims require actual-device evidence and must not imply guaranteed correctness for safety-critical use.
+
+\clearpage
+\begin{thebibliography}{99}
+\bibitem[Anonymous(2026)]{repo} Anonymous. \emph{Implementation audit and evidence status supplied with this manuscript}. Supporting note, 2026. Historical measurements are not independently reproduced here.
+
+\bibitem[Arriola et~al.(2025)]{blockdiffusion} M. Arriola et al. \emph{Block Diffusion: Interpolating Between Autoregressive and Diffusion Language Models}. arXiv:2503.09573, 2025.
+
+\bibitem[Austin et~al.(2021)]{d3pm} J. Austin, D. D. Johnson, J. Ho, D. Tarlow, and R. van den Berg. \emph{Structured Denoising Diffusion Models in Discrete State-Spaces}. NeurIPS, 2021. arXiv:2107.03006.
+
+\bibitem[Bai et~al.(2023)]{longbench} Y. Bai et al. \emph{LongBench: A Bilingual, Multitask Benchmark for Long Context Understanding}. arXiv:2308.14508, 2023.
+
+\bibitem[Chaturvedi et~al.(2026)]{partial} P. Chaturvedi, P. Shroff, T. Suresh, H. Kang, and K. Wen. \emph{Training Hybrid Block Diffusion Language Models with Partial Bidirectionality}. arXiv:2607.02805, 2026.
+
+\bibitem[Choromanski et~al.(2021)]{performer} K. Choromanski et al. \emph{Rethinking Attention with Performers}. ICLR, 2021. arXiv:2009.14794.
+
+\bibitem[Cobbe et~al.(2021)]{gsm8k} K. Cobbe et al. \emph{Training Verifiers to Solve Math Word Problems}. arXiv:2110.14168, 2021.
+
+\bibitem[Dao \& Gu(2024)]{mamba2} T. Dao and A. Gu. \emph{Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality}. ICML, 2024. arXiv:2405.21060.
+
+\bibitem[Dao et~al.(2022)]{flashattention} T. Dao et al. \emph{FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness}. NeurIPS, 2022. arXiv:2205.14135.
+
+\bibitem[Gao et~al.(2020)]{pile} L. Gao et al. \emph{The Pile: An 800GB Dataset of Diverse Text for Language Modeling}. arXiv:2101.00027, submitted December 2020.
+
+\bibitem[Gu \& Dao(2023)]{mamba} A. Gu and T. Dao. \emph{Mamba: Linear-Time Sequence Modeling with Selective State Spaces}. arXiv:2312.00752, 2023.
+
+\bibitem[Hatamizadeh et~al.(2026)]{gateddelta2} A. Hatamizadeh, Y. Choi, and J. Kautz. \emph{Gated DeltaNet-2: Decoupling Erase and Write in Linear Attention}. arXiv:2605.22791, 2026.
+
+\bibitem[Hendrycks et~al.(2021)]{mmlu} D. Hendrycks et al. \emph{Measuring Massive Multitask Language Understanding}. ICLR, 2021. arXiv:2009.03300.
+
+\bibitem[Ho et~al.(2020)]{ddpm} J. Ho, A. Jain, and P. Abbeel. \emph{Denoising Diffusion Probabilistic Models}. NeurIPS, 2020. arXiv:2006.11239.
+
+\bibitem[Hsieh et~al.(2024)]{ruler} C.-P. Hsieh et al. \emph{RULER: What's the Real Context Size of Your Long-Context Language Models?} arXiv:2404.06654, 2024.
+
+\bibitem[Katharopoulos et~al.(2020)]{lineartransformer} A. Katharopoulos, A. Vyas, N. Pappas, and F. Fleuret. \emph{Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention}. ICML, 2020. arXiv:2006.16236.
+
+\bibitem[Kim et~al.(2026)]{retrofit} J. Kim, Y. Roh, and J. Kim. \emph{Retrofitting Linear Attention into Diffusion Language Models}. arXiv:2608.06628, 2026.
+
+\bibitem[Li et~al.(2022)]{diffusionlm} X. L. Li et al. \emph{Diffusion-LM Improves Controllable Text Generation}. NeurIPS, 2022. arXiv:2205.14217.
+
+\bibitem[Li et~al.(2024)]{dclm} J. Li et al. \emph{DataComp-LM: In search of the next generation of training sets for language models}. arXiv:2406.11794, 2024.
+
+\bibitem[Lin et~al.(2026)]{triplet} K. Lin, Y. Luo, Z. Su, Y. Song, and A. Rao. \emph{Triplet-Block Diffusion RWKV}. arXiv:2605.25969, 2026.
+
+\bibitem[Liu et~al.(2023)]{evalplus} J. Liu, C. S. Xia, Y. Wang, and L. Zhang. \emph{Is Your Code Generated by ChatGPT Really Correct? Rigorous Evaluation of Large Language Models for Code Generation}. NeurIPS, 2023. arXiv:2305.01210.
+
+\bibitem[Lou et~al.(2024)]{sedd} A. Lou, C. Meng, and S. Ermon. \emph{Discrete Diffusion Modeling by Estimating the Ratios of the Data Distribution}. ICML, 2024. arXiv:2310.16834.
+
+\bibitem[Lu et~al.(2022)]{dpmsolver} C. Lu et al. \emph{DPM-Solver: A Fast ODE Solver for Diffusion Probabilistic Model Sampling in Around 10 Steps}. NeurIPS, 2022. arXiv:2206.00927.
+
+\bibitem[Nie et~al.(2025)]{llada} S. Nie et al. \emph{Large Language Diffusion Models}. arXiv:2502.09992, 2025.
+
+\bibitem[Peebles \& Xie(2023)]{dit} W. Peebles and S. Xie. \emph{Scalable Diffusion Models with Transformers}. ICCV, 2023. arXiv:2212.09748.
+
+\bibitem[Peebles \& Xie(2026)]{ditcode} W. Peebles and S. Xie. \emph{Official DiT implementation}, \path{models.py}, \texttt{DiTBlock} and \texttt{FinalLayer}. Read 20 September 2026. Git blob \texttt{c90eeba7b2eee18b40b2128045248795b4b38d91}. \url{https://github.com/facebookresearch/DiT}.
+
+\bibitem[Peng et~al.(2025)]{rwkv7} B. Peng et al. \emph{RWKV-7 ``Goose'' with Expressive Dynamic State Evolution}. arXiv:2503.14456, 2025. Version 2, 30 March 2025.
+
+\bibitem[Rombach et~al.(2022)]{ldm} R. Rombach et al. \emph{High-Resolution Image Synthesis with Latent Diffusion Models}. CVPR, 2022. arXiv:2112.10752.
+
+\bibitem[Sahoo et~al.(2024)]{mdlm} S. Sahoo et al. \emph{Simple and Effective Masked Diffusion Language Models}. arXiv:2406.07524, 2024.
+
+\bibitem[Schlag et~al.(2021)]{fastweights} I. Schlag, K. Irie, and J. Schmidhuber. \emph{Linear Transformers Are Secretly Fast Weight Programmers}. ICML, 2021. arXiv:2102.11174.
+
+\bibitem[Shi et~al.(2024)]{md4} J. Shi, K. Han, Z. Wang, A. Doucet, and M. K. Titsias. \emph{Simplified and Generalized Masked Diffusion for Discrete Data}. arXiv:2406.04329, 2024.
+
+\bibitem[Singh et~al.(2025)]{diffumamba} V. Singh, O. Ostapenko, P.-A. No\"el, E. Belilovsky, and T. Scholak. \emph{DiffuMamba: High-Throughput Diffusion LMs with Mamba Backbone}. arXiv:2511.15927, 2025. Version 4, 17 July 2026.
+
+\bibitem[Sohl-Dickstein et~al.(2015)]{sohl} J. Sohl-Dickstein, E. A. Weiss, N. Maheswaranathan, and S. Ganguli. \emph{Deep Unsupervised Learning using Nonequilibrium Thermodynamics}. ICML, 2015. arXiv:1503.03585.
+
+\bibitem[Song et~al.(2021a)]{ddim} J. Song, C. Meng, and S. Ermon. \emph{Denoising Diffusion Implicit Models}. ICLR, 2021. arXiv:2010.02502.
+
+\bibitem[Song et~al.(2021b)]{scoresde} Y. Song et al. \emph{Score-Based Generative Modeling through Stochastic Differential Equations}. ICLR, 2021. arXiv:2011.13456.
+
+\bibitem[Vaswani et~al.(2017)]{transformer} A. Vaswani et al. \emph{Attention Is All You Need}. NeurIPS, 2017. arXiv:1706.03762.
+
+\bibitem[Yang et~al.(2024a)]{gla} S. Yang et al. \emph{Gated Linear Attention Transformers with Hardware-Efficient Training}. ICML, 2024. arXiv:2312.06635.
+
+\bibitem[Yang et~al.(2024b)]{deltanet} S. Yang, B. Wang, Y. Zhang, Y. Shen, and Y. Kim. \emph{Parallelizing Linear Transformers with the Delta Rule over Sequence Length}. arXiv:2406.06484, 2024.
+
+\bibitem[Yang et~al.(2024c)]{gateddelta} S. Yang, J. Kautz, and A. Hatamizadeh. \emph{Gated Delta Networks: Improving Mamba2 with Delta Rule}. arXiv:2412.06464, 2024.
+
+\bibitem[Arora et~al.(2023)]{zoology} S. Arora et al. \emph{Zoology: Measuring and Improving Recall in Efficient Language Models}. arXiv:2312.04927, 2023.
+\bibitem[Bai et~al.(2024)]{longbench2} Y. Bai et al. \emph{LongBench v2: Towards Deeper Understanding and Reasoning on Realistic Long-context Multitasks}. arXiv:2412.15204, 2024.
+\bibitem[Kimi Team(2025)]{kimi} Kimi Team. \emph{Kimi Linear: An Expressive, Efficient Attention Architecture}. arXiv:2510.26692, 2025. The released model is a KDA/MLA hybrid.
+\bibitem[Kuratov et~al.(2024)]{babilong} Y. Kuratov et al. \emph{BABILong: Testing the Limits of LLMs with Long Context Reasoning-in-a-Haystack}. arXiv:2406.10149, 2024.
+\bibitem[Lahoti et~al.(2026)]{mamba3} A. Lahoti, K. Y. Li, B. Chen, C. Wang, A. Bick, J. Z. Kolter, T. Dao, and A. Gu. \emph{Mamba-3: Improved Sequence Modeling using State Space Principles}. arXiv:2603.15569, 2026.
+\bibitem[Modarressi et~al.(2025)]{nolima} A. Modarressi et al. \emph{NoLiMa: Long-Context Evaluation Beyond Literal Matching}. arXiv:2502.05167, 2025.
+
+\bibitem[Anonymous(2026b)]{f2release} Anonymous. \emph{F2 step-14,000 checkpoint release card}. Public release inspected 21 September 2026. Identifying repository and artifact-resolution status are retained in the non-anonymous source manifest; Public revision and BF16-export correspondence independently verified by SHA-256 reconstruction from the evaluated local artifact.
+\bibitem[Anonymous(2026c)]{f2source} Anonymous. \emph{F2-facing bidirectional model and sampler source}, \path{models/birwkv7_diffusion.py}. Inspected development-branch file; source identity is retained in the non-anonymous manifest. Not yet bound to the checkpoint payload.
+\bibitem[RWKV Project(2025)]{rwkvrelease} RWKV Project. \emph{RWKV7-Goose-World3-2.9B-HF}. Model card, \url{https://huggingface.co/RWKV/RWKV7-Goose-World3-2.9B-HF}. Inspected 21 September 2026.
+\bibitem[State Space Models(2024)]{mambarelease} State Space Models. \emph{Mamba2-2.7b}. Model repository, \url{https://huggingface.co/state-spaces/mamba2-2.7b}. Inspected 21 September 2026.
+\bibitem[FLA Hub(2025a)]{glarelease} FLA Hub. \emph{GLA-1.3B-100B}. Model card, \url{https://huggingface.co/fla-hub/gla-1.3B-100B}. Inspected 21 September 2026.
+\bibitem[FLA Hub(2025b)]{deltarelease} FLA Hub. \emph{DeltaNet-1.3B-100B}. Model repository, \url{https://huggingface.co/fla-hub/delta_net-1.3B-100B}. Inspected 21 September 2026; training/license metadata incomplete in the card.
+\bibitem[GSAI-ML(2025)]{lladarelease} GSAI-ML. \emph{LLaDA-8B-Base}. Model repository, \url{https://huggingface.co/GSAI-ML/LLaDA-8B-Base}. Inspected 21 September 2026.
+\end{thebibliography}
+
+\clearpage
+\appendix
+\input{results/detailed_design.tex}
+
+\input{results/detailed_results.tex}
+
+\section{F2 checkpoint evaluation protocol}
+\label{app:protocol}
+\textbf{Design record and execution boundary.} This appendix preserves the broader checkpoint-first design, including unexecuted gates and extensions. The executed subset and its deviations are reported in Sections~\ref{m:experiments}--\ref{m:notmeasured}; the measured development freeze is in Section~\ref{m:devselection}. The empirical checkpoint is the existing F2 step-14,000 release. No new pretraining, SFT, RL, long-context adaptation, or new denoiser conversion is required. The old 39-run core and 84-row expanded training campaign are superseded as primary execution requirements. A model name, model card, or source file alone is not a qualified load of the checkpoint.
+
+\subsection{Evidence levels and artifact identity}
+The inspected release card supports a nominal causal ancestry of 2.9B, approximately 4.09B bidirectional parameters, a BF16 export, and a 4K training context. Hub metadata independently reports approximately 4,091.6M elements. These observations do not establish the exact trainable-parameter count: obtain it from the instantiated model and separately report the stored-tensor element count, which can include buffers. The card mentions step 12,000, but no sibling payload was verified. The step-14,000 public revision and its BF16-export correspondence are verified in Section~\ref{m:identity}. Only the step-14,000 release is an identified primary candidate.
+
+The non-anonymous manifest records the public model ID, requested revision, resolved full revision when available, tokenizer and model-source identities, tensor count/dtypes/shapes, weights checksum, and loader incompatibilities. The resolved public revision is \path{9d2b9042d7ab32e5d706479373a5437b1a29fb4b}; its public-export digest and exact correspondence to the evaluated local weights are recorded in Section~\ref{m:identity}. This artifact check does not certify a decoder or inference result.
+
+The card's historical token counts are not reconciled into a new training-total claim. Its summary and lineage diagram use different phase descriptions, and the causal backbone already has its own pretraining history. Preserve the original provenance records and distinguish cumulative exposure, added adaptation, nonpadding tokens, and unique data. No claimed matched-training comparison follows from the available metadata.
+
+\subsection{G0: source, tokenizer, and decoder qualification}
+\paragraph{Load contract.}
+Use a compatible, pinned version of the custom bidirectional class, not a generic causal loader applied directly to F2. The inspected warm-start function reads a \emph{local directory} containing configuration and safetensors; a repository string is not automatically resolved by that function. Prefer constructing from an audited configuration and loading the complete F2 state, provided every required key and shape matches. Loading base weights first is allowed only as an explicit reconstruction path whose subsequent F2 load is complete. An unchecked \texttt{strict=False} load is not qualification. Default to rejecting any missing/unexpected key, and allow only reviewed nonexecuted optional fields with recorded reasons.
+
+The inspected source exposes no loop attachment, noise-time argument, or retained-history condition interface. This is not the later looped model in earlier draft evidence. Do not attach random modules, silently enable optional mechanisms, or borrow a different lineage's parameter count. Record the actual projections, directional modules, and output head used by F2.
+
+\paragraph{Tokenizer and stopping.}
+Freeze the tokenizer implementation together with its vocabulary and special-token configuration. The release card's EOS value is a claim to check, not a substitute for decoding the actual tokenizer. A published causal-tokenizer correction documents a blank-line/added-token defect; a newer tokenizer is not automatically compatible with the training tokenizer. Compare original-training and candidate tokenization on blank lines, code fences, whitespace, Unicode, and ordinary text. Preserve both manifests when a correction changes token IDs. Verify mask and padding IDs, document separators, output-stop rules, and each model's answer-label encodings. Do not silently replace one unverified EOS constant with another.
+
+\paragraph{Model-card/source mismatch.}
+The card reports grouped $g=4$ confidence commitment at 16 rounds and temperature 0.2. The inspected development-branch function accepts steps, temperature, self-correction, and remask threshold, but not \texttt{commit\_group\_size}. Its source is a global confidence-commit implementation. Preserve it as an available decoder; recover the grouped source and demonstrate its provenance before claiming historical-score reproduction. The usage example also uses greedy temperature, so it is not the reported capability configuration. If a grouped decoder is newly implemented, label it as a new decoder on frozen F2 weights, not a recovered historical run.
+
+The source returns full-canvas logits and casts them to FP32 in the sampler. Its model forward notes that recurrence flows through padding. Use unpadded batch-one qualification first; any batching/ragged/padding policy must prove the claimed isolation. Reversing a padded sequence is not innocuous. No full-model history cache or raw-history-free interface is qualified here.
+
+\paragraph{Acceptance tests.}
+Require finite logits at 4K; identical deterministic repeated-call output within the chosen numerical tolerance; immutable prompt tokens; no cross-request state; complete loading; normalized legal-token probabilities; no surviving masks at completion; correct stop handling; and instrumentation of every network evaluation. Check exact output parity before crediting target-only or tiled vocabulary projection. With a 4K-trained release, longer contexts are experiments, not guaranteed support.
+
+\subsection{G1: development-only selection and frozen evaluation}
+Use source-disjoint development tasks before creating the locked test set. Qualify 4K first, then 8K, 16K, 32K, and 64K; 128K is optional stress evaluation. A long-context failure stays in the final coverage/feasibility record. Do not choose the test maximum after seeing correctness. The reference length bins are defined with one pinned tokenizer, but all baselines receive the same raw documents and queries; actual lengths and evidence spans are recorded per tokenizer.
+
+The implemented calibration panel has 72 source-disjoint examples at 16K (three families, three data seeds, eight examples per family and seed). It crosses schedules $8/16/32/64$, temperatures $0.7/1.0$, and matched-Bernoulli/confidence commitment, giving 16 configurations. Select the highest mean accuracy, breaking ties by fewer steps, then matched Bernoulli, then lower temperature. This rule and panel were implemented before the first calibration run. One-call and four-call runs are reserved for separately labeled mechanism controls. Preserve the historical temperature 0.2 as a reproduction target and unit temperature for exact-law analysis; greedy and other temperatures are explicitly distinct policies. Group-size $1/4/16$ settings exist only for a qualified grouped implementation, with actual calls recorded. Freeze one decoder per model and inference-work envelope before testing. Give baselines comparable tuning effort and retain their native generation interface. No oracle best-of-$n$ selection uses reference answers.
+
+The broader design proposes inference seeds 17, 29, and 43 to measure sampling variability of fixed weights. Only seed 17 is executed for F2 confirmation; R0 is greedy. The same checkpoint under these seeds is not three independently trained models. Earlier checkpoints from the same trajectory are not independent training replicates either. Historical benchmark panels that selected F2 cannot supply independent confirmation for the same outcome; new task realizations and disjoint evaluation records are required.
+
+\subsection{G2: primary and secondary evaluations}
+\paragraph{Primary long context.}
+Retain three families, three primary lengths, three evidence positions, four binding loads, three distractor conditions, and 200 examples per cell. This is 324 cells and 64,800 base checkpoint evaluations per inference seed. Across six models and three stochastic seeds it is 1,166,400 requests before external suites or additional decoders; this is arithmetic, not a measured runtime budget. Deterministic duplicate runs do not add statistical sample size. If this grid is too costly, reduce repetitions or examples with a documented development-only power analysis \emph{before} locking tests; do not drop difficult cells after observing them. Full six-length curves have 648 cells/129,600 example-length pairs per checkpoint per seed, but repeated lengths share a base-problem cluster.
+
+\paragraph{Capability and native infilling.}
+Keep full MMLU, OpenBookQA/RACE with exact split definitions, GSM8K, and HumanEval+/MBPP+ as separately scored panels. A card's 200-question MMLU observation is not full-benchmark MMLU. Report free-generation floor effects instead of omitting them. Masked-token accuracy, sequence exact match, and executable pass@1 are different metrics. No new checkpoint-specific family macro is selected after reading historical favorable scores. The earlier broad capability macro is secondary in this checkpoint-first study.
+
+Infilling tests mask prescribed answer or document spans; visible context never leaks the masked gold span. Compare causal baselines through a declared serialization of the same available prefix/suffix evidence, or label the task as unsupported. Do not give a causal baseline only a prefix while giving F2 the entire suffix and call the result access-matched. Native infilling performance is not evidence of general reasoning or unrestricted program synthesis.
+
+\paragraph{Physical inference.}
+Use native precision as the quality reference. Only after feasibility qualification, measure a physical 16-GiB-class configuration, with 8/24-GiB devices optional. A 4.09B BF16 parameter payload is roughly 7.62 GiB before allocations; ideal packed 4-bit size is not an implemented low-memory system. Start with concurrency one and grow to $4/16/64$ only where feasible. Private replicas and shared-weight sessions remain separate. Count all rereading, retained host history, transfers, token canvases, logits/probabilities, state, kernels, and runtime reservations. Report quality against peak memory, latency, actual calls, and successful-on-time request goodput.
+
+Freeze deadlines on development traffic. Retain the joint target of $1.5\times$ goodput and one-sided 95\% quality noninferiority within one percentage point at the same operating point. Use five randomized-order repetitions with at least 300 seconds and 1,000 completions per qualified cell; otherwise mark the estimate underpowered. Do not turn an OOM into zero-latency success. Quantization, selective heads, and offload are named modifications with parity/quality checks. Energy requires measurement.
+
+\subsection{G3: within-F2 interventions and optional extensions}
+\begin{table}[ht]
+\centering\small
+\caption{What is possible using existing weights, and what changes the scientific object. This table mixes executed release comparisons with unexecuted interventions. F2 versus causal RWKV is measured; other rows require their own qualification and are not claimed as completed.}
+\begin{tabularx}{\linewidth}{@{}p{0.28\linewidth}YY@{}}
+\toprule
+Comparison & Weight status & Interpretation\\
+\midrule
+One call vs iterative & Same F2 & Refinement/sampler effect at recorded work\\
+Forward-only vs bidirectional & Same adapted F2 & Direction-removal intervention, not retraining attribution\\
+F2 vs causal RWKV release & Different released weights & Combined adaptation/size/framework comparison\\
+Historical vs exact-law decoder & Same F2 & Decoder mismatch; ELBO-training equivalence not implied\\
+FP32-state vs lower precision & Same weights when applicable & Numerical sensitivity and execution cost\\
+Tiled/target-only vocabulary head & Same weights & Systems optimization only after output checks\\
+Trained diffusion Mamba / Gated DeltaNet & New adaptation or training & Optional backbone-transfer study\\
+16K/32K adaptation, SFT, or RL & New checkpoint & Optional separate track, not frozen F2 extrapolation\\
+State-only conditioner or loop & New interface/operator & Not part of the primary release without evidence\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Preserve the mathematical operator ladder and finite-state tests. For the trained release, measure realized coefficient sequences, denominator/gate behavior where relevant, and held-out perturbation error. A fixed-coefficient stability certificate does not certify input-dependent coupled recurrence. A newly inserted mixer is not an independently trained competing architecture. Small mathematical systems with exact posteriors can test dependence and compression terms; a natural-language probe is not a measurement of conditional mutual information.
+
+\subsection{Statistics, scope of inference, and result records}
+The original, unexecuted four-comparator inference plan names F2 minus R0, M0, L0, and L1 on the same long-context macro, with Holm control at 0.05. The executed one-comparator study instead reports descriptive fixed-cell paired bootstrap intervals; it does not complete this family or claim Holm-controlled superiority. A claim names only baselines that satisfy the prespecified positive-evidence rule; beating the average is insufficient. The five-point practical effect is a design threshold, not an observed result. Ordinary bootstrap intervals are not renamed Holm-adjusted intervals; use simultaneous intervals or inversion of the corrected tests. Optional Gated DeltaNet or newer models require their status in the comparison family to be frozen before testing, not inserted after favorable results.
+
+For the unexecuted paired-length design, resample base-problem/source clusters with all paired lengths and inference replicates kept together, and report per-seed outcomes. The executed fixed-cell estimator and its narrower uncertainty scope are specified in Section~\ref{m:experiments}. Use 10,000 draws and a development-based power calculation. Inference is conditional on these weights and available training metadata; it does not estimate variation over repeated pretraining. A small baseline at task floor can be reported, but does not establish matched-scale architectural superiority. Publish total planned coverage, attempted coverage, qualified coverage, and native task scores with failure statuses. Give supported-only diagnostic aggregates separately from the declared feasible-system endpoint.
+
+The machine-readable protocol contains no required training runs and identifies one primary F2 checkpoint. The export-audit receipt resolves the public revision and weight correspondence; remaining source and decoder qualification fields retain their own evidence status. Artifact-audit scripts do not themselves execute benchmark inference; measured benchmark executions are reported separately. Do not publish the non-anonymous repository mapping in a double-blind submission without a venue-compliant anonymization step.
+
+\section{Long-context comparison with released recurrent models}
+\label{app:longcomparison}
+\subsection{Estimands and matched evidence}
+For the fixed release set, define $\Delta_b=\overline S_{\rm F2}-\overline S_b$, where $\overline S$ averages difficulty cells and then the three families and primary lengths equally. Report both $\Delta_b$ and Eq.~\eqref{m:f2degradation}. Dataset seeds generate different problem instances; inference seeds randomize decoding of the same instances. Neither changes the pretraining history. At matched request work, select settings on development data within a common measured envelope; a requested budget with no feasible operating point is unsupported, not extrapolated.
+
+The candidate is larger than the identified causal RWKV, Mamba-2, GLA, and DeltaNet releases, while LLaDA is larger than the candidate. All sizes, native tokenizers, training exposure, and tuning status appear next to scores. The study can demonstrate a useful released-system trade-off and compare degradation shapes; it cannot infer a pure architecture gain after dividing accuracy by parameter count. Stronger or closer-size verified releases should be included as declared secondary comparisons when available, not assumed to exist.
+
+\subsection{History access and source-paired length construction}
+In the primary full-history-access lane, all models receive the same raw evidence and query. F2 rereads its retained canvas; the executed causal comparator recomputes its full visible prefix with caching disabled. A native cached causal implementation would require separate qualification and is not represented by these timing measurements. This is equal available input, not equal number of passes. Show native frontiers and a separately defined work-matched lane. An explicit causal rereading/multi-attempt control must specify its answer-selection rule without gold labels and count every pass. The main result is not described as an access-matched state-capacity experiment.
+
+Pre-query state-only evaluation would require encoding history, erasing all raw-history buffers, matching retained bytes, and revealing the query afterwards. F2's currently inspected source has no such complete condition interface, so this lane is outside the required checkpoint study. Retrieval and query-aware compression are separately named. Changing a truncation window changes evidence access and cannot silently repair unsupported full-context cells.
+
+Create a base problem with a fixed answer and evidence graph, then insert irrelevant text to create 4K/8K/16K/32K/64K/128K versions. Evidence positions are maintained as registered fractions in each version; overwrite ordering, entity bindings, and dependency graphs remain constant. There is no silent token truncation. Validate every answer and every evidence span before locking the set. Keep paired versions in the same bootstrap cluster. Evidence-only and no-evidence controls are specified before looking at long-context outcomes, and a failing evidence-only result remains a visible task-competence limitation.
+
+\subsection{Frozen-checkpoint refinement and theorem diagnostics}
+A direct target posterior is measured from the model's clean-token head on a defined mask pattern. Do not substitute an autoregressive likelihood from a bidirectional model without the explicit causal path. Compare conditional loss and actual generated-answer success independently. At each length, record how changing the current answer canvas changes useful evidence readouts. Refinement is supported by within-F2 improvement at measured additional work, not by a comparison to a smaller checkpoint alone.
+
+For a one-token target with no explicit timestep and an unchanged condition, repeated deterministic evaluations give identical logits. This negative control is expected. Tests of iterative improvements therefore include multi-token targets and coupled dependencies, with all initially masked target positions counted in cost. Simultaneous product-of-marginals error is verified in the enumerated toy systems; separately identifying confidence-selection and state-numerical errors in a trained model remains unexecuted. The model card's confidence sampler does not inherit the exact-law output-KL theorem merely because its backbone is recurrent.
+
+\subsection{External panels and figures}
+Use pinned RULER tasks for retrieval and aggregation. LongBench, BABILong, and NoLiMa occupy native-metric panels rather than an arbitrary mixture of incompatible scores. LongBench v2 is optional and length-qualified. For each released tokenizer retain raw prompts, tokenized lengths, evidence offsets, generated answers, and parser outcomes. A source-common subset is explicitly labeled and cannot be advertised as the full benchmark.
+
+The main figures are: (i) score versus source-paired length for the six identified model releases; (ii) F2-minus-baseline degradation relative to 4K, with absolute 4K scores printed; (iii) within-F2 score versus actual calls and request cost; and (iv) quality versus physical peak memory/latency. Tables report model size/training metadata, primary family scores, and all failure cells. The plan supplies specifications and empty result records, not invented curves.
+
+\subsection{Boundary of the framework claim}
+Testing F2 against causal Mamba and linear-attention checkpoints evaluates the RWKV instantiation of the framework against other released systems. It does not show that converting those backbones to diffusion improves them. That stronger statement requires their actual paired converted checkpoints, common adaptation budgets, and backbone-specific controls. Such training remains a later optional project. The checkpoint-first paper instead emphasizes a complete objective-to-denoiser derivation, F2's long-context behavior against named competitors, and within-weight interventions that test the proposed mechanisms.
+
+\section{A common variational foundation}
+\label{sec:foundation}
+\subsection{Objects, conditioning, and four distinct notions of state}
+Let $Y=(Y_1,\ldots,Y_N)\in\mathcal V^N$ be the clean target, $V=|\mathcal V|$, and $c=(H,Q)$ the available history and query. The data law is $p_0(y\mid c)$. Length is conditioned on; a variable-length model additionally needs a length or stopping distribution. No future clean target may enter $c$. A compressor $C_\phi(H,Q)$ is permissible only when calculated from inference-available information. Unless otherwise stated, all population expectations also average over the data distribution of $c$.
+
+We distinguish the corruption time $t\in\{0,\ldots,T\}$, the reverse-call index $k$, the token index $i$, and the executed-layer index $\ell$. Diffusion runs from $t=T$ to $0$ at inference; recurrent scanning runs over $i$ \emph{inside} a denoiser call. A diffusion state $Z_t$, a recurrent matrix $S_i^{\ell,t}$, a stored history condition $C$, and sampler metadata are different mathematical objects. The Markov property of one does not establish sufficiency or stability of another.
+
+The following construction applies to either a discrete canvas $Z_t=X_t$ or a continuous representation $Z_t\in\R^D$. For a fixed clean datum $z_0$, choose a forward Markov kernel
+\begin{equation}
+ q(z_{1:T}\mid z_0,c)=\prod_{t=1}^T q_t(z_t\mid z_{t-1},c),
+ \qquad
+ p_\theta(z_{0:T}\mid c)=p_T(z_T\mid c)\prod_{t=1}^T P_{\theta,t}(z_{t-1}\mid z_t,c).
+ \label{eq:commonpath}
+\end{equation}
+The forward kernel is fixed during the basic denoiser derivations. Sums below become integrals in continuous spaces. We require compatible supports and finite expectations whenever a finite KL statement is made; otherwise KL is interpreted in the extended-real sense. In a conditional language model, observed coordinates are fixed boundary data, not extra target coordinates silently corrupted and subsequently repaired.
+
+\subsection{Deriving the negative evidence lower bound}
+By inserting the forward proposal and applying Jensen's inequality,
+\begin{align}
+ \log p_\theta(z_0\mid c)
+ &=\log\E_{q(z_{1:T}\mid z_0,c)}
+ \left[\frac{p_\theta(z_{0:T}\mid c)}{q(z_{1:T}\mid z_0,c)}\right]\\
+ &\ge\E_q\left[\log p_T(Z_T\mid c)+\sum_{t=1}^T\log P_{\theta,t}(Z_{t-1}\mid Z_t,c)
+ -\sum_{t=1}^T\log q_t(Z_t\mid Z_{t-1},c)\right].
+\end{align}
+Bayes' rule factorizes the same forward bridge in reverse order:
+\begin{equation}
+ q(z_{1:T}\mid z_0,c)
+ =q(z_T\mid z_0,c)\prod_{t=2}^Tq(z_{t-1}\mid z_t,z_0,c).
+\end{equation}
+Substitution gives the exact decomposition
+\begin{align}
+ \mathcal L_{\mathrm{VLB}}(z_0,c)
+ &=\KL(q(Z_T\mid z_0,c)\Vert p_T(\cdot\mid c))\nonumber\\
+ &\quad+\sum_{t=2}^T\E_{q(Z_t\mid z_0,c)}
+ \KL\!\left(q(Z_{t-1}\mid Z_t,z_0,c)\Vert P_{\theta,t}(\cdot\mid Z_t,c)\right)\nonumber\\
+ &\quad+\E_{q(Z_1\mid z_0,c)}[-\log P_{\theta,1}(z_0\mid Z_1,c)]
+ \ \ge\ -\log p_\theta(z_0\mid c).
+ \label{eq:generalelbo}
+\end{align}
+The three terms are the terminal-prior term, reverse-transition terms, and reconstruction term. This variational structure is inherited from diffusion modeling, not from attention or recurrence \cite{sohl,ddpm,d3pm}. Replacing a Transformer by RWKV changes $P_{\theta,t}$'s parameterization; it does not change Eq.~\eqref{eq:generalelbo}.
+
+\subsection{The Bayes denoiser is architecture-independent}
+Let $q_t(z\mid c)=\int p_0(z_0\mid c)q(z\mid z_0,c)\,dz_0$. The \emph{data-reversed} kernel is
+\begin{equation}
+ R_t^*(z'\mid z,c)
+ =\int q(z'\mid z,z_0,c)\,p_0(dz_0\mid z,c).
+ \label{eq:oraclereverse}
+\end{equation}
+For $t\ge2$ and finite compatible bridge KLs, conditioning and expanding logarithms yields
+\begin{align}
+ &\E_{Z_0\mid Z_t=z,c}\KL(q(Z_{t-1}\mid z,Z_0,c)\Vert P(\cdot\mid z,c))\nonumber\\
+ &\quad=\E_{Z_0\mid z,c}\KL(q(Z_{t-1}\mid z,Z_0,c)\Vert R_t^*(\cdot\mid z,c))
+ +\KL(R_t^*(\cdot\mid z,c)\Vert P(\cdot\mid z,c)).
+ \label{eq:conditionalprojection}
+\end{align}
+The first term is independent of $P$. Thus the unrestricted optimum is the \emph{posterior-averaged} reverse kernel, not a kernel that has access to the unavailable ground-truth $Z_0$. This distinction prevents a common error: $q(z_{t-1}\mid z_t,z_0)$ is analytically tractable during training but is not itself the deployable denoiser.
+
+For square loss, the Bayes predictor of a square-integrable target $U$ is $\E[U\mid Z_t,c]$. For categorical cross-entropy, it is $p(U\mid Z_t,c)$. The proofs are respectively orthogonal projection in $L^2$ and the identity $\operatorname{CE}(p,r)=H(p)+\KL(p\Vert r)$. These characterize the function to approximate before choosing its neural representation.
+
+\subsection{What is derived, approximated, and proposed}
+The reverse posteriors and likelihood bounds below are exact consequences of chosen forward processes. Gaussian fixed-variance reverse kernels and factorized categorical reverse kernels are model classes, not exact descriptions of all data-reversed distributions. Finite-feature softmax approximation is an approximation with a stated bound. Delta writes and generalized RWKV gates are subsequent architectural changes with additional discrepancy terms. DiT-style conditioning and a strict state-only history interface are specified extensions where they differ from the repository. None of these distinctions changes the retained empirical evidence boundary.
+
+
+\section{DDPM: from a Gaussian forward process to the denoiser and objective}
+\label{sec:ddpm}
+\subsection{Forward marginal and posterior by completing the square}
+For this section take $Z_0\in\R^D$ with finite second moment. Write $\beta_t\in(0,1)$, $a_t=1-\beta_t$, $\bar a_t=\prod_{s=1}^t a_s$, and $\bar a_0=1$. The forward process is
+\begin{equation}
+ Z_t=\sqrt{a_t}Z_{t-1}+\sqrt{\beta_t}\,\epsilon_t,
+ \qquad\epsilon_t\overset{\mathrm{iid}}\sim\mathcal N(0,I_D).
+\end{equation}
+Induction using independence gives
+\begin{equation}
+ q(Z_t\mid Z_0)=\mathcal N(\sqrt{\bar a_t}Z_0,(1-\bar a_t)I_D),
+ \qquad Z_t=\sqrt{\bar a_t}Z_0+b_t\epsilon,\quad b_t=\sqrt{1-\bar a_t}.
+ \label{eq:gaussianforward}
+\end{equation}
+Indeed the conditional variance obeys $v_t=a_tv_{t-1}+\beta_t$, whose solution is $v_t=1-\bar a_t$.
+
+For $t\ge2$, the log density of the forward bridge is, up to terms independent of $z'$, 
+\begin{equation}
+ -\frac{\norm{z_t-\sqrt{a_t}z'}_2^2}{2\beta_t}
+ -\frac{\norm{z'-\sqrt{\bar a_{t-1}}z_0}_2^2}{2(1-\bar a_{t-1})}.
+\end{equation}
+Its precision is $a_t/\beta_t+1/(1-\bar a_{t-1})$. Collecting the linear term and inverting that precision gives
+\begin{align}
+ q(Z_{t-1}\mid z_t,z_0)&=\mathcal N(\widetilde\mu_t(z_t,z_0),\widetilde\beta_tI_D),\label{eq:gaussianposterior}\\
+ \widetilde\beta_t&=\frac{\beta_t(1-\bar a_{t-1})}{1-\bar a_t},\nonumber\\
+ \widetilde\mu_t(z_t,z_0)&=A_tz_0+B_tz_t,\qquad
+ A_t=\frac{\beta_t\sqrt{\bar a_{t-1}}}{1-\bar a_t},\quad
+ B_t=\frac{\sqrt{a_t}(1-\bar a_{t-1})}{1-\bar a_t}.
+ \label{eq:gaussiancoeffs}
+\end{align}
+These are the DDPM bridge coefficients \cite{ddpm}. At $t=1$, the bridge given $z_0$ is a point mass, so one must use the reconstruction term in Eq.~\eqref{eq:generalelbo}, not insert $\widetilde\beta_1=0$ into a nonsingular Gaussian KL formula.
+
+\subsection{Clean prediction, noise prediction, score, and velocity}
+Choose a Gaussian reverse family
+\begin{equation}
+ P_{\theta,t}(\cdot\mid z_t,c)=\mathcal N(\mu_\theta(z_t,t,c),\sigma_t^2I_D),\qquad\sigma_t^2>0.
+\end{equation}
+A clean-representation denoiser $\widehat z_{0,\theta}$ determines the mean by
+\begin{equation}
+ \mu_\theta=A_t\widehat z_{0,\theta}+B_tz_t.
+ \label{eq:cleanmean}
+\end{equation}
+Equivalently, predict the aggregate forward noise:
+\begin{align}
+ \widehat z_{0,\theta}&=\frac{z_t-b_t\epsilon_\theta(z_t,t,c)}{\sqrt{\bar a_t}},\label{eq:noise2clean}\\
+ \mu_\theta(z_t,t,c)&=\frac1{\sqrt{a_t}}
+ \left(z_t-\frac{\beta_t}{b_t}\epsilon_\theta(z_t,t,c)\right).
+ \label{eq:noisemean}
+\end{align}
+The Bayes predictors obey
+\begin{equation}
+ \epsilon^*(z,t,c)=\E[\epsilon\mid Z_t=z,c],\qquad
+ \widehat z_0^*(z,t,c)=\E[Z_0\mid Z_t=z,c].
+\end{equation}
+Differentiating the Gaussian convolution under the integral sign, justified for $t>0$ by the smoothing kernel and integrability, gives the conditional score identity
+\begin{align}
+ s^*(z,t,c):=\nabla_z\log q_t(z\mid c)
+ &=-\frac{z-\sqrt{\bar a_t}\E[Z_0\mid z,c]}{b_t^2}
+ =-\frac{\epsilon^*(z,t,c)}{b_t},\label{eq:scoreidentity}\\
+ \widehat z_0^*(z,t,c)&=\frac{z+b_t^2s^*(z,t,c)}{\sqrt{\bar a_t}}.
+\end{align}
+Thus clean prediction, noise prediction, and score estimation have related population optima but different time-dependent error scalings. A score head defined by $s_\theta=-\epsilon_\theta/b_t$ is a parameterization; a generic neural vector field is not automatically the exact gradient of the log density of its own generated distribution.
+
+For completeness define the velocity target $v_t=\sqrt{\bar a_t}\epsilon-b_tZ_0$. The orthogonal change of variables gives
+\begin{equation}
+ Z_0=\sqrt{\bar a_t}Z_t-b_tv_t,\qquad
+ \epsilon=b_tZ_t+\sqrt{\bar a_t}v_t.
+ \label{eq:vprediction}
+\end{equation}
+A velocity head is therefore another admissible readout of the same recurrent denoiser. The choice is not determined by whether the mixer is attention or RWKV.
+
+\subsection{Exact weights in the Gaussian training objective}
+For $t\ge2$, Gaussian KL evaluates to
+\begin{align}
+ &\KL\bigl(\mathcal N(\widetilde\mu_t,\widetilde\beta_tI)
+ \Vert\mathcal N(\mu_\theta,\sigma_t^2I)\bigr)\nonumber\\
+ &=\frac{\norm{\widetilde\mu_t-\mu_\theta}_2^2}{2\sigma_t^2}
+ +\frac D2\left(\frac{\widetilde\beta_t}{\sigma_t^2}-1+
+ \log\frac{\sigma_t^2}{\widetilde\beta_t}\right).
+ \label{eq:gaussiankl}
+\end{align}
+Using Eq.~\eqref{eq:noisemean}, the parameter-dependent term is
+\begin{equation}
+ \lambda_t^{\epsilon}\norm{\epsilon-\epsilon_\theta(Z_t,t,c)}_2^2,
+ \qquad
+ \lambda_t^{\epsilon}=\frac{\beta_t^2}{2\sigma_t^2a_t(1-\bar a_t)}.
+ \label{eq:ddpmweight}
+\end{equation}
+The equivalent weights are $\lambda_t^{z_0}=A_t^2/(2\sigma_t^2)$,
+$\lambda_t^s=\beta_t^2/(2\sigma_t^2a_t)$, and
+$\lambda_t^v=\bar a_t\lambda_t^\epsilon$. These equalities assume the heads are transformed exactly as above; training unconstrained heads with unweighted losses need not produce identical finite-model solutions.
+
+The full DDPM objective is
+\begin{equation}
+ \mathcal L_G=\mathcal L_T+\mathcal L_0+
+ \sum_{t=2}^T\E[\lambda_t^\epsilon\norm{\epsilon-\epsilon_\theta}_2^2+C_t],
+ \label{eq:gaussianloss}
+\end{equation}
+For the standard terminal prior $p_T=\mathcal N(0,I_D)$, its per-datum term is explicitly
+\begin{equation}
+ \mathcal L_T(z_0)=\frac12\left[\bar a_T\|z_0\|_2^2+
+ D\{-\bar a_T-\log(1-\bar a_T)\}\right].
+ \label{eq:terminalgaussian}
+\end{equation}
+For a continuous Gaussian reconstruction likelihood with variance $\sigma_1^2I_D$,
+\begin{equation}
+ \mathcal L_0=\E_{q(Z_1\mid Z_0)}
+ \left[\frac{\|Z_0-\mu_\theta(Z_1,1,c)\|_2^2}{2\sigma_1^2}
+ +\frac D2\log(2\pi\sigma_1^2)\right].
+ \label{eq:gaussianreconstruction}
+\end{equation}
+A discretized observation likelihood uses its interval probabilities instead; it must not silently inherit this density expression.
+In Eq.~\eqref{eq:gaussianloss}, $C_t$ is the variance term in Eq.~\eqref{eq:gaussiankl}. For a fixed forward process and fixed variance, $\mathcal L_T$ and $C_t$ do not affect denoiser gradients. A learned reverse covariance must retain its trace and log-determinant contributions; it is not covered by a mean-only MSE objective. Uniform, unweighted noise MSE is the DDPM simplified surrogate \cite{ddpm}, not the exact weighted negative ELBO.
+
+For $t\sim r(t)>0$ on $\{2,\ldots,T\}$, an unbiased transition-loss estimator is
+\begin{equation}
+ \widehat{\mathcal L}_{G,\mathrm{trans}}
+ =\frac{\lambda_t^\epsilon}{r(t)}\norm{\epsilon-\epsilon_\theta}_2^2+C_t/r(t).
+\end{equation}
+Dividing by $D$ defines a per-coordinate convention; the same normalization must be applied to the objective and its bound. Finite $\bar a_T$ gives a nonzero terminal-prior discrepancy even when it is independent of $\theta$.
+
+\subsection{The continuous-to-token likelihood boundary}
+A Gaussian process on token embeddings is not by itself a probability model on token sequences. For fixed embeddings $e(y)$, MSE learns a continuous denoiser; nearest-neighbor rounding defines a pushforward sampler but does not turn embedding MSE into token negative log-likelihood. Diffusion-LM is relevant to this representation-based route \cite{diffusionlm}; it is distinct from the repository's direct-token absorbing diffusion.
+
+A fully probabilistic extension may choose a nonsingular encoder $q_\phi(z_0\mid y,c)$ and a normalized token decoder $p_\psi(y\mid z_0,c)$, with
+\begin{equation}
+ p_{\theta,\psi}(y\mid c)=\int p_\psi(y\mid z_0,c)p_\theta(z_0\mid c)\,dz_0.
+\end{equation}
+Then
+\begin{equation}
+ -\log p_{\theta,\psi}(y\mid c)
+ \le\E_{q_\phi}\!\left[-\log p_\psi(y\mid Z_0,c)+\log q_\phi(Z_0\mid y,c)
+ +\mathcal L_{\mathrm{VLB}}(Z_0,c)\right].
+ \label{eq:embeddingelbo}
+\end{equation}
+This follows by a second variational bound over $Z_0$ and Eq.~\eqref{eq:generalelbo}. It explicitly includes decoder reconstruction and encoder entropy. A deterministic point-mass encoder cannot be inserted into this density formula without handling singular measures. Learning the encoder while dropping these terms is a different surrogate. The Gaussian branch below is therefore a mathematically specified alternative, not a claim that the current token model secretly implements continuous diffusion.
+
+\section{D3PM and absorbing diffusion: an exact token-level derivation}
+\label{sec:d3pm}
+\subsection{General categorical corruption and its bridge}
+Use row-stochastic matrices $Q_t\in[0,1]^{K\times K}$, with
+$Q_t[a,b]=q(X_t=b\mid X_{t-1}=a)$ and $\bar Q_t=Q_1\cdots Q_t$. Here $K$ includes any auxiliary states; the clean vocabulary may be a strict subset. For one token,
+\begin{equation}
+ q(X_t=b\mid X_0=a)=\bar Q_t[a,b],\qquad
+ q(X_{t-1}=j\mid X_t=b,X_0=a)
+ =\frac{\bar Q_{t-1}[a,j]Q_t[j,b]}{\bar Q_t[a,b]}.
+ \label{eq:d3pmposterior}
+\end{equation}
+The denominator must be positive. This expression follows by multiplying the two transition probabilities in its numerator and normalizing; matrix multiplication supplies the denominator. Independent forward corruption across positions gives
+$q(X_t=x\mid Y=y)=\prod_i\bar Q_t[y_i,x_i]$ and a bridge that factorizes \emph{conditional on the entire clean sequence} $y$. This is the D3PM construction \cite{d3pm}. The data-reversed kernel after marginalizing $Y$ generally does \emph{not} factorize.
+
+Let $\pi_{\theta,t}^i(a\mid x,c)$ be a normalized clean-token predictor for position $i$ based on the \emph{whole} noisy canvas. For $b=x_i$, restrict its support to
+$\mathcal A_t(b)=\{a\in\mathcal V:\bar Q_t[a,b]>0\}$. Define the bridge channel
+\begin{equation}
+ M_t^b(a,j)=\frac{\bar Q_{t-1}[a,j]Q_t[j,b]}{\bar Q_t[a,b]},\qquad a\in\mathcal A_t(b).
+\end{equation}
+A normalized posterior-mixture reverse head is
+\begin{equation}
+ P_{\theta,t}^i(j\mid x,c)=\sum_{a\in\mathcal A_t(x_i)}\pi_{\theta,t}^i(a\mid x,c)M_t^{x_i}(a,j),
+ \quad P_{\theta,t}(x'\mid x,c)=\prod_iP_{\theta,t}^i(x'_i\mid x,c).
+ \label{eq:mixturehead}
+\end{equation}
+Each row of $M_t^b$ sums to one, so the head is a valid transition. If $\pi_\theta^i$ equals $p(Y_i\mid X_t=x,c)$, the resulting one-position reverse marginal is exact. The product joint need not be exact. A categorical denoiser therefore predicts a posterior distribution, not merely an argmax token or a point-valued ``denoised sample.''
+
+\paragraph{A parameterization distinction that matters for general $Q_t$.}
+The normalized joint-substitution form used in the original D3PM formulation can instead be written
+\begin{equation}
+ P_{\theta,t}^{\mathrm{joint},i}(j\mid x,c)=
+ \frac{Q_t[j,x_i]\sum_a\pi_{\theta,t}^i(a\mid x,c)\bar Q_{t-1}[a,j]}
+ {\sum_a\pi_{\theta,t}^i(a\mid x,c)\bar Q_t[a,x_i]}.
+ \label{eq:jointsub}
+\end{equation}
+This equals Eq.~\eqref{eq:mixturehead} with mixture weights proportional to
+$\pi_{\theta,t}^i(a\mid x,c)\bar Q_t[a,x_i]$, not generally the original $\pi_\theta^i$.
+One must not treat posterior mixing and substitution into an unnormalized joint as identical. They coincide on masked observations in the absorbing construction below because the observation likelihood is constant over clean tokens. Eq.~\eqref{eq:mixturehead} is the convention for our general-channel error estimates; Eq.~\eqref{eq:jointsub} is included to make its relationship to D3PM explicit.
+
+\subsection{The general categorical objective before specialization}
+For the factorized posterior-mixture reverse head, the full objective is
+\begin{align}
+ \mathcal L_{\mathrm{cat}}=&\ \E_{Y,c}\KL(q(X_T\mid Y)\Vert p_T(\cdot\mid c))\nonumber\\
+ &+\sum_{t=2}^T\E_{Y,c,X_t}\sum_i
+ \KL\left(M_t^{X_t^i}(Y_i,\cdot)\middle\Vert
+ \sum_a\pi_{\theta,t}^i(a\mid X_t,c)M_t^{X_t^i}(a,\cdot)\right)\nonumber\\
+ &-\E_{Y,c,X_1}\sum_i\log P_{\theta,1}^i(Y_i\mid X_1,c).
+ \label{eq:generalcatloss}
+\end{align}
+A factorized terminal prior also makes its first KL a sum over coordinates. The matrices $Q_t$ determine all targets and constants. For a single bridge target $u_j=M_t^b(y_i,j)$ and modeled transition $p_j=\sum_a\pi_aM_t^b(a,j)$, the parameter-dependent loss is $-\sum_j u_j\log p_j$. If $\pi=\operatorname{softmax}(f)$ on its feasible support, direct differentiation gives
+\begin{equation}
+ \frac{\partial\ell}{\partial f_a}=\pi_a-
+ \sum_{j:u_j>0}u_j\frac{\pi_aM_t^b(a,j)}{p_j}.
+ \label{eq:generalcatgradient}
+\end{equation}
+The fractions are clean-state responsibilities conditional on the reverse state $j$. This is not generally ordinary clean-label cross-entropy. The absorbing substitutions below are what make that loss simplify exactly.
+
+For general-channel error analysis, mixing through the same bridge is a stochastic channel. The log-sum inequality gives
+\begin{equation}
+ \KL(\pi^*M_t^b\Vert\pi_\theta M_t^b)\le\KL(\pi^*\Vert\pi_\theta).
+ \label{eq:bridgecontraction}
+\end{equation}
+Thus clean-posterior error controls reverse \emph{marginal} error. At the joint level,
+$\KL(R_t^*\Vert\prod_iP_{\theta,t}^i)
+=\operatorname{TC}(R_t^*)+\sum_i\KL(R_t^{*,i}\Vert P_{\theta,t}^i)$.
+This follows by adding and subtracting the log of the product of true marginals. It exposes a dependence term even outside absorbing diffusion; the absorbing case permits the sharper reveal-set decomposition in Section~\ref{sec:endtoend}.
+
+\subsection{Absorbing masks and a closed-form reverse head}
+Append $\mask\notin\mathcal V$. Let $1=\rho_0>\rho_1>\cdots>\rho_T=0$ denote survival probabilities and set
+\begin{equation}
+ Q_t=(1-\nu_t)I+\nu_t\mathbf1e_{\mask}^{\top},
+ \qquad \nu_t=1-\rho_t/\rho_{t-1}.
+ \label{eq:maskmatrix}
+\end{equation}
+All non-mask states either remain unchanged or move to the mask; the mask is absorbing. Since $\mathbf1e_{\mask}^{\top}$ is idempotent,
+\begin{equation}
+ \bar Q_t=\rho_t I+(1-\rho_t)\mathbf1e_{\mask}^{\top},\qquad
+ q(X_t^i\mid Y_i)=\rho_t\delta_{Y_i}+(1-\rho_t)\delta_{\mask}.
+ \label{eq:maskmarginal}
+\end{equation}
+For a jump from time $t$ to an earlier time $s<t$, define
+\begin{equation}
+ \omega_{s,t}=\frac{\rho_s-\rho_t}{1-\rho_t}.
+\end{equation}
+Bayes' rule gives
+\begin{equation}
+ q(X_s^i\mid X_t^i,Y_i)=
+ \begin{cases}
+ \delta_{X_t^i},&X_t^i\ne\mask,\\
+ (1-\omega_{s,t})\delta_{\mask}+\omega_{s,t}\delta_{Y_i},&X_t^i=\mask.
+ \end{cases}
+ \label{eq:maskbridge}
+\end{equation}
+For example, the event $X_s^i=Y_i,X_t^i=\mask$ has probability $\rho_s-\rho_t$, while $P(X_t^i=\mask)=1-\rho_t$. This proves the coefficient directly, including arbitrary skipped times.
+
+A denoiser $f_\theta(x,t,c)\in\R^{N\times V}$ predicts only clean-vocabulary logits. With temperature $\tau>0$, set
+\begin{equation}
+ \pi_{\theta,t}^i=\operatorname{softmax}(f_{\theta,i}/\tau),\qquad
+ P_{\theta,s\leftarrow t}^i=
+ \begin{cases}
+ \delta_{x_i},&x_i\ne\mask,\\
+ (1-\omega_{s,t})\delta_{\mask}+\omega_{s,t}\pi_{\theta,t}^i,&x_i=\mask.
+ \end{cases}
+ \label{eq:absorbinghead}
+\end{equation}
+A separate mask-output class, if stored in the implementation's vocabulary matrix, must receive zero clean-prediction probability. Forced copying of visible coordinates and zero clean-mask mass are structural substitutions, as in MDLM/MD4 \cite{mdlm,md4}. They are not supplied automatically by minimizing unconstrained cross-entropy. The primary likelihood objective takes $\tau=1$; changing temperature only at sampling changes the reverse model being evaluated.
+
+\subsection{Deriving the exact weighted masked cross-entropy}
+Write $\omega_t=\omega_{t-1,t}$. If $x_i\ne\mask$, the true bridge and constrained reverse marginal are the same point mass, so the KL contribution vanishes. If $x_i=\mask$, they share mask mass $1-\omega_t$, while their clean masses are respectively $\omega_t\delta_{y_i}$ and $\omega_t\pi_\theta^i$. Hence
+\begin{align}
+ &\KL\bigl((1-\omega_t)\delta_{\mask}+\omega_t\delta_{y_i}
+ \Vert(1-\omega_t)\delta_{\mask}+\omega_t\pi_\theta^i\bigr)\nonumber\\
+ &\quad=(1-\omega_t)\log1+\omega_t\log\frac{\omega_t}{\omega_t\pi_\theta^i(y_i)}
+ =-\omega_t\log\pi_\theta^i(y_i).
+ \label{eq:maskklce}
+\end{align}
+Because the clean-conditioned bridge and the modeled transition factorize, their KL is a sum over coordinates. At $t=1$, $\omega_1=1$, and the reconstruction term has the same expression. Since $\rho_T=0$, $q(X_T\mid Y)$ and the all-mask prior coincide. Consequently the exact negative ELBO for this model is
+\begin{equation}
+ \boxed{\mathcal L_D(\theta)=
+ \sum_{t=1}^T\E_{Y,c,X_t\sim q_t(\cdot\mid Y)}
+ \left[\omega_t\sum_{i=1}^N\mathbf1\{X_t^i=\mask\}
+ \bigl(-\log\pi_{\theta,t}^i(Y_i\mid X_t,c)\bigr)\right].}
+ \label{eq:exactmaskloss}
+\end{equation}
+No attention assumption enters this derivation. An RWKV head trained with this corruption law, reverse parameterization, and weighting is therefore a D3PM/absorbing-diffusion model, not merely a masked language model renamed as diffusion. Conversely, an arbitrary choice of masking ratios and weights does not inherit Eq.~\eqref{eq:exactmaskloss} without additional justification.
+
+\begin{proposition}[Population denoiser and excess risk]
+\label{prop:maskrisk}
+Let $\pi_t^{*,i}(\cdot\mid x,c)=p_0(Y_i\in\cdot\mid X_t=x,c)$. For any feasible $x$ with $x_i=\mask$, the population minimizer of its cross-entropy is $\pi_t^{*,i}$. The excess objective over an unrestricted collection of such posterior heads is
+\begin{equation}
+ \mathcal E_D(\theta)=\sum_t\omega_t\E_{q_t,c}
+ \sum_{i:X_t^i=\mask}\KL(\pi_t^{*,i}\Vert\pi_{\theta,t}^i).
+ \label{eq:maskexcess}
+\end{equation}
+\end{proposition}
+\begin{proof}
+Condition on $(X_t,c)$. Each expected token loss is
+$H(\pi_t^{*,i})+\KL(\pi_t^{*,i}\Vert\pi_{\theta,t}^i)$. Summing with the nonnegative mask indicators and weights proves the statement. The optimum is over unrestricted posterior functions; a finite RWKV need not attain it. Even an attained optimum does not eliminate the finite-step product-joint discrepancy derived in Section~\ref{sec:endtoend}.
+\end{proof}
+
+\subsection{Unbiased sampling and the selected-token normalization issue}
+For $t\sim r(t)>0$ on $\{1,\ldots,T\}$, the per-target-token negative-ELBO estimator is
+\begin{equation}
+ \widehat{\mathcal L}_D=\frac{\omega_t}{Nr(t)}
+ \sum_i\mathbf1\{X_t^i=\mask\}\operatorname{CE}(Y_i,\pi_{\theta,t}^i).
+ \label{eq:maskestimator}
+\end{equation}
+Its expectation is $\mathcal L_D/N$. When $m=|\mathcal M_t|$, a selected-token mean
+$\ell_{\mathrm{sel}}=m^{-1}\sum_{i\in\mathcal M_t}\operatorname{CE}_i$ for $m>0$ must therefore be multiplied by $\omega_tm/(Nr(t))$. Set the entire loss to zero when $m=0$. Replacing $m$ by $\E[m]$ is not generally valid: the token loss depends on the realized mask pattern. The same applies to packed batches, where one must specify whether normalization is per sequence, per target token, or per selected token.
+
+An equivalent unbiased estimator draws an index $I$ uniformly, forces $X_t^I=\mask$, independently corrupts other positions at mask probability $1-\rho_t$, and uses
+\begin{equation}
+ \widehat{\mathcal L}_{D,\mathrm{one}}
+ =\frac{\omega_t(1-\rho_t)}{r(t)}\operatorname{CE}(Y_I,\pi_{\theta,t}^I).
+ \label{eq:forcedmask}
+\end{equation}
+This follows by conditioning the original mask indicator on its being one. Forcing at least one mask without the corresponding probability correction changes the sampling distribution. Likewise, span-correlated masks are not the independent-token Markov chain of Eq.~\eqref{eq:maskmatrix}; a span process needs its own forward state and bridge, or must be identified as an auxiliary corruption objective.
+
+\subsection{Continuous-time masked diffusion and time conditioning}
+For a differentiable decreasing survival function $\rho(t)$ on $[0,1]$, a fine time partition gives
+\begin{equation}
+ \omega_{t-h,t}=\frac{-\rho'(t)}{1-\rho(t)}h+o(h).
+\end{equation}
+Under integrability sufficient for convergence of the Riemann sums, Eq.~\eqref{eq:exactmaskloss} tends to
+\begin{equation}
+ \mathcal L_{D,\mathrm{CT}}=
+ \int_0^1\frac{-\rho'(t)}{1-\rho(t)}
+ \E\left[\sum_{i:X_t^i=\mask}\operatorname{CE}(Y_i,\pi_\theta^i(X_t,t,c))\right]dt.
+ \label{eq:ctmaskloss}
+\end{equation}
+For $\rho(t)=1-t$, the weight is $1/t$. The expectation of the mask indicator is $t$, which explains cancellation in expected scale, but not an automatic finite-variance Monte Carlo estimator near $t=0$. Endpoint truncation needs its own boundary treatment. The continuous objective and substitutions are established masked-diffusion ingredients \cite{mdlm,md4}; they are derived here to fix the precise objective used by the recurrent parameterization.
+
+For \emph{independent, token-identity-independent} masking, explicit time can be redundant for the Bayes clean-token predictor. If $U=\{i:x_i=\mask\}$, then
+\begin{equation}
+ q_t(x\mid y)=\rho_t^{N-|U|}(1-\rho_t)^{|U|}
+ \mathbf1\{y_{U^c}=x_{U^c}\}.
+\end{equation}
+The time-dependent factor cancels from Bayes' rule, so
+$p_0(Y_U\mid X_t=x,c)=p_0(Y_U\mid Y_{U^c}=x_{U^c},c)$.
+This does \emph{not} make the reverse reveal probability $\omega_t$ time-independent. It also fails for identity-dependent corruption, informative noise, or other processes whose likelihood does not factor this way. DiT-style time conditioning is thus essential to the Gaussian parameterization and a controlled optional choice for the absorbing clean-token head, not a mandatory empirical explanation for every masked model.
+
+\subsection{A probabilistically matched sampler}
+Initialize $X_T=\mask^N$. For $t=T,T-1,\ldots,1$, evaluate the denoiser on the entire current canvas, preserve visible coordinates, and independently for each masked position reveal with probability $\omega_t$. On a reveal, draw a clean token from $\pi_{\theta,t}^i$; otherwise retain the mask. All position draws in a single transition use the same pre-update canvas. At $t=1$, all remaining positions reveal. This samples exactly from the \emph{specified factorized model} in Eq.~\eqref{eq:absorbinghead}; it is not necessarily exact sampling from the data law.
+
+Deterministic top-confidence commitment, argmax decoding, remasking, and adaptive grouping define different transition rules. They can be useful, but their errors must be compared explicitly against the reference chain. Skipping times with $\omega_{s,t}$ gives a valid coarse model; it does not generally equal the composition of several trained fine reverse steps. Repeated conditioning changes predictions between those fine steps.
+
+\section{From a DiT denoiser to linear attention and recurrent state}
+\label{sec:linearization}
+\subsection{DiT as a parameterization, not a different diffusion law}
+DiT replaces the image-diffusion U-Net with a Transformer on image latent patches \cite{dit,ldm}. Its transferable ingredient here is a noise/condition-modulated sequence network; its original image results are not text results. In a text adaptation, the input features may be either $Z_tW_{\rm in}$ for the Gaussian branch or $e(X_t)$ for the categorical branch, with positional and observation-role information. Let $u_t=\operatorname{TimeEmbed}(t)+\operatorname{CondEmbed}(c)$ denote a global condition, or a separately specified position-dependent condition when a single vector is insufficient.
+
+A DiT-style block can be written
+\begin{align}
+ \widetilde H_\ell&=(1+s_\ell(u_t))\odot\operatorname{LN}(H_\ell)+b_\ell(u_t),\nonumber\\
+ H'_\ell&=H_\ell+g_\ell(u_t)\odot\operatorname{MHA}_\ell(\widetilde H_\ell),\nonumber\\
+ \widetilde H'_\ell&=(1+s'_\ell(u_t))\odot\operatorname{LN}(H'_\ell)+b'_\ell(u_t),\nonumber\\
+ H_{\ell+1}&=H'_\ell+g'_\ell(u_t)\odot\operatorname{MLP}_\ell(\widetilde H'_\ell).
+ \label{eq:ditblock}
+\end{align}
+The modulation and gates are learned functions, not diffusion noise schedules. AdaLN-Zero initializes suitable modulation/gating outputs to zero \cite{dit,ditcode}. Our notation abstracts away image patchification. A discrete head is $f_\theta=\operatorname{LMHead}(H_L)$; a continuous head predicts $\epsilon_\theta$, $\widehat z_{0,\theta}$, or $v_\theta$. The diffusion posterior formulas determine how that head becomes a reverse transition.
+
+For one attention head, with column vectors $q_i,k_j\in\R^{d_k}$ and $v_j\in\R^{d_v}$,
+\begin{equation}
+ y_i^A=\frac{\sum_{j\in\mathcal J_i}\exp(q_i^\top k_j/\sqrt{d_k})v_j}
+ {\sum_{j\in\mathcal J_i}\exp(q_i^\top k_j/\sqrt{d_k})}.
+ \label{eq:softmaxattention}
+\end{equation}
+The allowed set $\mathcal J_i$ contains the relevant same-document positions; bidirectional denoising ordinarily requires more than a causal prefix. Multihead concatenation and an output projection follow the usual attention construction \cite{transformer}. Exact IO-aware attention can avoid materializing its full matrix without changing Eq.~\eqref{eq:softmaxattention} \cite{flashattention}; this is distinct from the kernel approximation developed next.
+
+\subsection{An exact infinite-feature representation of softmax}
+Rescale $\widetilde q=q/d_k^{1/4}$ and $\widetilde k=k/d_k^{1/4}$. For $x\in\R^{d_k}$ define the Hilbert-space feature vector
+\begin{equation}
+ \Phi_\infty(x)=\bigoplus_{r=0}^{\infty}\frac{x^{\otimes r}}{\sqrt{r!}}.
+\end{equation}
+We define $x^{\otimes0}=1$. Its norm squared is $e^{\norm{x}_2^2}$, so it is well-defined for finite $x$, and
+\begin{equation}
+ \langle\Phi_\infty(x),\Phi_\infty(y)\rangle
+ =\sum_{r=0}^{\infty}\frac{(x^\top y)^r}{r!}=e^{x^\top y}.
+ \label{eq:infinitefeature}
+\end{equation}
+This is an exact feature identity, but it requires infinitely many features. It does not by itself give a finite-memory exact softmax implementation.
+
+Truncate after degree $p$. With $\norm{x},\norm{y}\le R$, Taylor's theorem yields
+\begin{equation}
+ \left|e^{x^\top y}-\Phi_p(x)^\top\Phi_p(y)\right|
+ \le\tau_p:=\frac{e^{R^2}(R^2)^{p+1}}{(p+1)!}.
+ \label{eq:taylorkernel}
+\end{equation}
+Since $e^{x^\top y}\ge e^{-R^2}$, the relative error is at most
+$\eta_p=e^{R^2}\tau_p$. Symmetric tensor features require $m=\binom{d_k+p}{p}$ coordinates. Thus the existence proof can be impractical in high dimension. A low-degree polynomial kernel also need not be pointwise positive for all inputs; the relative-error regime $\eta_p<1$ ensures positivity on the stated bounded domain.
+
+A second, positive construction samples independent $\omega_r\sim\mathcal N(0,I)$ and sets
+\begin{equation}
+ \phi_m(x)_r=m^{-1/2}\exp(\omega_r^\top x-\norm{x}_2^2/2).
+ \label{eq:positivefeatures}
+\end{equation}
+The Gaussian moment-generating identity gives
+$\E[\phi_m(x)^\top\phi_m(y)]=e^{x^\top y}$. For fixed $x,y$ independent of the feature draws, the relative variance is
+$(e^{\norm{x+y}_2^2}-1)/m$. Consequently a union bound over $n$ fixed query--key pairs gives
+\begin{equation}
+ \Pr\!\left[\max_{\rm pairs}\frac{|\widehat\kappa-\kappa|}{\kappa}>\eta\right]
+ \le\frac{n(e^{4R^2}-1)}{m\eta^2}.
+ \label{eq:cruderandomfeature}
+\end{equation}
+This crude Chebyshev bound is included for transparency, not as a sharp feature-budget prescription. Positive orthogonal features and sharper analysis are developed in Performer \cite{performer}. An unbiased kernel estimator does not make its normalized attention ratio unbiased. Nor does a fixed-input concentration statement automatically apply to queries trained adaptively against the same random features.
+
+\begin{theorem}[Normalized kernel-approximation error]
+\label{thm:kernel}
+For a given query and its nonempty allowed set, suppose $\kappa_j>0$, $\norm{v_j}_2\le V_0$, and
+$|\widehat\kappa_j-\kappa_j|\le\eta\kappa_j$ with $0\le\eta<1$. Let $y$ and $\widehat y$ be the normalized weighted-value outputs. Then
+\begin{equation}
+ \norm{\widehat y-y}_2\le\frac{2V_0\eta}{1-\eta}.
+ \label{eq:kernelbound}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Write $n=\sum_j\kappa_jv_j$, $d=\sum_j\kappa_j$ and similarly $(\widehat n,\widehat d)$. The assumptions imply
+$\norm{\widehat n-n}\le V_0\eta d$, $|\widehat d-d|\le\eta d$, $\widehat d\ge(1-\eta)d$, and $\norm{n}\le V_0d$.
+Use $\widehat n/\widehat d-n/d=(\widehat n-n)/\widehat d+n(d-\widehat d)/(d\widehat d)$ and the triangle inequality.
+\end{proof}
+The bound does not explicitly grow with length \emph{once a uniform relative kernel bound is assumed}; obtaining that uniform bound may require more features as the set of pairs grows. A small absolute error without a denominator bound is not enough. Adding a numerical $\varepsilon$ to the denominator changes the operator and contributes a separate, bounded bias when the original denominator is bounded away from zero.
+
+\subsection{Exact finite-state realization of the chosen kernel}
+Once a finite feature map $\phi$ has been chosen, define
+\begin{equation}
+ S_{\mathcal J}=\sum_{j\in\mathcal J}v_j\phi(\widetilde k_j)^\top,
+ \qquad z_{\mathcal J}=\sum_{j\in\mathcal J}\phi(\widetilde k_j).
+\end{equation}
+Associativity gives the \emph{exact} chosen-kernel readout
+\begin{equation}
+ \widehat y_i=\frac{S_{\mathcal J_i}\phi(\widetilde q_i)}
+ {z_{\mathcal J_i}^{\top}\phi(\widetilde q_i)}.
+ \label{eq:kernelstate}
+\end{equation}
+For causal prefixes, its recurrence is
+\begin{equation}
+ S_i=S_{i-1}+v_i\phi(\widetilde k_i)^\top,\qquad
+ z_i=z_{i-1}+\phi(\widetilde k_i),\qquad S_0=0,
+ \quad z_0=0.
+ \label{eq:additivestate}
+\end{equation}
+This attention--RNN rearrangement is the linear Transformer construction \cite{lineartransformer}. The state has $m(d_v+1)$ scalars; mixing costs $O(Nmd_v)$ plus feature computation, independent of the attention matrix's $N^2$ entries. Projections, feed-forward layers, outputs, and activation storage remain separate costs.
+
+For bidirectional attention, define $S_i^\rightarrow=\sum_{j\le i}v_j\phi(k_j)^\top$ and $S_i^\leftarrow=\sum_{j>i}v_j\phi(k_j)^\top$, and analogously $z$. Then
+\begin{equation}
+ \widehat y_i^{\rm full}=
+ \frac{(S_i^\rightarrow+S_i^\leftarrow)\phi(q_i)}
+ {(z_i^\rightarrow+z_i^\leftarrow)^\top\phi(q_i)}.
+ \label{eq:bidirstateexact}
+\end{equation}
+Both directions must use the same features and the denominator must be combined before normalization. We omit tildes here only for readability. An inclusive reverse scan instead requires subtracting the current position once. Empty directional sums have zero numerator and denominator and should not be separately normalized.
+
+A learned convex fusion of two independently parameterized and separately normalized directional outputs is \emph{not} Eq.~\eqref{eq:bidirstateexact} in general. It is an additional modeling choice. Arbitrary pairwise positional biases and arbitrary attention masks may also destroy a single fixed-size accumulator representation. The exact statement applies to the declared prefix/full-document structure, or to biases with their own finite feature factorization. Document boundaries require state resets.
+
+
+\section{From additive state to a generalized delta-rule RWKV denoiser}
+\label{sec:stateconstruction}
+\subsection{Residual writing as online regression}
+The additive accumulator stores superposed associations but does not explicitly correct an existing prediction. For state $S\in\R^{d_v\times m}$, introduce the \emph{local memory-fitting problem}
+\begin{equation}
+ \ell_i(S)=\tfrac12\norm{Sk_i-v_i}_2^2.
+\end{equation}
+Its Euclidean gradient is $(Sk_i-v_i)k_i^\top$. One update with step $\beta_i$ gives
+\begin{equation}
+ S_i=S_{i-1}+\beta_i(v_i-S_{i-1}k_i)k_i^\top
+ =S_{i-1}(I-\beta_i k_ik_i^\top)+\beta_i v_ik_i^\top.
+ \label{eq:deriveddelta}
+\end{equation}
+For a nonzero key,
+\begin{equation}
+ S_ik_i-v_i=(1-\beta_i\norm{k_i}_2^2)(S_{i-1}k_i-v_i).
+\end{equation}
+Thus $0<\beta_i<2/\norm{k_i}_2^2$ reduces the current-key error. This is a per-write fact; later writes can interfere with earlier keys. The fast-weight interpretation and replacement of additive writes by delta writes predate the present model \cite{fastweights,deltanet}.
+
+The regression problem is not the softmax weighted-average problem. In particular, replacing Eq.~\eqref{eq:additivestate} by Eq.~\eqref{eq:deriveddelta} \emph{does not preserve} Eq.~\eqref{eq:kernelstate}. Define the extra deviation at a common layer input by
+\begin{equation}
+ \varepsilon_{\Delta,i}=\norm{y_i^{\Delta}-\widehat y_i^{\rm kernel}}_2.
+\end{equation}
+Then the valid comparison is
+\begin{equation}
+ \norm{y_i^{\Delta}-y_i^A}_2
+ \le\varepsilon_{\Delta,i}+\frac{2V_0\eta}{1-\eta}.
+ \label{eq:deltaapproxsplit}
+\end{equation}
+No smallness of $\varepsilon_\Delta$ is assumed without a fit, structural argument, or measurement. Section~\ref{sec:overwrite} supplies a task-specific regime where replacing rather than averaging is beneficial; Appendix~\ref{app:projection} provides an optional teacher-projection objective.
+
+\subsection{An exact regression alternative clarifies the approximation}
+For $\lambda>0$, cumulative ridge regression solves
+\begin{equation}
+ S_i^{\rm RLS}=\arg\min_S\left\{\tfrac\lambda2\norm{S}_F^2+
+ \tfrac12\sum_{j\le i}\norm{Sk_j-v_j}_2^2\right\}
+ =\left(\sum_{j\le i}v_jk_j^\top\right)C_i^{-1},
+ \quad C_i=\lambda I+\sum_{j\le i}k_jk_j^\top.
+\end{equation}
+The Sherman--Morrison identity gives
+\begin{align}
+ g_i&=\frac{C_{i-1}^{-1}k_i}{1+k_i^\top C_{i-1}^{-1}k_i},\nonumber\\
+ S_i^{\rm RLS}&=S_{i-1}^{\rm RLS}+(v_i-S_{i-1}^{\rm RLS}k_i)g_i^\top,\nonumber\\
+ C_i^{-1}&=C_{i-1}^{-1}-
+ \frac{C_{i-1}^{-1}k_ik_i^\top C_{i-1}^{-1}}{1+k_i^\top C_{i-1}^{-1}k_i}.
+ \label{eq:rls}
+\end{align}
+The normal equations prove the minimizer, and substitution verifies the recursion. Scalar-step delta writes replace this full inverse-covariance-dependent direction with a learned multiple of $k_i$. RLS is included as an analytical comparator, not as implemented RWKV, and cumulative ridge regression is still not ordinary normalized softmax attention. Its extra inverse-covariance state has a real cost.
+
+\subsection{Forgetting, vector gates, and the RWKV-7 subfamily}
+Applying scalar forgetting before a delta correction gives the gated delta rule
+\begin{equation}
+ S_i^-=\gamma_iS_{i-1},\qquad
+ S_i=S_i^-+\beta_i(v_i-S_i^-k_i)k_i^\top,
+ \label{eq:gateddelta}
+\end{equation}
+with adaptive erasure and writing \cite{gateddelta}. A broader diagonal-plus-rank-one family is
+\begin{equation}
+ S_i=S_{i-1}(D_i-u_ib_i^\top)+v_ik_i^\top.
+ \label{eq:generalizedstate}
+\end{equation}
+RWKV-7 specializes it to $D_i=\diag(w_i)$ and $b_i=a_i\odot u_i$, with a normalized erase direction $u_i$, vector-valued gates, and a write direction that need not equal $u_i$ \cite{rwkv7}. Its core state equation is
+\begin{equation}
+ S_i=S_{i-1}\!\left[\diag(w_i)-u_i(a_i\odot u_i)^\top\right]+v_ik_i^\top.
+ \label{eq:rwkvderived}
+\end{equation}
+For unit-normalized keys, the scalar delta subcase is obtained with $w_i=\mathbf1$, $u_i=k_i$, $a_i=\beta_i\mathbf1$, and a native value vector $\beta_iv_i$. Input-dependent gates, token shifts, normalization, value mixing across layers, and readout gates complete the actual RWKV module. Eq.~\eqref{eq:rwkvderived} is the recurrent mixing core, not an assertion that an entire trained RWKV block equals one online least-squares step. In particular, independently learned erase and write directions do not generically arise from the gradient of the local loss above.
+
+Let $A_i=D_i-u_ib_i^\top$, $B_i=v_ik_i^\top$. Expanding the affine recurrence gives
+\begin{equation}
+ S_N=S_0A_1\cdots A_N+\sum_{j=1}^NB_jA_{j+1}\cdots A_N.
+ \label{eq:generalunroll}
+\end{equation}
+This follows by induction; multiplication order is essential. A readout $S_Nr$ has history-dependent coefficients $k_j^\top A_{j+1}\cdots A_Nr$. They can be signed and do not generally sum to one. Thus a generalized delta recurrence is a learned recurrent mixer \emph{motivated by} attention's state realization, not an exact finite-rank softmax identity.
+
+\subsection{An explicit finite-horizon bound on the additional state approximation}
+The term $\varepsilon_\Delta$ need not remain a purely named unknown. Compare two states in a common key-feature dimension: an additive kernel state $K_i=K_{i-1}+B_i^K$, $K_0=0$, and $S_i^R=S_{i-1}^RA_i+B_i^R$. Allow $S_0^R\ne0$. Put $a_i=\|A_i\|_2$, $b_i=\|B_i^R-B_i^K\|_F$, and $c_i=\|B_i^K\|_F$. In this subsection only, $a_i$ is a scalar matrix norm, not the RWKV vector gate. The exact unrolling gives
+\begin{align}
+ S_N^R-K_N={}&S_0^RA_1\cdots A_N
+ +\sum_{j=1}^N(B_j^R-B_j^K)A_{j+1}\cdots A_N\nonumber\\
+ &+\sum_{j=1}^NB_j^K(A_{j+1}\cdots A_N-I).
+ \label{eq:explicitstatecomparison}
+\end{align}
+Empty products are identities. Since
+$A_{j+1}\cdots A_N-I=\sum_{r=j+1}^N(A_r-I)A_{r+1}\cdots A_N$,
+submultiplicativity yields the fully explicit upper bound
+\begin{align}
+ \|S_N^R-K_N\|_F\le{}&\|S_0^R\|_F\prod_{r=1}^Na_r
+ +\sum_{j=1}^Nb_j\prod_{r=j+1}^Na_r\nonumber\\
+ &+\sum_{j=1}^Nc_j\sum_{r=j+1}^N\|A_r-I\|_2
+ \prod_{u=r+1}^Na_u.
+ \label{eq:explicitstatebound}
+\end{align}
+For a common query feature $\phi(q)$ and positive kernel denominator $d=z_N^\top\phi(q)$, the corresponding normalized readouts differ by at most
+$\|\phi(q)\|_2\|S_N^R-K_N\|_F/d$.
+The native RWKV readout need not use that denominator or query; add its discrepancy from this common-readout comparison explicitly. If dimensions or projections differ, a declared alignment and its residual are likewise required.
+
+This calculation exhibits the sources of the delta/RWKV gap: initial state, changed writes, and transport/erasure relative to additive storage. It can be loose or grow with length. In particular, a small state-transition norm does not imply closeness to an additive memory that intentionally preserves old associations. Task-specific overwrite structure (Section~\ref{sec:overwrite}) or direct teacher fitting can be more informative than this worst-case bound. The moving-metric result in Section~\ref{sec:metric} instead controls perturbations around a \emph{fixed generalized-delta reference}; it is a different comparison and cannot be substituted for Eq.~\eqref{eq:explicitstatebound} without checking its reference.
+
+\subsection{A complete state-based denoiser}
+For each corruption time $t$, layer $\ell$, and direction $d\in\{\rightarrow,\leftarrow\}$, calculate keys, values, readouts, and gates from normalized token features (and declared time/condition modulation). Evolve the matrix states over that direction, reset them at document boundaries, and compute $o_i^{\ell,d}=\operatorname{Readout}_\theta(S_i^{\ell,t,d},h_i^\ell)$. Fuse directions and apply the residual/feed-forward block:
+\begin{align}
+ \zeta_i^\ell&=\operatorname{sigmoid}(W_g^\ell h_i^\ell+b_g^\ell),\nonumber\\
+ \widehat h_i^\ell&=h_i^\ell+
+ \zeta_i^\ell\odot o_i^{\ell,\rightarrow}+(1-\zeta_i^\ell)\odot o_i^{\ell,\leftarrow},\nonumber\\
+ h_i^{\ell+1}&=\widehat h_i^\ell+\operatorname{FFN}_\ell(\operatorname{LN}(\widehat h_i^\ell)).
+ \label{eq:rwkvdenoiserblock}
+\end{align}
+An analytical DiT-to-RWKV replacement can retain Eq.~\eqref{eq:ditblock}'s time modulation while replacing its attention branch. The current repository instead uses its documented normalization/fusion block with optional conditioners; AdaLN-Zero is not claimed to be present merely because it appears in the reference derivation.
+
+The completed categorical and Gaussian denoisers are respectively
+\begin{align}
+ f_\theta^R(X_t,t,c)&=W_{\rm vocab}\operatorname{Norm}(H_L^R(X_t,t,c))+b_{\rm vocab},\nonumber\\
+ \epsilon_\theta^R(Z_t,t,c)&=W_\epsilon\operatorname{Norm}(H_L^R(Z_t,t,c))+b_\epsilon.
+ \label{eq:finaldenoisers}
+\end{align}
+Insert the first into Eq.~\eqref{eq:absorbinghead} and optimize Eq.~\eqref{eq:exactmaskloss}; insert the second into Eq.~\eqref{eq:noisemean} and optimize Eq.~\eqref{eq:gaussianloss}. This closes the derivation from a forward process to a recurrent reverse model and its objective. No Transformer is required in the student denoiser. A Transformer teacher is optional supervision, not an inference component.
+
+\subsection{The precise chain of implications}
+The chain established here is
+\begin{equation}
+ \begin{gathered}
+ \text{forward corruption}\ \Rightarrow\ \text{analytic bridge and variational objective},\\
+ \text{DiT head}\ \Rightarrow\ \text{a neural approximation to the Bayes denoiser},\\
+ \text{finite kernel features}\ \Rightarrow\ \text{bounded softmax approximation},\\
+ \text{associativity}\ \Rightarrow\ \text{exact state realization of that kernel},\\
+ \text{residual writes and generalized gates}\ \Rightarrow\ \text{RWKV-family approximation},\\
+ \text{reverse head substitution}\ \Rightarrow\ \text{a trainable state-based diffusion model}.
+ \end{gathered}
+\end{equation}
+Only the third and fifth lines introduce mixer approximation or design gaps. They must not be replaced by an unsupported equality between a trained Transformer and a trained RWKV.
+
+\section{Complete objectives and differentiable training of the recurrent denoiser}
+\label{sec:training}
+\subsection{Choose the probabilistic branch before choosing auxiliary losses}
+For the direct-token model, the primary objective is $\mathcal L_D$ in Eq.~\eqref{eq:exactmaskloss}. For a continuous Gaussian model, it is the Gaussian negative ELBO in Section~\ref{sec:ddpm}, including its terminal and reconstruction terms. These are alternative probabilistic models; adding Gaussian noise prediction to token cross-entropy does not, without a specified joint model, produce the likelihood bound of either one.
+
+Within the direct-token branch, a complete proposed training criterion is
+\begin{equation}
+ \mathcal J(\theta)=\frac{1}{N}\mathcal L_D(\theta)
+ +\lambda_{\mathrm{AR}}\mathcal L_{\mathrm{AR}}
+ +\lambda_{\mathrm{KD}}\mathcal L_{\mathrm{KD}}
+ +\lambda_{\mathrm{feat}}\mathcal L_{\mathrm{feat}}
+ +\lambda_{\mathrm{stab}}\mathcal L_{\mathrm{stab}}.
+ \label{eq:fullobjective}
+\end{equation}
+Only the first term is the derived diffusion negative ELBO. The other terms are explicit auxiliary design choices, and their coefficients must be reported. The available implementation uses selected-mask cross-entropy with a causal-replay auxiliary term; it does not thereby establish that all terms in Eq.~\eqref{eq:fullobjective} are implemented or that its masking distribution has the independent forward law used above \cite{repo}. Variable-length batches replace the displayed fixed $N$ convention with a declared token-weighted or sequence-weighted average.
+
+\paragraph{Causal replay.}
+A properly isolated auxiliary objective is
+\begin{equation}
+ \mathcal L_{\mathrm{AR}}=-\E\frac1N\sum_{i=1}^N
+ \log p_\theta^{\to}(Y_i\mid H,Q,Y_{<i}).
+\end{equation}
+Its inputs must be shifted appropriately, and its forward-only path must not receive the target token or a backward state encoding future targets. This objective can preserve warm-start capabilities, but cannot be called part of the exact absorbing-diffusion ELBO. Its gradients can also compete with the bidirectional objective; that trade-off is empirical.
+
+\paragraph{Optional teacher matching.}
+At an identical $(X_t,t,c)$, let $\pi_A$ and $h_A^\ell$ be outputs of an attention teacher. One useful output-level term is
+\begin{equation}
+ \mathcal L_{\mathrm{KD}}=\E_{t\sim r,X_t,c}\frac{\omega_t}{Nr(t)}
+ \sum_{i:X_t^i=\mask}\KL(\pi_A^i\Vert\pi_\theta^i).
+ \label{eq:distillation}
+\end{equation}
+A feature or mixer loss may compare $W_\ell h_\theta^\ell$ with $h_A^\ell$, or compare the two mixer outputs at a \emph{common input}. Its norm, normalizations, and projection $W_\ell$ must be specified. Such a loss can reduce a measured approximation gap; the delta update alone does not minimize attention-output discrepancy. A teacher is optional and need not be retained at inference. Matching a teacher does not prove superiority over it, and a small training-set discrepancy is not a uniform bound on unseen states.
+
+\paragraph{Optional stability regularization.}
+Section~\ref{sec:metric} defines $r_i=\|P_iA_iP_i^{-1}\|_2$ and $m_i=\|P_{i-1}P_i^{-1}\|_2$. Under positive lower and upper gate bounds, a finite-sample diagnostic penalty is, for example,
+\begin{equation}
+ \mathcal L_{\mathrm{stab}}=\E\sum_{\ell,i,d}
+ \bigl[\max\{0,r_{\ell i d}m_{\ell i d}-q_0\}\bigr]^2,
+ \qquad 0<q_0<1,
+ \label{eq:stabpenalty}
+\end{equation}
+where $d$ indexes direction and head. Computing these matrix norms has nontrivial cost. A sampled penalty is not a global certificate. Stronger contraction can also destroy useful memory, so stability is not an objective to maximize without a retention constraint.
+
+\subsection{Exact output gradients}
+With $\tau=1$, one example of the importance-weighted estimator in Eq.~\eqref{eq:maskestimator} gives
+\begin{equation}
+ \frac{\partial\widehat{\mathcal L}_D}{\partial f_{\theta,i}}
+ =\frac{\omega_t}{Nr(t)}\mathbf1\{X_t^i=\mask\}
+ \left(\pi_{\theta,t}^i-e_{Y_i}\right).
+ \label{eq:logitgradient}
+\end{equation}
+For a non-unit training temperature, multiply by $1/\tau$ and use its corresponding probabilities. Unselected positions have no \emph{direct output-logit loss}, but can still receive parameter and representation gradients through their contribution to selected positions. For the Gaussian noise-prediction term, the analogous derivative is
+\begin{equation}
+ \frac{\partial\widehat{\mathcal L}_{G,t}}{\partial\epsilon_\theta}
+ =\frac{2\lambda_t^\epsilon}{r(t)}(\epsilon_\theta-\epsilon),
+ \label{eq:noisegradient}
+\end{equation}
+up to an explicitly chosen per-coordinate normalization. These gradients train the same recurrent computation with different output semantics; the forward corruption determines the correct head and weighting, not the fact that the backbone is recurrent.
+
+\subsection{Backpropagation through the state update}
+Consider one head and one direction with
+$S_i=S_{i-1}A_i+B_i$ and readout $y_i=S_ir_i$.
+For fixed extracted $(A_i,B_i,r_i)$ in this local derivation, let $g_i=\partial\mathcal L/\partial y_i$ and let $J_i$ be the total adjoint of $S_i$. Reverse-mode differentiation gives
+\begin{align}
+ J_i&=g_ir_i^\top+J_{i+1}A_{i+1}^\top,\qquad J_{N+1}=0,\\
+ \frac{\partial\mathcal L}{\partial A_i}&=S_{i-1}^\top J_i,
+ &\frac{\partial\mathcal L}{\partial B_i}&=J_i,
+ &\frac{\partial\mathcal L}{\partial r_i}&=S_i^\top g_i.
+ \label{eq:stateadjoint}
+\end{align}
+Additional direct consumers of $S_i$ add their adjoints to $J_i$. The derivatives through feature projections, gates, normalizations, token shifts, fusion, and all other layers follow by the chain rule. Both scan directions contribute to the shared loss. Tied depth recycling sums gradients into the same block parameters at every executed use. These facts are independent of whether the recurrence is evaluated serially or by an algebraically equivalent parallel kernel.
+
+Gradient checkpointing recomputes activations without changing this mathematical objective. Detaching a state inside a training sequence discards part of Eq.~\eqref{eq:stateadjoint}; it is truncated backpropagation, not the exact gradient of the full-sequence objective unless an additional boundary argument applies. Resetting the state \emph{between independently sampled denoising evaluations}, in contrast, is part of the specified forward map. There is no requirement to backpropagate through a complete reverse sampling trajectory to estimate the one-time denoising objective.
+
+\subsection{A minimal reproducible training contract}
+A likelihood-matched implementation must declare: the clean vocabulary and special-token support; a forward transition law and all survival probabilities; the time proposal $r(t)$; independent or explicitly modeled correlated masking; the loss reduction and its realized-mask correction; document and prompt boundaries; the backbone head; and the reverse sampling rule. A training example then consists of drawing $(Y,c)$, drawing $t$, sampling $X_t\sim q_t(\cdot\mid Y)$, rebuilding transient scan states, evaluating the recurrent denoiser, and backpropagating Eq.~\eqref{eq:maskestimator} plus declared auxiliaries.
+
+In particular, a random schedule over masking ratios, a selected-token average, and a top-confidence sampler can define a useful empirical model, but the correspondence of that model to the derived ELBO is a proposition to check, not a naming convention. The source snapshot is preserved as evidence of what ran. The formulas in this section specify a rigorously matched extension and the tests needed to establish its implementation.
+
+\section{Attention approximation through error-correcting memory}
+\label{sec:attention}\label{sec:overwrite}
+A recurrent mixer need not numerically approximate softmax attention on every input in order to be useful. An unconditional statement that a delta-rule model is always a better attention approximation is false: additive memory can already match a particular attention target, whereas overwriting deliberately discards older values. We therefore specify the task, comparison operator, and norm.
+
+Consider the normalized delta subcase
+\begin{equation}
+ S_i=S_{i-1}+\beta_i(v_i-S_{i-1}k_i)k_i^\top,
+ \qquad \norm{k_i}_2=1.
+ \label{eq:delta}
+\end{equation}
+This rule is a gradient step on $\ell_i(S)=\tfrac12\norm{Sk_i-v_i}_2^2$ \cite{deltanet}. Its familiar local error identity is useful but insufficient for a global language-model claim.
+
+\begin{proposition}[Local error correction]
+\label{prop:local}
+For the update in Eq.~\eqref{eq:delta},
+\begin{equation}
+ S_i k_i-v_i=(1-\beta_i)(S_{i-1}k_i-v_i),\qquad
+ \ell_i(S_i)=(1-\beta_i)^2\ell_i(S_{i-1}).
+\end{equation}
+Thus the current key's squared error decreases for $0<\beta_i<2$, unless already zero. Other keys' errors need not decrease.
+\end{proposition}
+\begin{proof}
+Right-multiply Eq.~\eqref{eq:delta} by $k_i$ and use $k_i^\top k_i=1$. Squaring gives the loss identity. The update to another key $q$ is $\beta_i(v_i-S_{i-1}k_i)k_i^\top q$, which need not improve its target residual.
+\end{proof}
+
+For $S_0=0$, repeated updates yield
+\begin{equation}
+ S_n=\sum_{j=1}^{n}\beta_jv_jk_j^\top
+ \prod_{i=j+1}^{n}(I-\beta_i k_i k_i^\top),
+ \label{eq:expansion}
+\end{equation}
+where the product is ordered from left to right in increasing $i$, and an empty product is $I$. This expansion exhibits history-dependent correction of previous writes. Its induced query weights are not generally nonnegative or normalized; Eq.~\eqref{eq:expansion} is not an identity with softmax attention.
+
+\begin{theorem}[An overwrite-sensitive attention approximation advantage]
+\label{thm:overwrite}
+Suppose keys are selected from an orthonormal set, $\beta_i=1$, and $S_0=0$. For a query key $e$, let $v_*$ be the most recently written value and let $\bar v$ be the mean of all values written to that key. Then normalized delta memory returns $S_ne=v_*$, whereas normalized additive linear memory returns $\bar v$.
+
+Let a specified softmax-attention comparator over the $n$ records assign the latest relevant record a logit at least $m$ larger than every other logit. Assume $\norm{v_j}_2\le V$. For its output $y_A$, set
+\begin{equation}
+ \delta=2V(n-1)e^{-m},\qquad D=\norm{\bar v-v_*}_2.
+\end{equation}
+Then
+\begin{equation}
+\begin{split}
+ \norm{S_ne-y_A}_2&\le\delta,\\
+ \norm{\bar v-y_A}_2&\ge D-\delta.
+\end{split}
+\label{eq:attentionbound}
+\end{equation}
+In particular, delta memory is strictly closer to this attention output whenever $D>2\delta$.
+\end{theorem}
+\begin{proof}
+A write to $e$ replaces $Se$ by $v$ by Proposition~\ref{prop:local}. Orthogonality makes all other key columns invariant. Induction gives latest-write retrieval. Additive memory accumulates all values at a key; dividing by its write count produces their mean.
+
+Let $p_*$ be the attention mass on the latest relevant record. The margin implies
+$1-p_*\le (n-1)e^{-m}/[1+(n-1)e^{-m}]\le(n-1)e^{-m}$.
+Therefore
+$\norm{y_A-v_*}_2\le\sum_{j\ne *}p_j\norm{v_j-v_*}_2\le2V(1-p_*)\le\delta$.
+The first inequality follows because delta retrieval equals $v_*$. The second follows from the reverse triangle inequality. The separation condition makes the upper bound on delta error strictly smaller than the lower bound on additive error.
+\end{proof}
+
+\noindent\textit{Interpretation.} The theorem formalizes a useful long-context regime: a stale assignment should be replaced rather than averaged with a later assignment. Its attention comparator must explicitly have the required recency-sensitive margin; ordinary content-only softmax over repeated identical keys need not have that property. Orthogonal keys, unit replacement, and the specified comparator are assumptions, not measurements of learned heads. The result proves an advantage over the stated additive baseline, not over every linear-attention architecture or every Transformer. Appendix~\ref{app:projection} gives a separate, optional construction with monotone error reduction toward a fixed attention teacher.
+
+
+\section{Controlling recurrent and denoising errors}
+\subsection{Variable-metric stability of generalized RWKV transitions}
+\label{sec:metric}
+The generalized transition in Eq.~\eqref{eq:rwkvderived} is usually not symmetric in the ordinary Euclidean metric. Its eigenvalues alone do not control products of time-varying transitions. The following derivation makes the changing metric explicit, extending the useful diagonal-similarity viewpoint of RWKV-7's stability analysis \cite{rwkv7}.
+
+Let $D_{a,i}=\diag(a_i)$ with positive coordinates, and define
+\begin{equation}
+ P_i=D_{a,i}^{1/2},\qquad
+ T_i=P_i A_iP_i^{-1}
+ =\diag(w_i)-(P_i u_i)(P_i u_i)^\top.
+ \label{eq:sym}
+\end{equation}
+The transformed transition is symmetric, so its operator norm equals its maximum absolute eigenvalue. If $\norm{u_i}_2=1$ and
+\begin{equation}
+ 0<w_{\min}\le w_{ij}\le w_{\max}<1,
+ \qquad 0<a_{\min}\le a_{ij}\le a_{\max}<1+w_{\min},
+ \label{eq:gatebounds}
+\end{equation}
+then Rayleigh-quotient bounds give
+\begin{equation}
+ w_{\min}-a_{\max}\le\lambda(T_i)\le w_{\max},\qquad
+ r_i:=\norm{T_i}_2\le r:=\max\{w_{\max},a_{\max}-w_{\min}\}<1.
+ \label{eq:r}
+\end{equation}
+Uniform margins in Eq.~\eqref{eq:gatebounds} must be checked or enforced; they are not implied merely by the use of sigmoid gates.
+
+\begin{theorem}[Perturbation control with a moving RWKV metric]
+\label{thm:metric}
+Consider a fixed realized feature sequence in Eq.~\eqref{eq:rwkvderived}. Let the perturbed state have error $E_i=\widetilde S_i-S_i$ satisfying
+\begin{equation}
+ E_i=E_{i-1}A_i+\Xi_i.
+\end{equation}
+Choose positive $a_0$ for the initial metric, and define
+\begin{equation}
+ e_i=\norm{E_iP_i^{-1}}_F,\quad
+ m_i=\norm{P_{i-1}P_i^{-1}}_2
+ =\max_j\sqrt{a_{i-1,j}/a_{ij}},\quad
+ \xi_i=\norm{\Xi_iP_i^{-1}}_F.
+\end{equation}
+Then
+\begin{equation}
+ e_i\le r_i m_i e_{i-1}+\xi_i.
+ \label{eq:metricrecursive}
+\end{equation}
+If $r_i m_i\le q<1$, $a_0$ also satisfies the gate bounds, and $\norm{\Xi_i}_F\le\epsilon$, then
+\begin{equation}
+ \norm{E_n}_F\le
+ \sqrt{\frac{a_{\max}}{a_{\min}}}
+ \left[q^n\norm{E_0}_F+\epsilon\frac{1-q^n}{1-q}\right].
+ \label{eq:metricglobal}
+\end{equation}
+Without a uniform $q<1$, Eq.~\eqref{eq:metricrecursive} still gives a finite-horizon product bound, but not a length-independent error ceiling.
+\end{theorem}
+\begin{proof}
+Since $A_i=P_i^{-1}T_iP_i$,
+\begin{equation}
+ E_iP_i^{-1}
+ =(E_{i-1}P_{i-1}^{-1})(P_{i-1}P_i^{-1})T_i
+ +\Xi_iP_i^{-1}.
+\end{equation}
+Submultiplicativity of Frobenius and spectral norms proves Eq.~\eqref{eq:metricrecursive}. Iteration gives
+\begin{equation}
+ e_n\le \left(\prod_{i=1}^{n}r_i m_i\right)e_0
+ +\sum_{j=1}^{n}\xi_j\prod_{i=j+1}^{n}r_i m_i.
+\end{equation}
+Under the stated uniform bounds, $e_0\le\norm{E_0}_F/\sqrt{a_{\min}}$, $\xi_j\le\epsilon/\sqrt{a_{\min}}$, and $\norm{E_n}_F\le\sqrt{a_{\max}}e_n$. Substitution yields Eq.~\eqref{eq:metricglobal}.
+\end{proof}
+
+\paragraph{Why the metric term matters.}
+Constant $a_i$ gives $m_i=1$. Rapidly changing vector gates can make $r_i m_i\ge1$ even when every individual transformed transition has eigenvalues strictly inside the unit circle. The bound is sufficient rather than necessary; a large certificate does not prove instability. It does prevent presenting a local eigenvalue observation as a proof of long-run stability.
+
+\paragraph{Scope of the perturbation.}
+The theorem directly addresses numerical or injected-state error conditional on a feature trajectory. When quantization changes projections, gates, or values, the effective disturbance also includes
+$\widetilde S_{i-1}(\widetilde A_i-A_i)+(\widetilde B_i-B_i)$.
+Its norm must be bounded, not silently equated with a floating-point unit roundoff. Passing a state error through an entire nonlinear, bidirectional, depth-recycled network additionally requires bounds on readouts, residual branches, gate changes, and intermediate activations. No trained-checkpoint constants are claimed here.
+
+\paragraph{Memory retention is a separate objective.}
+Strict contraction attenuates disturbances but also attenuates an old state perturbation carrying useful information. In contrast, the ideal overwrite theorem permits neutral directions and exact preservation of untouched keys. These are complementary regimes, not simultaneous proof of unlimited retention and uniform contraction in all directions. Rereading accessible context can refresh information that a contractive scan no longer carries.
+
+\subsection{What reset denoising changes}
+Suppose a denoiser call begins with zero transient state. Its numerical scan error has $E_0=0$ relative to exact arithmetic for the same input canvas. Repeating the call on an updated canvas therefore does not inherit the previous call's terminal scan-roundoff state. A persistent-state alternative would retain an additional initial-error term. This is the precise benefit of reset: it removes a particular hidden-state carryover path.
+
+Reset does not remove prediction error in the token canvas, erase long dependencies inside the next scan, or make history compression lossless. If an immutable encoded prefix is used instead of zero initialization, the initial-state approximation error remains and must be included each time. The distinction is between repeatedly reading the same condition and recursively corrupting that condition through additional denoising calls.
+
+\subsection{Finite-horizon Markov perturbation bound}
+\label{sec:markov}
+Let $U_k$ contain all persistent sampler information after $k$ actual denoiser calls, at fixed observed conditions. Including visibility masks, pending commitments, schedule counters, and any self-conditioning variables makes the process time-inhomogeneous Markov:
+\begin{equation}
+ \Pr(U_{k+1}\mid U_0,\ldots,U_k,H,Q)
+ =P_k(U_k,\cdot\mid H,Q).
+\end{equation}
+This property concerns the \emph{denoising-call axis}, not the token-position axis. Autoregressive generation can also be written as a Markov process on an augmented state, so Markov structure is not by itself an architectural superiority argument.
+
+Use total variation $\TV(p,q)=\tfrac12\norm{p-q}_1$. Let $P_k^*$ be a specified reference kernel on the same state space: for example, a fully specified attention-denoiser sampler or the true reverse kernel of a defined corruption process. These reference choices are not interchangeable.
+
+\begin{theorem}[Finite-horizon propagation of denoiser error]
+\label{thm:markov}
+Let $\mu_{k+1}=\mu_kP_k$ and $\nu_{k+1}=\nu_kP_k^*$. Define
+\begin{equation}
+ \varepsilon_k=\sup_u\TV(P_k(u,\cdot),P_k^*(u,\cdot)),\qquad
+ \kappa_k=\sup_{u,v}\TV(P_k^*(u,\cdot),P_k^*(v,\cdot)).
+\end{equation}
+For $d_k=\TV(\mu_k,\nu_k)$,
+\begin{align}
+ d_{k+1}&\le\varepsilon_k+\kappa_k d_k,\\
+ d_K&\le\left(\prod_{k=0}^{K-1}\kappa_k\right)d_0
+ +\sum_{j=0}^{K-1}\varepsilon_j\prod_{k=j+1}^{K-1}\kappa_k.
+ \label{eq:markovbound}
+\end{align}
+If $\kappa_k\le\kappa<1$ and $\varepsilon_k\le\varepsilon$, this becomes
+\begin{equation}
+ d_K\le\kappa^K d_0+\varepsilon\frac{1-\kappa^K}{1-\kappa}.
+ \label{eq:geometric}
+\end{equation}
+Without strict contraction, $d_K\le\min\{1,d_0+\sum_k\varepsilon_k\}$.
+\end{theorem}
+\begin{proof}
+Add and subtract $\mu_kP_k^*$ and apply the triangle inequality. Averaging the pointwise kernel discrepancy yields
+$\TV(\mu_kP_k,\mu_kP_k^*)\le\varepsilon_k$.
+For a finite-state Markov kernel, its Dobrushin coefficient contracts signed zero-mass measures in total variation, so
+$\TV(\mu_kP_k^*,\nu_kP_k^*)\le\kappa_kd_k$.
+For completeness, write the signed measure $\mu_k-\nu_k$ as $d_k(\lambda_+-\lambda_-)$, where $\lambda_\pm$ are probability measures. The distance between their kernel mixtures is at most the largest pairwise row distance, namely $\kappa_k$. This gives the one-step inequality. Induction proves the product sum, and the geometric series proves Eq.~\eqref{eq:geometric}.
+\end{proof}
+
+\paragraph{Why strict contraction must not be presumed.}
+An absorbing reveal sampler that preserves previously committed tokens can map two states with different committed values to disjoint supports. Its global $\kappa_k$ is then one. A deterministic sampler can likewise have coefficient one. The generic conclusion for such a sampler is the finite sum in Theorem~\ref{thm:markov}, not a uniform geometric ceiling. Remasking may enable mixing, but does not certify a useful coefficient without further analysis. Conditional contraction on a restricted state set must establish that the process remains in that set.
+
+\subsection{From logit error to transition error}
+\begin{proposition}[A stochastic readout bridge]
+\label{prop:softmax}
+For temperature $\tau>0$, let $p=\operatorname{softmax}(z/\tau)$ and $p^*=\operatorname{softmax}(z^*/\tau)$. If $\norm{z-z^*}_\infty\le\zeta$, then $\TV(p,p^*)\le\min\{1,\zeta/\tau\}$. If a shared, predetermined group of $b$ positions is sampled independently, its product-distribution discrepancy is at most $\min\{1,b\zeta/\tau\}$.
+\end{proposition}
+\begin{proof}
+Along the straight path between logits, the directional derivative of a softmax coordinate is
+$p_i(\Delta_i-\sum_jp_j\Delta_j)/\tau$.
+Its summed absolute value is at most $2\norm{\Delta}_\infty/\tau$. Integration and the factor $1/2$ in total variation prove the first bound. Couple the $b$ categorical draws coordinatewise and use the union bound for the product law.
+\end{proof}
+
+A whole-network logit certificate can therefore connect an attention-emulation error or a propagated recurrent-state error to $\varepsilon_k$. For example, if a downstream map has a verified Lipschitz bound $L_{\rm out}$ and the relevant state error is at most $e$, its logit contribution is at most $L_{\rm out}e$. Additional model bias and sampler mismatch remain separate contributions.
+
+This bridge does not apply continuously to zero-temperature argmax near a tie. Confidence-ranked position selection also requires a margin certificate or an additional selection-discrepancy term. Further, the bound between two product laws does not bound their discrepancy from the true joint distribution without a conditional-dependence term. These qualifications apply directly to the repository's sampler and prevent equating ``one refreshed token per call'' with exact generation from the data distribution.
+
+
+\section{From local approximation to an end-to-end distributional error bound}
+\label{sec:endtoend}
+The preceding derivations identify the correct likelihood loss and the precise point at which the mixing operator changes. We now connect these two parts. All expectations below are over the data law and its \emph{specified forward corruption}, unless another law is explicitly named. This convention is necessary: a bound estimated on a different corruption distribution requires an additional distribution-shift argument.
+
+\subsection{Irreducible dependence error in a finite categorical reverse step}
+Fix $(X_t=x,c)$ and let $U=\{i:x_i=\mask\}$. Under independent absorbing forward corruption, the true reverse transition first chooses a reveal set $J\subseteq U$ by independent Bernoulli$(\omega_t)$ decisions, then draws $Y_J$ from its \emph{joint} posterior given $(x,c)$. The reveal events depend only on mask times, not on clean token identities. The modeled reverse transition in Eq.~\eqref{eq:absorbinghead} uses the same reveal-set law but draws revealed token values independently from $\pi_{\theta,t}^i$.
+
+For a joint law $p_J$, define its total correlation as
+\begin{equation}
+ \operatorname{TC}(p_J)=\KL\left(p_J\middle\Vert\prod_{i\in J}p_i\right)
+ =\sum_{i\in J}H(p_i)-H(p_J),
+ \qquad \operatorname{TC}(p_\varnothing)=0.
+ \label{eq:tcdef}
+\end{equation}
+Let $R_t^*$ denote the exact data-reversed kernel of Eq.~\eqref{eq:oraclereverse}.
+
+\begin{theorem}[One-step denoiser and simultaneous-reveal decomposition]
+\label{thm:revealdecomposition}
+For the absorbing process, positive clean-token model probabilities, and every feasible $(x,c)$,
+\begin{align}
+ \KL(R_t^*(\cdot\mid x,c)\Vert P_{\theta,t}(\cdot\mid x,c))
+ &=B_t(x,c)
+ +\omega_t\sum_{i\in U}\KL(\pi_t^{*,i}\Vert\pi_{\theta,t}^i),\\
+ B_t(x,c)&=\E_{J\sim\operatorname{Bern}(\omega_t)^U}
+ \operatorname{TC}\bigl(p_0(Y_J\mid x,c)\bigr).
+ \label{eq:revealKL}
+\end{align}
+In particular, a perfect set of single-token denoisers need not give a perfect finite-step reverse joint.
+\end{theorem}
+\begin{proof}
+The output state uniquely identifies $J$: newly visible positions contain clean-vocabulary tokens and unrevealed positions contain $\mask$. Therefore the output supports for distinct reveal sets are disjoint. Applying the chain rule for KL to $(J,Y_J)$, the reveal-set KL is zero because the two kernels use the same law. For each fixed $J$,
+\begin{align*}
+ \KL\left(p_0(Y_J\mid x,c)\middle\Vert\prod_{i\in J}\pi_{\theta,t}^i\right)
+ &=\E\log\frac{p_0(Y_J\mid x,c)}{\prod_{i\in J}\pi_t^{*,i}(Y_i)}
+ +\sum_{i\in J}\E\log\frac{\pi_t^{*,i}(Y_i)}{\pi_{\theta,t}^i(Y_i)}\\
+ &=\operatorname{TC}\bigl(p_0(Y_J\mid x,c)\bigr)
+ +\sum_{i\in J}\KL(\pi_t^{*,i}\Vert\pi_{\theta,t}^i).
+\end{align*}
+Every $i\in U$ belongs to $J$ with probability $\omega_t$. Averaging proves the result.
+\end{proof}
+
+\begin{corollary}[A finite-survival-mesh upper bound]
+\label{cor:mesh}
+For target length $N$ and vocabulary size $V$, let
+$h_\rho=\max_t(\rho_{t-1}-\rho_t)$. Then
+\begin{equation}
+ \mathcal B_\rho:=\sum_t\E_{q_t,c}B_t(X_t,c)
+ \le \binom{N}{2}\log V\sum_t(\rho_{t-1}-\rho_t)^2
+ \le \binom{N}{2}\log V\,h_\rho.
+ \label{eq:meshbound}
+\end{equation}
+Uniform survival increments give $\mathcal B_\rho\le \binom{N}{2}\log V/T$.
+\end{corollary}
+\begin{proof}
+For $k=|J|\ge1$, joint entropy is at least any marginal entropy, so
+$\operatorname{TC}(p_J)\le(k-1)\log V\le \binom{k}{2}\log V$; the empty case is zero. With $m=|U|$, Bernoulli selection gives
+$\E[\binom{|J|}{2}\mid U]=\binom{m}{2}\omega_t^2$.
+Under the forward process, positions are independently masked with probability $1-\rho_t$, regardless of dependencies in the data. Thus
+$\E[\binom{|U|}{2}]=\binom{N}{2}(1-\rho_t)^2$.
+Multiply and use $\omega_t(1-\rho_t)=\rho_{t-1}-\rho_t$. Finally,
+$\sum_t\Delta\rho_t^2\le h_\rho\sum_t\Delta\rho_t=h_\rho$.
+\end{proof}
+
+Here $N$ counts diffused target positions, not immutable history tokens. This is a worst-case bound: its $N^2/T$ dependence can be vacuous for long diffused canvases. With a short target and a long clamped history, history length instead affects posterior estimation, state error, and resource cost. Its value is analytical separation, not a prediction that a small number of diffusion steps always suffices. Task-specific posterior dependence, conditional sparsity, or revealing only one position per step can yield smaller terms. A fixed-order one-at-a-time sampler with exact conditional token draws has no within-step total correlation. A model-dependent reveal policy needs its own joint law; selecting positions using \emph{sampled token values} can introduce selection bias, so ``one token per call'' alone is not an exactness certificate.
+
+\subsection{An exact loss-to-distribution guarantee for masked RWKV}
+\begin{theorem}[Categorical end-to-end error budget]
+\label{thm:categoricalglobal}
+Let $p_{\theta,0}(\cdot\mid c)$ be the output law of the probabilistically matched absorbing sampler, with an all-mask terminal prior and finite cross-entropies. Then
+\begin{align}
+ \E_c\KL\bigl(p_0(\cdot\mid c)\Vert p_{\theta,0}(\cdot\mid c)\bigr)
+ &\le \mathcal E_D(\theta)+\mathcal B_\rho,\label{eq:globalcat}\\
+ \E_c\TV\bigl(p_0(\cdot\mid c),p_{\theta,0}(\cdot\mid c)\bigr)
+ &\le\sqrt{\tfrac12\bigl(\mathcal E_D(\theta)+\mathcal B_\rho\bigr)}.
+ \label{eq:globalcatTV}
+\end{align}
+Moreover, the exact population negative ELBO satisfies
+\begin{equation}
+ \boxed{\mathcal L_D(\theta)-H(Y\mid c)
+ =\mathcal E_D(\theta)+\mathcal B_\rho.}
+ \label{eq:exactriskidentity}
+\end{equation}
+Here $H(Y\mid c)$ denotes conditional entropy averaged over the condition distribution; the shorthand on the left uses the same averaging as $\mathcal L_D$.
+\end{theorem}
+\begin{proof}
+Let $\mathbb Q$ be the data-forward path law and $\mathbb P_\theta$ the modeled reverse path law, including the common distribution of $c$. Reverse-factorizing $\mathbb Q$ gives
+\begin{equation}
+ \KL(\mathbb Q\Vert\mathbb P_\theta)
+ =\E_c\KL(q_T(\cdot\mid c)\Vert p_T(\cdot\mid c))
+ +\sum_t\E_{q_t,c}\KL(R_t^*\Vert P_{\theta,t}).
+ \label{eq:pathKL}
+\end{equation}
+The terminal KL is zero. Theorem~\ref{thm:revealdecomposition} identifies the remaining sum as $\mathcal E_D+\mathcal B_\rho$. Marginalizing the path to its clean endpoint cannot increase KL, which proves Eq.~\eqref{eq:globalcat}. Pinsker's inequality followed by Jensen's inequality proves Eq.~\eqref{eq:globalcatTV}. Finally, expanding the definition of path KL in the original forward factorization gives
+$\KL(\mathbb Q\Vert\mathbb P_\theta)=\mathcal L_D-H(Y\mid c)$.
+This proves the identity.
+\end{proof}
+
+This argument needs no contraction assumption and no claim that errors are independent between denoising calls. It controls KL in the data-to-model direction using forward-marginal risks. It does require the actual sampler to have the declared kernels. For a different sampler $\widetilde p_{\theta,0}$, add a separately bounded
+$\TV(p_{\theta,0},\widetilde p_{\theta,0})$ by the triangle inequality and use Section~\ref{sec:markov} to propagate its kernel differences. KL itself does not satisfy a triangle inequality.
+
+\subsection{From attention-teacher logits to recurrent denoising risk}
+Let $\ell_A,\ell_R\in\R^V$ be teacher and recurrent logits on the \emph{same} $(X_t,t,c,i)$; both use temperature $\tau>0$. Put $\delta=\|\ell_A-\ell_R\|_\infty$. Since log-sum-exp is $1$-Lipschitz in the infinity norm,
+\begin{equation}
+ \left|\log\pi_A(a)-\log\pi_R(a)\right|\le 2\delta/\tau,
+ \qquad a\in\mathcal V.
+ \label{eq:logprobperturb}
+\end{equation}
+For any true posterior $\pi^*$, this yields the useful inequality
+\begin{equation}
+ \KL(\pi^*\Vert\pi_R)
+ \le\KL(\pi^*\Vert\pi_A)+2\delta/\tau.
+ \label{eq:teacherbridge}
+\end{equation}
+Indeed, subtract the two KLs and average $\log\pi_A-\log\pi_R$ under $\pi^*$. Consequently,
+\begin{equation}
+ \mathcal E_D(R)\le\mathcal E_D(A)+\mathcal A_{A\to R},\quad
+ \mathcal A_{A\to R}:=\sum_t\omega_t\E_{q_t,c}
+ \sum_{i:X_t^i=\mask}\frac{2\|\ell_{A,ti}-\ell_{R,ti}\|_\infty}{\tau}.
+ \label{eq:teacherriskbridge}
+\end{equation}
+This is not an invalid ``KL triangle'' between a teacher and a student. It is a log-probability perturbation bound that retains the teacher's own Bayes error.
+
+A quadratic bound is available for exact-posterior teachers, or directly for teacher-to-student KL:
+\begin{equation}
+ \KL(\pi_A\Vert\pi_R)\le\frac{1}{4\tau^2}\|\ell_A-\ell_R\|_2^2.
+ \label{eq:softmaxquadratic}
+\end{equation}
+To prove it, write the KL as the Bregman divergence of log-sum-exp between the scaled logits. Its Hessian is $\diag(p)-pp^\top$. For a unit vector $v$, its quadratic form is the variance of a random variable taking values $v_i$; this variance is at most $(\max_i v_i-\min_i v_i)^2/4\le1/2$. The integral Taylor remainder is therefore at most $\|\ell_A-\ell_R\|_2^2/(4\tau^2)$. Do not replace Eq.~\eqref{eq:teacherbridge} by a purely quadratic error without an additional condition on the teacher.
+
+\subsection{How mixer approximation enters the output-logit bound}
+At fixed $(t,c)$, write the attention reference as a composition of blocks $F_A^\ell$ and the recurrent model as $F_R^\ell$. Include token shifts, value highways, and any other auxiliary variables in the hidden state when needed. Suppose a common domain contains both trajectories, each $F_A^\ell$ is $L_\ell$-Lipschitz on that domain, and
+\begin{equation}
+ \sup_{h\text{ in domain}}\|F_R^\ell(h)-F_A^\ell(h)\|\le d_{\ell,t}.
+\end{equation}
+Then $e_{\ell+1}\le L_\ell e_\ell+d_{\ell,t}$, so for $D$ executed blocks,
+\begin{equation}
+ e_D\le\left(\prod_{\ell=0}^{D-1}L_\ell\right)e_0+
+ \sum_{j=0}^{D-1}d_{j,t}\prod_{\ell=j+1}^{D-1}L_\ell.
+ \label{eq:layercomposition}
+\end{equation}
+For a common linear output head, its operator norm multiplies this bound; a changed head adds its own output discrepancy. Layer normalization is locally or globally bounded only under an explicit variance floor and bounds on its learned scales; ``normalization'' alone is not a proof of contraction.
+
+At a common input, decompose $d_{\ell,t}$ by inserting a chosen-kernel mixer and its exact recurrent implementation. The components are: the normalized kernel error of Theorem~\ref{thm:kernel}; the \emph{additional} delta/RWKV operator gap in Eq.~\eqref{eq:deltaapproxsplit}; any changed directional fusion, projections, residual gates, or conditioning; and the finite-precision recurrent error controlled under Section~\ref{sec:metric}'s assumptions. Each component is multiplied by the relevant subsequent projections and residual scales. Setting the delta/RWKV term to zero merely because both mechanisms are called linear attention would invalidate this chain.
+
+This composition exposes what must be estimated analytically or empirically. Large products of layer Lipschitz constants can make the upper bound loose. Recycled depth reuses parameters but contributes another executed factor; weight tying does not remove its approximation error or guarantee improvement.
+
+\subsection{The Gaussian counterpart and its distinct modeling error}
+For this subsection assume $Z_0$ has a density, all relevant conditional entropies and second moments are finite, and every modeled reverse covariance is $\sigma_t^2I$ with $\sigma_t>0$, including the continuous reconstruction step. Let $R_t^*$ be the exact data-reversed conditional law and define
+\begin{equation}
+ m_t^*(z_t,c)=\E[Z_{t-1}\mid Z_t=z_t,c],\qquad
+ G_t^*=\mathcal N(m_t^*,\sigma_t^2I).
+\end{equation}
+The data-reversed distribution need not be Gaussian, even though the clean-conditioned DDPM bridge is Gaussian. Completion of the expected square proves
+\begin{equation}
+ \KL\bigl(R_t^*\Vert\mathcal N(\mu_\theta,\sigma_t^2I)\bigr)
+ =\KL(R_t^*\Vert G_t^*)+
+ \frac{\|m_t^*-\mu_\theta\|_2^2}{2\sigma_t^2}.
+ \label{eq:gaussianprojectiongap}
+\end{equation}
+Using the DDPM mean parameterization and $\epsilon_t^*=\E[\epsilon\mid Z_t,c]$,
+\begin{equation}
+ \frac{\|m_t^*-\mu_\theta\|_2^2}{2\sigma_t^2}
+ =\lambda_t^\epsilon\|\epsilon_t^*-\epsilon_\theta\|_2^2.
+\end{equation}
+Path KL and endpoint marginalization now imply
+\begin{equation}
+ \E_c\KL(p_0\Vert p_{\theta,0})\le
+ \mathcal T_G+\mathcal G_G+
+ \sum_t\lambda_t^\epsilon\E\|\epsilon_t^*-\epsilon_\theta\|_2^2,
+ \label{eq:gaussianglobal}
+\end{equation}
+where $\mathcal T_G=\E_c\KL(q_T(\cdot\mid c)\Vert p_T(\cdot\mid c))$ and
+$\mathcal G_G=\sum_t\E\KL(R_t^*\Vert G_t^*)$.
+Thus Gaussian approximation/variance error is separate from denoiser error, just as categorical within-step dependence is separate from token-posterior error.
+
+The irreducible Bayes noise-prediction risk subtracts from the training MSE:
+\begin{equation}
+ \E\|\epsilon-\epsilon_\theta\|_2^2-\E\|\epsilon-\epsilon_t^*\|_2^2
+ =\E\|\epsilon_t^*-\epsilon_\theta\|_2^2.
+\end{equation}
+For an attention teacher $\epsilon_A$ and recurrent student $\epsilon_R$, a convenient conservative substitution is
+$\|\epsilon^*-\epsilon_R\|^2\le2\|\epsilon^*-\epsilon_A\|^2+2\|\epsilon_A-\epsilon_R\|^2$.
+The layerwise approximation chain can bound the second term. Atoms created by a deterministic token embedding do not satisfy the density assumptions of Eq.~\eqref{eq:gaussianglobal}; use the categorical branch or the nonsingular latent-encoder/decoder model in Section~\ref{sec:ddpm}. A deterministic zero-variance sampler likewise needs a different comparison metric or an explicit stochastic regularization.
+
+\subsection{Adding the price of compressed long-context conditioning}
+Let $C=E(H)$ be deterministic compressed history, and let the model depend on $(C,Q)$ only. For any normalized predictive model with finite risks, expanding the log density ratio gives the exact identity
+\begin{align}
+ &\E_{H,Q}\KL\bigl(p_0(Y\mid H,Q)\Vert p_R(Y\mid C,Q)\bigr)\nonumber\\
+ &\quad=I(Y;H\mid C,Q)+
+ \E_{C,Q}\KL\bigl(p_0(Y\mid C,Q)\Vert p_R(Y\mid C,Q)\bigr).
+ \label{eq:compressionKLidentity}
+\end{align}
+Indeed, insert $p_0(Y\mid C,Q)$ between numerator and denominator. The first expected log ratio is conditional mutual information; averaging the second over $H$ conditional on $(C,Q)$ gives the second KL. Combining this identity with Eqs.~\eqref{eq:globalcat} and \eqref{eq:teacherriskbridge} produces a complete conditional bound:
+\begin{equation}
+ \boxed{\begin{aligned}
+ &\E_{H,Q}\KL\bigl(p_0(Y\mid H,Q)\Vert p_R(Y\mid C,Q)\bigr)\\
+ &\quad\le \underbrace{I(Y;H\mid C,Q)}_{\text{history information lost}}
+ +\underbrace{\mathcal E_D(A;C,Q)}_{\text{attention-teacher posterior error}}\\
+ &\qquad\quad+\underbrace{\mathcal A_{A\to R}(C,Q)}_{\text{linearization, state, and network error}}
+ +\underbrace{\mathcal B_\rho(C,Q)}_{\text{finite-step joint-dependence error}}.
+ \end{aligned}}
+ \label{eq:masterbound}
+\end{equation}
+The teacher and student in this expression must receive the \emph{same compressed condition}. A teacher with the full history is a different comparator and its advantage must not be hidden inside an operator-approximation term. Full-canvas rereading corresponds to retaining $H$ in the condition, in which case the compression-information term is zero, but the storage and repeated-processing cost remains. Section~\ref{sec:information} discusses this access distinction and the value of genuine additional evidence in more detail.
+
+\subsection{Extensions to continuous-time and numerical-solver errors}
+For the variance-preserving forward SDE
+$dZ_t=-\tfrac12\beta(t)Z_t\,dt+\sqrt{\beta(t)}\,dW_t$,
+the increasing reverse clock $s=T-t$ has drift
+$\tfrac12\beta(T-s)Z_s+\beta(T-s)s^*(Z_s,T-s,c)$,
+where $s^*$ is the conditional marginal score \cite{scoresde}.
+Under existence, absolute-continuity, and sufficient exponential-integrability conditions for Girsanov's theorem, replacing $s^*$ by $s_\theta$ while retaining the same diffusion coefficient yields
+\begin{equation}
+ \KL(\mathbb Q_{\mathrm{SDE}}\Vert\mathbb P_{\theta,\mathrm{SDE}})
+ =\KL(q_T\Vert p_T)+\frac12\int_0^T\beta(T-s)
+ \E_{\mathbb Q}\|s^*-s_\theta\|_2^2\,ds.
+ \label{eq:sdegirsanov}
+\end{equation}
+This is a continuous-time analogue, not a theorem about the repository's categorical sampler. The score error can be decomposed into teacher and recurrent-approximation terms just as above.
+
+Time discretization is another approximation. For a deterministic probability-flow ODE or another deterministic reference flow, assume a Lipschitz drift with constant $L$, a bounded recurrent drift error $\delta_k$ on the relevant domain, and a numerical method with local defect at most $Ch_k^{p+1}$. A discrete Gronwall argument gives a recursion of the form
+\begin{equation}
+ e_{k+1}\le(1+Lh_k)e_k+h_k\delta_k+Ch_k^{p+1},
+ \label{eq:solvererror}
+\end{equation}
+with a method-specific stability factor replacing $1+Lh_k$ when needed. The product-sum solution separates initial error, learned-denoiser error, and discretization error. Denoiser replacement is therefore analytically distinct from DDIM or higher-order solver design \cite{ddim,dpmsolver}. A small Euclidean latent error does not automatically imply a small discrete-token error after discontinuous nearest-neighbor rounding; a probabilistic decoder or a verified decision margin is needed.
+
+\section{Conditional diffusion and compressed information}
+\label{sec:information}
+The role of conditioning is most cleanly stated in terms of the information available at inference. Let $C=E(H)$ be a deterministic compressed history representation. Assume finite target entropy; all logarithms in this section are natural.
+
+\begin{theorem}[The irreducible price of history compression]
+\label{thm:information}
+For a target sequence $Y$ and query $Q$, the optimal expected log-loss difference between compressed and full-history predictors is
+\begin{equation}
+ \inf_g\E[-\log g(Y\mid C,Q)]
+ -\inf_f\E[-\log f(Y\mid H,Q)]
+ =I(Y;H\mid C,Q)\ge0.
+ \label{eq:informationgap}
+\end{equation}
+With an additional genuine observation $R$, the optimal log-loss reduction is
+\begin{equation}
+ H(Y\mid C,Q)-H(Y\mid C,Q,R)=I(Y;R\mid C,Q)\ge0.
+ \label{eq:conditionalgain}
+\end{equation}
+Thus adding an informative condition can improve the Bayes-optimal predictor, but no state-only denoising algorithm can generally eliminate information that is absent from $(C,Q)$.
+\end{theorem}
+\begin{proof}
+For any predictor, conditional expected log-loss equals conditional entropy plus the expected KL divergence from the true conditional distribution. Its infimum is therefore the conditional entropy. Since $C$ is a function of $H$,
+$H(Y\mid H,Q,C)=H(Y\mid H,Q)$.
+The first difference is precisely the defining identity of conditional mutual information. The second equality is the same identity after adjoining $R$.
+\end{proof}
+
+\begin{proposition}[Conditioning reduces optimal denoising risk]
+\label{prop:risk}
+Let $Z$ be a square-integrable one-hot or embedding representation of the clean target and let $X$ be a corrupted observation. Define $m_0=\E[Z\mid X,Q]$ and $m_1=\E[Z\mid X,Q,C]$. Then
+\begin{equation}
+ \E\norm{Z-m_0}_2^2-\E\norm{Z-m_1}_2^2
+ =\E\norm{m_1-m_0}_2^2\ge0.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Expand $Z-m_0=(Z-m_1)+(m_1-m_0)$. The cross term has zero expectation because $m_1-m_0$ is measurable with respect to $(X,Q,C)$ and $\E[Z-m_1\mid X,Q,C]=0$.
+\end{proof}
+
+These are Bayes-optimal statements, not guarantees that a finite trained conditioner will improve. A learned model may ignore useful conditions or use them poorly. Nor do additional denoising iterations supply new evidence about a particular lost historical fact: under strict state-only access, the algorithm's fresh randomness is independent of that fact conditional on $(C,Q)$. Its generated canvas can reorganize existing information but cannot reveal a missing bit by itself.
+
+A simple counterexample makes the limitation concrete. Let history contain two independent fair bits $(B_1,B_2)$, retain only $C=B_1$, and ask for $Y=B_2$. The best state-only accuracy is $1/2$ and its optimal log-loss gap is $\log 2$, regardless of the number of denoising steps. Rereading $B_2$ removes the gap; generating more internal noise does not.
+
+\paragraph{Design implication.}
+Conditional refinement has two defensible benefits: better use of information already retained in a compact state, and acquisition of additional relevant information when the source remains accessible. A nested condition $(C,R)$ has the entropy relation in Eq.~\eqref{eq:conditionalgain}. Replacing $C$ by a new, equally small representation is not nested and has no automatic monotonicity guarantee. This distinction motivates explicit state-only and refresh ablations rather than a general assertion that diffusion ``decompresses'' arbitrarily long history.
+
+
+\section{Resource model and implementation consequences}
+\label{sec:resources}
+Let $N$ be total canvas length, $d$ model width, $h$ the number of heads, and $L_{\rm eff}$ the number of executed blocks per denoiser call. For fixed head dimensions, the recurrent mixing work is
+\begin{equation}
+ O(KL_{\rm eff}Nh d_kd_v),
+\end{equation}
+with projection and feed-forward work of order $O(KL_{\rm eff}Nd^2)$ under conventional width scaling. The bidirectional scans introduce a constant factor. A full vocabulary head can add $O(KNd|\mathcal V|)$ work. These costs are linear in canvas length \emph{per fixed number of denoiser evaluations}; they do not prove end-to-end linear scaling when $K$ grows with $N$.
+
+In particular, refreshed single-token commitment on a target of length $M$ can require $K\approx M$. Full-canvas generation can then have $O(MN)$ scan work, which is quadratic when $M$ scales with $N$. The number of schedule stages is not an adequate substitute for the actual forward-call count. Recycled depth has a similar accounting consequence: fewer stored parameters do not mean fewer executed operations.
+
+The recurrent state payload per logical layer and direction is independent of historical token count, typically proportional to $h d_kd_v$ plus token-shift state. The complete denoiser is not constant-memory: it must retain or stream canvas tokens and representations, handle bidirectional processing, and compute output distributions. Full-model caching, parallel scan workspaces, and training activations have separate costs. We compare against quadratic \emph{attention pairwise arithmetic}, not assert that every efficient softmax implementation must materialize a quadratic attention matrix.
+
+\begin{table}[ht]
+\centering\small
+\caption{Analytical payload estimates, not hardware measurements. GiB means $2^{30}$ bytes. Temporary buffers and runtime overhead are excluded.}
+\begin{tabularx}{\linewidth}{@{}Y r Y@{}}
+\toprule
+Payload & GiB & Consequence \\
+\midrule
+Reported $\sim$4.0916B parameters at 16 bits & 7.62 & Almost exhausts an 8 GiB budget before activations. \\
+Same parameters at ideal packed 4 bits & 1.91 & A lower-bound estimate; metadata and kernels still matter. \\
+$65{,}536\times65{,}536$ logits at 16 bits & 8.00 & Full-canvas vocabulary output alone can dominate memory. \\
+The same logits at 32 bits & 16.00 & The sampler's floating-point cast and probabilities require explicit accounting. \\
+\bottomrule
+\end{tabularx}
+\label{tab:memory}
+\end{table}
+
+This historical payload estimate used the approximate F2 size reported by the release/Hub metadata; the independent local recount is now reported in Section~\ref{m:identity} \cite{f2release}; the logit estimate uses the reported 65,536-token vocabulary and a hypothetical 64K canvas. These numbers motivate position-selective or chunked vocabulary projection, bounded active windows, validated weight quantization, and avoidance of simultaneous full-canvas logit/probability copies. They are engineering requirements for a low-resource variant, not evidence that those optimizations are already qualified.
+
+A bidirectional full-canvas network also cannot generically reuse a prefix cache as though it were a causal encoder: later-layer prefix representations may depend on an edited target through earlier reverse scans. Cache-efficient blockwise alternatives need an explicit architectural restriction or a demonstrated equivalence, as emphasized by closely related partial-bidirectional work \cite{partial}. The source contract currently withholds full-model prefix-cache claims \cite{repo}.
+
+
+\section{An optional construction for monotone attention emulation}
+\label{app:projection}
+The overwrite theorem is task-specific. A different way to obtain a monotonic approximation guarantee is to optimize a frozen-feature memory directly toward an attention teacher. This construction is an \emph{optional methodological extension}: the repository's tied-depth loop is not this optimization algorithm.
+
+Let $Q\in\R^{m\times d_k}$ contain fixed query features and $Y_A\in\R^{m\times d_v}$ the outputs of a specified attention operator on the same examples. For a transposed memory $M\in\R^{d_k\times d_v}$, define
+\begin{equation}
+ J(M)=\frac1{2m}\norm{QM-Y_A}_F^2,\qquad C_Q=Q^\top Q/m.
+\end{equation}
+A frozen-state batch delta correction is
+\begin{equation}
+ M_{r+1}=M_r-\eta\frac{Q^\top(QM_r-Y_A)}m
+ =M_r+\frac\eta m\sum_{i=1}^{m}q_i(y_{A,i}-M_r^\top q_i)^\top.
+ \label{eq:projection}
+\end{equation}
+Each summand is a residual write evaluated at the same pre-update memory. It is not identical to sequential RWKV recurrence, where the state changes between writes.
+
+\begin{theorem}[Fixed-feature attention projection]
+\label{thm:projection}
+Assume $C_Q$ is positive definite with eigenvalues in $[\mu,L]$, $\mu>0$. For $0<\eta<2/L$, let
+$\rho=\max_{\lambda\in[\mu,L]}|1-\eta\lambda|<1$.
+If $M_*$ minimizes $J$, then the iteration in Eq.~\eqref{eq:projection} satisfies
+\begin{equation}
+ J(M_r)-J(M_*)\le\rho^{2r}[J(M_0)-J(M_*)].
+\end{equation}
+Starting from any additive-memory initializer therefore reduces its fixed-teacher mean squared approximation error strictly whenever the initial loss is above the optimum. The irreducible projection residual $J(M_*)$ need not be zero.
+\end{theorem}
+\begin{proof}
+The normal equations give $C_QM_*=Q^\top Y_A/m$, hence
+$M_{r+1}-M_*=(I-\eta C_Q)(M_r-M_*)$.
+Diagonalize the symmetric positive-definite $C_Q=U\Lambda U^\top$. The excess loss is
+$\tfrac12\sum_j\lambda_j\norm{[U^\top(M_r-M_*)]_j}_2^2$.
+Every row is multiplied by $(1-\eta\lambda_j)$ per iteration, so each contribution contracts by at most $\rho^2$. Summing proves the result.
+\end{proof}
+
+This theorem provides a concrete route to an explicit attention-approximation objective, for example during teacher-based development or an auxiliary correction stage. It does not prove that unsupervised diffusion training or the current nonlinear recycled block minimizes this quadratic objective. Query features that change between iterations, teacher mismatch, and the cost of obtaining teacher targets all require separate treatment. If adopted, the correction stage and its additional computation must be disclosed as a model change.
+
+
+\section{Numerical verification of the mathematical statements}
+\label{app:checks}
+The accompanying \texttt{math\_checks.py} runs deterministic NumPy checks with seed 20260917. It loads no language-model weights, executes no FLA kernel, and does not train or benchmark Long-RWKV. These checks can reveal indexing or algebraic mistakes in special cases; they do not replace proofs or validate learned-model assumptions.
+
+\begin{table}[ht]
+\centering\small
+\caption{Synthetic mathematical checks generated for this draft. Errors and bounds use the norms specified in the respective statements. These are not language-model benchmark results.}
+\begin{tabularx}{\linewidth}{@{}p{0.32\linewidth}Y@{}}
+\toprule
+Check & Observed numerical result \\
+\midrule
+Normalized delta residual identity & Maximum absolute residual $1.99\times10^{-15}$ over 100 random trials. \\
+Overwrite attention example & Delta error $0.001340$; additive error $0.665327$; delta upper bound $0.002684$. \\
+Moving-metric scan, 400 positions & Maximum $r_i m_i=0.862440$; final weighted error $0.0001984$ versus bound $0.0008183$. \\
+Five-state Markov chain, 30 steps & Final total variation $0.005702$ versus bound $0.022942$. \\
+Fixed-feature teacher projection & Excess loss falls from $14.942736$ to $3.06\times10^{-6}$ in 20 corrections. \\
+Compression counterexample & An omitted fair bit gives log-loss gap $\log 2$ and best accuracy $1/2$. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The examples were selected to satisfy the stated assumptions. They are existence and implementation checks, not estimates of coefficients for a trained RWKV model. The complete numerical output, including seeds and assertion scopes, is supplied in \texttt{math\_checks.json}.
+
+
+\subsection{Expanded diffusion-to-state checks}
+The added \texttt{derivation\_checks.py} uses seed 20260920 and performs 14 grouped checks, including exhaustive categorical state enumeration. They verify the DDPM bridge and noise/velocity transformations; general D3PM parameterizations; the absorbing KL-to-CE reduction; selected-mask normalization; exact kernel-state and bidirectional readout; kernel-error inequalities; ridge-regression recursion; logit-to-KL bounds; the categorical path and ELBO identities; compression KL; and state adjoints by finite differences. All checks passed. The largest DDPM algebraic residual was $5.69\times10^{-14}$; exact kernel/state and bidirectional readout differed by at most $4.45\times10^{-16}$; the state-adjoint finite-difference residual was below $1.43\times10^{-9}$. These numerical tolerances concern floating-point calculations on the stated small systems only.
+
+For a correlated binary pair with probabilities $(0.45,0.05,0.05,0.45)$, the exact posterior denoiser has zero posterior excess risk, yet simultaneous reveals yield a nonzero dependence term. Table~\ref{tab:newchecks} reports exhaustive enumeration, not simulated language-model performance. Its uniform-survival example verifies
+$\mathcal L_D-H(Y)=\mathcal E_D+\mathcal B_\rho$ and endpoint KL no greater than path KL. Adding a fixed logit perturbation also passed the decomposition checks. The largest ELBO/path identity residual over all eight cases was below $2.28\times10^{-15}$.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Exact enumeration of two correlated binary tokens using an exact posterior head. Natural-log units. The posterior-excess term is zero up to floating-point roundoff; these are analytic toy-system checks, not Long-RWKV benchmark measurements.}
+\label{tab:newchecks}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+Reverse steps & Dependence/path KL & Endpoint KL & Worst-case mesh bound\\
+\midrule
+1 & 0.368064 & 0.368064 & 0.693147\\
+4 & 0.092016 & 0.036690 & 0.173287\\
+16 & 0.023004 & 0.003039 & 0.043322\\
+64 & 0.005751 & 0.000209 & 0.010830\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The selected-mask example also exposes a concrete normalization difference: the correctly weighted expected estimator is $1.084692$, whereas replacing the realized selected count by its expectation gives $0.752887$ in that constructed example. This is not a universal direction of bias; it demonstrates why the replacement is not an identity. The complete inputs, enumeration code, assertions, and numerical output are included in the source package.
+
+\section{F2 release evidence and manuscript boundaries}
+\label{app:evidence}
+The public F2 card identifies a step-14,000 BF16 release with approximately 4.09B bidirectional parameters and a 4K training context. The source uses two independently constructed directional modules and its own vocabulary head. The inspected development-branch model file is simpler than the later looped lineage used in earlier drafts: it has no depth-loop or state-conditioning attachment in the retrieved class. The earlier exact 4,091,581,441-element count included a loop scalar and is not reused as an independently counted F2 payload.
+
+F2's source maps causal attention parameters into both directional modules during initialization. At the F2 endpoint, removing the backward branch does not recover the historical base checkpoint: the remaining weights have undergone adaptation. F2 source/weight compatibility, tokenizer identity, and historical grouped-sampler provenance must be checked together. The card's permissive load example is not a substitute for a complete key/shape audit.
+
+The historical selected-mask objective and confidence decoder are not retroactively equated with the exact absorbing ELBO and stochastic reverse process developed here. The theorem remains valid for its declared law and assumptions. Evaluating a law-matched decoder on F2 weights can estimate its own risk, but does not change how those weights were trained. No state-only guarantee follows from the current full-canvas interface.
+
+\subsection{Historical observations are not confirmation}
+The card reports selected benchmark and reconstruction observations, including a limited MMLU panel and low free-generation scores. These figures were not independently rerun and are not imported as primary long-context results. They motivate tokenizer/decoder qualification and the retention of failure-sensitive generation tests. Looped checkpoints are retained as explicitly separate lineage comparisons in the measured panels; they are not treated as F2 replicates.
+
+The local F2 payload has been audited and executed for the measured capability panels. Its digest and tensor inventory establish the local artifact, and streaming reconstruction of the pinned public BF16 export establishes exact converted-weight correspondence (Section~\ref{m:identity}). The primary long-context endpoint and historical grouped-decoder reproduction remain separate qualifications. Exploratory systems records measure forward passes and lack the checkpoint identity needed to attribute them to F2.
+
+\subsection{What is included}
+The mathematical derivations and finite-system checks accompany the frozen-checkpoint study. The package includes the local checkpoint registry, source-hashed descriptive readings, panel collection code, development and confirmation task generators, scheduler code, and verification tests. The inherited training matrix is archival and its unexecuted rows are not empirical results. The active F2 source and build instructions are identified in the top-level README. Missing measurements and human review remain explicit requirements before submission.
+
+\subsection{Cross-reference map}
+\begin{longtable}{@{}p{0.32\linewidth}p{0.62\linewidth}@{}}
+\toprule
+Main-text object & Detailed support\\
+\midrule\endhead
+Common path objective & Appendix~\ref{sec:foundation}: ELBO and exact data reversal.\\
+DDPM counterpart & Appendix~\ref{sec:ddpm}: posterior, heads, weights, reconstruction, discrete-output boundary.\\
+Categorical likelihood & Appendix~\ref{sec:d3pm}: general D3PM bridge, absorbing specialization, estimator normalization.\\
+Attention/state bridge & Appendix~\ref{sec:linearization}: finite features, denominator control, exact bidirectional state.\\
+Delta/RWKV replacement & Appendix~\ref{sec:stateconstruction}: residual writes, RLS comparator, generalized gates, operator gap.\\
+Training gradients & Appendix~\ref{sec:training}: output derivatives, state adjoints, auxiliary objectives.\\
+Restricted approximation advantage & Appendix~\ref{sec:overwrite}: overwrite-sensitive comparator and counter-regimes.\\
+State and sampler stability & Appendices~\ref{sec:metric} and~\ref{sec:markov}: sufficient conditions and finite-horizon bounds.\\
+Main error theorem & Appendix~\ref{sec:endtoend}: total correlation, path KL, compression, Gaussian counterpart.\\
+Experiment protocol & Appendix~\ref{app:protocol}; machine-readable protocol and per-example record schema.\\
+Numerical verification & Appendix~\ref{app:checks}; deterministic NumPy programs and rerun records.\\
+\bottomrule
+\end{longtable}
+
+\end{document}

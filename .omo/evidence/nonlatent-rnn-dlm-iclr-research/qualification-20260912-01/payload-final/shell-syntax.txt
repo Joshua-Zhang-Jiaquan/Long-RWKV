@@ -1,1 +1,0 @@
-PASS: bash -n run_qualification.sh

@@ -1,0 +1,243 @@
+{
+  "observed_at": "2026-09-23T03:28:40Z",
+  "all_jobs_terminal": true,
+  "jobs": [
+    {
+      "role": "balanced_seed20271011",
+      "job_id": "job-13b90e10-2dca-4a2d-a50a-a10c47015be0",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "created_ms": 1790132467000,
+      "finished_ms": 1790133243000,
+      "scheduler_running_seconds": 764.0,
+      "scheduler_running_gpu_hours": 1.6977777777777778,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 608,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 86.54769736842105,
+          "mean_memory_used_percent": 8.952451115466298,
+          "mean_memory_controller_busy_percent": 33.42598684210526,
+          "fraction_samples_gpu_busy_at_least80": 0.868421052631579
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "role": "balanced_seed20271012",
+      "job_id": "job-a6a22c20-a4f8-4cb1-842e-4b0f638ae30c",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "created_ms": 1790132502000,
+      "finished_ms": 1790133267000,
+      "scheduler_running_seconds": 756.0,
+      "scheduler_running_gpu_hours": 1.68,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 600,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 87.65,
+          "mean_memory_used_percent": 8.997927880430119,
+          "mean_memory_controller_busy_percent": 32.49,
+          "fraction_samples_gpu_busy_at_least80": 0.895
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "role": "balanced_seed20271013",
+      "job_id": "job-7f779845-c0f3-4ef7-a39e-7d584562829c",
+      "status": "job_succeeded",
+      "project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+      "gpus": 8,
+      "created_ms": 1790132539000,
+      "finished_ms": 1790133283000,
+      "scheduler_running_seconds": 737.0,
+      "scheduler_running_gpu_hours": 1.6377777777777778,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 592,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 88.01351351351352,
+          "mean_memory_used_percent": 9.029379908360156,
+          "mean_memory_controller_busy_percent": 34.4222972972973,
+          "fraction_samples_gpu_busy_at_least80": 0.8817567567567568
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "role": "near_seed20271011",
+      "job_id": "job-42893271-fcef-472a-8527-ce2d64047075",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "created_ms": 1790132449000,
+      "finished_ms": 1790133243000,
+      "scheduler_running_seconds": 786.0,
+      "scheduler_running_gpu_hours": 1.7466666666666666,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 632,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 84.00316455696202,
+          "mean_memory_used_percent": 8.734243564610601,
+          "mean_memory_controller_busy_percent": 33.700949367088604,
+          "fraction_samples_gpu_busy_at_least80": 0.8322784810126582
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "role": "near_seed20271012",
+      "job_id": "job-ead276a7-4aa6-484d-a641-52d0b536c1f3",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "created_ms": 1790132484000,
+      "finished_ms": 1790133259000,
+      "scheduler_running_seconds": 764.0,
+      "scheduler_running_gpu_hours": 1.6977777777777778,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 608,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 86.45888157894737,
+          "mean_memory_used_percent": 8.804479450136517,
+          "mean_memory_controller_busy_percent": 34.05592105263158,
+          "fraction_samples_gpu_busy_at_least80": 0.8881578947368421
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "role": "near_seed20271013",
+      "job_id": "job-6759fcdb-f7ba-4680-aa2e-5d848e3eac40",
+      "status": "job_succeeded",
+      "project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+      "gpus": 8,
+      "created_ms": 1790132520000,
+      "finished_ms": 1790133293000,
+      "scheduler_running_seconds": 760.0,
+      "scheduler_running_gpu_hours": 1.6888888888888889,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 608,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 86.98190789473684,
+          "mean_memory_used_percent": 8.804479450136517,
+          "mean_memory_controller_busy_percent": 34.36677631578947,
+          "fraction_samples_gpu_busy_at_least80": 0.8963815789473685
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "role": "original",
+      "job_id": "job-df0f86a7-a59b-448b-8b5d-79cb1a02b895",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "created_ms": 1790133251000,
+      "finished_ms": 1790134043000,
+      "scheduler_running_seconds": 784.0,
+      "scheduler_running_gpu_hours": 1.7422222222222221,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 624,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 84.65865384615384,
+          "mean_memory_used_percent": 8.831332893821399,
+          "mean_memory_controller_busy_percent": 33.87019230769231,
+          "fraction_samples_gpu_busy_at_least80": 0.8461538461538461
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    }
+  ],
+  "total_scheduler_running_gpu_hours": 11.891111111111112,
+  "reservation_peak": 48,
+  "project_reservation_peaks": {
+    "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+    "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+  },
+  "live_campaign": {
+    "cap": 48,
+    "project_caps": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+    },
+    "project_reserved_gpus": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 0,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 0
+    },
+    "live_reserved_gpus": 0,
+    "jobs": []
+  },
+  "scope": "Seven evaluation jobs only; excludes previous study and prior checkpoint training. Intervals include queued reservation. Utilization covers the entire observed job, including loading and numerical screens."
+}

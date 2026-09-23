@@ -1,0 +1,9 @@
+# Bounded context adaptation, declared before training
+
+Motivation: the selected seed71 checkpoint passes all eight fresh short-condition gates in the label-preserving probe, but its information-set KL deteriorates sharply for far/middle evidence at 1K. This distinguishes the adaptation target from failure to learn the original short task.
+
+Initialize from that same frozen terminal checkpoint; fresh optimizer. Preserve original labelled output slots and the original independent paired information-set history objective. New training seed 20270930 and index offset 1,000,000; no development or test examples in training. Global batch 32, 8 H100 ranks, 200 fixed updates, AdamW lr1e-5 with20-update warmup, beta(.9,.95), weight decay.01, clip1. Train on25% evidence-only and75%1K inputs, balanced by rank/update, with far/middle/near positions. Whole irrelevant records and native tokens follow the probe serializer.
+
+A discarded20-update qualification checks finite gradients and document isolation at both lengths. The full run starts afresh from the same original checkpoint only after qualification; it does not continue the discarded20 updates. Evaluate only the fixed200 terminal checkpoint on the same declared development panel and policies as the unadapted probe, retaining every length and position. No mid-run checkpoint selection. Include all2500 auxiliary updates and this adaptation in resource accounting.
+
+This is one bounded follow-up, not an instruction to extend training repeatedly until a favorable result. A failed short gate or absent distant-evidence gain remains a negative result. A positive development result would still require a separately frozen independent evaluation and training-seed limitations before a final paper claim. The discarded new-task transfer run remains a separate experiment with its representation change disclosed.

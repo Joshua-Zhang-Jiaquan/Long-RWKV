@@ -1,0 +1,29 @@
+\paragraph{A diagnostic for distant evidence use.}
+On the paired task, write the information-set error as
+$E_{\mathrm{info}}=E_{\mathrm{first}}+E_{\mathrm{second}}$.
+The first term measures four fair-marginal prediction errors; the second is
+the sum of four deterministic conditional cross-entropies, averaged over
+the 16 target-distributed first-round histories. Thus the stronger sufficient
+condition for beating every one-call product predictor is
+$E_{\mathrm{second}}/4<\log2-E_{\mathrm{first}}/4$.
+This gives a specific learned quantity to improve through context adaptation.
+
+A complementary local intervention flips one public parity constraint while
+holding the visible information-set values fixed. Exactly one remaining
+target flips. Orient its two logits so the required targets are respectively
+zero and one, and denote them by $\ell_0,\ell_1$. With
+$\Delta=\ell_1-\ell_0$ and $\operatorname{sp}(x)=\log(1+e^x)$,
+\begin{equation}
+ L_{\mathrm{flip}}
+ =\tfrac12\{\operatorname{sp}(\ell_0)+\operatorname{sp}(-\ell_1)\}
+ \ge \operatorname{sp}(-\Delta/2).
+ \label{eq:evidence-response}
+\end{equation}
+Convexity proves the bound, with equality when $\ell_0+\ell_1=0$.
+Small contrast imposes an error floor; a large common logit offset can still
+produce high error despite a large contrast. We therefore distinguish response
+strength from the nonnegative gap in Eq.~\eqref{eq:evidence-response}, and
+check changes on unaffected coordinates. A fixed-history response probe is a
+local diagnostic; the exact endpoint audit supplies the full history-averaged
+error. Neither this elementary bound nor a response to one constraint alone
+certifies broad long-context competence.

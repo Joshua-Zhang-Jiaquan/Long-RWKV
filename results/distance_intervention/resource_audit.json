@@ -1,0 +1,758 @@
+{
+  "observed_at": "2026-09-22T18:43:19Z",
+  "all_jobs_terminal": true,
+  "campaign_capacity": {
+    "cap": 48,
+    "project_caps": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+    },
+    "project_reserved_gpus": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 0,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 0
+    },
+    "live_reserved_gpus": 0,
+    "jobs": []
+  },
+  "jobs": [
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_balanced_seed20271011.json",
+      "job_id": "job-4f9ec5a4-8560-4054-8e8b-7218616a7346",
+      "name": "lrwkv-dist-cf7b7276-balanced_seed20271011_pathfix1",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 7320.0,
+      "scheduler_running_gpu_hours": 16.266666666666666,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 600,
+      "logged_input_tokens": 315283200,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 5848,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 92.58361833105336,
+          "mean_memory_used_percent": 25.14292985620558,
+          "mean_memory_controller_busy_percent": 31.657147742818058,
+          "fraction_samples_gpu_busy_at_least80": 0.9341655266757866
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy",
+        "approximate_steady_training_after_first_update": {
+          "samples": 5520,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 96.33387681159421,
+          "mean_memory_used_percent": 25.85612869211246,
+          "mean_memory_controller_busy_percent": 32.68423913043478,
+          "fraction_samples_gpu_busy_at_least80": 0.9757246376811595
+        },
+        "steady_window_unix_seconds": [
+          1790093837.8170044,
+          1790100741.440168
+        ],
+        "alignment": "provenance file mtime plus logged elapsed training time; excludes first update/JIT; approximate barrier alignment"
+      },
+      "logged_training_gpu_hours": 15.774942245644828
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_balanced_seed20271012.json",
+      "job_id": "job-5b49bab1-2b5a-4971-8f44-ee968a0e4a8e",
+      "name": "lrwkv-dist-cf7b7276-balanced_seed20271012",
+      "status": "job_succeeded",
+      "project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+      "gpus": 8,
+      "scheduler_running_seconds": 7322.0,
+      "scheduler_running_gpu_hours": 16.27111111111111,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 600,
+      "logged_input_tokens": 315283200,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 5856,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 91.90812841530055,
+          "mean_memory_used_percent": 25.096150934215917,
+          "mean_memory_controller_busy_percent": 31.496243169398905,
+          "fraction_samples_gpu_busy_at_least80": 0.9264002732240437
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy",
+        "approximate_steady_training_after_first_update": {
+          "samples": 5520,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 96.04148550724638,
+          "mean_memory_used_percent": 25.854838615096995,
+          "mean_memory_controller_busy_percent": 32.62753623188406,
+          "fraction_samples_gpu_busy_at_least80": 0.9735507246376811
+        },
+        "steady_window_unix_seconds": [
+          1790093554.6967225,
+          1790100454.2653303
+        ],
+        "alignment": "provenance file mtime plus logged elapsed training time; excludes first update/JIT; approximate barrier alignment"
+      },
+      "logged_training_gpu_hours": 15.767493946978615
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_balanced_seed20271013.json",
+      "job_id": "job-75a5ffc5-04ba-438b-9d5c-b9c8e8a43484",
+      "name": "lrwkv-dist-cf7b7276-balanced_seed20271013",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 7323.0,
+      "scheduler_running_gpu_hours": 16.273333333333333,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 600,
+      "logged_input_tokens": 315283200,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 5856,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 92.35758196721312,
+          "mean_memory_used_percent": 25.13887872717039,
+          "mean_memory_controller_busy_percent": 31.714822404371585,
+          "fraction_samples_gpu_busy_at_least80": 0.9264002732240437
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy",
+        "approximate_steady_training_after_first_update": {
+          "samples": 5520,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 96.01902173913044,
+          "mean_memory_used_percent": 25.854838615096995,
+          "mean_memory_controller_busy_percent": 32.62481884057971,
+          "fraction_samples_gpu_busy_at_least80": 0.9692028985507246
+        },
+        "steady_window_unix_seconds": [
+          1790093929.3510845,
+          1790100833.805704
+        ],
+        "alignment": "provenance file mtime plus logged elapsed training time; excludes first update/JIT; approximate barrier alignment"
+      },
+      "logged_training_gpu_hours": 15.777537844011354
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_eval_balanced_seed20271011.json",
+      "job_id": "job-bd9061dc-2291-4e96-a417-50028eb7aabb",
+      "name": "lrwkv-dist-eval-bb5c2eb8-balanced_seed20271011",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 438.0,
+      "scheduler_running_gpu_hours": 0.9733333333333334,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 0,
+      "logged_input_tokens": 0,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 344,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 81.30813953488372,
+          "mean_memory_used_percent": 11.580773171198365,
+          "mean_memory_controller_busy_percent": 36.47674418604651,
+          "fraction_samples_gpu_busy_at_least80": 0.8052325581395349
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_eval_balanced_seed20271012.json",
+      "job_id": "job-66707014-5b07-47b2-9609-d58238c5bc58",
+      "name": "lrwkv-dist-eval-ed6ab438-balanced_seed20271012",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 468.0,
+      "scheduler_running_gpu_hours": 1.04,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 0,
+      "logged_input_tokens": 0,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 376,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 75.06914893617021,
+          "mean_memory_used_percent": 11.028939890271316,
+          "mean_memory_controller_busy_percent": 33.276595744680854,
+          "fraction_samples_gpu_busy_at_least80": 0.6861702127659575
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_eval_balanced_seed20271013.json",
+      "job_id": "job-0a6c9b13-c3a5-4526-abe6-26846852cac1",
+      "name": "lrwkv-dist-eval-e6ef65a2-balanced_seed20271013",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 441.0,
+      "scheduler_running_gpu_hours": 0.98,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 0,
+      "logged_input_tokens": 0,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 352,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 77.64488636363636,
+          "mean_memory_used_percent": 11.533431180327906,
+          "mean_memory_controller_busy_percent": 31.619318181818183,
+          "fraction_samples_gpu_busy_at_least80": 0.7869318181818182
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_eval_near_seed20271011.json",
+      "job_id": "job-8e5dd467-0726-4706-b0d2-33da859af2b2",
+      "name": "lrwkv-dist-eval-838415a9-near_seed20271011",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 438.0,
+      "scheduler_running_gpu_hours": 0.9733333333333334,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 0,
+      "logged_input_tokens": 0,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 352,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 77.79261363636364,
+          "mean_memory_used_percent": 11.300554590151691,
+          "mean_memory_controller_busy_percent": 31.161931818181817,
+          "fraction_samples_gpu_busy_at_least80": 0.7698863636363636
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_eval_near_seed20271012.json",
+      "job_id": "job-496192da-72b6-45bd-a577-9ad2b65df411",
+      "name": "lrwkv-dist-eval-00eae4e2-near_seed20271012",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 455.0,
+      "scheduler_running_gpu_hours": 1.011111111111111,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 0,
+      "logged_input_tokens": 0,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 368,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 74.8913043478261,
+          "mean_memory_used_percent": 11.364119173263207,
+          "mean_memory_controller_busy_percent": 32.52717391304348,
+          "fraction_samples_gpu_busy_at_least80": 0.6847826086956522
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_eval_near_seed20271013.json",
+      "job_id": "job-8c99c089-8ad8-42ba-bcf0-74d45adf0dfe",
+      "name": "lrwkv-dist-eval-d5ab3388-near_seed20271013",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 438.0,
+      "scheduler_running_gpu_hours": 0.9733333333333334,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 0,
+      "logged_input_tokens": 0,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 344,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 79.88372093023256,
+          "mean_memory_used_percent": 11.770513114061814,
+          "mean_memory_controller_busy_percent": 34.26162790697674,
+          "fraction_samples_gpu_busy_at_least80": 0.811046511627907
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_eval_original.json",
+      "job_id": "job-92b6f07f-dd49-442b-8103-3dcffe3c930e",
+      "name": "lrwkv-dist-eval-0a1a5669-original",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 544.0,
+      "scheduler_running_gpu_hours": 1.208888888888889,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 0,
+      "logged_input_tokens": 0,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 432,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 63.949074074074076,
+          "mean_memory_used_percent": 10.526099488077932,
+          "mean_memory_controller_busy_percent": 27.743055555555557,
+          "fraction_samples_gpu_busy_at_least80": 0.6111111111111112
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_near_seed20271011.json",
+      "job_id": "job-065322a0-5cd6-4701-aba9-00a427fecbd9",
+      "name": "lrwkv-dist-cf7b7276-near_seed20271011_pathfix1",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 7310.0,
+      "scheduler_running_gpu_hours": 16.244444444444444,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 600,
+      "logged_input_tokens": 315283200,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 5848,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 92.23683310533515,
+          "mean_memory_used_percent": 25.124252702075687,
+          "mean_memory_controller_busy_percent": 31.709473324213405,
+          "fraction_samples_gpu_busy_at_least80": 0.9274965800273598
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy",
+        "approximate_steady_training_after_first_update": {
+          "samples": 5520,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 96.16286231884058,
+          "mean_memory_used_percent": 25.85354853808153,
+          "mean_memory_controller_busy_percent": 32.68858695652174,
+          "fraction_samples_gpu_busy_at_least80": 0.9733695652173913
+        },
+        "steady_window_unix_seconds": [
+          1790093834.4768155,
+          1790100730.9253528
+        ],
+        "alignment": "provenance file mtime plus logged elapsed training time; excludes first update/JIT; approximate barrier alignment"
+      },
+      "logged_training_gpu_hours": 15.762065604925155
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_near_seed20271012.json",
+      "job_id": "job-9fae1db9-0cc5-44c9-8e3f-d5ee9f7db605",
+      "name": "lrwkv-dist-cf7b7276-near_seed20271012_pathfix1",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 7326.0,
+      "scheduler_running_gpu_hours": 16.28,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 600,
+      "logged_input_tokens": 315283200,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 5856,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 91.23821721311475,
+          "mean_memory_used_percent": 25.096968338385494,
+          "mean_memory_controller_busy_percent": 31.456454918032787,
+          "fraction_samples_gpu_busy_at_least80": 0.914275956284153
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy",
+        "approximate_steady_training_after_first_update": {
+          "samples": 5520,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 95.56721014492754,
+          "mean_memory_used_percent": 25.854838615096995,
+          "mean_memory_controller_busy_percent": 32.6052536231884,
+          "fraction_samples_gpu_busy_at_least80": 0.9621376811594203
+        },
+        "steady_window_unix_seconds": [
+          1790093882.4430263,
+          1790100779.871642
+        ],
+        "alignment": "provenance file mtime plus logged elapsed training time; excludes first update/JIT; approximate barrier alignment"
+      },
+      "logged_training_gpu_hours": 15.76310097294963
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_near_seed20271013.json",
+      "job_id": "job-346070d6-af83-45a5-9885-ef3a5c75fb41",
+      "name": "lrwkv-dist-cf7b7276-near_seed20271013",
+      "status": "job_succeeded",
+      "project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+      "gpus": 8,
+      "scheduler_running_seconds": 7350.0,
+      "scheduler_running_gpu_hours": 16.333333333333332,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 600,
+      "logged_input_tokens": 315283200,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 5880,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 92.31139455782314,
+          "mean_memory_used_percent": 25.042939575565388,
+          "mean_memory_controller_busy_percent": 31.64030612244898,
+          "fraction_samples_gpu_busy_at_least80": 0.9255102040816326
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy",
+        "approximate_steady_training_after_first_update": {
+          "samples": 5528,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 96.22304630969609,
+          "mean_memory_used_percent": 25.854840482068074,
+          "mean_memory_controller_busy_percent": 32.61975397973951,
+          "fraction_samples_gpu_busy_at_least80": 0.9717800289435601
+        },
+        "steady_window_unix_seconds": [
+          1790095096.0334392,
+          1790102007.990429
+        ],
+        "alignment": "provenance file mtime plus logged elapsed training time; excludes first update/JIT; approximate barrier alignment"
+      },
+      "logged_training_gpu_hours": 15.79536769427359
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_qualification.json",
+      "job_id": "job-9094beb1-a56c-4484-90ae-b95196451664",
+      "name": "lrwkv-dist-cf7b7276-qualification",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 477.0,
+      "scheduler_running_gpu_hours": 1.06,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 6,
+      "logged_input_tokens": 3152832,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 384,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 35.361979166666664,
+          "mean_memory_used_percent": 14.443295395562313,
+          "mean_memory_controller_busy_percent": 17.671875,
+          "fraction_samples_gpu_busy_at_least80": 0.2864583333333333
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy",
+        "approximate_steady_training_after_first_update": {
+          "samples": 40,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 98.525,
+          "mean_memory_used_percent": 25.85612869211246,
+          "mean_memory_controller_busy_percent": 33.425,
+          "fraction_samples_gpu_busy_at_least80": 1
+        },
+        "steady_window_unix_seconds": [
+          1790092924.7382,
+          1790092982.1700172
+        ],
+        "alignment": "provenance file mtime plus logged elapsed training time; excludes first update/JIT; approximate barrier alignment"
+      },
+      "logged_training_gpu_hours": 0.5626975127071556
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/failed_attempts/plan_balanced_seed20271011.json",
+      "job_id": "job-fdcb201c-9e31-4b29-af5a-1e6885e34d78",
+      "name": "lrwkv-dist-cf7b7276-balanced_seed20271011",
+      "status": "job_failed",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 16.0,
+      "scheduler_running_gpu_hours": 0.035555555555555556,
+      "initial_launch_failed_before_model_load": true,
+      "logged_updates": 0,
+      "logged_input_tokens": 0,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 16,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 0.0,
+          "mean_memory_used_percent": 0.28514633578145887,
+          "mean_memory_controller_busy_percent": 0.0,
+          "fraction_samples_gpu_busy_at_least80": 0
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/failed_attempts/plan_near_seed20271011.json",
+      "job_id": "job-75ee9833-eb4c-4e30-bdba-ae81baa24655",
+      "name": "lrwkv-dist-cf7b7276-near_seed20271011",
+      "status": "job_failed",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 27.0,
+      "scheduler_running_gpu_hours": 0.06,
+      "initial_launch_failed_before_model_load": true,
+      "logged_updates": 0,
+      "logged_input_tokens": 0,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 16,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 0.125,
+          "mean_memory_used_percent": 0.28514633578145887,
+          "mean_memory_controller_busy_percent": 0.0,
+          "fraction_samples_gpu_busy_at_least80": 0
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/failed_attempts/plan_near_seed20271012.json",
+      "job_id": "job-af500844-f6a9-432e-835e-10cb3446a2c0",
+      "name": "lrwkv-dist-cf7b7276-near_seed20271012",
+      "status": "job_failed",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "gpus": 8,
+      "scheduler_running_seconds": 18.0,
+      "scheduler_running_gpu_hours": 0.04,
+      "initial_launch_failed_before_model_load": true,
+      "logged_updates": 0,
+      "logged_input_tokens": 0,
+      "utilization": {
+        "entire_observed_job": {
+          "samples": 16,
+          "gpus": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "mean_gpu_busy_percent": 0.0,
+          "mean_memory_used_percent": 0.28514633578145887,
+          "mean_memory_controller_busy_percent": 0.0,
+          "fraction_samples_gpu_busy_at_least80": 0
+        },
+        "definition": "nvidia-smi GPU busy is not achieved FLOP utilization; memory used/total differs from memory-controller busy"
+      }
+    },
+    {
+      "plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention_cost/plan_attention.json",
+      "job_id": "job-42969bb1-7ece-4356-ab87-4297ad46ad49",
+      "name": "lrwkv-distcost-2b23e9c2",
+      "status": "job_succeeded",
+      "project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+      "gpus": 8,
+      "scheduler_running_seconds": 142.0,
+      "scheduler_running_gpu_hours": 0.31555555555555553,
+      "initial_launch_failed_before_model_load": false,
+      "logged_updates": 0,
+      "logged_input_tokens": 0,
+      "utilization": null
+    }
+  ],
+  "total_scheduler_running_gpu_hours": 106.34,
+  "total_logged_training_input_tokens": 1894852032,
+  "accounting": "Includes qualification, original evaluation, all fixed adaptations/evaluations, matched cost and failed launch receipts; scheduler running time excludes queue reservation; logged training time excludes model initialization and teardown"
+}

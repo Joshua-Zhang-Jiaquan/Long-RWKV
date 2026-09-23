@@ -1,9 +1,0 @@
-COMMAND: python -m pytest -q scale/tests/nonlatent_iclr/test_qualification_controls.py scale/tests/nonlatent_iclr/test_qualification_cli.py
-WORKDIR: /inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY
-EXIT_CODE: 0
-OUTPUT:
-Running 6 items in this shard
-......                                                                   [100%]
-6 passed in 0.44s
-
-SCOPE NOTE: These six tests import only the CPU-safe controls/CLI surface. They do not import the staged model, torch, FLA, or CUDA and therefore do not prove GPU/model/cache behavior.

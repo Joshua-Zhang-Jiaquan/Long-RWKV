@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Dataset & $n$ & $\Delta$ (pp; 95\% CI) & F2 only & RWKV only \\
+\midrule
+RACE & 4887 & -0.74 [-1.74, +0.25] & 278 & 314 \\
+OpenBookQA & 500 & -5.40 [-9.00, -2.00] & 28 & 55 \\
+MMLU-Redux & 5700 & -4.07 [-5.04, -3.09] & 288 & 520 \\
+\bottomrule
+\end{tabular}
+\caption{F2 step 14000 minus released RWKV-7 2.9B: accuracy differences in percentage points (pp), with 95\% paired-document percentile bootstrap intervals (10000 resamples; seed 20270921). The final columns count documents answered correctly only by the indicated model. Pairing uses exact document IDs at evaluation seed 42. Intervals describe item-sampling uncertainty for fixed checkpoints; pretraining and training budgets are unmatched, so differences are not causal effects.}
+\label{tab:basic-ability-contrasts}
+\end{table}

@@ -1,0 +1,26 @@
+\subsection{Four-bit curriculum audit: competence and forgetting}
+At the fixed 700-update curriculum boundary, both ordinary-corruption objectives achieve approximately 83\% deterministic-bit accuracy when the two families are pooled. Exact information-set sampling reveals a different family-level result (Table~\ref{tab:dev700exact}): systematic constraints are almost always satisfied at $N=4$, whereas paired-parity validity remains near its $2^{-N/2}$ chance baseline. At $N=2$, parity validity has returned to approximately 50\%, including for the soft-target model whose 300-update checkpoint attained 99.91\%. Thus the earlier small-task success was not retained during the four-bit curriculum. These are fixed development checkpoints from one data seed, not confirmatory replications. The $N=8$ rows are transfer diagnostics before the terminal eight-bit training phase; they do not replace that phase.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{llrrr}
+\toprule
+Objective & Family & $N$ & Endpoint KL & Valid mass (\%) \\
+\midrule
+Hard & Parity & 2 & 0.6971 & 50.002 \\
+Hard & Systematic & 2 & 0.0042 & 99.952 \\
+Hard & Parity & 4 & 1.3961 & 24.965 \\
+Hard & Systematic & 4 & 0.0120 & 99.862 \\
+Hard & Parity & 8 & 2.7937 & 6.229 \\
+Hard & Systematic & 8 & 2.7207 & 48.931 \\
+Soft & Parity & 2 & 0.6956 & 50.002 \\
+Soft & Systematic & 2 & 0.0012 & 100.000 \\
+Soft & Parity & 4 & 1.3931 & 24.979 \\
+Soft & Systematic & 4 & 0.0048 & 100.000 \\
+Soft & Parity & 8 & 2.7874 & 6.235 \\
+Soft & Systematic & 8 & 15.2007 & 22.338 \\
+\bottomrule
+\end{tabular}
+\caption{Exact development information-set sampling at update 700. Each row averages eight condition draws; valid outputs are enumerated exactly. Dependence cost is zero, so all reported endpoint KL is denoiser estimation error. Small-dimension condition draws can repeat prompts and structures, as in the preceding curriculum audit.}
+\label{tab:dev700exact}
+\end{table}

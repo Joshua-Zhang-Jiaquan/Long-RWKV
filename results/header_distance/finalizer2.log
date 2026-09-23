@@ -1,0 +1,25 @@
+{"role": "balanced_seed20271011", "validated": true, "conditions": 192}
+{"role": "near_seed20271013", "validated": true, "conditions": 192}
+{"role": "balanced_seed20271013", "validated": true, "conditions": 192}
+{
+  "manifest_sha256": "e467d6a45a7266bc2c60a0cbf9619694bd1daf837c954f4c141c63db24c26c5c",
+  "conditions": 1152,
+  "endpoint_laws": 2304,
+  "primary": {
+    "mean": 7.626609112043967,
+    "ci95": [
+      6.908102286434451,
+      8.301452193489855
+    ],
+    "problems": 32
+  },
+  "primary_positive_interval": true,
+  "primary_direction_positive_all_seeds": true,
+  "balanced_primary_and_near_control_below_product_floor": {
+    "20271011": true,
+    "20271012": true,
+    "20271013": true
+  },
+  "scope": "Fresh prompts from a previously observed structure catalog, conditional on six fixed adaptation checkpoints and one selected starting lineage; inference layout intervention does not separate components of the earlier training treatment.",
+  "stronger_interpretation_supported": true
+}

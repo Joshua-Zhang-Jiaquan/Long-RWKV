@@ -1,0 +1,49 @@
+{
+  "validated": [
+    "near_seed20271011",
+    "balanced_seed20271011",
+    "near_seed20271012",
+    "balanced_seed20271012",
+    "near_seed20271013",
+    "balanced_seed20271013",
+    "original"
+  ],
+  "jobs": [
+    {
+      "role": "near_seed20271011",
+      "job_id": "job-42893271-fcef-472a-8527-ce2d64047075",
+      "status": "job_succeeded"
+    },
+    {
+      "role": "balanced_seed20271011",
+      "job_id": "job-13b90e10-2dca-4a2d-a50a-a10c47015be0",
+      "status": "job_succeeded"
+    },
+    {
+      "role": "near_seed20271012",
+      "job_id": "job-ead276a7-4aa6-484d-a641-52d0b536c1f3",
+      "status": "job_succeeded"
+    },
+    {
+      "role": "balanced_seed20271012",
+      "job_id": "job-a6a22c20-a4f8-4cb1-842e-4b0f638ae30c",
+      "status": "job_succeeded"
+    },
+    {
+      "role": "near_seed20271013",
+      "job_id": "job-6759fcdb-f7ba-4680-aa2e-5d848e3eac40",
+      "status": "job_succeeded"
+    },
+    {
+      "role": "balanced_seed20271013",
+      "job_id": "job-7f779845-c0f3-4ef7-a39e-7d584562829c",
+      "status": "job_succeeded"
+    },
+    {
+      "role": "original",
+      "job_id": "job-df0f86a7-a59b-448b-8b5d-79cb1a02b895",
+      "status": "job_success_reserving"
+    }
+  ],
+  "updated_at": "2026-09-23T03:27:54Z"
+}

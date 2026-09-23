@@ -1,0 +1,62 @@
+\section{Separating instruction-header and task-block positions}
+\label{app:header-distance}
+The training-distance intervention moves instructions and task information
+together. A separately frozen inference experiment tests whether the balanced
+models retain their advantage when the generic instruction header stays
+nearby and the task-bearing block moves far away. This intervenes on inference
+layout; it does not separately identify the contributions of instruction and
+task distance in the preceding training treatment.
+
+\paragraph{Independent fixed slots and fresh problems.}
+We draw 32 paired-parity problems with seed 2026092301 and use all six fixed
+adaptation checkpoints. These public prompts have no overlap with the previous
+32-problem panel, but use the previously observed held-out structure catalog.
+The 24-token generic instruction header and 88-token task block move between
+independent far and near slots. The latter block contains coordinate names,
+equations and output-order metadata; this is not an intervention on syndrome
+distance alone. The native prefix has 16,383 tokens and the answer footer
+remains fixed. Unoccupied slots contain deterministic groups of whole archive
+records with exactly matching token lengths. Swapping a block with its filler
+preserves the complete token multiset and the other block's exact position.
+All four header/task-position combinations are tested. Two additional legacy
+far/near layouts retain the original serializer on the same new problems,
+measuring any effect of regrouping irrelevant records in the fixed-slot design.
+
+\paragraph{Prediction and analysis.}
+Position does not change the target dependence term: $D_{\mathrm{info}}=0$.
+Thus, with $h$ the header position and $t$ the task position,
+\begin{equation}
+ \mathrm{KL}_{\mathrm{info}}(h,t)=E(h,t),\qquad
+ P(h)=E(h,\mathrm{far})-E(h,\mathrm{near}).
+\end{equation}
+The primary contrast is near-trained minus balanced-trained error at
+$(h,t)=(\mathrm{near},\mathrm{far})$. We additionally report the task-distance
+penalty $P(h)$ at each header position, header penalties at each task position,
+their factorial interaction, training-arm differences and legacy discrepancies.
+The predeclared stronger interpretation requires a positive primary interval,
+positive direction in all three matched seeds, and balanced mean error below
+$4\log2$ in both nearby-header cells for every seed. A positive arm contrast
+alone need not yield a useful two-pass predictor.
+
+All 16 target histories and one-call/information-set endpoint laws are evaluated
+for every condition. Ten thousand paired problem-bootstrap draws use seed
+2026092302, preserving pairing across models and layouts. Intervals remain
+conditional on these six checkpoints and the selected starting lineage.
+The standard numerical screen is supplemented by repeated/cross-rank checks
+of all four split layouts with both all-masked and visible-history inputs.
+Every cell and control is retained regardless of accuracy.
+
+\input{results/header_distance/paper_results.tex}
+
+\paragraph{What the factorial test identifies.}
+Because $D$ is fixed, these layout contrasts are changes in learned conditional
+error, not changes in the target's dependence structure. The positive primary
+contrast shows that the training-arm advantage survives with nearby
+generic instructions; it does not imply that header position has no effect.
+Fixed token multisets control content and length, but moving blocks necessarily
+changes sequence order. In particular, the co-located versus legacy contrasts
+measure sensitivity to regrouping irrelevant records even with the same
+meaningful-block positions. We therefore interpret the result as a test of
+competence under the declared layouts, not proof of a unique memory or retrieval
+circuit. It neither separates all components of the earlier training treatment
+nor adds a new architecture-level cost comparison.

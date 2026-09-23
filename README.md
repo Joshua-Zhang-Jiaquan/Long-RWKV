@@ -1,117 +1,54 @@
-# Long-RWKV
+# Long-RWKV: when do linear-cost diffusion passes help with long contexts?
 
-Code, contracts, and receipts for the paper **"Depth-Recycled Recurrent Diffusion for
-Long-Context Agent Workloads"** — an independent study of whether a *non-latent*,
-bidirectionally-scanned recurrent diffusion model gains from depth recycling at long
-context, and whether any such gain survives equal-compute controls.
+A standalone paper and evidence release for **When Do Linear-Cost Diffusion Passes Help with Long Contexts?** This branch contains the completed controlled study of a 455M bidirectional RWKV denoiser. The repository's `main` branch contains a different research program; its results are not pooled here.
 
-The repository is the code half of that paper. It is **self-contained**: a clone runs
-its own test suite, verifies its own evidence chain, and needs nothing from the cluster
-that produced it.
+**[Read the paper](build/Long_RWKV_ICLR2027.pdf)** · [Detailed delivery notes](PAPER_DELIVERY.md) · [Claim boundaries](results/header_distance/CLAIM_AUDIT.md) · [Reproduction guide](REPRODUCIBILITY.md)
 
----
+The mechanism is conditional: linear-cost recurrence makes repeated full-context scans affordable, and diffusion reduces discarded answer dependence when learned conditional predictions remain accurate. The paper supplies a testable cost–error criterion and controlled interventions, using the established decomposition `KL = discarded dependence + conditional prediction error`.
 
-## What is and is not in here, and why
+| Evidence | Measured result |
+|---|---|
+| Matched 16K training-position intervention | Far-error reduction **6.051 nats [5.392, 6.735]**, positive in all three adaptation seeds; 1,008 conditions. |
+| Equal-call reveal-policy intervention | Balanced models' gain matches `4 ln 2` within **1.3e-4 nats**. |
+| Exhaustive evidence flips | Far paired-CE reduction **1.478 [1.327, 1.637]** across 43,008 paired interventions; rare collateral errors retained. |
+| Fresh instruction/task-position test | With nearby instructions and distant task information, reduction **7.627 [6.908, 8.301]**; 1,152 conditions. |
+| Restricted quality–cost certificate | Recurrent two-call time **1.30s**, declared attention two-call time **2.00s**, under a **1.5s mean budget**; all three balanced models pass. |
 
-This is a **research repository under active execution**, not a release. Its most
-important property is that it does not overstate what has been measured.
+Intervals resample paired problems conditional on the observed checkpoints and selected starting lineage. All six adaptations share one selected starting checkpoint. The tasks are synthetic; structure catalogs are reused. Distractor order affects outcomes, and exhaustive probes find three collateral errors among 55,296 unaffected-target comparisons. There is no demonstrated memory advantage, natural-language superiority, or official-kernel parity. The attention comparison uses measured cost and an analytic one-call product lower bound, not measured attention answer quality.
 
-The paper's confirmatory claims — a depth-recycling quality gain, a long-context macro
-improvement, a serving goodput gain — are **registered and not yet measured**. The
-program is blocked at the point where those measurements would be taken, and the
-blockers are recorded rather than worked around. What *is* established, with evidence
-in `DAN/nonlatent_iclr/` and `.omo/evidence/`, is:
+## Verify the evidence on a CPU
 
-| Task | State | What it establishes |
-| --- | --- | --- |
-| 1 | complete | Historical-evidence audit; **some previously reported decode conclusions weakened** |
-| 2 | complete | Corrected metric reanalysis; valid NLL observations retained separately |
-| 3 | complete | Architecture contract — 102 tests, `whole_architecture_ready: false` preserved |
-| 4 | complete | RULER / LongBench / 200 rights-cleared repository tasks; 3,600-unit token matrix |
-| 6 | complete | Bounded throughput calibration (8/8 H100 ranks) and the allocation ledger |
-| 5, 7–18, F1–F4 | **not run** | Preregistration, training, long-context, serving, theory, release |
-
-No unavailable evidence is replaced with a fixture or an assumed result anywhere in this
-repository. Where a cell is missing, it is missing and labelled.
-
----
-
-## Layout
-
-```
-scale/experiments/nonlatent_iclr/   the experiment harness: contracts, tasks,
-                                    qualifications, registries, CLI
-scale/tests/nonlatent_iclr/         its test suite (600 tests)
-scale/data/                         canonical record + split primitives it needs
-scale/eval/capability/sandbox.py    process-level evaluator sandbox
-DAN/v7_arch_round/                  the model and trainer (BiRWKV-7 diffusion),
-                                    architecture spec, run spec, configs
-DAN/nonlatent_iclr/                 canonical artifacts the paper cites:
-                                    architecture_contract.json, task_registry.json,
-                                    allocation_ledger.json, metric_corrections.json,
-                                    task4_assets/ (the rights-cleared task panel)
-.omo/evidence/…                     per-attempt receipts, hash-bound
-paper/                              the manuscript
-```
-
-`parents[3]` from `scale/experiments/nonlatent_iclr/` resolves to this repo's root, and
-several modules read `DAN/…` and `.omo/evidence/…` relative to it — **the layout above is
-load-bearing, not cosmetic.**
-
----
-
-## Running it
-
-**Python 3.12 or newer is required.** The package uses PEP 695 `type` statements
-(`type HexDigest = Annotated[...]`), which are a `SyntaxError` on 3.11. Note that the
-sibling `scratch_1b` program in the parent tree pins 3.11.9 — a different stack for a
-different experiment line. Getting this wrong produces a confusing collection error
-rather than a version complaint, which is why it is called out here.
+Python 3.11 or 3.12 is recommended for the pinned NumPy environment. No GPU, PyTorch, credentials, model weights, sibling repository, or cluster mount is needed for these commands:
 
 ```bash
-python3 -m pip install -r requirements.txt
-
-# Portable run: no cluster artifacts needed.
-# Expect ~485 passing and ~115 skipping with a stated reason.
-PYTHONPATH=. python3 -m pytest scale/tests/nonlatent_iclr -q
-
-# Complete run: point the three roots at prepared artifacts and all 600 run.
-export NONLATENT_MODEL_DIR=/path/to/models/RWKV7-Goose-World3-2.9B-HF
-export NONLATENT_WORKER_ROOT=/path/to/nonlatent_iclr_qualification
-export NONLATENT_EXTERNAL_ROOT=/path/to/global_user
-PYTHONPATH=. python3 -m pytest scale/tests/nonlatent_iclr -q
+python -m venv .venv
+.venv/bin/python -m pip install -r requirements-dev.txt
+.venv/bin/python -m pytest -q
+.venv/bin/python tools/verify_evidence.py
+.venv/bin/python tools/verify_release.py
 ```
 
-The three `NONLATENT_*` variables are the only host-specific configuration. The external
-artifacts they point at — model weights, cluster worker outputs — are large, are not
-redistributable from here, and are deliberately **not** committed. When they are absent
-the affected tests **skip with a reason** rather than fail, so the suite never reports a
-pass it did not earn.
+The evidence checker decompresses **168 raw rank files**, verifies their original SHA256 bindings, recomputes endpoint/response arithmetic and all three primary paired intervals, recovers the collateral-error count, and checks all six empirical cost certificates. The release checker verifies file completeness, preserved source stages and manuscript inputs. These checks validate the included measurements; they do not rerun neural inference or certify a broader population claim.
 
----
+## Rebuild the paper
 
-## What a clone can and cannot verify
+Install a TeX distribution providing `pdflatex`, the usual math/graphics packages, `microtype`, `natbib`, `fancyhdr` and `eso-pic`, plus `ripgrep`. Then:
 
-**Can:** the architecture contract and its rejections, the task registry and its
-replay-derived fields, the tokenizer and length qualifications, the metric-correction
-chain, the allocation ledger's arithmetic and its planted-violation refusals, the CLI's
-happy and failure paths, and the source-drift checks that bind evidence to the exact
-sources that produced it.
+```bash
+bash build_focused.sh
+```
 
-**Cannot, without the external roots:** the tests that replay against real model weights
-or against recorded cluster worker output. Those are exactly the 115 skips.
+The paper has 19 pages: main text through page8, references through page9, appendices thereafter. The supplied PDF is the visually reviewed artifact. Rebuilding changes PDF metadata and may change its file hash; the release check consequently treats the sealed original as authoritative. This release is not a conference submission or a claim of acceptance.
 
-## A note on modification
+## Repository map
 
-The evidence in this repository is **hash-bound**: receipts record the digests of the
-sources and artifacts they were produced from, and the test suite re-checks those
-bindings. Editing hashed source would break the provenance the receipts exist to prove,
-so the sources are byte-identical to the ones that produced the evidence. Where a test
-depended on a host-specific absolute path, the *test* was made portable (env override +
-skip) rather than the code being rewritten — the fix belongs on the side that has no
-provenance claim. `SELF_CONTAINMENT.md` records precisely what was changed.
+- `Long_RWKV_ICLR2027.tex`, `paper/`, `build/`: current paper, style and reviewed PDF.
+- `results/`: complete tables, exact collected results, limitations, failed-attempt receipts and historical audits.
+- `evidence/raw/`: byte-preserving compressed predictions and relocation index.
+- `evidence/run_records/`: training traces, completion receipts and GPU traces.
+- `lrwkv_evidence/`, `theory_mvp/`: original task, training, evaluation and analysis sources. Frozen files remain unchanged.
+- `reproduction/stages/`: four immutable execution stages, including the local `longrwkv` implementation and its dependencies within this project.
+- `tools/`, `tests_portable/`, `release_checks/`: portable verification, local evaluation launcher and release validation.
+- `qz/`, `tests/`: original cluster orchestration and historical test sources. These are archival, not the default portable entry points.
 
-## Citing
-
-See `paper/` and `CITATION.cff`. Nothing here is a released result; cite the paper, not
-the intermediate receipts.
+GPU training/inference requires separately supplied base weights, tokenizer and selected checkpoints. Checkpoint hashes and exact recorded software versions are included; trained weights are not distributed in this Git repository. See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for the distinction between offline verification and rerunning the model.

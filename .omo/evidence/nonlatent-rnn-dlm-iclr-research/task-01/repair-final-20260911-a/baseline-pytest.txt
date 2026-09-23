@@ -1,5 +1,0 @@
-$ python -m pytest -q scale/tests/nonlatent_iclr/test_audit_cli.py
-Running 13 items in this shard
-.............                                                            [100%]
-13 passed in 0.37s
-exit_code=0

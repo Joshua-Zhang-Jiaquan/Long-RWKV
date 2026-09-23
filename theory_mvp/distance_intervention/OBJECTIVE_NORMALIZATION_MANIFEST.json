@@ -1,0 +1,8 @@
+{
+  "scope": "Normalization of frozen two-policy training objective; no change to estimands or training; checked before adapted endpoint outputs",
+  "files": {
+    "theory_mvp/distance_intervention/BALANCED_OBJECTIVE.md": "5a168e43a637cf993cc16f999399ac9a8e18c52388eff4c570bc00f7182bd327",
+    "paper/distance_objective_normalization.tex": "9f1b2a261031bd8292d62dc29cd400109cb9d360121520243815e7888208f80d",
+    "tests/test_distance_objective_normalization.py": "801c56444d856061aa530a7dbea8cfb7f43bd2da754428b83d59d222e05f86e7"
+  }
+}

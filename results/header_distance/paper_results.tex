@@ -1,0 +1,46 @@
+\paragraph{Results.}
+All 1,152 conditions and 2,304 endpoint laws are validated. The primary error reduction is 7.6266 nats, with conditional 95\% interval [6.9081, 8.3015].
+The individual adaptation-seed effects are 12.4718, 7.6350, 2.7730 nats.
+The predeclared stronger-interpretation criteria are satisfied.
+Table~\ref{tab:header-distance} includes every layout and both legacy controls.
+\begin{table}[t]
+\centering\small
+\caption{Information-set KL for independent header/task positions, averaged over 32 fresh problems. FF, FN, NF and NN denote header then task position (far or near). Legacy controls use the original whole-block layouts. Seed suffixes identify the same six fixed adaptations used throughout. All entries are nats.}
+\label{tab:header-distance}
+\begin{tabular}{lrrrrrr}
+\toprule
+Model & FF & FN & NF (primary) & NN & Legacy far & Legacy near\\
+\midrule
+Near 11 & 13.63 & 0.000134 & 12.47 & 6.82e-05 & 9.544 & 6.704e-05\\
+Balanced 11 & 1.235e-05 & 7.123e-06 & 1.344e-05 & 8.588e-06 & 4.081e-05 & 8.635e-06\\
+Near 12 & 9.621 & 1.706e-06 & 7.635 & 1.017e-06 & 7.282 & 1.03e-06\\
+Balanced 12 & 3.114e-06 & 3.535e-06 & 3.845e-06 & 4.145e-06 & 4.248e-06 & 4.131e-06\\
+Near 13 & 2.773 & 8.744e-06 & 2.773 & 7.057e-06 & 2.773 & 7.17e-06\\
+Balanced 13 & 9.141e-05 & 6.024e-05 & 0.0001524 & 0.0001064 & 8.012e-05 & 0.0001063\\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[t]
+\centering\small
+\caption{Complete factorial contrasts within each checkpoint. $P_F,P_N$ are task-distance penalties with far/near header; $H_F,H_N$ are header-distance penalties with far/near task. $I=P_F-P_N$. All are paired mean KL differences in nats.}
+\label{tab:header-factorial}
+\begin{tabular}{lrrrrr}
+\toprule
+Model & $P_F$ & $P_N$ & $H_F$ & $H_N$ & $I$\\
+\midrule
+Near 11 & 13.63 & 12.47 & 1.162 & 6.583e-05 & 1.162\\
+Balanced 11 & 5.229e-06 & 4.854e-06 & -1.09e-06 & -1.465e-06 & 3.743e-07\\
+Near 12 & 9.621 & 7.635 & 1.986 & 6.886e-07 & 1.986\\
+Balanced 12 & -4.214e-07 & -2.999e-07 & -7.315e-07 & -6.1e-07 & -1.216e-07\\
+Near 13 & 2.773 & 2.773 & 0.0002761 & 1.687e-06 & 0.0002744\\
+Balanced 13 & 3.117e-05 & 4.6e-05 & -6.103e-05 & -4.62e-05 & -1.483e-05\\
+\bottomrule
+\end{tabular}
+\end{table}
+Reduction in task-distance penalty with nearby header: 7.6266 nats [6.9081, 8.3015].
+Reduction in task-distance penalty with distant header: 8.6760 nats [7.7375, 9.6152].
+The largest absolute mean co-located-versus-legacy discrepancy is 4.09 nats; these controls quantify the additional distractor regrouping.
+\paragraph{Scope and resources.}
+This test uses fresh prompts within the existing catalog and existing training lineage. The task-bearing block includes mapping and output-order information, so the contrast does not isolate factual retention from every other task requirement. No new latency certificate, independent training replication or natural-language result is claimed.
+The six completed evaluations and one stopped startup attempt use 6.60 additional H100-hours. All are terminal; peak reservation is 48 GPUs within the primary32 plus extra16 allocation. The stopped attempt produced no predictions and was manually replaced with the same frozen evaluation; its scheduler reports zero runtime despite startup logs.
+Across completed jobs, whole-job mean GPU busy is 55.1--80.7\%, and memory occupancy is 6.6--8.1\%. GPU busy is not achieved FLOP utilization. These measurements include startup, numerical screens and waiting for slower ranks; they do not satisfy an 80\% utilization target.

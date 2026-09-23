@@ -1,0 +1,612 @@
+\documentclass{article}
+\usepackage{iclr2027_conference,times}
+\usepackage[T1]{fontenc}
+\usepackage{microtype,amsmath,amssymb,amsthm,booktabs,tabularx,graphicx}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newcommand{\KL}{\operatorname{KL}}
+\newcommand{\TC}{\operatorname{TC}}
+\newcommand{\E}{\mathbb E}
+\newcommand{\mask}{\mathtt{[MASK]}}
+\title{When Do Linear-Cost Diffusion Passes\\Help with Long Contexts?}
+\author{Anonymous authors}
+\begin{document}
+\maketitle
+\begin{abstract}
+Linear-cost recurrent denoisers can make repeated long-context diffusion
+passes affordable, but inexpensive passes need not improve the answer law.
+We formulate a cost--error criterion separating dependence discarded by
+parallel sampling from error in learned conditional predictions, and derive
+exact supervision-coverage constants for the controlled reveal policies.
+We test a 455M-parameter bidirectional RWKV denoiser on binary posterior tasks
+with exact endpoint probabilities. A fixed context adaptation improves
+1K behavior and some 4K conditions, but fails the predeclared 16K aggregate:
+two-call joint KL exceeds one-call KL by 12.72 nats, with a paired 95\%
+interval of $[9.97,15.81]$. On matched 16K inputs, two-call recurrent execution
+averages 1.30 seconds versus 2.00 seconds for two-call softmax attention.
+The latency conditions hold, while the learned-error condition fails.
+All 640 frozen accuracy conditions and both checkpoint selectors are retained.
+These results support a narrow account of when extra calls are useful;
+they do not establish a general long-context quality advantage.
+\end{abstract}
+
+\section{Introduction}
+Long-context generation must both extract distant evidence and coordinate the
+answer tokens that depend on it. Linear attention and recurrent sequence mixers
+reduce the arithmetic required to process a long input. Masked diffusion offers
+a separate mechanism: successive calls condition unrevealed answer positions on
+tokens revealed earlier. Our hypothesis is that combining these mechanisms can
+produce a useful accuracy--cost operating point: cheaper full-context scans may
+make informative additional denoising calls affordable.
+
+The two mechanisms require separate evidence. Linear sequence scaling does not
+guarantee low request latency, and additional calls do not guarantee better
+predictions. In particular, a denoiser that ignores previously revealed answer
+tokens cannot recover their dependencies merely by executing more calls. Nor
+does rereading a long prompt prove that its distant evidence was used. We study
+these questions with one recurrent model, one controlled task generator, and a
+same-checkpoint intervention on the reveal schedule.
+
+The contribution is an experimentally testable cost--error criterion
+and its evaluation with learned recurrent conditionals. We use established
+conditional-divergence accounting rather than claiming a new KL chain rule.
+Likewise, recurrent and linear-attention diffusion already have precedents.
+A combined advantage requires both learned long-context competence and a
+measured cost advantage. In the tested 16K regime, the cost conditions hold
+but the conditional-error requirement fails. Broad checkpoint benchmarks and earlier posterior adaptation
+studies are supporting evidence, summarized in Appendix~\ref{app:prior}.
+
+\section{Setting and implementation}
+Let $c$ contain $H$ clamped context/query tokens and let $Y\in\{0,1\}^N$ be the
+answer. The context is retained in full. A denoising call reads the context and
+the current answer canvas, then returns a binary marginal at each answer
+position. Previously revealed positions are preserved. For a fixed ordered
+partition $\pi=(B_1,\ldots,B_K)$, positions in $B_k$ are independently sampled
+using the model predictions conditioned on earlier reveals
+$Y_{V_k}$, where $V_k=\bigcup_{j<k}B_j$. The partition is chosen independently
+of the sampled values. This is the endpoint law audited below; confidence-ranked
+argmax decoding is a different law.
+
+\paragraph{Recurrent denoiser.}
+The main model adapts the released approximately 0.4B RWKV-7 backbone
+\citep{rwkv7} into a tied bidirectional denoiser with 455,010,304 trainable
+parameters. Each call rebuilds transient recurrent states from the current
+canvas. It does not carry a scan's terminal state into the next diffusion call.
+RWKV-7 is a generalized delta-rule recurrent mixer with linear sequence-length
+arithmetic at fixed width; it is not an exact implementation of softmax
+attention. We retain the distinction between recurrence implementing a chosen
+finite-feature kernel \citep{lineartransformer} and replacing that kernel by a
+learned generalized-delta operator.
+
+\paragraph{Training.}
+The short-task curriculum first trains two-bit absorbing denoising for 300
+updates, then a mixture of ordinary denoising and information-set histories
+at four bits through update 700 and eight bits through update 1,500.
+A further 1,000 updates supervise paired information-set histories.
+Exact conditional soft targets remove avoidable label noise. The policy loss
+supervises only the positions revealed at the selected round; future values
+are not inputs. The absorbing construction follows masked discrete diffusion
+\citep{d3pm,mdlm}. Three data/corruption seeds and both independent and
+complementary history branches are retained. The long-context study selects
+a competent terminal checkpoint and evaluates a fixed 200-update context
+adaptation. This is controlled task adaptation, not language-model pretraining.
+
+\section{A cost--error criterion}
+Fix $c$ and write $P=P_c$. For each reveal group define
+\begin{align}
+ D_\pi(c)&=\sum_k\E_{Y_{V_k}\sim P}
+ \KL\!\left(P(Y_{B_k}\mid Y_{V_k},c)\,\middle\Vert\,
+       \prod_{i\in B_k}P(Y_i\mid Y_{V_k},c)\right),\\
+ E_{M,\pi}(c)&=\sum_k\sum_{i\in B_k}\E_{Y_{V_k}\sim P}
+ \KL\!\left(P(Y_i\mid Y_{V_k},c)\,\middle\Vert\,
+       q_M^i(Y_i\mid Y_{V_k},c)\right).
+\end{align}
+The first term is dependence discarded by independent within-group sampling;
+the second is error in the learned conditional marginals. With positive model
+probability on the target support, the chain rule gives
+\begin{equation}
+ \KL(P_c\Vert Q_{M,\pi,c})=D_\pi(c)+E_{M,\pi}(c).
+ \label{eq:decomposition}
+\end{equation}
+Conditional total correlation and factorization error are established tools
+for analyzing parallel discrete sampling
+\citep{factorization2025,ctcdepth2026,intrinsicdependence2026}.
+Our use of Eq.~\eqref{eq:decomposition} is diagnostic and predictive: it identifies
+the learned quantity that an affordable extra pass must improve.
+
+\begin{proposition}[Same-checkpoint intervention]
+For two fixed reveal policies, multiple calls improve forward KL over one call
+if and only if
+\begin{equation}
+ E_{M,\mathrm{multi}}(c)-E_{M,\mathrm{one}}(c)
+ <D_{\mathrm{one}}(c)-D_{\mathrm{multi}}(c).
+ \label{eq:intervention}
+\end{equation}
+\end{proposition}
+\begin{proof}
+Subtract the two instances of Eq.~\eqref{eq:decomposition}.
+\end{proof}
+
+\paragraph{Supervision must cover the inference histories.}
+The estimation term also depends on which histories receive supervision.
+Let $\mu_\pi$ select a target-distributed policy history and one of the $N$
+coordinate predictions uniformly, and let $\nu$ be normalized training
+supervision on the same context distribution. If
+$d\mu_\pi/d\nu\le\kappa$, then
+$E_{M,\pi}\le N\kappa\,\mathcal R_\nu$, where $\mathcal R_\nu$ is excess
+conditional cross-entropy above the oracle entropy floor. This standard
+change-of-measure bound does not hold with a finite uniform constant for
+uncovered histories. Appendix~\ref{app:coverage} gives a counterexample in
+which two-call excess error is zero while eight-call error is arbitrarily large.
+It also explains why raw minibatch loss is not a held-out competence certificate.
+For the implemented eight-stage absorbing objective, the exact worst-case
+coverage ratio is $1024$ for either the information-set or sequential policy.
+Adding equal-weight information-set supervision reduces its own ratio below
+$2$, while the sequential ratio remains about $1988$.
+These are population risk-conversion constants, not sample-complexity lower
+bounds or guarantees that optimization attains a small risk.
+
+
+Let $C_M(\pi,c)$ denote measured full-request cost in a specified unit. At fixed
+layer count and widths, recurrent mixing has $O(K(H+N))$ arithmetic, while
+dense softmax mixing has $O(K(H+N)^2)$ arithmetic. Projections, vocabulary heads,
+scan directions, precision, and hardware constants remain part of request
+cost. FlashAttention reduces memory traffic without making dense attention
+arithmetic linear \citep{flashattention}. The asymptotic distinction motivates
+the experiment; it does not supply a measured speedup.
+
+\begin{proposition}[Budget certificate for a declared policy set]
+Suppose a budget $B$ permits recurrent model $R$'s multiple-call policy and
+attention model $A$'s one-call policy, but excludes all other policies in $A$'s
+declared comparison set. If
+\begin{equation}
+ D_{\mathrm{multi}}(c)+E_{R,\mathrm{multi}}(c)<D_{\mathrm{one}}(c),
+ \label{eq:certificate}
+\end{equation}
+then the feasible recurrent policy has smaller forward KL than the feasible
+attention one-call product sampler.
+\end{proposition}
+\begin{proof}
+The recurrent KL is the left-hand side. Every one-call product sampler has KL
+at least $D_{\mathrm{one}}$, since its estimation error is nonnegative.
+\end{proof}
+For a declared context law $\rho$, the same argument applies to
+$\mathbb E_\rho C_M$ and $\mathbb E_\rho\KL$ by averaging both sides.
+Our empirical-panel check uses this mean-cost, mean-KL version; it supplies
+neither a per-request deadline nor pointwise quality guarantees.
+
+The comparison is restricted to the declared policies and measured budget. It
+does not exclude more efficient untested attention implementations, correlated
+output heads, context-dependent or randomized mixtures of the declared
+policies, or a causal sampler. In particular, cached causal RWKV also admits
+a dependence-free sequential factorization and need not reread the prefix for
+each output token.
+
+\paragraph{The missing long-context link.}
+Increasing $H$ does not itself change the dependence among $N$ answer tokens.
+The learned error $E_{M,\pi}(H,\mathrm{location})$ must be measured as evidence
+moves farther from the query. Bounds in generated length $N$ cannot establish
+an advantage in clamped context length $H$. Our claim would be supported only
+where conditional competence and the measured cost conditions hold together.
+
+\section{A minimal decisive experiment}
+\subsection{Paired conditional tasks}
+Each public input specifies eight named output coordinates and four independent
+binary linear equations. Output slots retain their public coordinate labels.
+A base problem is paired across its exact original short prompt and requested
+1K, 4K, and 16K native-token contexts. Whole irrelevant archive records are
+inserted before and after the original instruction/evidence block, placing it
+near, midway, or far from the answer. The final answer footer remains next to
+the output. Actual token lengths, record counts, and block spans are recorded;
+whole-record packing can undershoot the requested length slightly.
+Reported context lengths count prefix tokens; public labels add a fixed
+$O(N)$ output scaffold. Moving instructions and equations together does not
+isolate factual retention from instruction retention.
+
+The \emph{systematic} control fixes four coordinates and leaves four independent
+fair bits, so $D_\pi=0$ for every policy. The \emph{paired-parity} family instead
+specifies four disjoint two-coordinate equations. After a public coordinate
+permutation, its uniform posterior has the form
+\begin{equation}
+ Y=(U,U\mathbin{\mathrm{XOR}}v),\qquad
+ U\sim\operatorname{Uniform}(\{0,1\}^4).
+\end{equation}
+Both families have 16 valid outputs. For paired parity, one-call sampling
+loses $4\log2$ nats of dependence. Revealing an information set, then its
+complement, has zero within-group dependence error. The information set is
+computed from the public equation structure; it does not use a sampled answer.
+This deliberately controlled task tests the proposed mechanism rather than
+open-ended text generation.
+
+\begin{corollary}[Concrete learned-error threshold]
+If the eight conditional marginal KL errors of the two-call sampler average
+at most $\epsilon(H)$, then
+\begin{equation}
+ \KL(P_c\Vert Q_{R,\mathrm{two},c})\le8\epsilon(H),\qquad
+ Q_{R,\mathrm{two},c}(\operatorname{supp}P_c)\ge e^{-8\epsilon(H)}.
+\end{equation}
+If $\epsilon(H)<\log(2)/2$, it has strictly smaller forward KL than every
+one-call product sampler on this target law.
+\end{corollary}
+Validity is reported alongside KL within the valid support: a concentrated
+sampler can be valid while failing the uniform target distribution.
+
+\input{paper/distance_intervention_theory.tex}
+
+\subsection{Interventions and implementation costs}
+The primary intervention holds the learned checkpoint and complete input fixed,
+changing only the reveal policy: one call, two information-set calls, or two
+calls that each reveal two intact dependent pairs. The two-call policies have
+equal group sizes. Let $m_\pi$ count pairs revealed within the same group.
+Then $D_\pi=m_\pi\log2$, and exact oracle marginal sampling has valid mass
+$2^{-m_\pi}$. The intact-pair policy therefore has $D=4\log2$ and oracle
+validity $1/16$, whereas the information-set policy has $D=0$ and oracle
+validity one. Learned estimation error is measured for both policies; equal
+call count does not guarantee equal conditional competence. The observed
+contrast therefore contains both dependence and estimation terms; it is not
+an isolated causal measurement of dependence error alone.
+
+Exact enumeration of the 16 target-support endpoints gives joint forward KL,
+valid mass, within-valid KL, and the $D/E$ decomposition. Earlier short-task
+experiments also retain random partitions and sequential reveals
+(Appendix~\ref{app:prior}). In particular, sequential factorization has $D=0$
+but can fail when its conditional histories are poorly learned.
+
+The matched 16K cost check compares the recurrent denoiser with a
+405M-parameter Pythia bidirectional softmax denoiser on the same public
+conditions. Native pretraining and tokenizers differ; at equal native-token
+budgets, irrelevant-record counts also differ. These are practical costs,
+not an architecture-causal quality ablation. An earlier separate-task screen
+also includes causal RWKV with prefix prefill and cached steps
+(Appendix~\ref{app:lookup}). Each batch-one request uses one H100; ranks
+process independent conditions. Full requests include every
+denoising call or the causal prefill, with warmup and CUDA synchronization.
+Shared audit caches are never used for timing. Cached and full causal
+predictions pass the declared numerical tolerance under IEEE arithmetic.
+
+\subsection{Selection and frozen fresh-condition evaluation}
+The earlier three-seed campaign learns the paired posterior only for seed 71;
+seeds 53 and 89 remain near chance. We therefore explicitly select the fixed
+seed-71 independent terminal checkpoint for a conditional mechanism study,
+while retaining all six outcomes. A fresh eight-condition development probe
+first checks short competence, then measures every long-context cell.
+The one bounded follow-up preserves the task and labelled output format:
+200 fixed updates at global batch 32, learning rate $10^{-5}$ with 20-update
+warmup, using 25\% short and 75\% 1K inputs and the original independent paired
+information-set objective. Its discarded 20-update GPU qualification passes
+on all eight ranks. All 2,500 auxiliary training updates remain part of the
+model's history; adaptation starts with a fresh optimizer.
+
+Before this new evaluation produces model outputs, we freeze 16 base problems
+per family, test seed 20271001, all ten length/position cells, and both fixed
+checkpoint selectors: the original model and its terminal 200-update
+adaptation. Every cell is retained regardless of short-task performance.
+The test structure catalog was used in the earlier campaign, so this is a
+fresh-condition assessment within a previously observed held-out catalog,
+conditional on a selected training lineage. It is not an untouched-structure
+test or evidence about reliability across training seeds.
+
+The primary estimand is information-set improvement over one call in paired
+parity at 16K, averaging the three evidence positions within each base problem.
+We also report the equal-call contrast, valid mass, all cells, and each gain's
+interaction with short context. Pointwise 95\% percentile intervals use
+10,000 bootstrap draws over base problems, retaining all policies, lengths,
+positions, and both checkpoints together. No endpoints are discarded and no
+sample extension depends on significance. All 640 conditions across the two checkpoints are complete and validated.
+Exact public prompts have no overlap with the earlier confirmation panel
+or the eight-condition development probe.
+
+\section{Results and limitations}
+\paragraph{Learning at the trained length does not ensure extrapolation.}
+Before context adaptation, paired-parity information-set KL is 0.0407 nats
+on the fresh short-input panel. At 1K, it rises to 28.53 and 29.66 for far and
+middle public blocks, while remaining 0.383 for nearby blocks. The fixed
+200-update adaptation reduces these 1K errors to 0.0127, 0.0185, and 0.0121,
+with valid mass 0.9922, 0.9897, and 0.9928. Thus the model can learn useful
+conditional predictions at the trained length.
+
+At 4K, adapted information-set KL is 1.842, 0.992, and 0.148 for far, middle,
+and near placements. The mean gains over one call are positive, but the
+far-position gain interval includes zero: 0.931 nats with interval
+$[-0.587,2.046]$. At 16K, information-set KL rises to 21.83, 21.41, and 3.245.
+Figure~\ref{fig:final} retains every length and position. Improving in-distribution
+conditional predictions does not imply that the same error budget holds at
+a longer, untrained context length.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{results/posterior_context_final/mechanism_final.pdf}
+\caption{Frozen fresh-condition results for the information-set policy.
+Each cell averages 16 paired-parity problems; bands are pointwise 95\%
+problem-bootstrap intervals. The dashed KL line is the one-call product
+lower bound $4\log2$, and the dashed validity line is $1/16$.
+Both checkpoints share the selected seed-71 training lineage.}
+\label{fig:final}
+\end{figure}
+
+\paragraph{The primary 16K criterion fails.}
+Averaging evidence positions within each problem, two calls worsen KL relative
+to one call by 11.309 nats before adaptation and 12.723 afterward
+(Table~\ref{tab:primary}). Both paired intervals exclude zero in the unfavorable
+direction. The adaptation's change in two-call KL itself is inconclusive at
+this aggregate: KL reduction $-1.390$, interval $[-5.448,2.678]$.
+We do not interpret a larger point estimate as a reliable overall degradation.
+
+\begin{table}[t]
+\centering\small
+\caption{Predeclared 16K paired-parity aggregate, equally weighting positions
+within each of 16 problems. KL gain is one-call minus two-call KL;
+positive is favorable. Intervals concern problems, not training seeds.}
+\resizebox{\linewidth}{!}{\input{results/posterior_context_final/paper_table.tex}}
+\label{tab:primary}
+\end{table}
+
+Validity alone gives a different impression. Two calls increase average valid
+mass over one call by 0.257 before adaptation and 0.175 afterward, despite the
+worse forward KL. A model can put appreciable mass on valid answers while
+strongly distorting their uniform target distribution. Reporting within-valid
+KL and full endpoint KL prevents this from being mistaken for a better
+posterior sampler.
+
+The equal-call intact-pair control also illustrates the role of estimation.
+After adaptation, the information-set policy improves mean 16K KL over that
+control by 18.685 nats, interval $[16.326,21.392]$. Only $4\log2=2.773$ nats
+of this contrast is the prescribed dependence reduction; the remaining
+15.912 nats is the difference in learned estimation errors. Thus the
+same-call intervention does not isolate dependence error alone.
+The successful information-set histories and poorly learned alternative
+histories are consistent with the coverage analysis, without proving a
+particular internal cause.
+
+\paragraph{Matched-task cost conditions hold; the quality certificate does not.}
+Before collecting these timings or observing the adapted final outcomes, we
+fix a 1.5-second mean-request budget. The cost check uses the same 16
+paired-parity problems and three 16K placements, with one separate warmup and
+ten complete timed requests per condition and policy. The recurrent checkpoint
+is the fixed 200-update adaptation; the Pythia adapter is its previously
+qualified 20-update checkpoint. Attention accuracy is not measured: the
+comparison uses the analytic lower bound for any one-call product sampler.
+
+Mean recurrent latencies are 0.650 seconds for one call and 1.300 seconds for
+the information-set two-call policy. Attention takes 1.000 and 1.998 seconds,
+respectively; its intact-pair two-call policy takes 1.999 seconds. The
+pointwise problem-bootstrap intervals for the information-set costs are
+$[1.298,1.302]$ and $[1.993,2.004]$ seconds. Hence the predeclared budget permits
+recurrent two-call and attention one-call execution while excluding both
+other declared attention policies. Nevertheless recurrent mean KL is 15.496,
+well above the $4\log2=2.773$ sufficient threshold. The empirical-panel
+certificate fails its quality condition. This failure does not determine the
+unmeasured attention model's actual KL.
+
+These are mean-cost measurements, not per-request deadline or broad population
+guarantees. Peak allocated memory is 4.125 GiB for recurrent two-call execution
+and 2.234 GiB for attention; this implementation establishes no memory advantage.
+The earlier auxiliary screen finds attention faster at 1K and 4K and cached
+causal RWKV cheaper at 16K (Appendix~\ref{app:lookup}); a linear arithmetic
+count alone does not imply universal speed superiority.
+
+\paragraph{Scope of the evidence.}
+The completed earlier three-seed study learns dependence only for seed 71;
+all four seed-53 and seed-89 branches remain near chance. The selected-lineage
+results here do not establish reliable learning across seeds. The task has
+a short binary answer law, public equation structure, and synthetic distractors.
+It does not establish broad language-model quality or a learned scheduler.
+The context is retained in full, so the result does not show recovery of
+information discarded by a state-only memory system. The implementation uses
+FLA RWKV kernels; numerical and document-isolation checks pass, while parity
+with the official RWKV implementation remains unverified.
+
+The measured boundary is concrete: inexpensive additional scans help only
+when their conditional predictions remain accurate enough. The tested
+adaptation achieves this at 1K and in some 4K conditions, but the primary
+16K quality--cost criterion is not met. The completed experiment therefore
+illustrates the criterion and its limitations; it does not support the intended broad
+long-context superiority claim.
+
+\section{Related work}
+Masked discrete diffusion supplies the probabilistic construction
+\citep{d3pm,mdlm}. Linear Transformers separate a finite-feature kernel from its
+recurrent implementation \citep{lineartransformer}; RWKV-7 develops the
+generalized delta-rule recurrence used here \citep{rwkv7}. DiffuMamba,
+Triplet-Block Diffusion RWKV, and retrofitted linear-attention diffusion already
+combine efficient sequence mixers with diffusion
+\citep{diffumamba,triplet,retrofit}. We therefore do not claim the first recurrent
+diffusion language model. Analyses of factorized masked diffusion and
+conditional total correlation already address parallel sampling error
+\citep{factorization2025,ctcdepth2026,intrinsicdependence2026}.
+Information-theoretic discrete diffusion also connects denoising losses with
+mutual information and conditional likelihood \citep{infodiscrete2025}.
+Our contribution is a controlled, cost-accounted test of a specific
+operating-point criterion and an explicit coverage analysis. The negative
+16K result delimits what the tested learned conditionals support.
+
+\input{theory_mvp/focused_paper/references.tex}
+\clearpage
+\appendix
+\section{Auxiliary lookup adaptation and cost inputs}
+\label{app:lookup}
+A separate development task supplies key--value records and a query key, with
+disjoint train/development/test key banks. Retrieval asks for the queried
+four-bit value repeated twice; the dependent task asks for
+$(U,U\mathbin{\mathrm{XOR}}v)$. The 600-update recipe uses global batch 32,
+200 short-context updates followed by 400 at 1K, with equal ordinary-denoising
+and two-round-history objectives. Starting from the released checkpoint,
+information-set validity at update 600 is 0.999964 for retrieval and 0.062652
+for dependence (KL 0.000036 and 2.788015 nats). The archived update-200 model
+already shows the same separation, with validity 0.999997 and 0.063186.
+
+Starting this adaptation from the competent seed-71 posterior checkpoint
+also fails its short gate: at update 600, retrieval validity is 0.562927 and
+dependent validity is 0.092507 (KL 0.678439 and 2.607604). This changes both
+public syntax and labelled output slots to a contiguous binary suffix, so it
+does not isolate initialization or context length. Both fixed outcomes are
+retained; no long accuracy sweep or full baseline task training follows their
+failed gates. These results motivated preserving the learned interface in the
+main context probe.
+
+The separate cost screen uses the released-initialization 600-update RWKV
+checkpoint and discarded 20-update qualification checkpoints for the Pythia
+and causal RWKV adapters. It retains every declared input/policy cost even
+though the accuracy gates fail. Precision is FP32/IEEE with TF32 disabled;
+all long-length numerical checks pass. These timing results do not establish
+a joint quality--cost certificate for the changed labelled-equation panel.
+The separate-task mean two-call times at 1K/4K/16K are
+0.279/0.417/1.302 seconds for recurrent execution and
+0.056/0.217/2.000 seconds for attention. Cached causal RWKV takes
+0.416/0.445/0.729 seconds. The matched-task 16K check in the main text
+therefore supplies the relevant cost evidence for its own labelled inputs.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{results/long_context_mvp/cost_comparison_development.pdf}
+\caption{Supporting lookup-task request-cost screen. Whiskers span condition
+means, not confidence intervals. Native tokenizers differ. This figure measures
+no answer quality and is separate from the matched-task main-text check.}
+\end{figure}
+
+
+\section{Exact endpoint accounting}
+For a fixed partition the target factorizes by groups, while the model
+factorizes within groups:
+\[
+ P(y\mid c)=\prod_k P(y_{B_k}\mid y_{V_k},c),\qquad
+ Q(y\mid c)=\prod_k\prod_{i\in B_k}q^i(y_i\mid y_{V_k},c).
+\]
+Insert and subtract $\sum_{k,i\in B_k}\log P(y_i\mid y_{V_k},c)$ inside
+$\E_P\log(P/Q)$. The two resulting terms are exactly $D_\pi$ and $E_{M,\pi}$.
+The averages use target histories, not model rollout histories. Enumerating
+valid target support therefore suffices for forward KL; it does not estimate
+the probability of invalid paths by omitting them. Their total mass is obtained
+by subtracting the exactly summed valid endpoint probability from one.
+
+For valid support $S$ and $V=Q(S)>0$,
+\[
+ \KL(P\Vert Q)=-\log V+\KL(P\Vert Q(\cdot\mid S)).
+\]
+Nonnegativity gives $V\ge e^{-\KL(P\Vert Q)}$. For the dependent task the
+first four bits are independent and the second group is deterministic given
+the first and the public value; hence $D_{\rm two}=0$. Each individual bit is
+fair and the answer entropy is $4\log2$, so $D_{\rm one}=8\log2-4\log2$.
+This proves the concrete threshold and validity certificate.
+
+For a general partition of the four independent pairs, a pair revealed in
+different groups is sampled as one fair bit followed by a deterministic
+conditional bit, contributing zero dependence error. Oracle conditionals on
+impossible target histories may be extended arbitrarily: once a committed
+history violates a completed pair, it cannot lead to a valid endpoint. A pair revealed within
+one group is sampled as two fair bits and contributes $\log2$, with probability
+$1/2$ of satisfying its equation. Independence across pairs proves
+$D_\pi=m_\pi\log2$ and oracle validity $2^{-m_\pi}$. Among the 70 uniformly
+selected four/four partitions, the counts for $m_\pi=0,2,4$ are 16,48,6.
+Consequently expected dependence is $(12/7)\log2$ and expected oracle validity
+is $227/560$. These are analytic predictions; they are not learned-model
+measurements or a substitute for the fixed realized partitions in the audit.
+
+\section{History coverage and conditional excess risk}
+\label{app:coverage}
+A prediction query $z$ includes the public context, visible coordinates and
+values, target coordinate, and model stage input. Write $e(z)$ for its
+conditional marginal KL. Then $E_{M,\pi}=N\mathbb E_{\mu_\pi}e(z)$.
+If $\mu_\pi\ll\nu$ with density ratio at most $\kappa$,
+\[
+ E_{M,\pi}=N\mathbb E_\nu\!\left[\frac{d\mu_\pi}{d\nu}e(z)\right]
+ \le N\kappa\mathbb E_\nu e(z).
+\]
+The expectation on the right is supervised cross-entropy minus the exact
+conditional-entropy floor. Both sides must use the same context law; this is
+not a generalization bound from training keys to test keys or longer contexts.
+For balanced two-round supervision on the eight-bit task, population excess
+risk is $E_{M,\mathrm{info}}/8$. If this objective has mixture weight $\alpha$,
+nonnegativity of the other objective's excess risk gives
+$E_{M,\mathrm{info}}\le(8/\alpha)\mathcal R_{\mathrm{mixture}}$.
+A family-specific guarantee requires its conditional context law, rather than
+using the combined-family risk without adjusting for the sampling probability.
+
+For the necessity of coverage, set predictions to the exact oracle on the
+empty and first-four-visible histories used by the information-set policy.
+On its unvisited one-bit-visible history, give the next, still-fair bit
+probability $\varepsilon$ of being one. Leave other predictions at the oracle.
+The two-call KL is zero, but sequential KL includes
+\[
+ \KL(\operatorname{Bern}(1/2)\Vert\operatorname{Bern}(\varepsilon))
+ =-\log2-\tfrac12\log[\varepsilon(1-\varepsilon)]\longrightarrow\infty.
+\]
+Both policies have $D=0$. Ordinary denoising can supply coverage, but rare
+histories may leave a large density ratio. The observed seed-71 policy mismatch
+is compatible with this argument; it does not identify its internal causal
+mechanism or establish a long-context effect.
+
+
+\paragraph{Exact mask-coverage constants.}
+Generalize the implemented objective to $N$ uniformly sampled stages,
+masking probability $p=t/N$, and weight $1/t$ per masked coordinate.
+For a particular mask $M$ and $i\in M$, the normalized supervision weight is
+$p^{|M|}(1-p)^{N-|M|}/(Nt)$. A policy query has weight $1/N$ and uses stage
+$t=|M|$, giving density ratio
+\[
+ \frac{t}{(t/N)^t(1-t/N)^{N-t}}.
+\]
+For an even-$N$ balanced two-round policy, the sharp maximum is
+$(N/2)2^N$, attained in round two; round one has ratio $N$.
+At $N=8$, equal mixing with information-set supervision yields
+$\kappa_{\rm info}=2048/1025<2$, but
+$\kappa_{\rm sequential}\approx1988.411$ for the canonical first-four
+information set (and $2048$ for a last-four information set), while
+$\kappa_{\rm pair\text{-}preserving}=2048$.
+Enumeration of all masks verifies these constants. The corresponding bound
+on total estimation error is $N\kappa\mathcal R_\nu$.
+This quantifies a limitation of changing inference policies after training.
+It is a worst-case coverage statement about answer length $N$, not an actual
+sample-complexity lower bound, an explanation proved for a particular trained
+network, or an advantage in context length $H$.
+
+\input{paper/distance_objective_normalization.tex}
+
+\section{Earlier checkpoint and posterior evidence}
+\label{app:prior}
+The frozen F2 checkpoint study contains 52,800 accepted synthetic examples per
+model across supplied lengths 16K, 32K, and 64K. F2 and released causal RWKV
+obtain 15 and 14 exact matches. Conditional macro accuracies are 0.030864\%
+and 0.028807\%; their difference is 0.002058 percentage points, with a paired
+conditional 95\% bootstrap interval of $[-0.020576,0.024691]$. Sixty unsupported
+cells are exclusions. Evidence-only controls yield zero correct and zero
+parseable answers out of 72 per model. These outcomes do not isolate retention.
+
+In a separate 455M development study, two branches initialized from the same
+seed-17 parent receive independent or complementary policy histories. At
+update 2,500, information-set parity KL is 2.800646 and 2.772621 nats, with
+valid mass 0.062189 and 0.062500. Complementary histories improve calibration
+but do not recover dependence beyond the $1/16$ valid-mass baseline. The
+three-seed frozen replication is complete; all six terminal branches are retained. The seed-71 independent
+and complementary branches reach information-set KL 0.007372 and 0.101755
+nats, with valid mass 0.996466 and 0.973031. However, their eight-call sequential
+policies have KL 11.447909 and 14.174383 nats: more calls alone do not deliver
+the learned conditional law. All four seed-53 and seed-89 branches remain near the $1/16$
+valid-mass baseline. These fixed-terminal outcomes support a narrow existence
+claim for learned dependence under the supervised policy, while exposing
+training-seed and policy-history sensitivity. A successful seed does not establish
+reliable task learning across seeds. These parity tasks
+differ from the new lookup-conditioned local-pair task and are not pooled with it.
+
+\begin{table}[h]
+\centering\small
+\caption{All fixed-terminal short-task replication branches: information-set
+paired-parity endpoints on the frozen 54-condition panel.}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Seed & Independent KL & Valid mass & Complementary KL & Valid mass\\
+\midrule
+53 & 2.773932 & 0.062501 & 2.772756 & 0.062500\\
+71 & 0.007372 & 0.996466 & 0.101755 & 0.973031\\
+89 & 2.773184 & 0.062499 & 2.772615 & 0.062500\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+Full checkpoint panels, prior theory derivations, training histories, raw
+provenance, and numerical qualifications remain in the separately preserved
+F2 study and experiment records. None completes the focused empirical test.
+\end{document}

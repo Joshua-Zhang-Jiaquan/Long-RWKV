@@ -1,0 +1,7 @@
+{
+  "random_normalized_predictors": 100,
+  "identity_and_upper_bound_passed": true,
+  "min_slack": 11.69693802458395,
+  "max_slack": 26.62540575254949,
+  "scope": "Arithmetic check, not empirical evidence from a trained model"
+}

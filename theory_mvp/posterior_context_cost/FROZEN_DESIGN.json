@@ -1,0 +1,40 @@
+{
+  "budget_seconds": 1.5,
+  "context_tokens": 16384,
+  "design_text_sha256": "a18267ab39851a7741e129e6a94de0f0aa5e34cd6ddbec4d6d2860d8209dd58e",
+  "final_design_sha256": "14dc97c882daa788232abff63a5197333d138e1135e04e3d360870c6e4e0d361",
+  "indices": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    19,
+    21,
+    23,
+    25,
+    27,
+    29,
+    31
+  ],
+  "methods": [
+    "one",
+    "information_set",
+    "pair_preserving_halves"
+  ],
+  "positions": [
+    "far",
+    "middle",
+    "near"
+  ],
+  "sources": {
+    "lrwkv_evidence/posterior_context_cost/__init__.py": "0d07fae38d28b8ad5337365254485ad1583693e17ede78cd4bce8974dffdf91c",
+    "lrwkv_evidence/posterior_context_cost/worker.py": "950496115f74f8d91f662831f219cb402d2d3720c28894e7304ec23dbcd77bc1",
+    "qz/launch_posterior_context_cost.sh": "cbfa79346bd222c4c59ec69cba601d1511455ffc9005cd08f7b10cc84d3c10c7"
+  },
+  "timing_repeats": 10
+}

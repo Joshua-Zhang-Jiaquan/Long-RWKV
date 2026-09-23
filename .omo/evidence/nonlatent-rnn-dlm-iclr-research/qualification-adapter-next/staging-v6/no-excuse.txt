@@ -1,5 +1,0 @@
-/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-06-global-ffaa464d-adapter-v6/scale/experiments/nonlatent_iclr/full_canvas.py:99:22: [no-object] `object` as type annotation — use Protocol, TypeVar, or union
-/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-06-global-ffaa464d-adapter-v6/scale/experiments/nonlatent_iclr/full_canvas.py:100:18: [no-object] `object` as type annotation — use Protocol, TypeVar, or union
-/inspire/hdd/global_user/zhangjiaquan-253108540222/nonlatent_iclr_qualification/payloads/qualification-20260913-06-global-ffaa464d-adapter-v6/scale/experiments/nonlatent_iclr/full_canvas.py:100:46: [no-object] `object` as type annotation — use Protocol, TypeVar, or union
-
-3 violation(s) in 6 file(s)

@@ -1,0 +1,156 @@
+{
+  "complete": true,
+  "jobs": [
+    {
+      "job_id": "job-4f9ec5a4-8560-4054-8e8b-7218616a7346",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790093401000,
+      "finished_ms": 1790100770000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-5b49bab1-2b5a-4971-8f44-ee968a0e4a8e",
+      "status": "job_succeeded",
+      "project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+      "created_ms": 1790093100000,
+      "finished_ms": 1790100475000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-75a5ffc5-04ba-438b-9d5c-b9c8e8a43484",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790093465000,
+      "finished_ms": 1790100859000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-bd9061dc-2291-4e96-a417-50028eb7aabb",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790100846000,
+      "finished_ms": 1790101321000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-66707014-5b07-47b2-9609-d58238c5bc58",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790100762000,
+      "finished_ms": 1790101253000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-0a6c9b13-c3a5-4526-abe6-26846852cac1",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790100882000,
+      "finished_ms": 1790101379000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-8e5dd467-0726-4706-b0d2-33da859af2b2",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790100823000,
+      "finished_ms": 1790101317000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-496192da-72b6-45bd-a577-9ad2b65df411",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790101282000,
+      "finished_ms": 1790101766000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-8c99c089-8ad8-42ba-bcf0-74d45adf0dfe",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790102073000,
+      "finished_ms": 1790102540000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-92b6f07f-dd49-442b-8103-3dcffe3c930e",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790092712000,
+      "finished_ms": 1790093325000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-065322a0-5cd6-4701-aba9-00a427fecbd9",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790093380000,
+      "finished_ms": 1790100752000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-9fae1db9-0cc5-44c9-8e3f-d5ee9f7db605",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790093420000,
+      "finished_ms": 1790100804000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-346070d6-af83-45a5-9885-ef3a5c75fb41",
+      "status": "job_succeeded",
+      "project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+      "created_ms": 1790093120000,
+      "finished_ms": 1790102033000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-9094beb1-a56c-4484-90ae-b95196451664",
+      "status": "job_succeeded",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790092464000,
+      "finished_ms": 1790093004000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-fdcb201c-9e31-4b29-af5a-1e6885e34d78",
+      "status": "job_failed",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790093060000,
+      "finished_ms": 1790093150000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-75ee9833-eb4c-4e30-bdba-ae81baa24655",
+      "status": "job_failed",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790093040000,
+      "finished_ms": 1790093153000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-af500844-f6a9-432e-835e-10cb3446a2c0",
+      "status": "job_failed",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "created_ms": 1790093080000,
+      "finished_ms": 1790093154000,
+      "gpus": 8
+    },
+    {
+      "job_id": "job-42969bb1-7ece-4356-ab87-4297ad46ad49",
+      "status": "job_succeeded",
+      "project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+      "created_ms": 1790100499000,
+      "finished_ms": 1790101569000,
+      "gpus": 8
+    }
+  ],
+  "peak_queued_or_running_gpus": 48,
+  "project_peaks": {
+    "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+    "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+  },
+  "method": "Sweep authoritative created-to-finished intervals, counting queued and running reservations; finishes precede starts at equal scheduler timestamps. Admission receipts independently check each launch.",
+  "resolution": "Scheduler timestamp precision; no claim about sub-timestamp ordering."
+}

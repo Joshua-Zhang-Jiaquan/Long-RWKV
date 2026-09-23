@@ -1,0 +1,15 @@
+\begin{table}[ht]
+\centering\small
+\caption{Analytical reference laws on the frozen confirmation parity panel (32 conditions over 16 structures). These are not trained-model results. Oracle values use exact conditional marginals; the product reference uses only the initial marginals and ignores revealed history. KL is in nats and validity in percent.}
+\label{tab:confirmationoracle}
+\begin{tabular}{lrrrr}
+\toprule
+Policy & Oracle KL & Oracle valid (\%) & Product KL & Product valid (\%) \\
+\midrule
+One round & 2.772589 & 6.2500 & 2.772589 & 6.2500 \\
+Information set & 0.000000 & 100.0000 & 2.772589 & 6.2500 \\
+Random halves & 1.299651 & 33.2031 & 2.772589 & 6.2500 \\
+Sequential & 0.000000 & 100.0000 & 2.772589 & 6.2500 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "status": "Activated after completed four-arm N8 audit review; GPU qualification pending",
+  "serialization": "public output labels beside value slots v1",
+  "target": "unchanged original N8 conditional law and canonical split",
+  "parent": "corresponding phase300 original checkpoint and optimizer",
+  "seed": 17,
+  "initial_seed": 0,
+  "curriculum": {
+    "301-700": 4,
+    "701-1500": 8
+  },
+  "qualification": "stop320:20 N4 updates discarded; research runs restart from original phase300 parent",
+  "global_batch": 32,
+  "lr": 3e-05,
+  "objectives": [
+    "hard",
+    "rao_blackwell"
+  ],
+  "mask_laws": [
+    "ordinary",
+    "mixture"
+  ],
+  "precision": "FP32 tensors; PyTorch TF32 off; original Triton backend default retained for matched comparison",
+  "test_access": false,
+  "gpu_cap": 32,
+  "additional_cost": "longer public-label input; record actual global input tokens",
+  "selected_objective": "rao_blackwell"
+}

@@ -1,0 +1,365 @@
+OK   lrwkv-header-9cdb1219-near_seed20271011 job_id=job-404ff755-23fc-44cf-9f26-392f1fda7c77
+{
+  "stage": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_header_distance_stages/9cdb1219c8333f90",
+  "out": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_9cdb1219c8333f90_near_seed20271011",
+  "role": "near_seed20271011",
+  "training_plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_near_seed20271011.json",
+  "checkpoint": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271011_pathfix1/resume.pt",
+  "checkpoint_sha256": "3a79d25b13ce2a75ae8cac4e432dd220ad4951304ab5703aa4a8cb38c946dd27",
+  "manifest_sha256": "e467d6a45a7266bc2c60a0cbf9619694bd1daf837c954f4c141c63db24c26c5c",
+  "compiled_cache_seed": {
+    "created_utc": "2026-09-22T16:43:58Z",
+    "source_evaluation_plan": "results/distance_intervention/plan_eval_original.json",
+    "source_cache": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/triton_ieee_cache",
+    "cache": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430",
+    "seed_manifest": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430_seed_manifest.json",
+    "seed_manifest_sha256": "6decbd33e46d70ee9bf15cd8c65832033d6ac554790506c7f6f62bfd852357b4",
+    "initial_files": 2632,
+    "scope": "Reuse only compiled cache from completed identical evaluation runtime, FP32/IEEE, H100SM90. Every adapted checkpoint retains fresh repeat/cross-rank numerical screening and timing warmups. Cache misses compile normally; no source, model, precision, input, policy, or measured request change."
+  },
+  "capacity": {
+    "cap": 48,
+    "project_caps": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+    },
+    "project_reserved_gpus": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 0,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 0
+    },
+    "live_reserved_gpus": 0,
+    "jobs": []
+  },
+  "budget_project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+  "submission": {
+    "state": "submitted",
+    "name": "lrwkv-header-9cdb1219-near_seed20271011",
+    "job_id": "job-404ff755-23fc-44cf-9f26-392f1fda7c77",
+    "at": "2026-09-23T04:18:22Z",
+    "returncode": 0,
+    "tail": "7f362064baa6d02ddf39d35ca.json\"; export TRITON_F32_DEFAULT=\"ieee\"; export TRITON_CACHE_DIR=\"/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430\"; bash /inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_header_distance_stages/9cdb1219c8333f90/qz/launch_header_distance.sh'\n  logic_compute_group_id: lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e\n"
+  }
+}
+OK   lrwkv-header-d15b4bad-balanced_seed20271011 job_id=job-e4949ff4-94ac-4906-9f7a-660f7e823864
+{
+  "stage": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_header_distance_stages/d15b4bad7b2d7a2b",
+  "out": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_d15b4bad7b2d7a2b_balanced_seed20271011",
+  "role": "balanced_seed20271011",
+  "training_plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_balanced_seed20271011.json",
+  "checkpoint": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271011_pathfix1/resume.pt",
+  "checkpoint_sha256": "6770ce1883f6482e591917925c1f4de4f047ad637c483bb0b51da6c60a05566c",
+  "manifest_sha256": "e467d6a45a7266bc2c60a0cbf9619694bd1daf837c954f4c141c63db24c26c5c",
+  "compiled_cache_seed": {
+    "created_utc": "2026-09-22T16:43:58Z",
+    "source_evaluation_plan": "results/distance_intervention/plan_eval_original.json",
+    "source_cache": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/triton_ieee_cache",
+    "cache": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430",
+    "seed_manifest": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430_seed_manifest.json",
+    "seed_manifest_sha256": "6decbd33e46d70ee9bf15cd8c65832033d6ac554790506c7f6f62bfd852357b4",
+    "initial_files": 2632,
+    "scope": "Reuse only compiled cache from completed identical evaluation runtime, FP32/IEEE, H100SM90. Every adapted checkpoint retains fresh repeat/cross-rank numerical screening and timing warmups. Cache misses compile normally; no source, model, precision, input, policy, or measured request change."
+  },
+  "capacity": {
+    "cap": 48,
+    "project_caps": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+    },
+    "project_reserved_gpus": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 8,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 0
+    },
+    "live_reserved_gpus": 8,
+    "jobs": [
+      {
+        "job_id": "job-404ff755-23fc-44cf-9f26-392f1fda7c77",
+        "name": "lrwkv-header-9cdb1219-near_seed20271011",
+        "status": "job_creating",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      }
+    ]
+  },
+  "budget_project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+  "submission": {
+    "state": "submitted",
+    "name": "lrwkv-header-d15b4bad-balanced_seed20271011",
+    "job_id": "job-e4949ff4-94ac-4906-9f7a-660f7e823864",
+    "at": "2026-09-23T04:18:40Z",
+    "returncode": 0,
+    "tail": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_header_distance_stages/d15b4bad7b2d7a2b/qz/launch_header_distance.sh'\n  description: Fresh32problems x fixed header/task2x2 plus legacy controls; six fixed adaptations;8H100 under48cap\n  gpu_count: 0\n  priority: 20\n  specified_nodes:\n  enable_slow_detect: false\n  task_priority: 4\n  enable_notification: false\n  envs:\n  framework: pytorch\n"
+  }
+}
+OK   lrwkv-header-c204bf1f-near_seed20271012 job_id=job-1824c349-37f8-4324-9009-a3da12d6b8c8
+{
+  "stage": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_header_distance_stages/c204bf1f7a97873a",
+  "out": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_c204bf1f7a97873a_near_seed20271012",
+  "role": "near_seed20271012",
+  "training_plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_near_seed20271012.json",
+  "checkpoint": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271012_pathfix1/resume.pt",
+  "checkpoint_sha256": "1caba6a6a402616a0a2f4f64f6ceb4547b5109db9c2501b278b58d87de488243",
+  "manifest_sha256": "e467d6a45a7266bc2c60a0cbf9619694bd1daf837c954f4c141c63db24c26c5c",
+  "compiled_cache_seed": {
+    "created_utc": "2026-09-22T16:43:58Z",
+    "source_evaluation_plan": "results/distance_intervention/plan_eval_original.json",
+    "source_cache": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/triton_ieee_cache",
+    "cache": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430",
+    "seed_manifest": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430_seed_manifest.json",
+    "seed_manifest_sha256": "6decbd33e46d70ee9bf15cd8c65832033d6ac554790506c7f6f62bfd852357b4",
+    "initial_files": 2632,
+    "scope": "Reuse only compiled cache from completed identical evaluation runtime, FP32/IEEE, H100SM90. Every adapted checkpoint retains fresh repeat/cross-rank numerical screening and timing warmups. Cache misses compile normally; no source, model, precision, input, policy, or measured request change."
+  },
+  "capacity": {
+    "cap": 48,
+    "project_caps": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+    },
+    "project_reserved_gpus": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 16,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 0
+    },
+    "live_reserved_gpus": 16,
+    "jobs": [
+      {
+        "job_id": "job-e4949ff4-94ac-4906-9f7a-660f7e823864",
+        "name": "lrwkv-header-d15b4bad-balanced_seed20271011",
+        "status": "job_queuing",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      },
+      {
+        "job_id": "job-404ff755-23fc-44cf-9f26-392f1fda7c77",
+        "name": "lrwkv-header-9cdb1219-near_seed20271011",
+        "status": "job_running",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      }
+    ]
+  },
+  "budget_project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+  "submission": {
+    "state": "submitted",
+    "name": "lrwkv-header-c204bf1f-near_seed20271012",
+    "job_id": "job-1824c349-37f8-4324-9009-a3da12d6b8c8",
+    "at": "2026-09-23T04:18:58Z",
+    "returncode": 0,
+    "tail": "cc0e1f-80a4-4af2-bc2f-0e352e7b17e6\n  enable_slow_detect: false\n  fault_tolerance_retry_interval_sec: 300\n  task_priority: 4\n  pre_check_items:\n  project_en_name: aisystem-and-infra\n  queue_id: \n  enable_troubleshoot: false\n  envs:\n  mounts:\n  project_id: project-160ccb20-98ab-4538-a847-01d1f83d5b0f\n  enable_vccl: false\n  max_running_time_ms: 5400000\n  name: lrwkv-header-c204bf1f-near_seed20271012\n"
+  }
+}
+OK   lrwkv-header-58a319b3-balanced_seed20271012 job_id=job-f0f25e82-7dde-45f1-bcc8-b2a3bcb6794c
+{
+  "stage": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_header_distance_stages/58a319b328b2ca48",
+  "out": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_58a319b328b2ca48_balanced_seed20271012",
+  "role": "balanced_seed20271012",
+  "training_plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_balanced_seed20271012.json",
+  "checkpoint": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271012/resume.pt",
+  "checkpoint_sha256": "f3e34a63627d38ef132fac9ffee3b00d94437754956896324ec92fba7ac7588e",
+  "manifest_sha256": "e467d6a45a7266bc2c60a0cbf9619694bd1daf837c954f4c141c63db24c26c5c",
+  "compiled_cache_seed": {
+    "created_utc": "2026-09-22T16:43:58Z",
+    "source_evaluation_plan": "results/distance_intervention/plan_eval_original.json",
+    "source_cache": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/triton_ieee_cache",
+    "cache": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430",
+    "seed_manifest": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430_seed_manifest.json",
+    "seed_manifest_sha256": "6decbd33e46d70ee9bf15cd8c65832033d6ac554790506c7f6f62bfd852357b4",
+    "initial_files": 2632,
+    "scope": "Reuse only compiled cache from completed identical evaluation runtime, FP32/IEEE, H100SM90. Every adapted checkpoint retains fresh repeat/cross-rank numerical screening and timing warmups. Cache misses compile normally; no source, model, precision, input, policy, or measured request change."
+  },
+  "capacity": {
+    "cap": 48,
+    "project_caps": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+    },
+    "project_reserved_gpus": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 24,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 0
+    },
+    "live_reserved_gpus": 24,
+    "jobs": [
+      {
+        "job_id": "job-1824c349-37f8-4324-9009-a3da12d6b8c8",
+        "name": "lrwkv-header-c204bf1f-near_seed20271012",
+        "status": "job_queuing",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      },
+      {
+        "job_id": "job-e4949ff4-94ac-4906-9f7a-660f7e823864",
+        "name": "lrwkv-header-d15b4bad-balanced_seed20271011",
+        "status": "job_creating",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      },
+      {
+        "job_id": "job-404ff755-23fc-44cf-9f26-392f1fda7c77",
+        "name": "lrwkv-header-9cdb1219-near_seed20271011",
+        "status": "job_running",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      }
+    ]
+  },
+  "budget_project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+  "submission": {
+    "state": "submitted",
+    "name": "lrwkv-header-58a319b3-balanced_seed20271012",
+    "job_id": "job-f0f25e82-7dde-45f1-bcc8-b2a3bcb6794c",
+    "at": "2026-09-23T04:19:16Z",
+    "returncode": 0,
+    "tail": "ject_id: project-160ccb20-98ab-4538-a847-01d1f83d5b0f\n  specified_nodes:\n  enable_troubleshoot: false\n  mounts:\n  pre_check_items:\n  priority: 20\n  queue_id: \n  workspace_id: ws-9dcc0e1f-80a4-4af2-bc2f-0e352e7b17e6\n  runtime_attributes:\n  fault_tolerance_max_retry: 0\n  enable_notification: false\n  enable_vccl: false\n  job_id: job-f0f25e82-7dde-45f1-bcc8-b2a3bcb6794c\n  max_running_time_ms: 5400000\n"
+  }
+}
+OK   lrwkv-header-aa1881bc-near_seed20271013 job_id=job-3b4ffeae-4a3d-4757-af07-ea8e87eb7ee7
+{
+  "stage": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_header_distance_stages/aa1881bc0d03e965",
+  "out": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_aa1881bc0d03e965_near_seed20271013",
+  "role": "near_seed20271013",
+  "training_plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_near_seed20271013.json",
+  "checkpoint": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271013/resume.pt",
+  "checkpoint_sha256": "c2cf9940ccecb091fb4edf68b21a03fb1f3758e42a127c9812f0c9d34dd7ed52",
+  "manifest_sha256": "e467d6a45a7266bc2c60a0cbf9619694bd1daf837c954f4c141c63db24c26c5c",
+  "compiled_cache_seed": {
+    "created_utc": "2026-09-22T16:43:58Z",
+    "source_evaluation_plan": "results/distance_intervention/plan_eval_original.json",
+    "source_cache": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/triton_ieee_cache",
+    "cache": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430",
+    "seed_manifest": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430_seed_manifest.json",
+    "seed_manifest_sha256": "6decbd33e46d70ee9bf15cd8c65832033d6ac554790506c7f6f62bfd852357b4",
+    "initial_files": 2632,
+    "scope": "Reuse only compiled cache from completed identical evaluation runtime, FP32/IEEE, H100SM90. Every adapted checkpoint retains fresh repeat/cross-rank numerical screening and timing warmups. Cache misses compile normally; no source, model, precision, input, policy, or measured request change."
+  },
+  "capacity": {
+    "cap": 48,
+    "project_caps": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+    },
+    "project_reserved_gpus": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 0
+    },
+    "live_reserved_gpus": 32,
+    "jobs": [
+      {
+        "job_id": "job-f0f25e82-7dde-45f1-bcc8-b2a3bcb6794c",
+        "name": "lrwkv-header-58a319b3-balanced_seed20271012",
+        "status": "job_queuing",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      },
+      {
+        "job_id": "job-1824c349-37f8-4324-9009-a3da12d6b8c8",
+        "name": "lrwkv-header-c204bf1f-near_seed20271012",
+        "status": "job_queuing",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      },
+      {
+        "job_id": "job-e4949ff4-94ac-4906-9f7a-660f7e823864",
+        "name": "lrwkv-header-d15b4bad-balanced_seed20271011",
+        "status": "job_running",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      },
+      {
+        "job_id": "job-404ff755-23fc-44cf-9f26-392f1fda7c77",
+        "name": "lrwkv-header-9cdb1219-near_seed20271011",
+        "status": "job_running",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      }
+    ]
+  },
+  "budget_project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+  "submission": {
+    "state": "submitted",
+    "name": "lrwkv-header-aa1881bc-near_seed20271013",
+    "job_id": "job-3b4ffeae-4a3d-4757-af07-ea8e87eb7ee7",
+    "at": "2026-09-23T04:19:33Z",
+    "returncode": 0,
+    "tail": "y2:v2\n      instance_count: 1\n      resource_spec_price:\n        quota_id: 7166bd2e-6cbe-4bd9-be38-762d11003e7f\n        cpu_count: 160\n        cpu_type: \n        gpu_count: 8\n        gpu_type: NVIDIA_H100_SXM_80G\n        logic_compute_group_id: lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e\n        memory_size_gib: 1800\n  enable_notification: false\nResponseMetadata:\n  Action: CreateJob\n  Service: train\n"
+  }
+}
+OK   lrwkv-header-679ee9f2-balanced_seed20271013 job_id=job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9
+{
+  "stage": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_header_distance_stages/679ee9f29b1e2006",
+  "out": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013",
+  "role": "balanced_seed20271013",
+  "training_plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_balanced_seed20271013.json",
+  "checkpoint": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271013/resume.pt",
+  "checkpoint_sha256": "8ebf9eddc02e47ea108bbce66807502ca4f3cc0d721bb561001b4562a9aa4493",
+  "manifest_sha256": "e467d6a45a7266bc2c60a0cbf9619694bd1daf837c954f4c141c63db24c26c5c",
+  "compiled_cache_seed": {
+    "created_utc": "2026-09-22T16:43:58Z",
+    "source_evaluation_plan": "results/distance_intervention/plan_eval_original.json",
+    "source_cache": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/triton_ieee_cache",
+    "cache": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430",
+    "seed_manifest": "/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430_seed_manifest.json",
+    "seed_manifest_sha256": "6decbd33e46d70ee9bf15cd8c65832033d6ac554790506c7f6f62bfd852357b4",
+    "initial_files": 2632,
+    "scope": "Reuse only compiled cache from completed identical evaluation runtime, FP32/IEEE, H100SM90. Every adapted checkpoint retains fresh repeat/cross-rank numerical screening and timing warmups. Cache misses compile normally; no source, model, precision, input, policy, or measured request change."
+  },
+  "capacity": {
+    "cap": 48,
+    "project_caps": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+    },
+    "project_reserved_gpus": {
+      "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+      "project-632c8db8-4530-413a-ada5-df91774a7e09": 8
+    },
+    "live_reserved_gpus": 40,
+    "jobs": [
+      {
+        "job_id": "job-3b4ffeae-4a3d-4757-af07-ea8e87eb7ee7",
+        "name": "lrwkv-header-aa1881bc-near_seed20271013",
+        "status": "job_creating",
+        "project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+        "reserved_gpus": 8
+      },
+      {
+        "job_id": "job-f0f25e82-7dde-45f1-bcc8-b2a3bcb6794c",
+        "name": "lrwkv-header-58a319b3-balanced_seed20271012",
+        "status": "job_running",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      },
+      {
+        "job_id": "job-1824c349-37f8-4324-9009-a3da12d6b8c8",
+        "name": "lrwkv-header-c204bf1f-near_seed20271012",
+        "status": "job_running",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      },
+      {
+        "job_id": "job-e4949ff4-94ac-4906-9f7a-660f7e823864",
+        "name": "lrwkv-header-d15b4bad-balanced_seed20271011",
+        "status": "job_running",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      },
+      {
+        "job_id": "job-404ff755-23fc-44cf-9f26-392f1fda7c77",
+        "name": "lrwkv-header-9cdb1219-near_seed20271011",
+        "status": "job_running",
+        "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+        "reserved_gpus": 8
+      }
+    ]
+  },
+  "budget_project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+  "submission": {
+    "state": "submitted",
+    "name": "lrwkv-header-679ee9f2-balanced_seed20271013",
+    "job_id": "job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9",
+    "at": "2026-09-23T04:19:51Z",
+    "returncode": 0,
+    "tail": "cpu_type: \n        gpu_count: 8\n        gpu_type: NVIDIA_H100_SXM_80G\n      cpu: 160\n      image: docker.sii.shaipower.online/inspire-studio/relay2:v2\n      shm_gi: 1800\n  logic_compute_group_id: lcg-71b971a7-5bdd-4798-b5ba-08f1eabde49e\n  mounts:\n  node_infos:\n  pre_check_items:\n  enable_troubleshoot: false\n  enable_vccl: false\n  priority: 20\n  project_en_name: multimodal-diffusion-language-model\n"
+  }
+}
+{"role": "near_seed20271011", "validated": true, "conditions": 192}
+{"role": "near_seed20271012", "validated": true, "conditions": 192}
+{"role": "balanced_seed20271012", "validated": true, "conditions": 192}

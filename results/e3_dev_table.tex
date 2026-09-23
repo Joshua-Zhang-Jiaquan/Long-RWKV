@@ -1,0 +1,27 @@
+\subsection{Development-only decoder selection}
+\label{m:devselection}
+The disjoint development set contains 72 examples: 24 each of recall, overwrite, and dataflow at 16K tokens, position 50\%, binding load 8, and similar distractors. Its data seeds are 201--203; confirmation uses 101--105 and a separate generator split. All 16 F2 configurations score 0/72 exact matches. The frozen tie rule therefore selects matched-Bernoulli revelation, eight nominal stages, and temperature $0.7$. This is a tied operating point, not evidence that it is superior. The released causal RWKV-7 comparator also scores 0/72 under greedy decoding. These outcomes motivate separately reported task-competence controls; they do not authorize tuning on confirmation data.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Reveal policy & Stages & Temperatures & Correct / examples & Mean actual NFE\\
+\midrule
+Bernoulli & 8 & $0.7,1.0$ & $0/72$ each & 2.111\\
+Bernoulli & 16 & $0.7,1.0$ & $0/72$ each & 2.208\\
+Bernoulli & 32 & $0.7,1.0$ & $0/72$ each & 2.292\\
+Bernoulli & 64 & $0.7,1.0$ & $0/72$ each & 2.306\\
+Confidence & 8 & $0.7,1.0$ & $0/72$ each & 2.333\\
+Confidence & 16 & $0.7,1.0$ & $0/72$ each & 2.333\\
+Confidence & 32 & $0.7,1.0$ & $0/72$ each & 2.333\\
+Confidence & 64 & $0.7,1.0$ & $0/72$ each & 2.333\\
+\bottomrule
+\end{tabular}
+\caption{Development sweep. Each row combines two separately executed temperatures with identical aggregate outcomes and NFE. No unchanged canvas requires another network call after its logits are cached.}
+\label{tab:devselection}
+\end{table}
+
+Caching is limited to target logits for a byte-identical current canvas. Any committed token invalidates that cache; all sampling draws and schedule steps are preserved. Sixteen qualification checks (eight ranks, two sampler families) compare cached and uncached trajectories and require identical output IDs and per-stage commit counts. Repeated uncached calls on the same canvas also produce bitwise-equal target logits in these checks. All checks pass. Nominal reverse stages and actual neural evaluations are therefore reported separately: the selected configuration uses 152 calls across 72 requests, or 2.111 calls per request. This optimization does not constitute persistent recurrent-history reuse and does not establish a deployment speedup.
+
+The output supports are explicitly different: F2 excludes its mask and padding IDs (65535 and 0) from sampling but retains other head entries, while R0 restricts greedy output to the 65,529 qualified native byte-token IDs. No chat template is applied. Both receive the gold span length as the generation budget; an extra leading token can therefore prevent exact completion. These frozen policies are properties of the evaluated interfaces, not a matched output-support ablation or recovery of the historical grouped decoder.

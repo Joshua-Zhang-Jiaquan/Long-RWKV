@@ -1,0 +1,1966 @@
+{
+  "execution_complete": true,
+  "comparator": "attention",
+  "design_sha256": "feabc6d3346e9808f7738a26ca100be81f4dbbe34aa47528e4ea41940cc651b6",
+  "final_design_sha256": "7d78deca7128943063653354b78a3ad31ab53c0238581251f211797f2847ac90",
+  "checkpoint_sha256": "30482adaac6469ee89b1bbb801bcd6ea12d8063dccba229814cb764d8ff62be9",
+  "raw_sha256": {
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank0.jsonl": "6395c82055f52ee23430b30b665b19e57d69d5627e1cfcdc4f13f3ba105ba098",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank1.jsonl": "3b087015a2ed38cc226f550c9ad2ca22cce784d8c0a675395a309b93e5063b18",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank2.jsonl": "76fd7d50f7b7ba847b5b8e9b8a7e8b45a73e657ee488b8d96a7d36d9a5af89ff",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank3.jsonl": "33b45e2d9273675b9d0f2dbf485d35ca9f929e95a2ae1e99854cd749b36c087f",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank4.jsonl": "9e326ca12057204429b17d5d6f6e2d113f93223c6c7f6f179994eb99e29748ec",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank5.jsonl": "e79d41a56c608ed16fb397c8e5bbf7fe2138df46e26a20384d9499a665aa468f",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank6.jsonl": "c4fb805e671c0f24ddb18df2687ceeb25886fcb6b6c6a14954eeb0be69dd1de7",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank7.jsonl": "bf682d2bd31b4c579668ee880de52376709a97448343262b570e2790e401384a"
+  },
+  "conditions": [
+    {
+      "kind": "condition",
+      "index": 0,
+      "family": "paired_parity",
+      "instance_id": "065566688aa3923a0f35e8ead5edd322effd1a5d69b3bec840e6e439184bbd59",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "far",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          0,
+          117
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "2bf366e9d0b95c92e21bda251f4d3b1deb4d4174a475747dda6b3b1986bd97a0"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.0005761422216892,
+            1.002051193267107,
+            0.9985308386385441,
+            0.9968143403530121,
+            0.9943733252584934
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            174,
+            236,
+            115,
+            134,
+            84
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9903023801743984,
+            1.990782018750906,
+            1.99099675193429,
+            1.991237223148346,
+            1.9931630603969097
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            168,
+            236,
+            124,
+            132,
+            95
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            1.9944440945982933,
+            1.9960114285349846,
+            1.9947065822780132,
+            1.989259708672762,
+            1.9925622157752514
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            250,
+            172,
+            127,
+            134,
+            76
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 0,
+      "family": "paired_parity",
+      "instance_id": "065566688aa3923a0f35e8ead5edd322effd1a5d69b3bec840e6e439184bbd59",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "middle",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          7743,
+          7860
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "4fd773e7025a5e0fa37ea834f6c7b5b3fd7cb99c53a1d6f7d0874e2afe6ecafe"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            0.9976878836750984,
+            0.997129425406456,
+            0.996508177369833,
+            0.9966228418052197,
+            0.9971445649862289
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            174,
+            236,
+            115,
+            134,
+            84
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9936921559274197,
+            1.9932481907308102,
+            1.9982020147144794,
+            1.995244313031435,
+            1.991899162530899
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            168,
+            236,
+            120,
+            132,
+            95
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            1.9935190863907337,
+            1.9913528747856617,
+            1.9939530193805695,
+            1.9937820509076118,
+            1.989792812615633
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            250,
+            172,
+            123,
+            134,
+            76
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 0,
+      "family": "paired_parity",
+      "instance_id": "065566688aa3923a0f35e8ead5edd322effd1a5d69b3bec840e6e439184bbd59",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "near",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          16264,
+          16381
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "44db54880421336e6987a07ab7d58fc457b1357fc07f010c88ba035096ef0c4d"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.001392487436533,
+            0.997760035097599,
+            0.9982044622302055,
+            0.9965880289673805,
+            0.994385190308094
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            174,
+            236,
+            115,
+            134,
+            84
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9920519553124905,
+            1.989963736385107,
+            1.9939819276332855,
+            1.9918779246509075,
+            1.9913987666368484
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            168,
+            236,
+            120,
+            132,
+            95
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            1.9895294196903706,
+            1.9908116459846497,
+            1.991035919636488,
+            1.9913604594767094,
+            1.989499643445015
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            250,
+            172,
+            123,
+            134,
+            76
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 1,
+      "family": "paired_parity",
+      "instance_id": "46ae0bc545e035eef06aa292a647ed88be4f9de496f7bb164b2ce59f5f8b0dc9",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "far",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          0,
+          117
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "a867ab591e2e9ffd329a65a5a08d5d57cde137f7d8673da7c0a89b76fed1f2b0"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.0028274208307266,
+            0.9991391412913799,
+            0.997325386852026,
+            0.9965160936117172,
+            0.996778842061758
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            12,
+            206,
+            238,
+            112,
+            165
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9900558143854141,
+            1.9935471713542938,
+            1.9945585131645203,
+            1.9957067929208279,
+            1.9981108792126179
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            13,
+            235,
+            223,
+            101,
+            180
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            2.000881366431713,
+            1.9996182024478912,
+            1.9996096789836884,
+            2.001621972769499,
+            2.003622394055128
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            204,
+            174,
+            222,
+            160,
+            53
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 1,
+      "family": "paired_parity",
+      "instance_id": "46ae0bc545e035eef06aa292a647ed88be4f9de496f7bb164b2ce59f5f8b0dc9",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "middle",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          7743,
+          7860
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "d96dcc0bcfdbfed040d567a9b2c773f1d23064c2adba4e280a9e9c5e5552eefe"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.004005540162325,
+            1.0036066807806492,
+            1.0041439943015575,
+            1.0027709789574146,
+            1.003168486058712
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            4,
+            206,
+            110,
+            112,
+            133
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            2.0039037242531776,
+            2.003424808382988,
+            2.0033867731690407,
+            2.002951819449663,
+            2.002777300775051
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            5,
+            234,
+            94,
+            100,
+            180
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            2.0034461244940758,
+            2.003294475376606,
+            2.0047735162079334,
+            2.004503160715103,
+            2.003401279449463
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            196,
+            174,
+            222,
+            160,
+            53
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 1,
+      "family": "paired_parity",
+      "instance_id": "46ae0bc545e035eef06aa292a647ed88be4f9de496f7bb164b2ce59f5f8b0dc9",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "near",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          16264,
+          16381
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "007061b4f516cfaab20167417b1d49000d205c9bab7d1bf23120d8fb3f07824d"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.0043965317308903,
+            1.0018293969333172,
+            1.0027410201728344,
+            1.0025148168206215,
+            1.0018913112580776
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            4,
+            206,
+            110,
+            112,
+            165
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            2.00682932138443,
+            2.005455143749714,
+            2.0047541595995426,
+            2.0037780106067657,
+            2.005197610706091
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            5,
+            235,
+            94,
+            100,
+            180
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            2.0065182372927666,
+            2.0065576173365116,
+            2.0063853412866592,
+            2.004994910210371,
+            2.0049925185739994
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            196,
+            174,
+            222,
+            160,
+            53
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 2,
+      "family": "paired_parity",
+      "instance_id": "58c0ea32592112c4b3ccc41e938b82ccc01caca49fc7252c2a86bf4d554ef12c",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "far",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          0,
+          117
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "ef4e35a8b949b9bf7a27aa8be088184e71b849b8956591cbf41b567d524f4f46"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.0042824745178223,
+            1.008736614137888,
+            1.0068427696824074,
+            1.005542490631342,
+            1.005126979202032
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            171,
+            15,
+            210,
+            199,
+            71
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            2.0103750452399254,
+            2.01555734872818,
+            2.0178990103304386,
+            2.0210356824100018,
+            2.0195883587002754
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            184,
+            24,
+            198,
+            212,
+            81
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            2.0250833854079247,
+            2.022810362279415,
+            2.0274838358163834,
+            2.025975402444601,
+            2.0264125242829323
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            251,
+            91,
+            198,
+            215,
+            83
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 2,
+      "family": "paired_parity",
+      "instance_id": "58c0ea32592112c4b3ccc41e938b82ccc01caca49fc7252c2a86bf4d554ef12c",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "middle",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          7743,
+          7860
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "931d30983f3cdf6ffba0bffde099a69d5dd98a9a749f8cce0200268024ab7fc1"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.0123404823243618,
+            1.0114750042557716,
+            1.0140609480440617,
+            1.0118224285542965,
+            1.0125151462852955
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            171,
+            15,
+            144,
+            71,
+            71
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            2.0285337641835213,
+            2.027439668774605,
+            2.0281606912612915,
+            2.028975587338209,
+            2.0264182463288307
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            168,
+            8,
+            134,
+            68,
+            80
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            2.0277571082115173,
+            2.030663974583149,
+            2.028844878077507,
+            2.029890511184931,
+            2.0281005688011646
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            235,
+            75,
+            196,
+            7,
+            83
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 2,
+      "family": "paired_parity",
+      "instance_id": "58c0ea32592112c4b3ccc41e938b82ccc01caca49fc7252c2a86bf4d554ef12c",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "near",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          16264,
+          16381
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "3f7c7b0df37eec2d27fdac4394c340f3a1b10433aa6d20faac167fb64c3f5ead"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.0163647569715977,
+            1.0167319364845753,
+            1.0141668766736984,
+            1.0143054760992527,
+            1.0116176418960094
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            171,
+            15,
+            144,
+            71,
+            71
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            2.030262216925621,
+            2.031807668507099,
+            2.029944621026516,
+            2.0328588038682938,
+            2.029911693185568
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            168,
+            8,
+            134,
+            68,
+            80
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            2.0330402962863445,
+            2.0291164964437485,
+            2.03284627571702,
+            2.0296035818755627,
+            2.032210562378168
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            235,
+            75,
+            196,
+            7,
+            83
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 3,
+      "family": "paired_parity",
+      "instance_id": "152fde17c0822f906536f748913a8f0b8f051ad87dfef2b17922484107e58c05",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "far",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          0,
+          117
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "dfd39524db26010fba78ece4171cac37c914e164d43baafc2ccf6c8d6b3632be"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.0043540857732296,
+            1.0056896172463894,
+            1.0014487244188786,
+            0.9997145272791386,
+            0.9999225810170174
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            28,
+            183,
+            112,
+            30,
+            106
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9982964061200619,
+            2.0000172778964043,
+            2.000107780098915,
+            2.000383362174034,
+            1.998311024159193
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            89,
+            240,
+            117,
+            90,
+            109
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            1.9980849139392376,
+            1.9989988654851913,
+            2.0006891898810863,
+            1.997800562530756,
+            2.0024274364113808
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            200,
+            227,
+            244,
+            90,
+            254
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 3,
+      "family": "paired_parity",
+      "instance_id": "152fde17c0822f906536f748913a8f0b8f051ad87dfef2b17922484107e58c05",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "middle",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          7743,
+          7860
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "2aa2299d8272674ca28aae7c49f57c4bd4eadd847ff23b93ca59c60a19d47a1a"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.001607596874237,
+            1.0009557344019413,
+            1.0005260854959488,
+            1.0005968026816845,
+            1.0012117512524128
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            20,
+            183,
+            48,
+            26,
+            106
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9988185241818428,
+            2.000131592154503,
+            1.9993924424052238,
+            2.00018772482872,
+            1.9976399801671505
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            81,
+            176,
+            117,
+            90,
+            109
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            1.9999265037477016,
+            2.000500299036503,
+            1.9991697780787945,
+            1.9994443282485008,
+            2.0007376819849014
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            192,
+            163,
+            228,
+            90,
+            254
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 3,
+      "family": "paired_parity",
+      "instance_id": "152fde17c0822f906536f748913a8f0b8f051ad87dfef2b17922484107e58c05",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "near",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          16264,
+          16381
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "9d1c72146cb5d18070973e30697eae62418dcc3eb69ff74ff160775508b36557"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.004998430609703,
+            1.0010286085307598,
+            0.9993312545120716,
+            1.0006109438836575,
+            1.000041153281927
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            20,
+            183,
+            48,
+            26,
+            106
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9995149374008179,
+            2.00191717967391,
+            2.0001291036605835,
+            2.0012101754546165,
+            1.999465074390173
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            81,
+            176,
+            117,
+            90,
+            109
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            2.000410959124565,
+            2.001024093478918,
+            2.000491678714752,
+            2.00123979896307,
+            2.0006390437483788
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            192,
+            163,
+            228,
+            90,
+            254
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 4,
+      "family": "paired_parity",
+      "instance_id": "703db115015f418ed6ddd09994076b18c734551c51bde0396820c4ba4d1a2db3",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "far",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          0,
+          117
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "ac2aaf4767f57aba86acec3b3004b7988c0746d85fb13a73981891e46def2e22"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.000198233872652,
+            1.0022848881781101,
+            1.003076396882534,
+            1.0002012215554714,
+            0.9948350414633751
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            11,
+            61,
+            186,
+            7,
+            49
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9886703081429005,
+            1.9898910075426102,
+            1.9866199530661106,
+            1.9889328703284264,
+            1.9879148043692112
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            27,
+            53,
+            168,
+            4,
+            40
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            1.98753160238266,
+            1.988733571022749,
+            1.9917766824364662,
+            1.9894595630466938,
+            1.9898599535226822
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            91,
+            85,
+            170,
+            103,
+            73
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 4,
+      "family": "paired_parity",
+      "instance_id": "703db115015f418ed6ddd09994076b18c734551c51bde0396820c4ba4d1a2db3",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "middle",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          7743,
+          7860
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "1aee6f9ece3e30365f33a8b4dfe7988fa66460ec9107093a71ba2bcc32a9d8bd"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            0.9990586079657078,
+            0.9975536800920963,
+            0.9971097372472286,
+            0.997558020055294,
+            0.995781984180212
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            9,
+            61,
+            186,
+            7,
+            49
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.991482239216566,
+            1.9910054951906204,
+            1.99029004201293,
+            1.9908861741423607,
+            1.9892456009984016
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            18,
+            53,
+            160,
+            4,
+            40
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            1.9872214384377003,
+            1.9890477284789085,
+            1.9877440556883812,
+            1.9900563471019268,
+            1.9878381453454494
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            17,
+            85,
+            130,
+            39,
+            73
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 4,
+      "family": "paired_parity",
+      "instance_id": "703db115015f418ed6ddd09994076b18c734551c51bde0396820c4ba4d1a2db3",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "near",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          16264,
+          16381
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "854cd44c645636e507f80f2c17e7e190b9c38f04c2570a7ce8ef3e7bf5f3b565"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            0.9989718347787857,
+            0.9997461810708046,
+            0.9984485246241093,
+            0.9967692494392395,
+            0.9973293095827103
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            9,
+            61,
+            186,
+            7,
+            49
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.990454699844122,
+            1.9903839342296124,
+            1.9903062097728252,
+            1.9890819787979126,
+            1.9886712171137333
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            19,
+            53,
+            168,
+            4,
+            40
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            1.9889911897480488,
+            1.991588994860649,
+            1.9893986359238625,
+            1.991321373730898,
+            1.990938302129507
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            17,
+            85,
+            170,
+            103,
+            73
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 5,
+      "family": "paired_parity",
+      "instance_id": "5db1ba6564576602999de949a583149be3a53f9a0d8028db7fd6938495987a41",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "far",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          0,
+          117
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "d5164b5522eb5576ec919e314a3d38cbcf909aa43e70daa486a25c79dcafc030"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.00057939812541,
+            1.0036213286221027,
+            0.9976137317717075,
+            1.0001117512583733,
+            0.9998780861496925
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            159,
+            249,
+            146,
+            53,
+            240
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9919288977980614,
+            1.9883363284170628,
+            1.9886492639780045,
+            1.9907115511596203,
+            1.9928547069430351
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            151,
+            255,
+            157,
+            61,
+            249
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            1.9955521486699581,
+            1.9976430088281631,
+            1.994817852973938,
+            1.9973867647349834,
+            1.9955641515552998
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            167,
+            253,
+            190,
+            45,
+            216
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 5,
+      "family": "paired_parity",
+      "instance_id": "5db1ba6564576602999de949a583149be3a53f9a0d8028db7fd6938495987a41",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "middle",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          7743,
+          7860
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "f7e2631614f2116fd76137786659e8f5d379120c0551633aa17c664cf78f9708"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.0007533803582191,
+            0.998453039675951,
+            1.000450287014246,
+            1.0001016594469547,
+            1.0009785369038582
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            135,
+            249,
+            146,
+            53,
+            208
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            2.001766186207533,
+            2.0001007691025734,
+            2.000306811183691,
+            1.9994690418243408,
+            1.9999534524977207
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            134,
+            253,
+            157,
+            53,
+            217
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            2.0007335282862186,
+            2.0001385174691677,
+            1.9982302859425545,
+            2.000914964824915,
+            1.999857734888792
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            135,
+            253,
+            174,
+            37,
+            216
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 5,
+      "family": "paired_parity",
+      "instance_id": "5db1ba6564576602999de949a583149be3a53f9a0d8028db7fd6938495987a41",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "near",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          16264,
+          16381
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "939a65053274c7f8f67558eee565d3a3a69a580c4749a096b5cd48f42f1302b7"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.003884170204401,
+            1.0021519772708416,
+            1.0000399313867092,
+            0.9994815401732922,
+            0.9992917627096176
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            159,
+            249,
+            146,
+            53,
+            208
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9984177760779858,
+            1.9990568347275257,
+            1.9991961605846882,
+            2.0010816007852554,
+            1.9992894381284714
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            150,
+            253,
+            157,
+            53,
+            217
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            2.0005316510796547,
+            2.000049665570259,
+            2.000880643725395,
+            2.0005503073334694,
+            1.999449573457241
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            135,
+            253,
+            174,
+            37,
+            216
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 6,
+      "family": "paired_parity",
+      "instance_id": "572f4ef6c027c27328af1bdd48ea82ab617f83df4eb123f44bc499cc6cb550de",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "far",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          0,
+          117
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "0183bdc22f3bcb2085f8c1c5f8d737adc1c03249fca36fda9cec1f77ed0b8b80"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.015672817826271,
+            1.0118137784302235,
+            1.0095736011862755,
+            1.0074066929519176,
+            1.0063028633594513
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            239,
+            255,
+            160,
+            148,
+            177
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            2.0109866708517075,
+            2.0101285204291344,
+            2.0105445869266987,
+            2.0129960142076015,
+            2.0139459371566772
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            238,
+            252,
+            163,
+            150,
+            187
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            2.01586152613163,
+            2.016483411192894,
+            2.0171442069113255,
+            2.017499353736639,
+            2.0177810713648796
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            255,
+            223,
+            176,
+            148,
+            153
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 6,
+      "family": "paired_parity",
+      "instance_id": "572f4ef6c027c27328af1bdd48ea82ab617f83df4eb123f44bc499cc6cb550de",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "middle",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          7743,
+          7860
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "7ccc7c6646c2004eba8a1638eddb0e9b77cc126927f9e3843c3e463fc5bad6e8"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.0111911334097385,
+            1.011145856231451,
+            1.0105686448514462,
+            1.0098342597484589,
+            1.010365679860115
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            231,
+            255,
+            128,
+            128,
+            176
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            2.0210766457021236,
+            2.019621454179287,
+            2.0208532623946667,
+            2.0197146050632,
+            2.020857699215412
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            230,
+            252,
+            130,
+            134,
+            186
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            2.019942045211792,
+            2.020756646990776,
+            2.0193942710757256,
+            2.019423894584179,
+            2.018780916929245
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            215,
+            223,
+            176,
+            132,
+            152
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 6,
+      "family": "paired_parity",
+      "instance_id": "572f4ef6c027c27328af1bdd48ea82ab617f83df4eb123f44bc499cc6cb550de",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "near",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          16264,
+          16381
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "15fac77c999ad05d62b89868897cf68f3825cc5082fa05e162c70ed50abd45aa"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.0139667093753815,
+            1.0129865743219852,
+            1.0100188069045544,
+            1.0121176987886429,
+            1.0100943259894848
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            231,
+            255,
+            160,
+            148,
+            177
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            2.017601750791073,
+            2.0200792774558067,
+            2.019707500934601,
+            2.021580271422863,
+            2.019568767398596
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            238,
+            252,
+            163,
+            150,
+            186
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            2.020828515291214,
+            2.02095989882946,
+            2.021957438439131,
+            2.0200193785130978,
+            2.020152222365141
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            223,
+            223,
+            176,
+            132,
+            153
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 7,
+      "family": "paired_parity",
+      "instance_id": "16f6ef59cd11c9a0c7db3ec557afd36bf20e645dcaca686ffe32b02a98373a1c",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "far",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          0,
+          117
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "fc0143b1def4141f9b84e2edcf080aba828e2953a1b3828c7589a9691f83d15f"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.0044195167720318,
+            1.0088050961494446,
+            1.0046083107590675,
+            1.0038055703043938,
+            1.0014469027519226
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            158,
+            172,
+            39,
+            188,
+            186
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9994927272200584,
+            1.9999791122972965,
+            2.000913381576538,
+            2.0005696564912796,
+            1.99729722738266
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            140,
+            174,
+            62,
+            188,
+            177
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            1.9910595901310444,
+            1.9937159940600395,
+            1.9935136996209621,
+            1.992882713675499,
+            1.9925218597054482
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            14,
+            172,
+            255,
+            252,
+            50
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 7,
+      "family": "paired_parity",
+      "instance_id": "16f6ef59cd11c9a0c7db3ec557afd36bf20e645dcaca686ffe32b02a98373a1c",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "middle",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          7743,
+          7860
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "535563169c5ea6416af8ef5ffa996f17f44f8d6738aea78162bd09ffc3c5a88a"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            1.0017799213528633,
+            1.0018020905554295,
+            1.000376258045435,
+            0.9994237683713436,
+            0.9988770484924316
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            142,
+            140,
+            39,
+            188,
+            186
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9950372911989689,
+            1.9940795823931694,
+            1.9936462193727493,
+            1.9977007023990154,
+            1.9948088563978672
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            140,
+            142,
+            62,
+            172,
+            176
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            1.99669099599123,
+            1.9987504072487354,
+            1.9981282390654087,
+            1.998184148222208,
+            1.9967118799686432
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            14,
+            12,
+            255,
+            236,
+            50
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    },
+    {
+      "kind": "condition",
+      "index": 7,
+      "family": "paired_parity",
+      "instance_id": "16f6ef59cd11c9a0c7db3ec557afd36bf20e645dcaca686ffe32b02a98373a1c",
+      "serial": {
+        "context_tokens": 16384,
+        "requested_context_tokens": 16384,
+        "position": "near",
+        "original_prompt_tokens": 120,
+        "public_block_span": [
+          16264,
+          16381
+        ],
+        "distractor_records": 2158,
+        "token_sha256": "57828a03fb33183020bb321367ff7ad50810e17a03aa5749a7be30c05289593d"
+      },
+      "costs": [
+        {
+          "method": "one",
+          "calls": 1,
+          "seconds": [
+            0.9996384605765343,
+            0.9991059117019176,
+            0.997685756534338,
+            0.9985345639288425,
+            0.9969798885285854
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "sample_outputs": [
+            142,
+            140,
+            39,
+            188,
+            186
+          ]
+        },
+        {
+          "method": "information_set",
+          "calls": 2,
+          "seconds": [
+            1.9953285790979862,
+            1.9936611354351044,
+            1.995038565248251,
+            1.995591714978218,
+            1.9969837106764317
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            140,
+            142,
+            62,
+            172,
+            177
+          ]
+        },
+        {
+          "method": "pair_preserving_halves",
+          "calls": 2,
+          "seconds": [
+            1.994876991957426,
+            1.992824487388134,
+            1.993006482720375,
+            1.9918252974748611,
+            1.9950163587927818
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "sample_outputs": [
+            14,
+            12,
+            255,
+            236,
+            50
+          ]
+        }
+      ],
+      "scope": "Timing outputs are not accuracy estimates"
+    }
+  ],
+  "summary": [
+    {
+      "method": "one",
+      "mean_request_seconds": 1.0028671375165383,
+      "base_mean_seconds": [
+        0.9977179291347663,
+        1.0015770427882673,
+        1.011062135050694,
+        1.0014691931505997,
+        0.9985948607325554,
+        1.0004927054047583,
+        1.0108706295490264,
+        1.0011526043216388
+      ],
+      "peak_allocated_bytes": 2398357504,
+      "base_problems": 8,
+      "mean": 1.0028671375165383,
+      "standard_deviation": 0.005184822768218054,
+      "pointwise_95_percentile_interval": [
+        0.999856744489322,
+        1.0065647677207985
+      ],
+      "bootstrap_seed": 20271022,
+      "bootstrap_repeats": 10000
+    },
+    {
+      "method": "information_set",
+      "mean_request_seconds": 2.0023426433093845,
+      "base_mean_seconds": [
+        1.9925361054639021,
+        2.000962522874276,
+        2.0252512271205587,
+        1.9997015056510767,
+        1.9895891023178895,
+        1.9967412546277046,
+        2.01728419760863,
+        1.9966752308110396
+      ],
+      "peak_allocated_bytes": 2398358016,
+      "base_problems": 8,
+      "mean": 2.0023426433093845,
+      "standard_deviation": 0.012416864738748888,
+      "pointwise_95_percentile_interval": [
+        1.9951597415842115,
+        2.0111977378837764
+      ],
+      "bootstrap_seed": 20271022,
+      "bootstrap_repeats": 10000
+    },
+    {
+      "method": "pair_preserving_halves",
+      "mean_request_seconds": 2.003314741514623,
+      "base_mean_seconds": [
+        1.9921080641448499,
+        2.0036147197087604,
+        2.0286559842526914,
+        2.0001056755582494,
+        1.9894338389237722,
+        1.998820053289334,
+        2.0191323198378086,
+        1.9946472764015197
+      ],
+      "peak_allocated_bytes": 2398358016,
+      "base_problems": 8,
+      "mean": 2.0033147415146235,
+      "standard_deviation": 0.013713177744081565,
+      "pointwise_95_percentile_interval": [
+        1.9953053836710752,
+        2.0130300339621807
+      ],
+      "bootstrap_seed": 20271022,
+      "bootstrap_repeats": 10000
+    }
+  ],
+  "scope": "Batch1 complete requests; pointwise problem-bootstrap intervals; timing samples are not accuracy estimates"
+}

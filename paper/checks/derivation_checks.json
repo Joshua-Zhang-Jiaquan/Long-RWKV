@@ -1,0 +1,170 @@
+{
+  "scope": "Synthetic algebraic checks only; no language-model or hardware experiment",
+  "seed": 20260920,
+  "status": "PASS",
+  "checks": {
+    "ddpm_posterior_noise_weight_and_velocity": {
+      "trials": 100,
+      "max_residual": 5.684341886080802e-14
+    },
+    "general_d3pm_bridge_and_parameterization": {
+      "posterior_row_sum_residual": 1.1102230246251565e-16,
+      "mixture_vs_joint_l1_gap": 0.05166370250461466
+    },
+    "general_categorical_gradient_and_bridge_contraction": {
+      "max_gradient_residual": 1.0352957380277417e-10,
+      "input_kl": 0.10544475210982243,
+      "output_kl": 0.004750085789483192
+    },
+    "absorbing_bridge_kl_equals_weighted_ce": {
+      "trials": 100,
+      "max_residual": 2.220446049250313e-16
+    },
+    "selected_mask_normalization": {
+      "exact_expected_estimator": 1.0846919999999998,
+      "corrected_selected_mean": 1.0846919999999998,
+      "naive_expected_count_value": 0.7528874367
+    },
+    "exact_kernel_state_and_bidirectional_identity": {
+      "max_residual": 2.220446049250313e-16
+    },
+    "normalized_kernel_perturbation_bound": {
+      "trials": 100,
+      "max_error_bound_ratio": 0.11246369755255668
+    },
+    "tensor_feature_truncation_bound": {
+      "trials": 100,
+      "max_absolute_error": 1.3392822835189833e-06,
+      "bound": 2.1965764336496034e-06
+    },
+    "rls_state_equals_batch_ridge_regression": {
+      "writes": 40,
+      "max_residual": 3.3306690738754696e-16
+    },
+    "explicit_additive_to_rwkv_state_bound": {
+      "max_identity_residual": 1.7763568394002505e-15,
+      "actual_state_difference": 8.212957254351524,
+      "upper_bound": 88.45790251244783
+    },
+    "logit_to_posterior_kl_bounds": {
+      "trials": 100,
+      "max_quadratic_ratio": 0.2979414692935576,
+      "minimum_linear_bound_margin": 2.5931579028945304
+    },
+    "enumerated_categorical_path_and_loss": [
+      {
+        "steps": 1,
+        "shift": 0.0,
+        "path_kl": 0.3680642071684971,
+        "endpoint_kl": 0.3680642071684971,
+        "posterior_excess": 0.0,
+        "dependence_gap": 0.3680642071684971,
+        "dependence_bound": 0.6931471805599453,
+        "nelbo": 1.3862943611198906,
+        "data_entropy": 1.0182301539513936,
+        "nelbo_identity_residual": 1.1102230246251565e-16,
+        "max_one_step_identity_residual": 0.0
+      },
+      {
+        "steps": 4,
+        "shift": 0.0,
+        "path_kl": 0.0920160517921243,
+        "endpoint_kl": 0.03669001403475075,
+        "posterior_excess": 1.387778780781446e-16,
+        "dependence_gap": 0.09201605179212427,
+        "dependence_bound": 0.17328679513998632,
+        "nelbo": 1.1102462057435178,
+        "data_entropy": 1.0182301539513936,
+        "nelbo_identity_residual": 5.551115123125783e-17,
+        "max_one_step_identity_residual": 1.457167719820518e-16
+      },
+      {
+        "steps": 16,
+        "shift": 0.0,
+        "path_kl": 0.023004012948031168,
+        "endpoint_kl": 0.003039434138605787,
+        "posterior_excess": 1.5612511283791264e-16,
+        "dependence_gap": 0.02300401294803106,
+        "dependence_bound": 0.04332169878499658,
+        "nelbo": 1.041234166899424,
+        "data_entropy": 1.0182301539513936,
+        "nelbo_identity_residual": 7.181755190543981e-16,
+        "max_one_step_identity_residual": 1.7477339020466331e-16
+      },
+      {
+        "steps": 64,
+        "shift": 0.0,
+        "path_kl": 0.005751003237009445,
+        "endpoint_kl": 0.00020934020284060122,
+        "posterior_excess": 1.3999218451132826e-16,
+        "dependence_gap": 0.005751003237007778,
+        "dependence_bound": 0.010830424696249145,
+        "nelbo": 1.0239811571884008,
+        "data_entropy": 1.0182301539513936,
+        "nelbo_identity_residual": 2.2768245622195593e-15,
+        "max_one_step_identity_residual": 2.553512956637848e-16
+      },
+      {
+        "steps": 1,
+        "shift": 0.15,
+        "path_kl": 0.4236130410030193,
+        "endpoint_kl": 0.4236130410030193,
+        "posterior_excess": 0.05554883383452215,
+        "dependence_gap": 0.3680642071684971,
+        "dependence_bound": 0.6931471805599453,
+        "nelbo": 1.4418431949544126,
+        "data_entropy": 1.0182301539513936,
+        "nelbo_identity_residual": 2.7755575615628914e-16,
+        "max_one_step_identity_residual": 5.551115123125783e-17
+      },
+      {
+        "steps": 4,
+        "shift": 0.15,
+        "path_kl": 0.13441527552462193,
+        "endpoint_kl": 0.07435623866202662,
+        "posterior_excess": 0.04239922373249777,
+        "dependence_gap": 0.09201605179212427,
+        "dependence_bound": 0.17328679513998632,
+        "nelbo": 1.1526454294760156,
+        "data_entropy": 1.0182301539513936,
+        "nelbo_identity_residual": 2.7755575615628914e-17,
+        "max_one_step_identity_residual": 1.8735013540549517e-16
+      },
+      {
+        "steps": 16,
+        "shift": 0.15,
+        "path_kl": 0.06211583415502271,
+        "endpoint_kl": 0.03877497455246859,
+        "posterior_excess": 0.03911182120699166,
+        "dependence_gap": 0.02300401294803106,
+        "dependence_bound": 0.04332169878499658,
+        "nelbo": 1.0803459881064157,
+        "data_entropy": 1.0182301539513936,
+        "nelbo_identity_residual": 6.245004513516506e-16,
+        "max_one_step_identity_residual": 1.6783449630075609e-16
+      },
+      {
+        "steps": 64,
+        "shift": 0.15,
+        "path_kl": 0.04404097381262442,
+        "endpoint_kl": 0.035285012783145525,
+        "posterior_excess": 0.038289970575615166,
+        "dependence_gap": 0.005751003237007778,
+        "dependence_bound": 0.010830424696249145,
+        "nelbo": 1.0622711277640173,
+        "data_entropy": 1.0182301539513936,
+        "nelbo_identity_residual": 6.938893903907228e-16,
+        "max_one_step_identity_residual": 3.3306690738754696e-16
+      }
+    ],
+    "history_compression_kl_chain_rule": {
+      "total_kl": 0.435230223822502,
+      "information_lost": 0.3680642071684971,
+      "compressed_predictor_kl": 0.06716601665400478,
+      "residual": 1.249000902703301e-16
+    },
+    "affine_state_adjoint_finite_difference": {
+      "max_absolute_residual": 1.4288192851097392e-09
+    }
+  }
+}

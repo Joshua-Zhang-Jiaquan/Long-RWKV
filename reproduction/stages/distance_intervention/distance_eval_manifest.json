@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "initial_checkpoint_sha256": "52dbc7f289513e475d10422dbccffa52f74ec55fc887253ea13ae0476dc3e2c9",
+  "protocol_sha256": "2223acb6f00b4666dbab25a28b0e98b2419a7a8096a113fe701194263dd51e10",
+  "sources": {
+    "lrwkv_evidence/distance_intervention/tasks.py": "4cee1dd73032d58cfb3830afa8ffacdbdd2b9923d9322cd8bb3aaab07d7bf0bb",
+    "lrwkv_evidence/distance_intervention/diagnostics.py": "3def0460526e2f89a6841907b77af77ce7c9459fbfc7d5955ebb875b4a783d10",
+    "lrwkv_evidence/distance_intervention/evaluate.py": "feebcf698c58748a683ffcb98b254fda2c2134caaa0b08e913f0a5f9025cc4ca",
+    "qz/launch_distance_evaluation.sh": "9edc34c373ff9f9cdb4861d9fe662870dc8b1a5c4fbd0c7df7963983b4654ca8"
+  },
+  "primary_cases": 32,
+  "primary_positions": [
+    "far",
+    "middle",
+    "near"
+  ],
+  "primary_length": 16384,
+  "secondary_cases": 8,
+  "secondary_contexts": [
+    [
+      null,
+      "evidence_only"
+    ],
+    [
+      4096,
+      "far"
+    ],
+    [
+      4096,
+      "middle"
+    ],
+    [
+      4096,
+      "near"
+    ],
+    [
+      32768,
+      "far"
+    ],
+    [
+      32768,
+      "near"
+    ]
+  ],
+  "conditions_per_checkpoint": 144,
+  "roles": [
+    "original",
+    "near_seed20271011",
+    "balanced_seed20271011",
+    "near_seed20271012",
+    "balanced_seed20271012",
+    "near_seed20271013",
+    "balanced_seed20271013"
+  ],
+  "test_seed": 20271021,
+  "bootstrap_seed": 20271022,
+  "timing": {
+    "cases": 8,
+    "positions": 3,
+    "policies": 3,
+    "warmups": 1,
+    "repeats": 5,
+    "seed": 20271023,
+    "mean_latency_budget_seconds": 1.5
+  },
+  "counterfactual": "one syndrome flipped, all information-set visible bits zero; diagnostic, not a full history-law expectation"
+}

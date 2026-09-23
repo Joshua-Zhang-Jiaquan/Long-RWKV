@@ -1,0 +1,34 @@
+{
+  "at": "2026-09-23T04:32:31Z",
+  "reason": "Manual operational replacement after startup/stop race; old attempt has zero scheduler runtime and no predictions.",
+  "old_job_id": "job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9",
+  "old_status": "job_stopped",
+  "old_timeline": {
+    "created": "1790137190000",
+    "finished": "1790137649000",
+    "resource_prepared": "1790137240000",
+    "run": "1790137649000"
+  },
+  "old_files": [
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013/gpu_usage.csv",
+      "bytes": 1695,
+      "sha256": "e80c77ea61e5b3a0fc5ca3496d1fcc7cd994ae445706842bc4a7f24f8319254a"
+    },
+    {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013/torchrun.log",
+      "bytes": 3136,
+      "sha256": "92eff252631833a83931116efa3082ef2ad4d4b95a1e8bcaf93abf56c47c7880"
+    }
+  ],
+  "new_out": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013_primary1",
+  "science_unchanged": true,
+  "new_submission": {
+    "state": "submitted",
+    "name": "lrwkv-header-679ee9f2-balanced_seed20271013-primary1",
+    "job_id": "job-0f982b95-d820-4b99-8b03-21822e1c9b52",
+    "at": "2026-09-23T04:32:31Z",
+    "returncode": 0,
+    "tail": "IR=\"/inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_distance_eval_cache_seed/7d78deca71289430\"; bash /inspire/hdd/global_user/zhangjiaquan-253108540222/long_rwkv_header_distance_stages/679ee9f29b1e2006/qz/launch_header_distance.sh'\n  framework: pytorch\n  pre_check_items:\n  priority: 20\n  dataset_info:\n  enable_notification: false\nResponseMetadata:\n  Action: CreateJob\n  Service: train\n"
+  }
+}

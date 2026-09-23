@@ -1,0 +1,69 @@
+# Controlled 0.4B training study: protocol audit
+
+2026-09-22. Scope: CPU-only review of the proposed study; no training, GPU submission, or runner modification performed. This review recommends a controlled mechanism test, not a new theorem or neural-architecture superiority claim.
+
+## Decision
+
+**Go, provided the objective, binary output support, and meaning of posterior KL are frozen before training.** No fatal flaw is inherent in the proposed design. The main risks are accidentally changing the absorbing objective, giving a sampler extra gold information, conflating marginal calibration with joint sampling quality, and calling unmatched network work equal NFE. Roughly 500 steps is an execution budget, not an assurance of convergence; failure to learn within that budget must remain a possible result.
+
+## 1. Freeze the conditional data distribution and information contract
+
+Use X uniform in GF(2)^8, rank(A)=4, and C=AX. The true conditional target is uniform over the 16-element affine coset. A systematic encoder and four disjoint pair-parity constraints have the same four-bit posterior entropy; randomize their coordinate labels using the same declared permutation distribution. Log A,C and the exact conditional support for scoring. The model may see A and C: those are the declared condition, not leakage. It must not see the original X outside its currently visible target positions.
+
+Provide the generator/serializer specification, condition ordering, bit-token IDs, target indices, and prompt length before any training. Assert that each target bit is exactly one model token and that target positions contain only their current bit or the mask token. Clamped separators, positions and metadata must not encode a target bit. A random example identifier or RNG seed can be recorded in receipts but must not be supplied to the model if it reconstructs X. The sampler's RNG must not be derived from a gold answer in a way the model or schedule can exploit.
+
+A is intentionally sufficient to compute an information set; the information-set schedule may depend on A and the visible-position mask, **not on the particular sampled gold X**. An information set must be computed from the nullspace of A, not confused with a basis of A's constraint rows. For rank-four length-eight data its size is four. Fix a deterministic tie rule for choosing among valid information sets.
+
+Freeze separate train and test generated-record seeds and content hashes. All schedules evaluate the same held-out A,C conditions and each training seed's same final checkpoint. The small finite support makes repeated mathematical conditions unavoidable: do not claim semantic novelty, zero conditional-support overlap, or generalization to unseen algebra merely because generated record IDs differ. Report duplicate A,C and A,C,X rates when inexpensive. Distinguish record-level holdout, coordinate permutations, and genuinely larger-dimensional tests.
+
+## 2. The proposed absorbing objective is correctly scaled under specific sampling
+
+With T=8, choose t uniformly from {1,...,8}. Independently mask each of N target bits with probability t/8, while clamping the condition. For bit cross-entropy CE_i, the unbiased estimator of the per-target-token absorbing negative ELBO is
+
+`loss = [8/(t*N)] * sum_{i masked} CE_i`.
+
+Here omega_t=1/t and the factor eight corrects uniform timestep sampling. This is a **sum over masked positions followed by division by N**, not division by the realized number of masks. Do not resample empty masks, condition on at least one mask, enforce a fixed mask count, weight examples by realized mask count, or silently discard zero-loss examples. Each changes the distribution or objective. An empty mask is a valid zero contribution; preserve a differentiable zero if the training framework requires a backward call. Distributed loss reduction should average equally over original examples, including zero contributions.
+
+Specify whether CE uses the entire tokenizer vocabulary or the conditional binary vocabulary. Both are possible training objectives, but they are different models. For an exact two-symbol diffusion claim, normalize the clean distribution over the two bit IDs, exclude mask from the clean support, and use that same law in training, calibration and sampling. If full-vocabulary CE is used, report it as such and separately identify any binary-renormalized evaluation policy. Do not discard nonbinary generations after sampling; either forbid them under a frozen binary law or score and report invalidity.
+
+Uniform t/8 masking is the forward law; a reverse t->t-1 stage independently reveals each masked bit with probability 1/t. Generalize correctly for 2/4-step schedules using their own uniform survival increments, rather than reusing an eight-step omega at arbitrary sampled times. No top-confidence ranking, argmax, top-k, remasking, or temperature adjustment belongs in the matched posterior sampler. Fix temperature 1 for exact-law comparisons unless a separately named deviation is intended. If the architecture is time-independent, the visible-mask pattern still supplies the sufficient observation for this absorbing process; do not invent a time input not present in the implementation.
+
+## 3. Paired training is a control, not three independently selected winners
+
+Start every seed from the same hashed 0.4B causal HF payload and record actual unique parameter counts, total stored elements, trainable parameters, and dtype. State exactly which parameters are tied across directions. Do not count duplicated parameter aliases twice or let the optimizer update an aliased tensor twice. No randomly initialized tied-depth module should appear without disclosure. A bidirectional adaptation can be larger than its nominal causal initialization even when some parameters are tied; report actual counts.
+
+Freeze optimizer, learning-rate schedule, effective batch size, gradient accumulation, clipping, precision, padding, loss normalization and exactly 500 steps (or another explicitly fixed number). Use independent optimizer states for training seeds 17/29/43. Distinguish data-order, corruption, dropout, initialization and evaluation seeds. If data order is deliberately identical across all three runs, disclose what randomness actually differs; these are not independent datasets. If comparing additional training arms, pair each arm's data order and corruption draws within seed, while maintaining separate optimizer state.
+
+A selected checkpoint must be the fixed terminal step. Monitor training loss and a separate development diagnostic for failures, but do not select a seed, step, schedule, or hyperparameter using the locked test. Predeclare failure criteria (NaN, corrupt checkpoint, wrong masking), and preserve failed-run records. Any substantive repair after observing held-out outcomes makes a new protocol version and requires labeling the original test exposure.
+
+## 4. Decoder comparisons and resource matching
+
+Evaluate the same trained checkpoint under: one-round independent draws; matched-Bernoulli 2/4/8 stages; oracle information-set two rounds; a random fixed-halves two-round schedule; and sequential eight singleton reveals. The random-halves control uses four distinct coordinates followed by their complement, drawn independently of A,C,X with a frozen selection seed. Both fixed two-round schedules share the same binary support, temperature and model weights. Report results separately for systematic and parity encoders and then under the fixed mixture weights; the mixture macro must not hide opposite family effects.
+
+The information-set arm has privileged analytic schedule information and must be called an **oracle-A schedule**. It tests whether the learned conditional predictor can exploit a suitable order; it does not show that the model learned to discover that order. The sequential arm is a reference with larger computation, not an equal-cost comparator. A matched-Bernoulli two-stage sampler has random batch sizes; it is not the same batch-size control as the fixed-halves sampler.
+
+Count actual denoiser calls per generated sample and record any cache use, skipped empty-reveal stages, deterministic shortcuts, extra logit diagnostics and retry work. For the central info-set versus random-halves comparison, either execute exactly two model calls in both arms or report actual NFE and avoid a nominal equal-NFE claim. If oracle linear solving replaces the second neural call, this becomes a different non-neural algorithm and cannot be presented as a learned two-call result. Numerical equality checks are needed before cache optimization. Report oracle scheduling/linear-algebra overhead separately if reporting wall time.
+
+Shared generation seeds can improve paired comparisons, but require an explicit coupling of per-position random draws; the same integer seed alone does not guarantee paired randomness across schedules consuming different numbers of draws. Do not rank samplers by one favorable draw.
+
+## 5. Define the primary metrics before execution
+
+**Constraint validity:** fraction of all generated bit vectors satisfying A*y=C. Count nonbinary or incomplete outputs as failures if the chosen law permits them. Validity alone is insufficient: a sampler returning one valid codeword forever scores perfectly while failing to sample the uniform posterior.
+
+**Marginal conditional calibration:** evaluate exact KL between the oracle bit posterior and learned binary probabilities on a prespecified set of feasible corrupted canvases. The oracle marginal is either deterministic or a fair bit and can be derived by GF(2) rank/row-space tests. State the weighting over t, conditions and masked positions; use the training-forward distribution for an ELBO-aligned diagnostic. This is per-coordinate posterior KL, **not** KL of the full generated joint distribution.
+
+**Joint posterior fidelity and diversity:** the true conditional support has 16 codewords with entropy four bits. Report per-condition support coverage and repeated-output concentration, with a fixed number of independent generations per condition. A uniform-marginal distribution can still occupy only part of the coset, so even marginal calibration plus validity does not establish the correct joint distribution. Where feasible, compute exact q(y|A,C) for a frozen small audit panel and evaluate true-to-model KL, summing over the 16 valid targets. For the fixed two-round schedules, q(y) is the product of model probabilities along the two committed canvases; for sequential sampling it is the eight-factor chain. For stochastic Bernoulli schedules, exact q(y) must **sum over reveal paths**; one sampled path's log probability is not the endpoint log probability. A dynamic program over partial canvases is possible at N=8, but its cost must be budgeted. Keep this exact audit panel fixed before training.
+
+Empirical sample frequencies do not give an exact endpoint KL. Zero observed counts make naive plug-in forward KL infinite even for a good sampler; pseudocounts change the estimator and must be disclosed. An entropy estimate from few draws is biased downward. Report finite-sample uncertainty and compare to a perfect uniform-coset sampler at the same sample count as a calibration check. Do not call the count of distinct samples a complete no-collapse certificate.
+
+Perfect-posterior oracle baselines should recover the known outcomes: the information-set and sequential samplers are exact; one-round systematic sampling is exact; one-round disjoint-pair-parity validity is 1/16 and its true-to-product KL is 4 ln 2. Fixed random halves and Bernoulli schedules have schedule-dependent analytical/enumerable baselines. These checks distinguish learned predictor error from the dependence penalty of the reveal policy.
+
+## 6. Interpretation and minimum reporting
+
+Three training seeds support three paired seed-level contrasts, not hundreds of independent model replicates. Provide each seed's results, a fixed equal-seed aggregate, and descriptive paired example-level uncertainty conditional on those checkpoints; with only three seeds, do not assert a precise population-level training-variance estimate. Preserve sampler ties and failures. Learning curves and terminal calibration determine whether an observed schedule difference is consistent with the mechanism; lack of fit can make the neural experiment inconclusive even when the exact oracle result holds.
+
+For exploratory N=12/16, predeclare how rank and encoder families scale (e.g. rank N/2), target positions, serializers, and test size. A longer prompt, unseen equation count, new coordinate vocabulary or changed rank is a distribution shift in addition to target length. Label all such results exploratory and do not use them to choose the N=8 primary configuration.
+
+The defensible conclusion is about the interaction of learned conditional estimation with known posterior dependence and reveal order in this finite task. It does not establish general long-context retention, a benefit of diffusion over an optimized autoregressive architecture, new mathematical novelty, or recovery of information removed by compression. Improvement between rounds requires a changed visible canvas; repeated evaluation of an unchanged deterministic canvas cannot itself improve its prediction.
+
+Minimum frozen artifacts: generator/serializer source hashes; train/dev/test manifests; HF initialization revision and tensor hash; architecture/tie inventory; full optimizer configuration; corruption sampler specification; fixed checkpoint selection rule; decoder/output-support definitions; evaluation panel and sample-count budget; exact metric definitions including KL direction and conditioning; actual NFE receipts; three independent final checkpoints or explicit failures. These can be lightweight JSON records and assertions, not a new infrastructure project.

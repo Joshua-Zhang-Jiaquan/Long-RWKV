@@ -1,7 +1,0 @@
-Production qualification directory: 12 Python files scanned, 0 files with errors, 0 diagnostics.
-Changed test files checked individually:
-- test_qualification_controller_receipt.py: no diagnostics
-- test_qualification_controls.py: no diagnostics
-- test_qualification_runtime_contracts.py: no diagnostics
-- test_qualification_probe.py: no diagnostics
-- test_qualification_cli.py: no diagnostics

@@ -1,8 +1,0 @@
-{
-  "status": "CPU_PREFLIGHT_READY_NOT_GPU_VERIFIED",
-  "payload_id": "qualification-20260912-01",
-  "launcher": "scale/experiments/nonlatent_iclr/qualification/run_qualification.sh",
-  "tests": "scale/tests/nonlatent_iclr/test_qualification_controls.py scale/tests/nonlatent_iclr/test_qualification_cli.py",
-  "prohibited_actions": ["qz_submit", "qz_dry_run", "cuda_local_import", "cuda_local_execution"],
-  "required_runtime_checks": ["8x_h100_sxm_80g_name_uuid_memory", "all_8_rank_nonce_bound_results", "fla_causal_prefix_cache_equivalence", "staged_birwkv7_masked_forward", "weights_only_checkpoint_load", "90_percent_memory_ceiling"]
-}

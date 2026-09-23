@@ -1,0 +1,14 @@
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}p{0.18\linewidth}p{0.38\linewidth}p{0.38\linewidth}@{}}
+\toprule
+Prompt & F2 leading excerpt & R0 leading excerpt \\
+\midrule
+Capital, chat & \texttt{It is Paris. Paris city name} & \texttt{Paris.} \\
+Lookup, chat & \texttt{the, the.  ----> select the3 to the3.} & \texttt{The value stored for key093 is v1911.} \\
+Symbolic raw & \texttt{a:\textbackslash{}nc:\textbackslash{}n2\textbackslash{}nd:\textbackslash{}n1} & \texttt{dvk093\textbackslash{}ndvk093\textbackslash{}ndvk093} \\
+\bottomrule
+\end{tabular}
+\caption{Illustrative leading excerpts from exploratory 32-token canaries; leading whitespace is omitted and literal \texttt{\textbackslash{}n} denotes a newline. Excerpts are not a scoring rule. The paired models receive identical prompts and budgets; all eight prompt pairs, full output IDs/text and source hashes are retained in \texttt{results/e3\_canary\_audit.json}.}
+\label{tab:e3-canary}
+\end{table}

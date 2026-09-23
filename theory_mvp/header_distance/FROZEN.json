@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "status": "frozen_before_predictions",
+  "created_at": "2026-09-23T04:18:01.994987+00:00",
+  "initial_checkpoint_sha256": "52dbc7f289513e475d10422dbccffa52f74ec55fc887253ea13ae0476dc3e2c9",
+  "parent_evaluation_sha256": "7d78deca7128943063653354b78a3ad31ab53c0238581251f211797f2847ac90",
+  "roles": [
+    "near_seed20271011",
+    "balanced_seed20271011",
+    "near_seed20271012",
+    "balanced_seed20271012",
+    "near_seed20271013",
+    "balanced_seed20271013"
+  ],
+  "checkpoints": {
+    "near_seed20271011": {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271011_pathfix1/resume.pt",
+      "sha256": "3a79d25b13ce2a75ae8cac4e432dd220ad4951304ab5703aa4a8cb38c946dd27"
+    },
+    "balanced_seed20271011": {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271011_pathfix1/resume.pt",
+      "sha256": "6770ce1883f6482e591917925c1f4de4f047ad637c483bb0b51da6c60a05566c"
+    },
+    "near_seed20271012": {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271012_pathfix1/resume.pt",
+      "sha256": "1caba6a6a402616a0a2f4f64f6ceb4547b5109db9c2501b278b58d87de488243"
+    },
+    "balanced_seed20271012": {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271012/resume.pt",
+      "sha256": "f3e34a63627d38ef132fac9ffee3b00d94437754956896324ec92fba7ac7588e"
+    },
+    "near_seed20271013": {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271013/resume.pt",
+      "sha256": "c2cf9940ccecb091fb4edf68b21a03fb1f3758e42a127c9812f0c9d34dd7ed52"
+    },
+    "balanced_seed20271013": {
+      "path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271013/resume.pt",
+      "sha256": "8ebf9eddc02e47ea108bbce66807502ca4f3cc0d721bb561001b4562a9aa4493"
+    }
+  },
+  "prior_outputs": {
+    "near_seed20271011": {
+      "path": "results/distance_intervention/exact_near_seed20271011.json",
+      "sha256": "b184836265ba8850cc00d2ca81c7418ef08f74a1595c135ad9b07b68a2efb060"
+    },
+    "balanced_seed20271011": {
+      "path": "results/distance_intervention/exact_balanced_seed20271011.json",
+      "sha256": "5f9e3826580cb58ff7a478f5bf3de1e27d2c19d3f3c39a8cb2092bf6f7224b3c"
+    },
+    "near_seed20271012": {
+      "path": "results/distance_intervention/exact_near_seed20271012.json",
+      "sha256": "41f759202383f8be2498768f74269a61a249dcbad2da5f6dd92dd49b2eed8817"
+    },
+    "balanced_seed20271012": {
+      "path": "results/distance_intervention/exact_balanced_seed20271012.json",
+      "sha256": "f897173608db400bca75b19b9b5c2d7092a94168fd8e4506cd89b28108a8a618"
+    },
+    "near_seed20271013": {
+      "path": "results/distance_intervention/exact_near_seed20271013.json",
+      "sha256": "42cfb2596d702951a0f615a867e479b5f31d3b132d09473b34ecd99c65ccdc9d"
+    },
+    "balanced_seed20271013": {
+      "path": "results/distance_intervention/exact_balanced_seed20271013.json",
+      "sha256": "9622932b1268d9bc62d0358afe1b399f11821e54ec8855d0441e50d9a31e8316"
+    }
+  },
+  "sources": {
+    "lrwkv_evidence/header_distance/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "lrwkv_evidence/header_distance/tasks.py": "59bc692619a4b1dea618f414f262ac6a6b7490430632a6a253db4657364deac0",
+    "lrwkv_evidence/header_distance/evaluate.py": "508c04fe90d94eb9b5470953c4355c3bb73a415597725fda157559c83a90a7ed",
+    "lrwkv_evidence/distance_intervention/tasks.py": "4cee1dd73032d58cfb3830afa8ffacdbdd2b9923d9322cd8bb3aaab07d7bf0bb",
+    "theory_mvp/header_distance/DESIGN.md": "47677b7c4111abf0887f8bef00a603907f8528971618c60075a6a8f606d5b737",
+    "theory_mvp/header_distance/INPUTS.json": "cf9be6463106b044519fc7954118e9560d8a38f0a7b3adcbabf72c37aab54593",
+    "theory_mvp/header_distance/analyze.py": "e1c61d6fbceafa11847625c30750dc4534cadd62dede2bf92860e229849777ed",
+    "theory_mvp/header_distance/test_design.py": "ecd1a58a4c6b951a0204f7a65ab62aeb6d86afbef3a691239b61b4ee3846a93a",
+    "qz/launch_header_distance.sh": "2d1d447eac1842cf0b9bc776888edf7e31aaf5e9552c124435e66136c97bc784",
+    "qz/submit_header_distance.py": "3f68943e3503e05c313197ae93dcb6a2d182b079430eec7f5e3650a40714aac6",
+    "qz/run_header_distance.py": "4f3a9fd3162a6ca156af8b94d792fa81703aae83971f417c652d40ff4cef4643",
+    "qz/distance_admission.py": "f76fe92b50865751c228bab96f841885e9d724f4f9618c3689e1616c155f452e",
+    "qz/confirm_capacity.py": "52a88a59c3696f7a49cd6095d3a847bb846a83411f3c4a8d62083725979ae9ab",
+    "qz/submission_lock.py": "08fae38f06608aa09995c7aa884cdbd69517e0c25a382fee72f8c8f937f93485"
+  },
+  "test_seed": 2026092301,
+  "bootstrap_seed": 2026092302,
+  "bootstrap_draws": 10000,
+  "cells": [
+    "header_far_task_far",
+    "header_far_task_near",
+    "header_near_task_far",
+    "header_near_task_near",
+    "legacy_far",
+    "legacy_near"
+  ],
+  "conditions": 1152,
+  "endpoint_laws": 2304,
+  "forward_calls_excluding_screens": 19584,
+  "scope": "Independent instruction-header/task-block inference positions on fresh prompts; six matched adaptations of selected seed71 lineage. Does not identify training-component mediation."
+}

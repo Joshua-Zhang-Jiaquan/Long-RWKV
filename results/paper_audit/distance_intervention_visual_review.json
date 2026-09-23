@@ -1,0 +1,48 @@
+{
+  "reviewed": true,
+  "at_utc": "2026-09-22T18:57:02.589677+00:00",
+  "pdf_sha256": "1715d2b5ce366c47b58ae69863066129f0e4bc7acb8934dffacb3a6e9e62ff53",
+  "pages": 14,
+  "main_text_and_references_pages": 8,
+  "reviewed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "page_png_sha256": {
+    "results/paper_audit/distance_final_pages/page-01.png": "4a479bbf0fd5c1d60157b166049aaa9de646b82623ceba4ad389fde3c4c0b238",
+    "results/paper_audit/distance_final_pages/page-02.png": "f809b59d0b2400aea502b6ae2d451e555c28d80bb3d022bb5fbe03f59fb09c1a",
+    "results/paper_audit/distance_final_pages/page-03.png": "5c079a35955a1c7fe8ef746ee50d20424d9767f4a036be1d97b43879b336cb3a",
+    "results/paper_audit/distance_final_pages/page-04.png": "00c9d90781739fb12681cd7ecd7d536eaac7343708d39e2e1b678d5d8e9b6e30",
+    "results/paper_audit/distance_final_pages/page-05.png": "d3082dc52a388be3e42b9627338c5f13037603b1fd4b9f44d46cafe413becc58",
+    "results/paper_audit/distance_final_pages/page-06.png": "d8bcd401f46b2b9f4ef58a01dec4ae075faaa1c0a2cfb451d4d7a0e9e35b1fad",
+    "results/paper_audit/distance_final_pages/page-07.png": "a367c81854fd6fc11407d5912e0f4f70fe31c54fd1542bf845d661b06a55f98b",
+    "results/paper_audit/distance_final_pages/page-08.png": "df932265fe13cabf2021ee77eb40d3d3824f666ec64c7d3503d39e395490bd89",
+    "results/paper_audit/distance_final_pages/page-09.png": "2841989bfa87c066de7f0186fd7b7ad6fccc2a4e044a537517db19d55f3db8ea",
+    "results/paper_audit/distance_final_pages/page-10.png": "dbbd2b69cbf8b3cf8f2d54ae27336e54772ff46839ddc9a7dfa3a59305b1c864",
+    "results/paper_audit/distance_final_pages/page-11.png": "944b060a2c994cb679122eac6854bee1494213a2f15f3cbfc1e6ef0f87757abb",
+    "results/paper_audit/distance_final_pages/page-12.png": "44cb3a7518357fe5d7c753c2ed38f744a609c7fba196cac420f7405d87d4380f",
+    "results/paper_audit/distance_final_pages/page-13.png": "64ad7557f11033a0b93a0cb2924b83488033d421a82412029dd6ed0e410f68d7",
+    "results/paper_audit/distance_final_pages/page-14.png": "2259d54f1d82817b14672c5b44746df22cc418c2fc6a498b494d1aef7b0f9cea"
+  },
+  "method": "Visual inspection of final page renders; final pages1,2,4,5,6,7 are pixel-identical to previously inspected renders; final pages3,8\u201314 inspected after the last build.",
+  "findings": [
+    "No clipped text, plots, tables, or equations observed.",
+    "Main figure labels and uncertainty bands readable; all selector rows retained.",
+    "Single-reference orphan page removed.",
+    "Publication reflow preserves every line coordinate and uncertainty-band vertex.",
+    "Old negative results remain visible in the appendix."
+  ],
+  "figure_sha256": "889dac729f6d13cb24dfc92e150c4aa465fcdc02bce5cda036ed6cfd34183bd8"
+}

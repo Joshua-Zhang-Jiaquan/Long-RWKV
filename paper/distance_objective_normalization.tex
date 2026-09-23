@@ -1,0 +1,27 @@
+\paragraph{Balanced supervision of both two-call policies.}
+An equal mixture of information-set and intact-pair supervision samples a
+round uniformly and uses $(2/8)$ times the sum of its four coordinate losses.
+For a common public-context law, its population excess risk is therefore
+\[
+ \mathcal R_{\mathrm{mix}}
+ =\frac{E_{\mathrm{info}}+E_{\mathrm{pair}}}{16}.
+\]
+The paired-task oracle entropy floor is $(3/4)\log2$; averaging equally with
+the systematic family gives $(5/8)\log2$. Random-round minibatches can have
+different floors, which must be computed from their actual conditional targets.
+On paired parity, nonnegativity yields
+\[
+ \left|\KL(P\Vert Q_{\mathrm{pair}})
+       -\KL(P\Vert Q_{\mathrm{info}})-4\log2\right|
+ \le 16\mathcal R_{\mathrm{mix}}.
+\]
+Thus a small held-out risk bounds the estimation-error contribution to the
+same-call contrast. Equal supervision weights alone do not establish equal
+competence. Also $\mathcal R_{\mathrm{mix}}<\log2/4$ suffices for the
+information-set policy to beat every one-call product predictor on this law.
+If risk additionally averages both families and three positions equally,
+the corresponding constants for paired-family mean-position error and
+specified-position error are respectively $32$ and $96$.
+All statements require the same underlying public-example distribution;
+they do not convert training minibatch loss into held-out or longer-context
+guarantees. Near-only supervision leaves far-position public queries uncovered.

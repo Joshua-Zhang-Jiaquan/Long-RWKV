@@ -1,3 +1,0 @@
-Running 17 items in this shard
-.................                                                        [100%]
-17 passed in 2.87s

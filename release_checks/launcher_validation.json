@@ -1,0 +1,20 @@
+{
+  "cwd": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/long-rwkv-paper-release/reproduction/stages/header_distance",
+  "command": [
+    "torchrun",
+    "--standalone",
+    "--nproc_per_node=8",
+    "-m",
+    "lrwkv_evidence.header_distance.evaluate",
+    "--base",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/rwkv7-0.4B",
+    "--model-root",
+    "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/long-rwkv-paper-release/reproduction/stages/header_distance/model_source",
+    "--checkpoint",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271011_pathfix1/resume.pt",
+    "--out",
+    "/tmp/long-rwkv-release-eval-not-launched"
+  ],
+  "checkpoint_sha256": "6770ce1883f6482e591917925c1f4de4f047ad637c483bb0b51da6c60a05566c",
+  "execute": false
+}

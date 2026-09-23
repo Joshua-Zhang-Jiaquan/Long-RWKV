@@ -1,0 +1,250 @@
+{
+  "scope": "Algebraic sufficient criterion added during follow-up preparation; not a new preregistered inferential endpoint.",
+  "checkpoints": {
+    "original": {
+      "far": {
+        "mean_upper_bound": 42.04877163637252,
+        "mean_exact_error": 21.850163294963142,
+        "max_upper_bound": 88.61337080019935,
+        "max_exact_error": 44.205185546834244,
+        "mean_response_certificate": false,
+        "all32_response_certificates": false,
+        "all32_exact_certificates": false,
+        "global_worst_pair_ce": 17.961891174316406,
+        "global_max_unaffected_change": 0.999858987340216
+      },
+      "middle": {
+        "mean_upper_bound": 41.61031594200874,
+        "mean_exact_error": 21.04714982348984,
+        "max_upper_bound": 85.3965471851825,
+        "max_exact_error": 41.11779512644849,
+        "mean_response_certificate": false,
+        "all32_response_certificates": false,
+        "all32_exact_certificates": false,
+        "global_worst_pair_ce": 17.102783203125,
+        "global_max_unaffected_change": 0.9975479772742696
+      },
+      "near": {
+        "mean_upper_bound": 1.6216228657498744,
+        "mean_exact_error": 1.1038683348419802,
+        "max_upper_bound": 4.406799720371401,
+        "max_exact_error": 4.198791372292526,
+        "mean_response_certificate": true,
+        "all32_response_certificates": false,
+        "all32_exact_certificates": false,
+        "global_worst_pair_ce": 11.476274490410253,
+        "global_max_unaffected_change": 0.9999957474449535
+      }
+    },
+    "near_seed20271011": {
+      "far": {
+        "mean_upper_bound": 15.922938401871246,
+        "mean_exact_error": 8.303738366738008,
+        "max_upper_bound": 36.810760243049444,
+        "max_exact_error": 18.774828489252094,
+        "mean_response_certificate": false,
+        "all32_response_certificates": false,
+        "all32_exact_certificates": false,
+        "global_worst_pair_ce": 13.072368621837315,
+        "global_max_unaffected_change": 0.9938930561254216
+      },
+      "middle": {
+        "mean_upper_bound": 19.87037048923295,
+        "mean_exact_error": 10.258528174841558,
+        "max_upper_bound": 45.90278378861722,
+        "max_exact_error": 18.732190498290052,
+        "mean_response_certificate": false,
+        "all32_response_certificates": false,
+        "all32_exact_certificates": false,
+        "global_worst_pair_ce": 13.661790847782179,
+        "global_max_unaffected_change": 0.9999803367066699
+      },
+      "near": {
+        "mean_upper_bound": 0.0006503031097608348,
+        "mean_exact_error": 0.00017698084844583434,
+        "max_upper_bound": 0.014158430902503578,
+        "max_exact_error": 0.0014353662405406273,
+        "mean_response_certificate": true,
+        "all32_response_certificates": true,
+        "all32_exact_certificates": true,
+        "global_worst_pair_ce": 0.11187684581145077,
+        "global_max_unaffected_change": 0.03865859802854562
+      }
+    },
+    "balanced_seed20271011": {
+      "far": {
+        "mean_upper_bound": 0.00022641459846722473,
+        "mean_exact_error": 0.00010198374618315302,
+        "max_upper_bound": 0.0034078017299464104,
+        "max_exact_error": 0.002855188903241725,
+        "mean_response_certificate": true,
+        "all32_response_certificates": true,
+        "all32_exact_certificates": true,
+        "global_worst_pair_ce": 0.027254366663254745,
+        "global_max_unaffected_change": 0.5316263430356426
+      },
+      "middle": {
+        "mean_upper_bound": 0.002317132242598491,
+        "mean_exact_error": 0.0004865485733409171,
+        "max_upper_bound": 0.046816302725354024,
+        "max_exact_error": 0.01495375225939245,
+        "mean_response_certificate": true,
+        "all32_response_certificates": true,
+        "all32_exact_certificates": true,
+        "global_worst_pair_ce": 0.37386996062777655,
+        "global_max_unaffected_change": 0.9338333987087157
+      },
+      "near": {
+        "mean_upper_bound": 8.244087037739535e-06,
+        "mean_exact_error": 7.761807983205108e-06,
+        "max_upper_bound": 2.257545720966915e-05,
+        "max_exact_error": 1.3271223692352275e-05,
+        "mean_response_certificate": true,
+        "all32_response_certificates": true,
+        "all32_exact_certificates": true,
+        "global_worst_pair_ce": 9.725965866807169e-05,
+        "global_max_unaffected_change": 0.0005763492693174455
+      }
+    },
+    "near_seed20271012": {
+      "far": {
+        "mean_upper_bound": 14.001084399284363,
+        "mean_exact_error": 7.0757422585985355,
+        "max_upper_bound": 24.210922723893578,
+        "max_exact_error": 12.818116879205935,
+        "mean_response_certificate": false,
+        "all32_response_certificates": false,
+        "all32_exact_certificates": false,
+        "global_worst_pair_ce": 13.574878692628163,
+        "global_max_unaffected_change": 0.7178125492745412
+      },
+      "middle": {
+        "mean_upper_bound": 14.851567075019748,
+        "mean_exact_error": 7.5026814725905915,
+        "max_upper_bound": 27.53106129583079,
+        "max_exact_error": 13.218193842634003,
+        "mean_response_certificate": false,
+        "all32_response_certificates": false,
+        "all32_exact_certificates": false,
+        "global_worst_pair_ce": 14.518101692199888,
+        "global_max_unaffected_change": 0.9989985151723991
+      },
+      "near": {
+        "mean_upper_bound": 9.951049124391063e-06,
+        "mean_exact_error": 1.246125695224447e-06,
+        "max_upper_bound": 0.00018556180093931538,
+        "max_exact_error": 1.2440184432906198e-05,
+        "mean_response_certificate": true,
+        "all32_response_certificates": true,
+        "all32_exact_certificates": true,
+        "global_worst_pair_ce": 0.0008701172006087226,
+        "global_max_unaffected_change": 0.00017355059663015648
+      }
+    },
+    "balanced_seed20271012": {
+      "far": {
+        "mean_upper_bound": 1.4036444170581047e-05,
+        "mean_exact_error": 1.1538733175754917e-05,
+        "max_upper_bound": 0.00022984416248822878,
+        "max_exact_error": 0.0002292651459319882,
+        "mean_response_certificate": true,
+        "all32_response_certificates": true,
+        "all32_exact_certificates": true,
+        "global_worst_pair_ce": 0.001779627154833142,
+        "global_max_unaffected_change": 0.02189334347546221
+      },
+      "middle": {
+        "mean_upper_bound": 1.231241358839576e-05,
+        "mean_exact_error": 1.1609359819655454e-05,
+        "max_upper_bound": 0.00019920593649002766,
+        "max_exact_error": 0.00019884474760013625,
+        "mean_response_certificate": true,
+        "all32_response_certificates": true,
+        "all32_exact_certificates": true,
+        "global_worst_pair_ce": 0.0015310670054695778,
+        "global_max_unaffected_change": 0.9920379522677868
+      },
+      "near": {
+        "mean_upper_bound": 4.065296224795022e-06,
+        "mean_exact_error": 4.05780814325714e-06,
+        "max_upper_bound": 6.190577209294237e-06,
+        "max_exact_error": 6.18620813427017e-06,
+        "mean_response_certificate": true,
+        "all32_response_certificates": true,
+        "all32_exact_certificates": true,
+        "global_worst_pair_ce": 1.1887569502519673e-05,
+        "global_max_unaffected_change": 0.05173013373914881
+      }
+    },
+    "near_seed20271013": {
+      "far": {
+        "mean_upper_bound": 5.5449649373736065,
+        "mean_exact_error": 2.7724556393039306,
+        "max_upper_bound": 5.545222649704737,
+        "max_exact_error": 2.7734800563332835,
+        "mean_response_certificate": false,
+        "all32_response_certificates": false,
+        "all32_exact_certificates": false,
+        "global_worst_pair_ce": 0.6936886764948,
+        "global_max_unaffected_change": 0.0006648674339633232
+      },
+      "middle": {
+        "mean_upper_bound": 5.544519816860596,
+        "mean_exact_error": 2.77225815067386,
+        "max_upper_bound": 5.545129579095471,
+        "max_exact_error": 2.7734068262248788,
+        "mean_response_certificate": false,
+        "all32_response_certificates": false,
+        "all32_exact_certificates": false,
+        "global_worst_pair_ce": 0.6942115082538296,
+        "global_max_unaffected_change": 0.0022165704291099986
+      },
+      "near": {
+        "mean_upper_bound": 7.024991517582042e-06,
+        "mean_exact_error": 6.988646200431089e-06,
+        "max_upper_bound": 9.32892454943999e-06,
+        "max_exact_error": 9.327372018283596e-06,
+        "mean_response_certificate": true,
+        "all32_response_certificates": true,
+        "all32_exact_certificates": true,
+        "global_worst_pair_ce": 2.5486865201569125e-06,
+        "global_max_unaffected_change": 4.588266554202326e-06
+      }
+    },
+    "balanced_seed20271013": {
+      "far": {
+        "mean_upper_bound": 0.0002624759201853405,
+        "mean_exact_error": 0.00015112526449410186,
+        "max_upper_bound": 0.002165001549011498,
+        "max_exact_error": 0.0017556262475011252,
+        "mean_response_certificate": true,
+        "all32_response_certificates": true,
+        "all32_exact_certificates": true,
+        "global_worst_pair_ce": 0.010979070704535191,
+        "global_max_unaffected_change": 0.032111710227744505
+      },
+      "middle": {
+        "mean_upper_bound": 0.00035773536556538897,
+        "mean_exact_error": 0.0001843477835361188,
+        "max_upper_bound": 0.003505908253252328,
+        "max_exact_error": 0.0019680185869211074,
+        "mean_response_certificate": true,
+        "all32_response_certificates": true,
+        "all32_exact_certificates": true,
+        "global_worst_pair_ce": 0.020561882595123683,
+        "global_max_unaffected_change": 0.03194012411260638
+      },
+      "near": {
+        "mean_upper_bound": 0.0009050004631957116,
+        "mean_exact_error": 0.00043619617178304143,
+        "max_upper_bound": 0.012742833201124163,
+        "max_exact_error": 0.007730796826365722,
+        "mean_response_certificate": true,
+        "all32_response_certificates": true,
+        "all32_exact_certificates": true,
+        "global_worst_pair_ce": 0.0681132977416925,
+        "global_max_unaffected_change": 0.19523327367102183
+      }
+    }
+  }
+}
