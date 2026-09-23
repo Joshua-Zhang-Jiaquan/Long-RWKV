@@ -1,0 +1,54 @@
+% Prospective methods; insert into the revised manuscript when outcomes are available.
+\subsection{Predicting reveal schedules on unseen dependency classes}
+The fixed-partition decomposition identifies a prediction target but does not
+predict learned error on a new context. We test whether source-class calibration
+can supply that missing prediction. Let $U$ be uniform on four binary variables
+and $P=BU\oplus s$, where $B$ is invertible over $\mathrm{GF}(2)$ and $s$ is public.
+Both $U$ and $P$ have independent fair marginals. Revealing either basis first
+therefore gives a two-round policy with $D=0$. Both policies read the same full
+context twice. Their forward-KL difference is entirely a difference in learned
+conditional error, so dependence accounting alone cannot rank them.
+
+We enumerate the 20,160 invertible matrices and partition their 25 homogeneous-code
+weight-enumerator classes by a fixed hash: 15 source classes and 10 held-out
+classes. Different weight enumerators certify that no permutation of the eight
+answer coordinates maps one code to the other. Equal enumerators need not imply
+equivalent codes. Training samples only source classes. Prompts randomize labels,
+coordinate order, equation order, and the names of the two publicly displayed
+bases. The selector obtains basis membership from the prompt rather than from
+private generator labels or target values.
+
+Six independent task-training pipelines start from the same public pretrained
+backbone, using separate data and conditioning-initialization seeds. Each runs
+300 two-bit updates, 400 four-bit updates, 1,800 source-code updates, and 600
+16K updates with balanced public-block positions. Every terminal checkpoint is
+retained. This tests fresh lineages for the new task; it does not retroactively
+replicate the earlier position intervention across independent initial models.
+
+For each model, source calibration comprises four fresh prompts in each source
+class at three context positions. We estimate per-coordinate conditional error
+using public features: fair versus deterministic marginal, parity fan-in,
+number of displayed equations combined (column degree for fair marginals), and
+position. A fixed binned estimator shrinks toward a round/position mean. A bin
+requires eight distinct source prompts; unsupported decisions fall back to a
+predeclared content-hash tie and remain in the primary denominator. First-round
+marginal error is included. No monotonic relation between parity fan-in and
+neural error is assumed.
+
+Predicted scores and chosen policies for eight fresh prompts per held-out class,
+at all three positions, are hashed before any held-out neural evaluation.
+Exact evaluation then enumerates all 16 target endpoints under both policies.
+The primary estimand is KL reduction against the dependence-only content-hash
+tie. We also report fixed-basis, random-in-expectation, source-unconditional,
+and uncalibrated fan-in baselines, together with regret to the retrospective
+best policy. Uncertainty resamples training lineages and held-out code classes,
+then prompts within classes, retaining their paired positions.
+
+The predeclared success criteria require a mean improvement of at least 0.1 nat,
+a positive 95\% interval, at least 80\% supported decisions, six complete
+lineages, and at least five models whose mean selected-policy KL is below the
+one-call product floor $4\log2$. A gain over a dependence-only tie does not by
+itself establish that calibration improves on the structural heuristic.
+Cross-class error prediction is an empirical transfer hypothesis: the full-context
+training/test density ratio is infinite, so the preceding finite-coverage bound
+does not certify this extrapolation.

@@ -1,6 +1,6 @@
 # Revision proposal: predict conditional-error differences on unseen dependency classes
 
-Status: **draft for review, not a frozen GPU protocol**. Prepared in response to the 23 September advisory review of main commit `44fa1c813d07cb884ee27935a7fcf3596ba51754`. No new neural predictions or GPU jobs have been run for this proposal. Existing published evidence and the reviewed PDF remain unchanged.
+Status: **implemented; source-only qualification passed; main experiment frozen and launched on 23 September 2026**. The authoritative protocol is `FROZEN.json` (SHA256 `cccbd5a39dcf3bb9153a1b8dd927925618819cec80e5168cb9cea2a417fd4f73`). Six fresh training lineages are running within the32+16 H100 cap. No held-out predictions or transfer outcomes are available yet. The proposal below records the design rationale; final choices are specified in the frozen protocol. Existing published evidence and the reviewed PDF remain unchanged.
 
 ## Contribution to pursue
 

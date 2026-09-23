@@ -1,0 +1,62 @@
+{
+  "cwd": "/tmp/lrwkv_reconstruction_initial_20260923/initial_stage",
+  "command": [
+    "torchrun",
+    "--standalone",
+    "--nproc_per_node=8",
+    "-m",
+    "lrwkv_evidence.train04confirm.worker",
+    "--manifest",
+    "/tmp/lrwkv_reconstruction_initial_20260923/initial_stage/manifest.json",
+    "--base",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/rwkv7-0.4B",
+    "--model-root",
+    "/tmp/lrwkv_reconstruction_initial_20260923/initial_stage/model_source",
+    "--seed",
+    "71",
+    "--phase",
+    "parent",
+    "--out",
+    "/tmp/lrwkv_reconstruction_initial_20260923/parent"
+  ],
+  "environment_overrides": {
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "OMP_NUM_THREADS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "PYTHONUNBUFFERED": "1"
+  },
+  "execute": false
+}
+{
+  "cwd": "/tmp/lrwkv_reconstruction_initial_20260923/initial_stage",
+  "command": [
+    "torchrun",
+    "--standalone",
+    "--nproc_per_node=8",
+    "-m",
+    "lrwkv_evidence.train04confirm.worker",
+    "--manifest",
+    "/tmp/lrwkv_reconstruction_initial_20260923/initial_stage/manifest.json",
+    "--base",
+    "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/rwkv7-0.4B",
+    "--model-root",
+    "/tmp/lrwkv_reconstruction_initial_20260923/initial_stage/model_source",
+    "--seed",
+    "71",
+    "--phase",
+    "independent",
+    "--out",
+    "/tmp/lrwkv_reconstruction_initial_20260923/independent",
+    "--parent",
+    "/tmp/lrwkv_reconstruction_initial_20260923/parent/resume.pt"
+  ],
+  "environment_overrides": {
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "OMP_NUM_THREADS": "4",
+    "MKL_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "PYTHONUNBUFFERED": "1"
+  },
+  "execute": false
+}

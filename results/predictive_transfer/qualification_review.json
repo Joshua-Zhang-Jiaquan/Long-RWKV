@@ -1,0 +1,69 @@
+{
+  "status": "source-only numerical/runtime qualification passed",
+  "recorded_at": "2026-09-23T06:55:44.454640+00:00",
+  "job_id": "job-80343c5c-8396-4aff-b2f2-f1a66e0902a2",
+  "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+  "checks": [
+    {
+      "other_document_difference": 0.0,
+      "own_document_difference": 9.1390380859375,
+      "serial_difference": 0.0
+    },
+    {
+      "other_document_difference": 0.0,
+      "own_document_difference": 9.139034271240234,
+      "serial_difference": 0.0
+    },
+    {
+      "other_document_difference": 0.0,
+      "own_document_difference": 9.1390380859375,
+      "serial_difference": 0.0
+    },
+    {
+      "other_document_difference": 0.0,
+      "own_document_difference": 9.139037132263184,
+      "serial_difference": 0.0
+    },
+    {
+      "other_document_difference": 0.0,
+      "own_document_difference": 9.1390380859375,
+      "serial_difference": 0.0
+    },
+    {
+      "other_document_difference": 0.0,
+      "own_document_difference": 9.1390380859375,
+      "serial_difference": 0.0
+    },
+    {
+      "other_document_difference": 0.0,
+      "own_document_difference": 9.139037132263184,
+      "serial_difference": 0.0
+    },
+    {
+      "other_document_difference": 0.0,
+      "own_document_difference": 9.1390380859375,
+      "serial_difference": 0.0
+    }
+  ],
+  "steady_16k_step_seconds": 11.540724724000029,
+  "short_n8_steps_seconds": [
+    6.11976169800073,
+    4.760694739999963
+  ],
+  "estimated_training_hours_range": [
+    4.5,
+    6.5
+  ],
+  "estimate_limit": "excludes queue delay; short source-only qualification is not a learning-success estimate",
+  "peak_allocated_bytes": 16999246848,
+  "completion": {
+    "checkpoint_sha256": "5cad85fdb644c1862a3e3ad5802ff4cc6bd52f4a5ca1c528fadaf5b8b210a981",
+    "elapsed_seconds": 274.9494953349986,
+    "execution_complete": true,
+    "qualification": true,
+    "seed": 202709230,
+    "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+    "step": 2504,
+    "updates": 8
+  }
+}
