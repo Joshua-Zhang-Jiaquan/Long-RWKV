@@ -4,9 +4,9 @@ Builds a separate selector manifest for the export's container hash. Frozen
 scientific code and task panels remain byte-identical; original artifacts are
 never overwritten. The export is for inference, not optimizer-state resumption.
 """
-import argparse,hashlib,json,os,shutil,subprocess
+import argparse,hashlib,json,os,shutil,subprocess,sys
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 NAMES={'distance_intervention':('distance_eval_sources.json','distance_eval_manifest.json'),
        'history_response':('history_response_sources.json','history_response_manifest.json'),
        'header_distance':('header_distance_sources.json','header_distance_manifest.json')}
@@ -23,7 +23,7 @@ def main():
     if args.study=='header_distance' and args.role=='original':raise ValueError('header panel has no original selector')
     if sha(args.checkpoint)!=record['export_sha256']:raise ValueError('inference export checksum mismatch')
     import torch
-    from export_inference_checkpoints import state_sha
+    from tools.export_inference_checkpoints import state_sha
     payload=torch.load(args.checkpoint,map_location='cpu',weights_only=False,mmap=True)
     if payload['inference_export']['original_checkpoint_sha256']!=record['original_checkpoint_sha256']:raise ValueError('wrong original mapping')
     if payload['contract_sha256']!=record['contract_sha256'] or payload['step']!=record['step']:raise ValueError('wrong export selector')
