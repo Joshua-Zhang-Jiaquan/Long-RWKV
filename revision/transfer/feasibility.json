@@ -1,0 +1,1334 @@
+{
+  "status": "design exploration, not preregistration or neural evidence",
+  "invertible_matrices": 20160,
+  "distinct_weight_enumerators": 25,
+  "asymmetric_fan_in_matrices": 13440,
+  "classes": [
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        0,
+        0,
+        14,
+        0,
+        0,
+        0,
+        1
+      ],
+      "matrices": 24,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          7,
+          11,
+          13,
+          14
+        ],
+        "inverse": [
+          7,
+          11,
+          13,
+          14
+        ],
+        "forward_fan_in": [
+          3,
+          3,
+          3,
+          3
+        ],
+        "reverse_fan_in": [
+          3,
+          3,
+          3,
+          3
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        0,
+        3,
+        7,
+        4,
+        0,
+        1,
+        0
+      ],
+      "matrices": 768,
+      "asymmetric": 768,
+      "example": {
+        "B": [
+          3,
+          5,
+          9,
+          14
+        ],
+        "inverse": [
+          15,
+          14,
+          13,
+          11
+        ],
+        "forward_fan_in": [
+          2,
+          2,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          3,
+          3,
+          3,
+          4
+        ]
+      },
+      "asymmetric_example": {
+        "B": [
+          3,
+          5,
+          9,
+          14
+        ],
+        "inverse": [
+          15,
+          14,
+          13,
+          11
+        ],
+        "forward_fan_in": [
+          2,
+          2,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          3,
+          3,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        0,
+        4,
+        5,
+        4,
+        2,
+        0,
+        0
+      ],
+      "matrices": 2016,
+      "asymmetric": 1152,
+      "example": {
+        "B": [
+          3,
+          5,
+          10,
+          13
+        ],
+        "inverse": [
+          15,
+          14,
+          13,
+          10
+        ],
+        "forward_fan_in": [
+          2,
+          2,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          2,
+          3,
+          3,
+          4
+        ]
+      },
+      "asymmetric_example": {
+        "B": [
+          3,
+          5,
+          10,
+          13
+        ],
+        "inverse": [
+          15,
+          14,
+          13,
+          10
+        ],
+        "forward_fan_in": [
+          2,
+          2,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          2,
+          3,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        0,
+        4,
+        6,
+        4,
+        0,
+        0,
+        1
+      ],
+      "matrices": 288,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          1,
+          7,
+          11,
+          14
+        ],
+        "inverse": [
+          1,
+          14,
+          13,
+          11
+        ],
+        "forward_fan_in": [
+          1,
+          3,
+          3,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          3,
+          3,
+          3
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        0,
+        5,
+        5,
+        2,
+        2,
+        1,
+        0
+      ],
+      "matrices": 1728,
+      "asymmetric": 1728,
+      "example": {
+        "B": [
+          1,
+          6,
+          10,
+          15
+        ],
+        "inverse": [
+          1,
+          15,
+          13,
+          11
+        ],
+        "forward_fan_in": [
+          1,
+          2,
+          2,
+          4
+        ],
+        "reverse_fan_in": [
+          1,
+          3,
+          3,
+          4
+        ]
+      },
+      "asymmetric_example": {
+        "B": [
+          1,
+          6,
+          10,
+          15
+        ],
+        "inverse": [
+          1,
+          15,
+          13,
+          11
+        ],
+        "forward_fan_in": [
+          1,
+          2,
+          2,
+          4
+        ],
+        "reverse_fan_in": [
+          1,
+          3,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        1,
+        0,
+        11,
+        0,
+        3,
+        0,
+        0
+      ],
+      "matrices": 288,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          3,
+          5,
+          7,
+          14
+        ],
+        "inverse": [
+          7,
+          6,
+          5,
+          11
+        ],
+        "forward_fan_in": [
+          2,
+          2,
+          3,
+          3
+        ],
+        "reverse_fan_in": [
+          2,
+          2,
+          3,
+          3
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        1,
+        2,
+        5,
+        6,
+        1,
+        0,
+        0
+      ],
+      "matrices": 1728,
+      "asymmetric": 1728,
+      "example": {
+        "B": [
+          3,
+          5,
+          7,
+          9
+        ],
+        "inverse": [
+          7,
+          6,
+          5,
+          15
+        ],
+        "forward_fan_in": [
+          2,
+          2,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          2,
+          2,
+          3,
+          4
+        ]
+      },
+      "asymmetric_example": {
+        "B": [
+          3,
+          5,
+          7,
+          9
+        ],
+        "inverse": [
+          7,
+          6,
+          5,
+          15
+        ],
+        "forward_fan_in": [
+          2,
+          2,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          2,
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        1,
+        3,
+        5,
+        4,
+        1,
+        1,
+        0
+      ],
+      "matrices": 2304,
+      "asymmetric": 2304,
+      "example": {
+        "B": [
+          1,
+          3,
+          6,
+          13
+        ],
+        "inverse": [
+          1,
+          3,
+          7,
+          14
+        ],
+        "forward_fan_in": [
+          1,
+          2,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          2,
+          3,
+          3
+        ]
+      },
+      "asymmetric_example": {
+        "B": [
+          1,
+          3,
+          6,
+          13
+        ],
+        "inverse": [
+          1,
+          3,
+          7,
+          14
+        ],
+        "forward_fan_in": [
+          1,
+          2,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          2,
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        1,
+        4,
+        3,
+        4,
+        3,
+        0,
+        0
+      ],
+      "matrices": 3168,
+      "asymmetric": 1152,
+      "example": {
+        "B": [
+          1,
+          3,
+          5,
+          14
+        ],
+        "inverse": [
+          1,
+          3,
+          5,
+          14
+        ],
+        "forward_fan_in": [
+          1,
+          2,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          2,
+          2,
+          3
+        ]
+      },
+      "asymmetric_example": {
+        "B": [
+          1,
+          3,
+          6,
+          12
+        ],
+        "inverse": [
+          1,
+          3,
+          7,
+          15
+        ],
+        "forward_fan_in": [
+          1,
+          2,
+          2,
+          2
+        ],
+        "reverse_fan_in": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        1,
+        4,
+        4,
+        4,
+        1,
+        0,
+        1
+      ],
+      "matrices": 576,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          1,
+          2,
+          7,
+          13
+        ],
+        "inverse": [
+          1,
+          2,
+          7,
+          14
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          3,
+          3
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        1,
+        4,
+        5,
+        2,
+        1,
+        2,
+        0
+      ],
+      "matrices": 576,
+      "asymmetric": 576,
+      "example": {
+        "B": [
+          1,
+          2,
+          7,
+          12
+        ],
+        "inverse": [
+          1,
+          2,
+          7,
+          15
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          3,
+          4
+        ]
+      },
+      "asymmetric_example": {
+        "B": [
+          1,
+          2,
+          7,
+          12
+        ],
+        "inverse": [
+          1,
+          2,
+          7,
+          15
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        1,
+        5,
+        3,
+        2,
+        3,
+        1,
+        0
+      ],
+      "matrices": 1152,
+      "asymmetric": 1152,
+      "example": {
+        "B": [
+          1,
+          2,
+          5,
+          14
+        ],
+        "inverse": [
+          1,
+          2,
+          5,
+          15
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          2,
+          4
+        ]
+      },
+      "asymmetric_example": {
+        "B": [
+          1,
+          2,
+          5,
+          14
+        ],
+        "inverse": [
+          1,
+          2,
+          5,
+          15
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        1,
+        6,
+        3,
+        0,
+        3,
+        2,
+        0
+      ],
+      "matrices": 96,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          1,
+          2,
+          4,
+          15
+        ],
+        "inverse": [
+          1,
+          2,
+          4,
+          15
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          1,
+          4
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          1,
+          4
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        2,
+        0,
+        9,
+        0,
+        4,
+        0,
+        0
+      ],
+      "matrices": 576,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          1,
+          3,
+          6,
+          11
+        ],
+        "inverse": [
+          1,
+          3,
+          7,
+          10
+        ],
+        "forward_fan_in": [
+          1,
+          2,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          2,
+          2,
+          3
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        2,
+        0,
+        10,
+        0,
+        2,
+        0,
+        1
+      ],
+      "matrices": 144,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          1,
+          2,
+          7,
+          11
+        ],
+        "inverse": [
+          1,
+          2,
+          7,
+          11
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          3,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          3,
+          3
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        2,
+        1,
+        5,
+        6,
+        0,
+        1,
+        0
+      ],
+      "matrices": 576,
+      "asymmetric": 576,
+      "example": {
+        "B": [
+          1,
+          3,
+          6,
+          10
+        ],
+        "inverse": [
+          1,
+          3,
+          7,
+          11
+        ],
+        "forward_fan_in": [
+          1,
+          2,
+          2,
+          2
+        ],
+        "reverse_fan_in": [
+          1,
+          2,
+          3,
+          3
+        ]
+      },
+      "asymmetric_example": {
+        "B": [
+          1,
+          3,
+          6,
+          10
+        ],
+        "inverse": [
+          1,
+          3,
+          7,
+          11
+        ],
+        "forward_fan_in": [
+          1,
+          2,
+          2,
+          2
+        ],
+        "reverse_fan_in": [
+          1,
+          2,
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        2,
+        2,
+        3,
+        6,
+        2,
+        0,
+        0
+      ],
+      "matrices": 1152,
+      "asymmetric": 1152,
+      "example": {
+        "B": [
+          1,
+          3,
+          5,
+          10
+        ],
+        "inverse": [
+          1,
+          3,
+          5,
+          11
+        ],
+        "forward_fan_in": [
+          1,
+          2,
+          2,
+          2
+        ],
+        "reverse_fan_in": [
+          1,
+          2,
+          2,
+          3
+        ]
+      },
+      "asymmetric_example": {
+        "B": [
+          1,
+          3,
+          5,
+          10
+        ],
+        "inverse": [
+          1,
+          3,
+          5,
+          11
+        ],
+        "forward_fan_in": [
+          1,
+          2,
+          2,
+          2
+        ],
+        "reverse_fan_in": [
+          1,
+          2,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        2,
+        2,
+        5,
+        4,
+        0,
+        2,
+        0
+      ],
+      "matrices": 576,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          1,
+          2,
+          5,
+          11
+        ],
+        "inverse": [
+          1,
+          2,
+          5,
+          11
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          2,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          2,
+          3
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        2,
+        3,
+        3,
+        4,
+        2,
+        1,
+        0
+      ],
+      "matrices": 1152,
+      "asymmetric": 1152,
+      "example": {
+        "B": [
+          1,
+          2,
+          5,
+          12
+        ],
+        "inverse": [
+          1,
+          2,
+          5,
+          13
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          2,
+          2
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          2,
+          3
+        ]
+      },
+      "asymmetric_example": {
+        "B": [
+          1,
+          2,
+          5,
+          12
+        ],
+        "inverse": [
+          1,
+          2,
+          5,
+          13
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          2,
+          2
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        2,
+        4,
+        1,
+        4,
+        4,
+        0,
+        0
+      ],
+      "matrices": 288,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "inverse": [
+          1,
+          2,
+          5,
+          10
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          2,
+          2
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          2,
+          2
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        2,
+        4,
+        2,
+        4,
+        2,
+        0,
+        1
+      ],
+      "matrices": 288,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          1,
+          2,
+          4,
+          11
+        ],
+        "inverse": [
+          1,
+          2,
+          4,
+          11
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          1,
+          3
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          1,
+          3
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        3,
+        0,
+        3,
+        8,
+        1,
+        0,
+        0
+      ],
+      "matrices": 96,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          1,
+          3,
+          5,
+          9
+        ],
+        "inverse": [
+          1,
+          3,
+          5,
+          9
+        ],
+        "forward_fan_in": [
+          1,
+          2,
+          2,
+          2
+        ],
+        "reverse_fan_in": [
+          1,
+          2,
+          2,
+          2
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        3,
+        0,
+        7,
+        0,
+        5,
+        0,
+        0
+      ],
+      "matrices": 288,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          1,
+          2,
+          5,
+          9
+        ],
+        "inverse": [
+          1,
+          2,
+          5,
+          9
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          2,
+          2
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          2,
+          2
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        3,
+        2,
+        3,
+        4,
+        1,
+        2,
+        0
+      ],
+      "matrices": 288,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          1,
+          2,
+          4,
+          9
+        ],
+        "inverse": [
+          1,
+          2,
+          4,
+          9
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          1,
+          2
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          1,
+          2
+        ]
+      },
+      "asymmetric_example": null
+    },
+    {
+      "weight_enumerator": [
+        1,
+        0,
+        4,
+        0,
+        6,
+        0,
+        4,
+        0,
+        1
+      ],
+      "matrices": 24,
+      "asymmetric": 0,
+      "example": {
+        "B": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "inverse": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "forward_fan_in": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "reverse_fan_in": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "asymmetric_example": null
+    }
+  ],
+  "interpretation": "Different homogeneous-code weight enumerators certify non-equivalence under arbitrary output-coordinate permutation. Equal enumerators do not prove equivalence. For invertible B, U-first and P-first each have two calls and zero oracle discarded dependence; their deterministic second-pass fan-in profiles can differ."
+}
