@@ -1,0 +1,79 @@
+{
+  "at": "2026-09-23T08:26:27.907976+00:00",
+  "status": "all six fixed 1500-update checkpoints verified",
+  "rows": [
+    {
+      "seed": 202709231,
+      "checkpoint_step": 1500,
+      "observed_updates": 1639,
+      "status": "job_running",
+      "all_observed_gradients_and_losses_finite": true,
+      "checkpoint_model_tensor_count": 872,
+      "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+      "initialization_seed": 202709231,
+      "base_sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524",
+      "protocol_sha256": "cccbd5a39dcf3bb9153a1b8dd927925618819cec80e5168cb9cea2a417fd4f73"
+    },
+    {
+      "seed": 202709232,
+      "checkpoint_step": 1500,
+      "observed_updates": 1606,
+      "status": "job_running",
+      "all_observed_gradients_and_losses_finite": true,
+      "checkpoint_model_tensor_count": 872,
+      "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+      "initialization_seed": 202709232,
+      "base_sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524",
+      "protocol_sha256": "cccbd5a39dcf3bb9153a1b8dd927925618819cec80e5168cb9cea2a417fd4f73"
+    },
+    {
+      "seed": 202709233,
+      "checkpoint_step": 1500,
+      "observed_updates": 1621,
+      "status": "job_running",
+      "all_observed_gradients_and_losses_finite": true,
+      "checkpoint_model_tensor_count": 872,
+      "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+      "initialization_seed": 202709233,
+      "base_sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524",
+      "protocol_sha256": "cccbd5a39dcf3bb9153a1b8dd927925618819cec80e5168cb9cea2a417fd4f73"
+    },
+    {
+      "seed": 202709234,
+      "checkpoint_step": 1500,
+      "observed_updates": 1638,
+      "status": "job_running",
+      "all_observed_gradients_and_losses_finite": true,
+      "checkpoint_model_tensor_count": 872,
+      "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+      "initialization_seed": 202709234,
+      "base_sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524",
+      "protocol_sha256": "cccbd5a39dcf3bb9153a1b8dd927925618819cec80e5168cb9cea2a417fd4f73"
+    },
+    {
+      "seed": 202709235,
+      "checkpoint_step": 1500,
+      "observed_updates": 1609,
+      "status": "job_running",
+      "all_observed_gradients_and_losses_finite": true,
+      "checkpoint_model_tensor_count": 872,
+      "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+      "initialization_seed": 202709235,
+      "base_sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524",
+      "protocol_sha256": "cccbd5a39dcf3bb9153a1b8dd927925618819cec80e5168cb9cea2a417fd4f73"
+    },
+    {
+      "seed": 202709236,
+      "checkpoint_step": 1500,
+      "observed_updates": 1641,
+      "status": "job_running",
+      "all_observed_gradients_and_losses_finite": true,
+      "checkpoint_model_tensor_count": 872,
+      "source_sha256": "b358c657d3f04e33e0e9e5c95d83a2af570c6920b5ad9844feb3998a41480ecc",
+      "initialization_seed": 202709236,
+      "base_sha256": "e162387e439dfa3387a0ca7da61638749d00c9862b8cc0192ae5d366c8c1a524",
+      "protocol_sha256": "cccbd5a39dcf3bb9153a1b8dd927925618819cec80e5168cb9cea2a417fd4f73"
+    }
+  ],
+  "scope": "Execution metadata and finite observed training traces only; no held-out learning or transfer claim."
+}

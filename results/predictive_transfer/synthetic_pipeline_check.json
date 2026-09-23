@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "checker_sha256": "911441dcae5f8ab771c32ea750e026f9a64ae368941a8d0af576a91d3f9d3067",
+  "scope": "Synthetic software integration check only; no trained-model results or numerical GPU qualification.",
+  "temporary_workspace": "/tmp/lrwkv_synthetic_pipeline_fybdcd32",
+  "elapsed_seconds": 21.523122697137296,
+  "raw_rank_files": 96,
+  "full_endpoint_laws_per_audit": 5040,
+  "heldout_cells": 1440,
+  "sealed_before_target_creation": true,
+  "two_chance_level_lineages_retained": true,
+  "competence_failure_propagated": true,
+  "independent_uncompressed_audit": true,
+  "independent_portable_audit_after_deleting_originals": true,
+  "checksums_and_audits_identical": true
+}

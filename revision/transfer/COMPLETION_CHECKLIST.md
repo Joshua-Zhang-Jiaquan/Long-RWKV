@@ -13,10 +13,11 @@ checking the listed artifacts and live execution state.
 | Seal all predictions before target inference | `PREDICTION_SEAL.json`, six prediction hashes, target submission chronology | Pending |
 | Evaluate every held-out condition and retain failures | Six complete240-cell raw panels and scheduler receipts | Pending |
 | Compute preregistered estimands and gates | `report.json`, all lineage/class/cell results and hierarchical interval | Pending |
-| Independently verify joint laws and selection | `tools/verify_transfer_evidence.py` on actual raw files | Checker fixture-tested; actual-data audit pending |
+| Independently verify joint laws and selection | `tools/verify_transfer_evidence.py` on actual raw files | Full synthetic pipeline and portable reanalysis passed; actual-data audit pending |
 | Report real compute and memory use, including failed attempts | Scheduler receipts, training/evaluation/GPU traces, allocation audit | Pending final accounting; cap enforced during admission |
 | Revise paper according to actual findings | Final abstract/results, complete tables/figure, retained negatives | Working draft compiled; new outcomes explicitly pending |
 | Close the reconstruction-workflow gap | Pinned public assets, original parent/branch/adaptation/evaluation commands; exact new-study stage | Full original/new-study command workflows and exact capsules complete; portable dry-run checks passed; second-environment neural replication not claimed |
+| Release original inference checkpoints | Seven public assets, file/tensor hashes, anonymous download checks and evaluation wrapper | Complete; no independent neural rerun claimed |
 | Preserve and package all evidence | Historical seal; new raw/stage/prediction release indexes and hashes | Historical seal unchanged; deterministic 96-rank packager prepared, awaiting complete raw panels |
 | Verify final paper and release | Independent audit, CPU tests, clean TeX build, visual inspection, source/result/claim audit | Pending final data |
 | Synchronize reviewable final artifacts | Revision branch commits and passing GitHub checks | Draft/tools synchronized; final revision pending |

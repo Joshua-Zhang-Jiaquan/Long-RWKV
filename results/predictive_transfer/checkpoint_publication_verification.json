@@ -1,0 +1,97 @@
+{
+  "at": "2026-09-23T08:24:04.413773+00:00",
+  "release_id": 394413148,
+  "release_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/tag/original-inference-v1",
+  "release_tag": "original-inference-v1",
+  "published_at": "2026-09-23T08:18:43Z",
+  "draft": false,
+  "target_commitish": "f57ca9dda6523a3e644c719399d55045ca210153",
+  "models": [
+    {
+      "role": "balanced_seed20271011",
+      "asset_id": 583275874,
+      "bytes": 1820331389,
+      "server_digest": "sha256:da9fef79d639f8375f5a996ad2b279378186e554997724ffcc5f2c96fd633ecd",
+      "anonymous_http_status": 206,
+      "anonymous_first64_matches": true,
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/balanced_seed20271011.pt"
+    },
+    {
+      "role": "balanced_seed20271012",
+      "asset_id": 583275876,
+      "bytes": 1820331389,
+      "server_digest": "sha256:89056cd7659bb4a3499073172164509d25e3f2ff4d71de7753796bb060332dcb",
+      "anonymous_http_status": 206,
+      "anonymous_first64_matches": true,
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/balanced_seed20271012.pt"
+    },
+    {
+      "role": "balanced_seed20271013",
+      "asset_id": 583275875,
+      "bytes": 1820331389,
+      "server_digest": "sha256:df2658891ea60d787d38b5d8e8dee632c6f87637ec194401ffff3713bbc78b52",
+      "anonymous_http_status": 206,
+      "anonymous_first64_matches": true,
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/balanced_seed20271013.pt"
+    },
+    {
+      "role": "near_seed20271011",
+      "asset_id": 583280423,
+      "bytes": 1820327813,
+      "server_digest": "sha256:63605e29952580b5083865fc5c4e0c23903fe2b231794f4e4d53e9b18aa0aec3",
+      "anonymous_http_status": 206,
+      "anonymous_first64_matches": true,
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/near_seed20271011.pt"
+    },
+    {
+      "role": "near_seed20271012",
+      "asset_id": 583284055,
+      "bytes": 1820327813,
+      "server_digest": "sha256:3f82d9ca38e2474180cee5fbb224196efd21c49ea0716b548449003592f83ab1",
+      "anonymous_http_status": 206,
+      "anonymous_first64_matches": true,
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/near_seed20271012.pt"
+    },
+    {
+      "role": "near_seed20271013",
+      "asset_id": 583305587,
+      "bytes": 1820327813,
+      "server_digest": "sha256:007ed7d58623533802b10598d14ef182598c60ec48eef4454c56b35e152ce57d",
+      "anonymous_http_status": 206,
+      "anonymous_first64_matches": true,
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/near_seed20271013.pt"
+    },
+    {
+      "role": "original",
+      "asset_id": 583288761,
+      "bytes": 1820319399,
+      "server_digest": "sha256:6ffa34ccc0e58f302af369458a0676a2b348ab6773012175f723e7b9cce3ba06",
+      "anonymous_http_status": 206,
+      "anonymous_first64_matches": true,
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/original.pt"
+    }
+  ],
+  "metadata": [
+    {
+      "name": "EXPORTS.json",
+      "sha256": "0d1a3a5978d641aa883055436387455d02932cf9d32be3972eca47fb54667b24",
+      "anonymous_download_verified": true,
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/EXPORTS.json?sha256=0d1a3a5978d641aa883055436387455d02932cf9d32be3972eca47fb54667b24"
+    },
+    {
+      "name": "README.md",
+      "sha256": "3ec44532dfa56d97fb938548cdb32448b397620efc7d521bc00f105e6924e513",
+      "anonymous_download_verified": true,
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/README.md?sha256=3ec44532dfa56d97fb938548cdb32448b397620efc7d521bc00f105e6924e513"
+    },
+    {
+      "name": "APACHE-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "anonymous_download_verified": true,
+      "download_url": "https://github.com/Joshua-Zhang-Jiaquan/Long-RWKV/releases/download/original-inference-v1/APACHE-2.0.txt?sha256=cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    }
+  ],
+  "checker_sha256": "d388a3c34caa246ec9877147169d17ba630dc36cb9b17a4a6f78822b1ad97eb6",
+  "scope": "Anonymous API sizes/digests and 64-byte model ranges verified; metadata downloaded in full. Full model identity uses the previously verified local exports and server SHA256 values. No new neural inference.",
+  "listing_note": "Uses release-by-ID and its assets endpoint; the tag endpoint returned an incomplete asset listing. Metadata probes include digest query strings to avoid a stale replaced README cache."
+}

@@ -15,6 +15,7 @@ six-lineage transfer models. Source weights derive from
 model card identifies Apache-2.0 licensing. Upstream component notices remain
 applicable; this release does not add a blanket license grant over unrelated code.
 
+Check out source tag `original-inference-v1` to obtain the matching tools.
 Download a chosen role and check its recorded SHA256:
 
 ```bash
