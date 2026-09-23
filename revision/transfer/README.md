@@ -5,6 +5,7 @@ The additional experiment is running. No new transfer outcome is claimed.
 - [Working manuscript PDF](build/Long_RWKV_revision.pdf): the main text centers on prospective prediction; earlier interventions and the restricted cost certificate remain supporting evidence. Results-pending language is explicit.
 - [Frozen protocol](FROZEN.json): six fresh lineages,15 source code classes,10 held-out classes; both policies have zero discarded dependence and two calls.
 - [Design rationale](REVISION_PLAN.md) and [working response to the review](REVIEW_RESPONSE.md).
+- [New-study training reproduction](NEW_STUDY_REPRODUCTION.md): exact qualified source capsule and public-base training commands.
 - [Reconstruction guide](RECONSTRUCTION.md): exact public base inputs, initial parent/branch training, six adaptations, and new evaluations with new checkpoint identities.
 - [Operations removed from the manuscript](OPERATIONS_FROM_PAPER.txt): historical scheduler/resource narrative is retained outside the scientific exposition.
 
