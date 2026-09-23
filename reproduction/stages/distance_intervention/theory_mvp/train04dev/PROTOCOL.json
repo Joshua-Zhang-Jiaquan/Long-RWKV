@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "scope": "Development iteration after failed primary500step pilot; preserve original results and final N8 task",
+  "model": "Same455010304parameter tiedA1 RWKV, original binary head weights expressed as FP32 logodds",
+  "precision": "FP32 throughout, torchTF32 disabled, deterministic algorithms requested",
+  "arms": [
+    "hard",
+    "rao_blackwell"
+  ],
+  "matched": "same initialseed0, dataseed17, dataorder, independentmask patterns, batches, architecture, optimizer, curriculum and development panel",
+  "new_method": "Exact synthetic oracle conditional soft targets replace sampled onehot labels with unchanged absorbing weighting; same expected gradient, lower conditional gradient variance",
+  "oracle_scope": "Privileged synthetic supervision; not an available natural-language oracle or a new theorem claim",
+  "gpu_cap": 32,
+  "gpus_per_job": 8,
+  "global_batch": 32,
+  "per_rank_batch": 4,
+  "packing": "Separate-document forwards after packed execution failed the original 1e-3 logit tolerance (observed0.0031889677 atN2). Serial batching consistency and perturbation checks retained.",
+  "lr": 3e-05,
+  "warmup_steps": 50,
+  "optimizer": "AdamW beta(.9,.95),eps1e-8,weightdecay.01,clip1",
+  "curriculum": {
+    "1-300": 2,
+    "301-700": 4,
+    "701-1500": 8
+  },
+  "first_checkpoint": 300,
+  "continuation": "Review development evidence at300; retain optimizer to continue the same matched curriculum. No locked primary test access in worker.",
+  "development": "Every100updates,64devconditions across8stages at current dimension and originalN8; exact marginalKL, deterministicaccuracy, fairbit calibration",
+  "terminal_task": "Original N8 canonical-structure heldout task; N2/N4 are curriculum, not substitutes for final evaluation",
+  "checkpoint_policy": "Retain both arms and all completed phase endpoints; any eventual new confirmation protocol is frozen after development"
+}

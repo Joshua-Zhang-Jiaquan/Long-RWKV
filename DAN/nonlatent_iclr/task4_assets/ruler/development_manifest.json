@@ -1,9 +1,0 @@
-{
-  "asset_path": "source_bundle.json",
-  "license": "Apache-2.0",
-  "network_env_scrubbed": true,
-  "sha256": "f55e51d5ca437e9ae6521f303dec1f3aa79d77a01def8c7e0840184c3ad39494",
-  "upstream_commit": "c3f5e3b4f87f97e048793bb510a3a6b19a46bf3a",
-  "upstream_repo": "NVIDIA/RULER",
-  "version": "ruler@c3f5e3b4f87f97e048793bb510a3a6b19a46bf3a"
-}

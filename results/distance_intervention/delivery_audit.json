@@ -1,0 +1,161 @@
+{
+  "at": "2026-09-22T18:57:47Z",
+  "complete": true,
+  "checks": [
+    {
+      "requirement": "Frozen training, evaluation, analysis and cost protocols intact",
+      "passed": true,
+      "evidence": {
+        "verified_file_entries": 26,
+        "manifest_sha256": {
+          "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/theory_mvp/distance_intervention/FROZEN_DESIGN.json": "2223acb6f00b4666dbab25a28b0e98b2419a7a8096a113fe701194263dd51e10",
+          "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/theory_mvp/distance_intervention/FROZEN_EVALUATION.json": "7d78deca7128943063653354b78a3ad31ab53c0238581251f211797f2847ac90",
+          "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/theory_mvp/distance_intervention/ANALYSIS_MANIFEST.json": "ce72db3a7c4ed28953d79584280c1485ae1c129611ed2a978fd867c604594cd5",
+          "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/theory_mvp/distance_intervention/OBJECTIVE_NORMALIZATION_MANIFEST.json": "f7df2b3824727f4327b22af7fffeeacdd69e35e445b95e761e0f593a75649c73",
+          "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/theory_mvp/distance_intervention/FROZEN_COST_SUPPLEMENT.json": "feabc6d3346e9808f7738a26ca100be81f4dbbe34aa47528e4ea41940cc651b6"
+        }
+      }
+    },
+    {
+      "requirement": "Qualification and all six matched600-update checkpoints complete",
+      "passed": true,
+      "evidence": {
+        "qualification": {
+          "completion": {
+            "arm": "balanced",
+            "checkpoint_sha256": "6ffe72e2e6f32bcbbba7b0314d3b8e2ef36e5c83c44a94d3fa4c1feb547b6948",
+            "contract_sha256": "95b7a63d803950bc7bb481e739cc00e314fd7927177b8546103f2d4a5e94abc1",
+            "elapsed_seconds": 262.8430371051654,
+            "execution_complete": true,
+            "qualification": true,
+            "seed": 20271011,
+            "source_sha256": "1c13d0a992535515beaac105e897d4533f10460e1e6e37f4509a26be32be03f8",
+            "step": 6
+          },
+          "steps": 6,
+          "input_tokens": 3152832,
+          "training_gpu_hours": 0.5626975127071556,
+          "max_peak_allocated_bytes": 17004178944,
+          "last_three_update_seconds": [
+            12.100583055056632,
+            11.319149143993855,
+            11.333968427963555
+          ]
+        },
+        "terminal_checkpoints": {
+          "near_seed20271011": {
+            "checkpoint_sha256": "3a79d25b13ce2a75ae8cac4e432dd220ad4951304ab5703aa4a8cb38c946dd27",
+            "input_tokens": 315283200
+          },
+          "balanced_seed20271011": {
+            "checkpoint_sha256": "6770ce1883f6482e591917925c1f4de4f047ad637c483bb0b51da6c60a05566c",
+            "input_tokens": 315283200
+          },
+          "near_seed20271012": {
+            "checkpoint_sha256": "1caba6a6a402616a0a2f4f64f6ceb4547b5109db9c2501b278b58d87de488243",
+            "input_tokens": 315283200
+          },
+          "balanced_seed20271012": {
+            "checkpoint_sha256": "f3e34a63627d38ef132fac9ffee3b00d94437754956896324ec92fba7ac7588e",
+            "input_tokens": 315283200
+          },
+          "near_seed20271013": {
+            "checkpoint_sha256": "c2cf9940ccecb091fb4edf68b21a03fb1f3758e42a127c9812f0c9d34dd7ed52",
+            "input_tokens": 315283200
+          },
+          "balanced_seed20271013": {
+            "checkpoint_sha256": "8ebf9eddc02e47ea108bbce66807502ca4f3cc0d721bb561001b4562a9aa4493",
+            "input_tokens": 315283200
+          }
+        }
+      }
+    },
+    {
+      "requirement": "All1008 accuracy conditions, counterfactuals and2520 RWKV timings retained",
+      "passed": true,
+      "evidence": {
+        "conditions": 1008,
+        "timed_requests": 2520,
+        "artifact_sha256": {
+          "original": "113e0210d836c4cd950a323710eb966d1a0526f3d9d586b67f81077714d5bac1",
+          "near_seed20271011": "b184836265ba8850cc00d2ca81c7418ef08f74a1595c135ad9b07b68a2efb060",
+          "balanced_seed20271011": "5f9e3826580cb58ff7a478f5bf3de1e27d2c19d3f3c39a8cb2092bf6f7224b3c",
+          "near_seed20271012": "41f759202383f8be2498768f74269a61a249dcbad2da5f6dd92dd49b2eed8817",
+          "balanced_seed20271012": "f897173608db400bca75b19b9b5c2d7092a94168fd8e4506cd89b28108a8a618",
+          "near_seed20271013": "42cfb2596d702951a0f615a867e479b5f31d3b132d09473b34ecd99c65ccdc9d",
+          "balanced_seed20271013": "9622932b1268d9bc62d0358afe1b399f11821e54ec8855d0441e50d9a31e8316"
+        }
+      }
+    },
+    {
+      "requirement": "Primary findings independently recomputed from endpoint probabilities",
+      "passed": true,
+      "evidence": {
+        "independent_primary_effects": [
+          8.30363662403064,
+          7.075731186516723,
+          2.7723045165487337
+        ],
+        "source": "Recomputed KL directly from16 stored endpoint log probabilities; no reported KL used for means"
+      }
+    },
+    {
+      "requirement": "Same-case cost supplement complete, with all six certificates",
+      "passed": true,
+      "evidence": {
+        "attention_requests": 360,
+        "all_checkpoint_certificates_retained": true,
+        "artifact_sha256": "6550038276c0051e9c417829bcb31baf733f5f69df45cc53941f48eeeb7c44fc"
+      }
+    },
+    {
+      "requirement": "Paper integrates the complete study and rendered artifacts are reviewed",
+      "passed": true,
+      "evidence": {
+        "artifact_sha256": {
+          "paper/distance_intervention_methods.tex": "3e24785133027e9d21fad80329145847b677a33658d9cfb154371a162783568a",
+          "paper/distance_intervention_results.tex": "00f5a9d408e779f7ba5f883feaf1e1375f0159cb14b6fe95ba76131cc5086f3d",
+          "results/distance_intervention/FINAL_REPORT.md": "def9534068e710eb5479e21b3d11f32498efc2e1f3a2c77850deba0c5b7e1588",
+          "results/distance_intervention/mechanism_distance.pdf": "e8ea7263506fbf66cd4457270179843b049b7df6cbdaf1b6a2d4c0ee3c907670",
+          "results/distance_intervention_cost/BUDGET_REPORT.md": "396f73791ccccee795f642db04289afa75142578639267b398d2816d756e8426",
+          "results/paper_audit/distance_intervention_claim_audit.md": "12af076b98c88ba7857d43a523279987b5f66c9581ea58979398fd3ef6248b0b",
+          "results/paper_audit/distance_intervention_visual_review.json": "999b93a2e3b16db69d984c0100794d846b5b67533b35a0fc93d8f6184e8d55e9",
+          "build/Long_RWKV_ICLR2027.pdf": "1715d2b5ce366c47b58ae69863066129f0e4bc7acb8934dffacb3a6e9e62ff53",
+          "results/distance_intervention/mechanism_distance_paper.pdf": "889dac729f6d13cb24dfc92e150c4aa465fcdc02bce5cda036ed6cfd34183bd8",
+          "results/distance_intervention/publication_figure_receipt.json": "82f45829a8bdcf3676b29b996e29ffe6170ef53ef50fe76102c1dee238f34166",
+          "results/distance_intervention/paper_intervention_table.tex": "11f844e6f4bd128f378dfdb211226ef5e3521e061234f0bce459a38a91687cde",
+          "results/distance_intervention/paper_quality_cost_table.tex": "53af28db0e3c6ed6e10ad0cdf103296f368e4303636e8f26b116142289a3fc64",
+          "results/distance_intervention/paper_secondary_table.tex": "bd9e9ed935ca2bdb3db02a2926ef240bf27c4b75503a2605e9263a5bcdadb979"
+        },
+        "source_sha256": "e4daf176fe5460be231e9be4441736c18566a2474e08b61ec086b44f4e44b71e"
+      }
+    },
+    {
+      "requirement": "All jobs terminal, launch failures accounted,32+16cap respected",
+      "passed": true,
+      "evidence": {
+        "live_census": {
+          "cap": 48,
+          "project_caps": {
+            "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+            "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+          },
+          "project_reserved_gpus": {
+            "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 0,
+            "project-632c8db8-4530-413a-ada5-df91774a7e09": 0
+          },
+          "live_reserved_gpus": 0,
+          "jobs": []
+        },
+        "jobs_accounted": 18,
+        "failed_launches_accounted": 3,
+        "running_gpu_hours": 106.34,
+        "peak_queued_or_running_gpus": 48,
+        "project_peaks": {
+          "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+          "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+        }
+      }
+    }
+  ]
+}

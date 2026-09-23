@@ -1,0 +1,164 @@
+{
+  "scope": "Post hoc descriptive diagnosis motivated by observed large unaffected-target changes; no new inferential test. Full flipped second error averages all four remaining targets across the four flipped prompts and all16 target histories. The flipped first-round error was not measured, so this is not a full counterfactual endpoint KL.",
+  "checkpoints": {
+    "balanced_seed20271011": {
+      "far": {
+        "unaffected_predictions": 6144,
+        "correct_to_incorrect": 1,
+        "interventions": 2048,
+        "interventions_with_collateral_error": 1,
+        "worst_probability_change": 0.5316263430356426,
+        "worst_case": {
+          "index": 18,
+          "history": 8,
+          "constraint": 2,
+          "unaffected_coordinate": 3,
+          "required_bit": 0,
+          "original_probability_one": 2.0884500036754317e-06,
+          "flipped_probability_one": 0.5316284314856463
+        },
+        "mean_full_flipped_second_error": 0.0004370040252392355
+      },
+      "middle": {
+        "unaffected_predictions": 6144,
+        "correct_to_incorrect": 1,
+        "interventions": 2048,
+        "interventions_with_collateral_error": 1,
+        "worst_probability_change": 0.9338333987087157,
+        "worst_case": {
+          "index": 5,
+          "history": 14,
+          "constraint": 0,
+          "unaffected_coordinate": 0,
+          "required_bit": 0,
+          "original_probability_one": 2.749416635841446e-07,
+          "flipped_probability_one": 0.9338336736503793
+        },
+        "mean_full_flipped_second_error": 0.0019114744388071567
+      },
+      "near": {
+        "unaffected_predictions": 6144,
+        "correct_to_incorrect": 0,
+        "interventions": 2048,
+        "interventions_with_collateral_error": 0,
+        "worst_probability_change": 0.0005763492693174455,
+        "worst_case": {
+          "index": 5,
+          "history": 14,
+          "constraint": 0,
+          "unaffected_coordinate": 0,
+          "required_bit": 0,
+          "original_probability_one": 3.8424567133766374e-10,
+          "flipped_probability_one": 0.0005763496535631168
+        },
+        "mean_full_flipped_second_error": 4.471091460493756e-07
+      }
+    },
+    "balanced_seed20271012": {
+      "far": {
+        "unaffected_predictions": 6144,
+        "correct_to_incorrect": 0,
+        "interventions": 2048,
+        "interventions_with_collateral_error": 0,
+        "worst_probability_change": 0.02189334347546221,
+        "worst_case": {
+          "index": 11,
+          "history": 1,
+          "constraint": 0,
+          "unaffected_coordinate": 1,
+          "required_bit": 0,
+          "original_probability_one": 1.2737525746486957e-07,
+          "flipped_probability_one": 0.021893470850719677
+        },
+        "mean_full_flipped_second_error": 2.0216850211450028e-05
+      },
+      "middle": {
+        "unaffected_predictions": 6144,
+        "correct_to_incorrect": 1,
+        "interventions": 2048,
+        "interventions_with_collateral_error": 1,
+        "worst_probability_change": 0.9920379522677868,
+        "worst_case": {
+          "index": 22,
+          "history": 11,
+          "constraint": 3,
+          "unaffected_coordinate": 1,
+          "required_bit": 1,
+          "original_probability_one": 0.9999999999667333,
+          "flipped_probability_one": 0.007962047698946453
+        },
+        "mean_full_flipped_second_error": 0.0023844505127410573
+      },
+      "near": {
+        "unaffected_predictions": 6144,
+        "correct_to_incorrect": 0,
+        "interventions": 2048,
+        "interventions_with_collateral_error": 0,
+        "worst_probability_change": 0.05173013373914881,
+        "worst_case": {
+          "index": 22,
+          "history": 11,
+          "constraint": 3,
+          "unaffected_coordinate": 1,
+          "required_bit": 1,
+          "original_probability_one": 0.9999999999984963,
+          "flipped_probability_one": 0.9482698662593475
+        },
+        "mean_full_flipped_second_error": 2.6490665708121053e-05
+      }
+    },
+    "balanced_seed20271013": {
+      "far": {
+        "unaffected_predictions": 6144,
+        "correct_to_incorrect": 0,
+        "interventions": 2048,
+        "interventions_with_collateral_error": 0,
+        "worst_probability_change": 0.032111710227744505,
+        "worst_case": {
+          "index": 8,
+          "history": 6,
+          "constraint": 1,
+          "unaffected_coordinate": 3,
+          "required_bit": 1,
+          "original_probability_one": 0.9999461077633987,
+          "flipped_probability_one": 0.9678343975356541
+        },
+        "mean_full_flipped_second_error": 0.00017942854669459493
+      },
+      "middle": {
+        "unaffected_predictions": 6144,
+        "correct_to_incorrect": 0,
+        "interventions": 2048,
+        "interventions_with_collateral_error": 0,
+        "worst_probability_change": 0.03194012411260638,
+        "worst_case": {
+          "index": 11,
+          "history": 13,
+          "constraint": 2,
+          "unaffected_coordinate": 0,
+          "required_bit": 1,
+          "original_probability_one": 0.9999930083477659,
+          "flipped_probability_one": 0.9680528842351596
+        },
+        "mean_full_flipped_second_error": 0.00022542984957302678
+      },
+      "near": {
+        "unaffected_predictions": 6144,
+        "correct_to_incorrect": 0,
+        "interventions": 2048,
+        "interventions_with_collateral_error": 0,
+        "worst_probability_change": 0.19523327367102183,
+        "worst_case": {
+          "index": 13,
+          "history": 10,
+          "constraint": 1,
+          "unaffected_coordinate": 0,
+          "required_bit": 1,
+          "original_probability_one": 0.9999934355484427,
+          "flipped_probability_one": 0.8047601618774208
+        },
+        "mean_full_flipped_second_error": 0.0006699213245966702
+      }
+    }
+  }
+}

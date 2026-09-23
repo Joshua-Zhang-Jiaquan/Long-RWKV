@@ -1,0 +1,26 @@
+\subsection{Completed eight-bit development endpoints}
+All four declared development arms complete 1500 updates, including 800 updates on the original eight-bit task, and retain their fixed terminal checkpoints. Each exact audit contains 144 condition-policy records across three dimensions, plus 48 history-response records. Table~\ref{tab:terminaln8} reports the terminal $N=8$ information-set results. None learns the paired-parity posterior: validity is near its 6.25\% always-fair baseline, while endpoint KL remains near or above $4\log2\approx2.7726$. The ordinary arms and soft-target mixture nearly solve direct systematic constraints, but their positive within-valid KL shows that high validity is not posterior fidelity. The hard-label mixture also loses much of that direct-constraint competence.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{lllrrr}
+\toprule
+Training & Labels & Family & Endpoint KL & Valid (\%) & Within-valid KL \\
+\midrule
+Ordinary & Hard & Parity & 2.8007 & 6.219 & 0.0230 \\
+Ordinary & Hard & Systematic & 0.3022 & 99.932 & 0.3016 \\
+Ordinary & Soft & Parity & 2.7897 & 6.226 & 0.0132 \\
+Ordinary & Soft & Systematic & 0.2726 & 100.000 & 0.2726 \\
+Mixture & Hard & Parity & 2.9057 & 6.103 & 0.1067 \\
+Mixture & Hard & Systematic & 2.4272 & 13.350 & 0.0318 \\
+Mixture & Soft & Parity & 2.9506 & 6.059 & 0.1425 \\
+Mixture & Soft & Systematic & 0.0802 & 99.997 & 0.0802 \\
+\bottomrule
+\end{tabular}
+\caption{Fixed 1500-update development endpoints, one data seed and eight condition draws per family. All rows use the same information-set policy with zero dependence cost. These are controlled development comparisons from paired 300-update parents, not four independent pretrained initializations or confirmatory replications.}
+\label{tab:terminaln8}
+\end{table}
+
+To measure use of revealed history, hold the public condition and all other free bits fixed, flip one revealed free bit, and measure the signed change in the predicted probability of its parity partner's newly correct value. Averaging over all such feasible information-set histories gives response 1 for the oracle and 0 for any history-independent predictor. This is twice the mean correct-class probability on these dependent coordinates minus one, not an independent error certificate. Predictions are reused from the exact audit cache, adding no model calls. All four terminal paired responses have absolute value below $1.4\times10^{-5}$; the ordinary hard/soft and mixture-soft values have magnitude below $4\times10^{-7}$. Such tiny values do not establish a reversed rule or a reproducible sign. The models are effectively unresponsive on this diagnostic despite substantially higher aggregate deterministic accuracy in three arms.
+
+A separate full-model audit of the ordinary hard checkpoint with explicit Triton IEEE arithmetic preserves the parity failure (6.219\% information-set validity and approximately 2.80068 nats endpoint KL). The trained input embeddings of tokens 0 and 1 remain distinct. These checks do not support simple embedding collapse or the tested arithmetic precision as explanations for the qualitative failure; they do not exclude other implementation defects, certify official-kernel parity, or establish repeated-process reproducibility. The results motivate a separate public-label serialization diagnostic, not a positive claim for the present training recipe. Fresh-seed confirmation remains unexecuted.

@@ -1,8 +1,0 @@
-{
-  "blocked_claims": 4,
-  "contract_sha256": "c5de62bf3e3a2eeabdb8baa94079d5cb351f9fe37616ae5751c8c6aa80bcdd74",
-  "cpu_check_status": "ENGINEERING_ONLY",
-  "receipt_version": 1,
-  "source_manifest_sha256": "be18780403d28e18076d984656afd90d8f7301a215904be490f446189d40cff4",
-  "status": "BLOCKED_EXTERNAL"
-}

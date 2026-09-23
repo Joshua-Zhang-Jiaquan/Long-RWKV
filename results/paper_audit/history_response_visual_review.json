@@ -1,0 +1,49 @@
+{
+  "at_utc": "2026-09-23T03:32:17.827603+00:00",
+  "pdf_sha256": "bfd87345729d6bc376fde44ef6026e374fc47b868f0b79ccf2b6f9142ccc3c93",
+  "pages": 16,
+  "all_pages_reviewed": true,
+  "reviewed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "checks": [
+    "All pages checked for clipping, overlaps, missing tables, figures and abnormal pagination.",
+    "Main text and references end on page8; appendices occupy pages9-16.",
+    "New theory/results page10 and enlarged all-selector table page11 reviewed at full render size.",
+    "Reflowed appendix pages11-16 reviewed after table typography adjustment.",
+    "Standalone exhaustive_response plot reviewed; conditional interval scope and rare-failure note are visible."
+  ],
+  "page_image_sha256": {
+    "page-14.png": "0eab5b32be8bc7cc11f4d7c78a634b1b53c4d3af07263c28997b7119f3baa662",
+    "page-08.png": "3bd8be0028545fbadb48399b964d83d22923e6d47123c1731dda25ce59758def",
+    "page-03.png": "edacf17a4db615c58156d74460b2f6bf6c1cb8759eff30371aadf4d7e8b470ee",
+    "page-04.png": "ab9e884872528217a0167606dd8526c61dba6c512cdf3dc3772f72947b6f94e7",
+    "page-15.png": "17701accae19952644a5b2d85db5182651fd33428dcd7bc1db58c53c8b581e0f",
+    "page-05.png": "acdb5a0e402a777dabd61489acc7c3086018f098ef6d99719c1a1d75cca395d9",
+    "page-16.png": "e3693e9b681d15fdd293cebf1954188140f619fb751ce2ae46a01861a9dd2b6f",
+    "page-06.png": "8af370ed3a98d499df02c044ca77fa432eece5a8c895c7e81d7c9b72dee5dc73",
+    "page-12.png": "2ece22e4421f3b20b885c82b3e4c45468a8d96f3202019ab151bf65c7d01dcec",
+    "page-02.png": "1fba94a615b16e39388ff86602c2a82ddc07d1b537071f6130daea2e3aedab0b",
+    "page-11.png": "47d6d368fb7293eda931383661f55a18a87981897f4db265c5e193299ddd55b1",
+    "page-13.png": "ea3dd53e42abc29489558aaae5cebac42e1a74182e5991001c2378fc078db922",
+    "page-10.png": "d9e223106fa389a4820441c685bbb0789856bd883369d0809a5f20c93ca87a60",
+    "page-07.png": "908cfaadfd54572f178e90665608501bffecdef5bd1a63f1c4ce4a1f5645193d",
+    "page-01.png": "4a9c6b4e7e8bbd479ecb3e789de1a4442d6d56049ea0d3b7d5d6e3e302277f01",
+    "page-09.png": "49bf748f87dafb5c10be8751a4189dd751db08dda17e6c17e9ea1475a6175dd2"
+  }
+}

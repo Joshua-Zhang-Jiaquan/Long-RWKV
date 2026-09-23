@@ -1,0 +1,110 @@
+{
+  "ResponseMetadata": {
+    "Action": "ListJobEvents",
+    "Service": "train"
+  },
+  "Result": {
+    "events": [
+      {
+        "age": "286054",
+        "first_timestamp": "1790137176000",
+        "from": "pytorchjob-controller",
+        "last_timestamp": "1790137176000",
+        "message": "Another scheduler is specified when gang-scheduling is enabled and it will not be overwritten",
+        "object_id": "job-3b4ffeae-4a3d-4757-af07-ea8e87eb7ee7",
+        "object_type": "job",
+        "reason": "SetPodTemplateSchedulerName",
+        "type": "Warning"
+      },
+      {
+        "age": "286054",
+        "first_timestamp": "1790137176000",
+        "from": "pytorchjob-controller",
+        "last_timestamp": "1790137176000",
+        "message": "Created pod: job-3b4ffeae-4a3d-4757-af07-ea8e87eb7ee7-worker-0",
+        "object_id": "job-3b4ffeae-4a3d-4757-af07-ea8e87eb7ee7",
+        "object_type": "job",
+        "reason": "SuccessfulCreatePod",
+        "type": "Normal"
+      },
+      {
+        "age": "286054",
+        "first_timestamp": "1790137176000",
+        "from": "pytorchjob-controller",
+        "last_timestamp": "1790137176000",
+        "message": "Created service: job-3b4ffeae-4a3d-4757-af07-ea8e87eb7ee7-worker-0",
+        "object_id": "job-3b4ffeae-4a3d-4757-af07-ea8e87eb7ee7",
+        "object_type": "job",
+        "reason": "SuccessfulCreateService",
+        "type": "Normal"
+      },
+      {
+        "age": "267054",
+        "first_timestamp": "1790137195000",
+        "from": "pytorchjob-controller",
+        "last_timestamp": "1790137195000",
+        "message": "Another scheduler is specified when gang-scheduling is enabled and it will not be overwritten",
+        "object_id": "job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9",
+        "object_type": "job",
+        "reason": "SetPodTemplateSchedulerName",
+        "type": "Warning"
+      },
+      {
+        "age": "267054",
+        "first_timestamp": "1790137195000",
+        "from": "pytorchjob-controller",
+        "last_timestamp": "1790137195000",
+        "message": "Created service: job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9-worker-0",
+        "object_id": "job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9",
+        "object_type": "job",
+        "reason": "SuccessfulCreateService",
+        "type": "Normal"
+      },
+      {
+        "age": "267054",
+        "first_timestamp": "1790137195000",
+        "from": "pytorchjob-controller",
+        "last_timestamp": "1790137195000",
+        "message": "Created pod: job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9-worker-0",
+        "object_id": "job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9",
+        "object_type": "job",
+        "reason": "SuccessfulCreatePod",
+        "type": "Normal"
+      },
+      {
+        "age": "265054",
+        "first_timestamp": "1790137197000",
+        "from": "pytorchjob-controller",
+        "last_timestamp": "1790137197000",
+        "message": "Error pod job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9-worker-0 condition message: 0/697 nodes are unavailable: 697 Parent\u0026sub  project total quota insufficient. Current used (parent + all children)(CPU=241.00,Memory=2702.00,GPU=12.00), current request(CPU=160.00,Memory=1800.00,GPU=8.00), quota (parent total)(CPU=-1.00,Memory=-1.00,GPU=16.00).",
+        "object_id": "job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9",
+        "object_type": "job",
+        "reason": "Unschedulable",
+        "type": "Warning"
+      },
+      {
+        "age": "265054",
+        "first_timestamp": "1790137197000",
+        "from": "pytorchjob-controller",
+        "last_timestamp": "1790137210000",
+        "message": "Error pod job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9-worker-0 condition message: 0/697 nodes are unavailable: 697 Parent\u0026sub  project total quota insufficient. Current used (parent + all children)(CPU=241.00,Memory=2702.00,GPU=12.00), current request(CPU=160.00,Memory=1800.00,GPU=8.00), quota (parent total)(CPU=-1.00,Memory=-1.00,GPU=16.00).",
+        "object_id": "job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9",
+        "object_type": "job",
+        "reason": "Unschedulable",
+        "type": "Warning"
+      },
+      {
+        "age": "265054",
+        "first_timestamp": "1790137197000",
+        "from": "pytorchjob-controller",
+        "last_timestamp": "1790137226000",
+        "message": "Error pod job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9-worker-0 condition message: 0/697 nodes are unavailable: 697 Parent\u0026sub  project total quota insufficient. Current used (parent + all children)(CPU=241.00,Memory=2702.00,GPU=12.00), current request(CPU=160.00,Memory=1800.00,GPU=8.00), quota (parent total)(CPU=-1.00,Memory=-1.00,GPU=16.00).",
+        "object_id": "job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9",
+        "object_type": "job",
+        "reason": "Unschedulable",
+        "type": "Warning"
+      }
+    ],
+    "total": 9
+  }
+}

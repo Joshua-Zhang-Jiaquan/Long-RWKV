@@ -1,13 +1,16 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
-.coverage
-htmlcov/
-
-# Host-specific external roots: set NONLATENT_MODEL_DIR / NONLATENT_WORKER_ROOT /
-# NONLATENT_EXTERNAL_ROOT instead of committing them. Never commit weights here.
+.venv*/
+*.egg-info/
 external/
-*.safetensors
-*.bin
+local_runs/
 *.pt
-*.ckpt
+*.pth
+*.safetensors
+build/*.aux
+build/*.log
+build/*.out
+build/*.toc
+build/*.synctex.gz
+.DS_Store

@@ -1,0 +1,17 @@
+{
+  "terminal_steps": 600,
+  "source_sha256": "1c13d0a992535515beaac105e897d4533f10460e1e6e37f4509a26be32be03f8",
+  "qualification_plan": "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/results/distance_intervention/plan_qualification.json",
+  "qualification_validation_sha256": "522f1ecc3500c2d49954ce01d10670f90cd252285255a67e875bf18db7332459",
+  "profile_max_step_seconds": 12.100583055056632,
+  "predicted_steady_training_hours": 2.0167638425094387,
+  "selectors": [
+    "near_seed20271011",
+    "balanced_seed20271011",
+    "near_seed20271012",
+    "balanced_seed20271012",
+    "near_seed20271013",
+    "balanced_seed20271013"
+  ],
+  "selection_basis": "runtime only; fixed before main training/evaluation"
+}

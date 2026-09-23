@@ -1,0 +1,31 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{llrrrr}
+\toprule
+Control & Family & F2 correct/$n$ & R0 correct/$n$ & F2 parse (\%) & R0 parse (\%) \\
+\midrule
+Evidence only & Recall & 0/24 & 0/24 & 0.0 & 0.0 \\
+Evidence only & Overwrite & 0/24 & 0/24 & 0.0 & 0.0 \\
+Evidence only & Dataflow & 0/24 & 0/24 & 0.0 & 0.0 \\
+ & Family macro (\%) & 0.00 & 0.00 & 0.0 & 0.0 \\
+\midrule
+No evidence (16K) & Recall & 0/24 & 0/24 & 0.0 & 0.0 \\
+No evidence (16K) & Overwrite & 0/24 & 0/24 & 0.0 & 0.0 \\
+No evidence (16K) & Dataflow & 0/24 & 0/24 & 0.0 & 0.0 \\
+ & Family macro (\%) & 0.00 & 0.00 & 0.0 & 0.0 \\
+\midrule
+Paired 4K & Recall & 0/24 & 0/24 & 0.0 & 0.0 \\
+Paired 4K & Overwrite & 0/24 & 0/24 & 0.0 & 0.0 \\
+Paired 4K & Dataflow & 0/24 & 0/24 & 0.0 & 0.0 \\
+ & Family macro (\%) & 0.00 & 0.00 & 0.0 & 0.0 \\
+\midrule
+Paired 8K & Recall & 0/24 & 0/24 & 0.0 & 0.0 \\
+Paired 8K & Overwrite & 0/24 & 0/24 & 0.0 & 0.0 \\
+Paired 8K & Dataflow & 0/24 & 0/24 & 0.0 & 0.0 \\
+ & Family macro (\%) & 0.00 & 0.00 & 0.0 & 0.0 \\
+\bottomrule
+\end{tabular}
+\caption{Post-development competence diagnostics using the same 72 development tasks (24 per family) for both models and all controls. R0 is released RWKV-7 2.9B; F2 uses its frozen 8-step, temperature-0.7 matched-Bernoulli decoder. Evidence-only removes marked filler; no-evidence replaces the evidence payload with neutral filler at 16K. Paired 4K/8K anchors rerender the identical logical task without redrawing its bindings. Exact-match counts, family-macro accuracy and parsing rates retain the supplied target length. These reused-development diagnostics are not independent confirmation and do not estimate full-grid $\Gamma$.}
+\label{tab:e3-controls}
+\end{table}

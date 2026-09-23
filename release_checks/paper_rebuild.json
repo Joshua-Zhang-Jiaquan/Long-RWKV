@@ -1,0 +1,9 @@
+{
+  "rebuild_succeeded": true,
+  "text_identical_to_reviewed_pdf": true,
+  "pages": 19,
+  "reviewed_pdf_sha256": "cd8482454a871ec57e455488c226e5669aae952f5acde72e1df097cb3c282634",
+  "rebuilt_pdf_sha256": "67c3b4b584bbf5c532493e2bdfeebe3a6839107fbd194394525aa764890187df",
+  "text_sha256": "c877ac811b3e3dc3d630600713b715939166e308d5b7896c89b59bc0ae4fa8e1",
+  "note": "PDF metadata is not byte reproducible; reviewed original PDF restored after rebuild comparison."
+}

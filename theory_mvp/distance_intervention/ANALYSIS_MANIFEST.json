@@ -1,0 +1,12 @@
+{
+  "scope": "analysis and diagnostic derivation frozen before any adapted final-checkpoint outputs; pointwise problem bootstrap conditional on selected adaptation seeds",
+  "files": {
+    "theory_mvp/distance_intervention/report.py": "f6340d760cdb93209ae022dddf5b1b6e52513f1ddf6e4ad957890dadda574c28",
+    "theory_mvp/distance_intervention/collect.py": "5429f9032fe0c89f94e18ebfe38c9058807a61b5e5b8836c783337082ecc8861",
+    "theory_mvp/distance_intervention/figures.py": "53342145de34d65d94bad399ba7f98827fd8792b2102269bbace763d4c8f5fdc",
+    "theory_mvp/distance_intervention/EVIDENCE_RESPONSE.md": "f2b6a9e96d9e36d050db3e6c6a87e0cce3211bd2abba6166e28aa0c4eda65eb0",
+    "paper/distance_intervention_theory.tex": "5755feb7eb5b73d78ad07f7457e02244ccf9f7b84e9ec8d6ebb96f73cfa57d7e",
+    "tests/test_distance_intervention.py": "1a9a13c37668da8606a39e8d28a18bb28aba926cb0b5a2067b71bbdfa845584e",
+    "tests/test_distance_intervention_analysis.py": "5376eee2d8b952d937a87f73afd930a98b76b6ae5b0b45d529cccfbdfbf9d91f"
+  }
+}

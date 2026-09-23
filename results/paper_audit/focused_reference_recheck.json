@@ -1,0 +1,48 @@
+{
+  "at_utc": "2026-09-22T11:52:21.521072+00:00",
+  "scope": "Primary arXiv metadata/abstract recheck for the focused draft; earlier full-text audits remain separate.",
+  "sources": [
+    {
+      "key": "factorization2025",
+      "url": "https://arxiv.org/abs/2510.25544",
+      "authors": "Hugo Lavenant; Giacomo Zanella",
+      "relevance": "Relative-entropy factorization error and schedule optimization."
+    },
+    {
+      "key": "infodiscrete2025",
+      "url": "https://arxiv.org/abs/2510.24088",
+      "authors": "Moongyu Jeon; Sangwoo Shin; Dongjae Jeon; Albert No",
+      "relevance": "Denoising losses, mutual information and conditional likelihood; not cited as the adaptive total-correlation identity."
+    },
+    {
+      "key": "ctcdepth2026",
+      "url": "https://arxiv.org/abs/2608.25505",
+      "authors": "Chuling Wen; Weijie Liang; Jian Lu",
+      "relevance": "Exact adaptive-policy conditional-total-correlation identity for oracle marginals; main novelty overlap."
+    },
+    {
+      "key": "intrinsicdependence2026",
+      "url": "https://arxiv.org/abs/2602.20126",
+      "authors": "Yunxiao Zhao; Changxiao Cai",
+      "relevance": "Dependence-adaptive randomized unmasking with TC/DTC convergence rates."
+    },
+    {
+      "key": "diffumamba",
+      "url": "https://arxiv.org/abs/2511.15927",
+      "authors": "Vaibhav Singh; Oleksiy Ostapenko; Pierre-André Noël; Eugene Belilovsky; Torsten Scholak",
+      "relevance": "Bidirectional Mamba diffusion and a hybrid variant; recurrent diffusion predates this project."
+    },
+    {
+      "key": "triplet",
+      "url": "https://arxiv.org/abs/2605.25969",
+      "authors": "Ke Lin; Yiyang Luo; Zhaolong Su; Yunya Song; Anyi Rao",
+      "relevance": "Prior diffusion RWKV via a triplet-block layout."
+    },
+    {
+      "key": "retrofit",
+      "url": "https://arxiv.org/abs/2608.06628",
+      "authors": "J. Kim; Y. Roh; J. Kim",
+      "relevance": "Prior linear-attention retrofit in diffusion; title and arXiv identifier rechecked."
+    }
+  ]
+}

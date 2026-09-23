@@ -1,0 +1,17 @@
+{
+  "role": "balanced_seed20271013",
+  "old_job_id": "job-ba9bbf91-a57a-4c34-bffd-475cb396bcd9",
+  "reason": "shared extra-project quota prevents start; primary slot free",
+  "before": {
+    "created": "1790137190000",
+    "resource_prepared": "1790137240000"
+  },
+  "at": "2026-09-23T04:27:29Z",
+  "stopped_status": "job_stopped",
+  "stopped_timeline": {
+    "created": "1790137190000",
+    "finished": "1790137649000",
+    "resource_prepared": "1790137240000",
+    "run": "1790137649000"
+  }
+}

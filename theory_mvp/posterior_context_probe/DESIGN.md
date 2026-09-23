@@ -1,0 +1,11 @@
+# Label-preserving posterior context probe
+
+Development-only follow-up, specified before GPU outputs. The checkpoint is the fixed terminal seed-71 independent model from the completed frozen three-seed campaign. It is selected because that campaign demonstrated short-context competence. All six campaign checkpoints remain in the confirmation report; this probe is not a new unbiased training-seed replication.
+
+The earlier new-task experiment changed both public instructions and the target suffix representation. This probe instead preserves the original native prompt tokens and public labels beside every output slot. It inserts whole irrelevant `archive_N = unused;` records before/after the original public instruction/evidence block, leaving the final `Answer:` footer at the output. No gold answer or oracle value enters model input. Evidence-only inputs exactly match the original serialization.
+
+Fresh development seed 20270929, indices 0–7 (four systematic, four paired-parity conditions). Eight GPU ranks, one condition per rank. Each condition first receives an exact evidence-only audit. All eight must have information-set valid mass ≥0.9 and KL ≤0.2 nats before the long sweep proceeds. This small competence gate is a diagnostic, not a significance test. The same model and conditions are then tested at requested 1K/4K/16K context tokens, far/middle/near public-block positions; whole-record packing can undershoot the requested length slightly. Actual lengths and block spans are recorded.
+
+Three fixed policies: one call; two information-set calls; two calls grouping intact parity pairs. The last is an equal-call intervention: its oracle dependence penalty remains 4 log 2, while the information-set penalty is zero. Systematic-family results are controls; the generic 4/4 grouping there is not a parity intervention. Exact probabilities over all 16 valid outputs give joint KL and valid mass without Monte Carlo accuracy noise.
+
+FP32/IEEE, TF32 disabled. Before the long sweep, repeated and cross-rank numerical checks run at 1K/4K/16K, far/near, masked/partly-visible states. No training, timing comparison, final-test inference, or broad language-model claim is licensed by this probe. Padding changes the prompt distribution; the study measures robustness to that declared intervention, not natural-language long-context performance.

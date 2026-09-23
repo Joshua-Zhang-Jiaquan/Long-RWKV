@@ -1,6 +1,0 @@
-def help_text():
-    return (
-        "Commands: say an app/site to open it, say 'python ara' or 'search for python', "
-        "'chrome kapat' to close a visible window, 'remember that ...' to save a note, "
-        "'developer mode' to show prompts/raw AI/token usage, '/apps chrome' in type mode to list apps."
-    )

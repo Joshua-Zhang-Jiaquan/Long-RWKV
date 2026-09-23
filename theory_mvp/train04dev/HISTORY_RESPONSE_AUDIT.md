@@ -1,0 +1,11 @@
+# Terminal development audit: response to revealed history
+
+Added on 2026-09-22 before any phase1500 endpoint result was available. This is a development diagnostic; it does not change training, the frozen confirmation panel, or the original endpoint metrics. All four terminal arms receive the same evaluator. Earlier phase300/700 audits did not record this diagnostic and are not retroactively represented as having done so.
+
+For each public condition, enumerate all assignments to the first information-set group. Hold every other free bit fixed and compare histories with one free bit f equal to0 versus1. Both histories are feasible under the same public constraints. Read probabilities from the exact endpoint audit's existing cache; a missing cache entry is an error, and no additional neural call is permitted.
+
+For the parity partner j with constraint Y_f XOR Y_j=c, report q_j(1 XOR c | f=1,others) minus q_j(1 XOR c | f=0,others), averaged over free bits and other assignments. The exact oracle response is1; a history-independent predictor has response0 even if biased. By binary complementation this equals twice the average correct-class probability on the paired dependent coordinates minus1. It is an interpretable diagnostic of the same conditional estimates, not an independent guarantee or a new statistical endpoint. Negative values indicate reversed responses.
+
+Also report absolute probability changes on dependent coordinates not paired with f. Their oracle response is0 because the disjoint constraints separate those coordinates. For the systematic family, all dependent coordinates are fixed by public constraints, so their oracle absolute response is0. A zero response alone does not certify correctness; interpret these measurements alongside marginal error, endpoint KL and validity.
+
+The implementation supports N=2,4,8 and emits one history_response record per condition, preserving the144 original condition-policy records per checkpoint. The collector requires all48 diagnostic records when any are present. Tests cover exact-oracle and biased constant predictors in both families, all dimensions, missing-cache rejection, and collection alongside endpoint metrics. This diagnostic does not demonstrate official-kernel parity or numerical reproducibility across processes.

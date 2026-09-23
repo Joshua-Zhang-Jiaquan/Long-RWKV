@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "initial_checkpoint_sha256": "52dbc7f289513e475d10422dbccffa52f74ec55fc887253ea13ae0476dc3e2c9",
+  "adaptation_seeds": [
+    20271011,
+    20271012,
+    20271013
+  ],
+  "test_seed": 20271021,
+  "bootstrap_seed": 20271022,
+  "design_markdown_sha256": "4f585f1e25e0d5ff1d80fb003de6356d3ff33f8b0a1c9d80bc951587b4c2e312",
+  "training_sources": {
+    "lrwkv_evidence/distance_intervention/training.py": "647bedec2fccfdc14b5d8ffd539601cc368167a205f005d71653a02d2102d53a",
+    "lrwkv_evidence/distance_intervention/worker.py": "daf40d560a46765f2e7009fa914a54863d676b25a5fff9dde33409280ac0de60",
+    "lrwkv_evidence/distance_intervention/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "qz/launch_distance_intervention.sh": "d5deab33cb795c9924b4880797495515780c7070d65094215d7e746f78b008f9"
+  }
+}

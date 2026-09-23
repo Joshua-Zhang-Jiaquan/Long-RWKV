@@ -1,7 +1,0 @@
-Cleanup and scope record:
-- All writes are confined to .omo/evidence/nonlatent-rnn-dlm-iclr-research/task-02/independent-20260911-gpt56-7f3a/.
-- Repro fixtures under cli-fixture/, validation-work/, and correction-work/ are intentionally retained as evidence.
-- A transient local scale symlink and ineffective local pyright config were removed.
-- No __pycache__ or .pytest_cache exists under the independent evidence directory.
-- Product source, plan, Boulder state, shared ledger, historical source, and original Task 2 publication/receipt were not edited; baseline/final hashes match exactly.
-- No package installation, network, GPU, qz, git, or privileged whole-filesystem tamper scenario was used.

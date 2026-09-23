@@ -1,0 +1,1517 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_bb5c2eb8321f3688_balanced_seed20271011/rank0.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271011/rank0.jsonl.gz",
+      "sha256": "287041839716d889c9a139c15e2bbe3775457534702eb0ab57facc237d513692",
+      "gzip_sha256": "0017ffd2b8acc2722aa22b85c43bf5f6cea67b0cd794f40df6d75dba82a14fc1",
+      "bytes": 72753
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_bb5c2eb8321f3688_balanced_seed20271011/rank1.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271011/rank1.jsonl.gz",
+      "sha256": "c124688e3e661ccc9a41a98a834dd604e6caed5db825fa2ca55ad64491dc8e02",
+      "gzip_sha256": "191108a043cd9331873027cc50e6dde4328a598efb38e57f9ca72047ecf8f924",
+      "bytes": 72674
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_bb5c2eb8321f3688_balanced_seed20271011/rank2.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271011/rank2.jsonl.gz",
+      "sha256": "52c548c5af0679b9a6082e76ace8e0909f34a5ec410bca048cc1db55b7e6d329",
+      "gzip_sha256": "d555fa6f3c846cffd77140bf9da81a18eef7dafb95aef7335ceabcbaf3e1f118",
+      "bytes": 72819
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_bb5c2eb8321f3688_balanced_seed20271011/rank3.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271011/rank3.jsonl.gz",
+      "sha256": "8e182876a924bcb7f7d2593587fc69468bf2a3c4f02ebcde37c849b8585e0a27",
+      "gzip_sha256": "ccc5ac7ad28ac61cf9da073309f979194c78956ac82ac3cfec41fca73f03b1a5",
+      "bytes": 72597
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_bb5c2eb8321f3688_balanced_seed20271011/rank4.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271011/rank4.jsonl.gz",
+      "sha256": "382ed646994b7a5221bd377c22014f9194bbdf31dbec2ada66182f40c25420dc",
+      "gzip_sha256": "ba668420d42ada03650efff61376d465a1bc476deacc70ea73a11e1789dc7961",
+      "bytes": 72638
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_bb5c2eb8321f3688_balanced_seed20271011/rank5.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271011/rank5.jsonl.gz",
+      "sha256": "88851bcc683709ddc50ffc8a765679da8784f6b41ad4a4f955d24fd7717f9461",
+      "gzip_sha256": "bb06598f7c2b4240189c515ed1ffde88b800e8b45df2bf8bb92fe41e041d0d1a",
+      "bytes": 72798
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_bb5c2eb8321f3688_balanced_seed20271011/rank6.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271011/rank6.jsonl.gz",
+      "sha256": "c53895edf6de2e6eab41945627ed51fd1310cdbfea56a75af3ee4b61592dcf38",
+      "gzip_sha256": "153fbd0de00a4d8d780d16b7986f7ed212e0a0824d9339108f3081ef2f0778ac",
+      "bytes": 72710
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_bb5c2eb8321f3688_balanced_seed20271011/rank7.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271011/rank7.jsonl.gz",
+      "sha256": "c0ba5b7cc1b306368eb253a2e3325788dfd4da6e6fc3bf99eefe7b2daf714740",
+      "gzip_sha256": "3cc0d7336b6ed59d372eb05bac15b4900c96a30e1b34796edf8112cd098e19bf",
+      "bytes": 72450
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_ed6ab4389c9af4e5_balanced_seed20271012/rank0.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271012/rank0.jsonl.gz",
+      "sha256": "8b4646f7045225438a6b3b583df47e29f983386ac72f30abdaf5b76a462bebab",
+      "gzip_sha256": "39b0f75e646d970fea034549d65f77b7e1929ac93beecce9e8db2deacbd3ca4f",
+      "bytes": 73081
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_ed6ab4389c9af4e5_balanced_seed20271012/rank1.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271012/rank1.jsonl.gz",
+      "sha256": "26a2d36adb2366cdc20b05aa76689e06bce577b8203de7737213fde20ceae925",
+      "gzip_sha256": "ee7d8929c6edc8ab1198dc8d46dfe039f829bf12acd6fb6fb87e4c9e715cd69d",
+      "bytes": 73111
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_ed6ab4389c9af4e5_balanced_seed20271012/rank2.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271012/rank2.jsonl.gz",
+      "sha256": "25c653b405b15b7ff40b250a86628f01a7ae0af4b11bacf68ed528df7ed57356",
+      "gzip_sha256": "2aabe6d3c8092aa0b53a639488c47ed5085dbbf3716eb062a3382bff9546270f",
+      "bytes": 73122
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_ed6ab4389c9af4e5_balanced_seed20271012/rank3.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271012/rank3.jsonl.gz",
+      "sha256": "52618e44ba1d186eb872e50e52f64dd72e665009cb3b5fb33b04676ed1dfeeec",
+      "gzip_sha256": "60870bfcdad2554aa04d2f12c25bb9be7aed8b1e0048ceb7fd6a5dce9f73f021",
+      "bytes": 73131
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_ed6ab4389c9af4e5_balanced_seed20271012/rank4.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271012/rank4.jsonl.gz",
+      "sha256": "5af31406e4fcfc38db7839c65e28a150100b5374158bf86f485710ce1d9bab8f",
+      "gzip_sha256": "127dd8dc752e58db0decb773f976806ac9bc873b3d0e35a713a905ad2c074699",
+      "bytes": 73153
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_ed6ab4389c9af4e5_balanced_seed20271012/rank5.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271012/rank5.jsonl.gz",
+      "sha256": "77533fdfc4b3c7120f19fc07c5c0c894d21a229b704e4e4c4e12d7d4bca8ce76",
+      "gzip_sha256": "1fa88d8bb4db9e37b823553774598224861fbc497fbf4d6fef0f512ec5db627f",
+      "bytes": 73152
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_ed6ab4389c9af4e5_balanced_seed20271012/rank6.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271012/rank6.jsonl.gz",
+      "sha256": "4b11f5f43806d12a358a5e236f99d63a9ac898fa6c1575d5eac03bb717c37759",
+      "gzip_sha256": "69fcd115a69458e85a99a79887f4b12cc093fa8a4e6448647f2ccbba8f12d81b",
+      "bytes": 73121
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_ed6ab4389c9af4e5_balanced_seed20271012/rank7.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271012/rank7.jsonl.gz",
+      "sha256": "4f1278936d6f47af269f7fc9f310470fe8082186dbfdb3a401dfea4f17142466",
+      "gzip_sha256": "33582ed6287ffb2d15c8c9db162e0529e5a28d2b6540ecbdcc61b1b40646afd0",
+      "bytes": 73128
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_e6ef65a2beba4264_balanced_seed20271013/rank0.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271013/rank0.jsonl.gz",
+      "sha256": "f39f86128576d2d504b13897db6bcd6d4c6f7356b1f6d4f78a4de2a6414b2fd9",
+      "gzip_sha256": "ea39f462947e3cef5576156db8085cd28bf2595f4f7021e1028d9fc6cfb32be6",
+      "bytes": 73085
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_e6ef65a2beba4264_balanced_seed20271013/rank1.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271013/rank1.jsonl.gz",
+      "sha256": "750f9a41cfab4e06a23401f0b8c8de97801bd81429da3240f86234e6b8597fbe",
+      "gzip_sha256": "72e26889303a64ad2d65c6cb6124f14faef5815deba73dfaed6fecc1001c0f07",
+      "bytes": 73116
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_e6ef65a2beba4264_balanced_seed20271013/rank2.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271013/rank2.jsonl.gz",
+      "sha256": "84890bb2c3dd31faf87af03a97f06428616c8ec4f39b695445d33d0889821eb8",
+      "gzip_sha256": "69d2be368b033c3ff06e2523bbdf7ec581dfd52f5805e33f79893bcb3476d3ce",
+      "bytes": 73088
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_e6ef65a2beba4264_balanced_seed20271013/rank3.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271013/rank3.jsonl.gz",
+      "sha256": "99afa42929651095b4c1cc6800ad0dcb254d38366f330ca41083bfb50f925e39",
+      "gzip_sha256": "7b02e4fcce6bdcf2d3dbb3565c561250cf243c08b13187dd9453e27aeded1523",
+      "bytes": 73129
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_e6ef65a2beba4264_balanced_seed20271013/rank4.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271013/rank4.jsonl.gz",
+      "sha256": "1ff8ada8fc74f8b248fc2e322cafddeda5cac0ff6f9ceb565efad97bbf9024c2",
+      "gzip_sha256": "854203d465692ff3b694b71a4e35c9837ad3f759be9e6c51ef778192f2b51654",
+      "bytes": 73106
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_e6ef65a2beba4264_balanced_seed20271013/rank5.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271013/rank5.jsonl.gz",
+      "sha256": "e293f5e7b53265a8a654501da332f00251ec3281e4a014ecddae898b3046e362",
+      "gzip_sha256": "3c1f0ccd3ff8de8187c6844a5df068a4dd2d72adb8825aff22407478bb783741",
+      "bytes": 73138
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_e6ef65a2beba4264_balanced_seed20271013/rank6.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271013/rank6.jsonl.gz",
+      "sha256": "8ac31f50bceb94a78bc2ea1e4da3bc32db9cb51e5655693814f0c745bc1f9f2a",
+      "gzip_sha256": "47bb7a82a0e40e668e4ea1866a9a1137dde343a5dfe89de70f0dff687fb68a8d",
+      "bytes": 73120
+    },
+    {
+      "study": "distance_intervention",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_e6ef65a2beba4264_balanced_seed20271013/rank7.jsonl",
+      "path": "evidence/raw/distance_intervention/balanced_seed20271013/rank7.jsonl.gz",
+      "sha256": "4de0a5deebdc7beee847899230727c8bf6776f6c1f0ea61ebe7e9e4bbba475f5",
+      "gzip_sha256": "4c86401f522876a11b90e64a85f7abdce2519688c520c2461fecc2e4d497d05c",
+      "bytes": 73138
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_838415a97e8d1d3a_near_seed20271011/rank0.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271011/rank0.jsonl.gz",
+      "sha256": "b5414e9d81c9cb1d14a2258a504656be2ae67c039b8ed2565eaaf88dcf0f493e",
+      "gzip_sha256": "ab481dd98c605e3a5a03b2740a9b9145b51a158f5454041491e825b3ab2e0591",
+      "bytes": 72571
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_838415a97e8d1d3a_near_seed20271011/rank1.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271011/rank1.jsonl.gz",
+      "sha256": "2546a248eb3bc34b391d30610884561a003c97b78bdede6bf8a9d05fa107bb48",
+      "gzip_sha256": "d619dab4ee41316c68aac93b67446821c010cf8a648fd6671763d13316955617",
+      "bytes": 72547
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_838415a97e8d1d3a_near_seed20271011/rank2.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271011/rank2.jsonl.gz",
+      "sha256": "17f4d013177d8e60e7b5379553edb1e2a62914493e3832bb81c4e894255dfc85",
+      "gzip_sha256": "c86d84f11bffa0ba250f834e5b311ad3996bcc5dff4dc42ddcdd54b5bdc3ae54",
+      "bytes": 72596
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_838415a97e8d1d3a_near_seed20271011/rank3.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271011/rank3.jsonl.gz",
+      "sha256": "2fb922f40a0787d454ff1c4d34e053a8f28e6bcc1b43ccfab4d3c12476f2cfef",
+      "gzip_sha256": "f8fcd3b6b97003aa629be7625c2d78ed0d7f4bc37db3bc4d461d52ab9aa33329",
+      "bytes": 72663
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_838415a97e8d1d3a_near_seed20271011/rank4.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271011/rank4.jsonl.gz",
+      "sha256": "ef94455021f78ac2a78de6e444cb19d5fa0b93826ea61e66f8cf8e95bf59eee7",
+      "gzip_sha256": "b05a04b5c12d86ed9023f342443acd8cdff4d5a5c7a185577505f6eedae31008",
+      "bytes": 72545
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_838415a97e8d1d3a_near_seed20271011/rank5.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271011/rank5.jsonl.gz",
+      "sha256": "18561c965bc5bf60160692a6088b0283f131534205eca2f4cba54f4ae4c30a7e",
+      "gzip_sha256": "c737c4a5b6efe6620cd5902d67661d240f3275eccdaf216f9e025730c471e980",
+      "bytes": 72607
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_838415a97e8d1d3a_near_seed20271011/rank6.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271011/rank6.jsonl.gz",
+      "sha256": "f3b224729ffc7bb109fc8ed3a286d9aa868d7fba6f15660a417bebdc68847711",
+      "gzip_sha256": "5a2219840197f8c7064dfebd2953dd61a38b3b036dde7e40acd4f7a2032d50f9",
+      "bytes": 72632
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_838415a97e8d1d3a_near_seed20271011/rank7.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271011/rank7.jsonl.gz",
+      "sha256": "bb8beb63b157d0c998793bb89125fd781238c9a63115478cebc3ec8eb115a6b3",
+      "gzip_sha256": "94fcf40a2313a70ad8efa5f6f06792432471a46a0bc80d345cfb2d7763d4bea6",
+      "bytes": 72572
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_00eae4e2e2c10eaa_near_seed20271012/rank0.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271012/rank0.jsonl.gz",
+      "sha256": "7a9861db619de1ebb2e64617fea339f498d6d7db568055871937c5b0d05de186",
+      "gzip_sha256": "1c749cec376d1a960a0fcfc537c13658a3acb05a5721f207d0943ba110b41615",
+      "bytes": 72625
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_00eae4e2e2c10eaa_near_seed20271012/rank1.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271012/rank1.jsonl.gz",
+      "sha256": "a4bb912a7ed3d01fb16cbcb31361b1242799f39c04d470a57fa6f3fb600a5ed0",
+      "gzip_sha256": "f0832144875d1195c4a835471489f9a331c63ecc26fe777cdea7144736d4f2f0",
+      "bytes": 72646
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_00eae4e2e2c10eaa_near_seed20271012/rank2.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271012/rank2.jsonl.gz",
+      "sha256": "d49b34dc8be997c3eb34f4e7d72a13cb4afa844b678f4eff88a7f1e1d6d7fe6c",
+      "gzip_sha256": "688899336bbabf495ca0a92edf27a6c83db05d9b110c18c5f86b6c8946357a1e",
+      "bytes": 72689
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_00eae4e2e2c10eaa_near_seed20271012/rank3.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271012/rank3.jsonl.gz",
+      "sha256": "15f63b4e5ba02521727b5e2fa11fae8ca0f535639f5810dd0300220c2147dc7d",
+      "gzip_sha256": "820ca7ebcaa060abb5cc288bd110486620c317edf8f41179301d5da66ce38814",
+      "bytes": 72679
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_00eae4e2e2c10eaa_near_seed20271012/rank4.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271012/rank4.jsonl.gz",
+      "sha256": "235e96d2610bb401209b16737598aa235158421f5adc926dcbf72ca135051899",
+      "gzip_sha256": "c88b38149c7a8702602294e17ae28f4875b671225d649fa57923c4920ba92f0a",
+      "bytes": 72680
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_00eae4e2e2c10eaa_near_seed20271012/rank5.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271012/rank5.jsonl.gz",
+      "sha256": "82a2c24a8649ec684666d4ae0e682c3657fcc7cf205d91c0b326d1497b74696a",
+      "gzip_sha256": "307f5504b906ffa9b2095aef07c5f342b5b57082a6448a1d6af88f880dc07e1b",
+      "bytes": 72626
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_00eae4e2e2c10eaa_near_seed20271012/rank6.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271012/rank6.jsonl.gz",
+      "sha256": "3b16ba660ba9e93a54a0b9acb20c06a97350c35cfa7389cc1de8f553ca145b47",
+      "gzip_sha256": "5199e0a90e4cb0ef1725b3c0732d8381346e2008bafdb9dd4e6f95978c0f8d81",
+      "bytes": 72679
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_00eae4e2e2c10eaa_near_seed20271012/rank7.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271012/rank7.jsonl.gz",
+      "sha256": "b753b2d4a22fb545791e845c6cca0476085c5ac57c764691c7ec8bdd3dc28167",
+      "gzip_sha256": "051289430989a94863675a0c74d5300dae5b6088bb67df462082cc15cee9d15a",
+      "bytes": 72652
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_d5ab3388543c47ca_near_seed20271013/rank0.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271013/rank0.jsonl.gz",
+      "sha256": "e9a16a9d382e9c186d536effca210d034100c58bf2619670bed77760df4d7d4c",
+      "gzip_sha256": "f0c6d64e0257ca7f00bd6b98553973da2f79cb5f873c5b738a34193bf0ef3563",
+      "bytes": 72698
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_d5ab3388543c47ca_near_seed20271013/rank1.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271013/rank1.jsonl.gz",
+      "sha256": "c2010678b0a5e89dd4170e38213d7d82379b480d5547fcf94793d5ba89a2b04d",
+      "gzip_sha256": "41440b9dcbe106fbecb38146f71bd6faf4ea570e154d207ed3feff634156d5b0",
+      "bytes": 72737
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_d5ab3388543c47ca_near_seed20271013/rank2.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271013/rank2.jsonl.gz",
+      "sha256": "770835e43fa1042c3233e5f9e996d1de24ee42a106cf0dab334289c5c47c21e6",
+      "gzip_sha256": "9f6af1761423c4e18a272f623f22c23eff2529e97d1c17020c42b0f229a3240e",
+      "bytes": 72736
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_d5ab3388543c47ca_near_seed20271013/rank3.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271013/rank3.jsonl.gz",
+      "sha256": "ea62a8f9c79b3949ff03f5da9241b50f582656426f9e0be49da783f6e229b73b",
+      "gzip_sha256": "36dac06f2b115d8f0d1d94df36b160f2fbdb751536ed3e29814d8165a3553271",
+      "bytes": 72754
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_d5ab3388543c47ca_near_seed20271013/rank4.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271013/rank4.jsonl.gz",
+      "sha256": "263e6f6d043cef37a72e6eca4c20e8f10a1f98ee0e65a27187b53348cc13e834",
+      "gzip_sha256": "110b0baaacbc036d212d89d40621e1fa8816a0b28c00c8eaaf412805fde84cb4",
+      "bytes": 72770
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_d5ab3388543c47ca_near_seed20271013/rank5.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271013/rank5.jsonl.gz",
+      "sha256": "a541996c01e938aec05858c17c5135d16e56b1e76a52d6a382be1ac2e9fc214b",
+      "gzip_sha256": "50352796b35016663f59c60ed55b29fb945cfb27a008fbf881ee3537d898acac",
+      "bytes": 72741
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_d5ab3388543c47ca_near_seed20271013/rank6.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271013/rank6.jsonl.gz",
+      "sha256": "38d369cf8617289f7e566852b7e4500a4229ff64c16d02a80d873f4cdc08ac77",
+      "gzip_sha256": "ab7d95d52b0e4a71ec55bb33a7cfc997ac71d8502096cea956f0d6db8b039ae2",
+      "bytes": 72781
+    },
+    {
+      "study": "distance_intervention",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_d5ab3388543c47ca_near_seed20271013/rank7.jsonl",
+      "path": "evidence/raw/distance_intervention/near_seed20271013/rank7.jsonl.gz",
+      "sha256": "d03a2f4aba2ee3e459dd65885cfd4ac273eb1e4b7d691e5d2775c4c77627169b",
+      "gzip_sha256": "947d39bcd807e3ae32c84310f49d80efd48cc02ed9a40debba7ecdb2922cc2e4",
+      "bytes": 72785
+    },
+    {
+      "study": "distance_intervention",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/rank0.jsonl",
+      "path": "evidence/raw/distance_intervention/original/rank0.jsonl.gz",
+      "sha256": "aa9c075a4ded9035ad4f145443a6fc46c9386394a44004a4d43d655d1ca9b6bc",
+      "gzip_sha256": "1321680d97fcb9c6a579337c6ad23c6836692f99be6b7a48aeef91e8f9e82b16",
+      "bytes": 72516
+    },
+    {
+      "study": "distance_intervention",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/rank1.jsonl",
+      "path": "evidence/raw/distance_intervention/original/rank1.jsonl.gz",
+      "sha256": "b72174387feaa100792534ee138515669c050d195cc75a301b16d13e56cae432",
+      "gzip_sha256": "93342d9f81646aa55554652a6085520f90547d6b3d866353adb78d61e0552840",
+      "bytes": 72520
+    },
+    {
+      "study": "distance_intervention",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/rank2.jsonl",
+      "path": "evidence/raw/distance_intervention/original/rank2.jsonl.gz",
+      "sha256": "ed72e6cbee785aff0152c963d01435fe7002dc16dce68a0ff32cf4e34069096b",
+      "gzip_sha256": "c055e7c13699a74b3355891eac28f50470dbe01a042a1a89e70337a04ceba693",
+      "bytes": 72509
+    },
+    {
+      "study": "distance_intervention",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/rank3.jsonl",
+      "path": "evidence/raw/distance_intervention/original/rank3.jsonl.gz",
+      "sha256": "0aa6f310d92b4c783487cbea8d668e9eca39f95fb696e1f3d4b0a9cd2622425a",
+      "gzip_sha256": "33ea69e4a6a5e5a2be616a940ce732ac29d50c5e8cbe01386040ba6cf44b77d1",
+      "bytes": 72495
+    },
+    {
+      "study": "distance_intervention",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/rank4.jsonl",
+      "path": "evidence/raw/distance_intervention/original/rank4.jsonl.gz",
+      "sha256": "846a0fc5419db5d4bac048ec177f03566c06bb62610c2216cb60a02fd14e1232",
+      "gzip_sha256": "1733cb6d5872872c6c5404d995694da63a1ebf1f0609b646a1686aafd4a46539",
+      "bytes": 72458
+    },
+    {
+      "study": "distance_intervention",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/rank5.jsonl",
+      "path": "evidence/raw/distance_intervention/original/rank5.jsonl.gz",
+      "sha256": "003f66651c93b7fcd661c10819c31c7b1eb8a1bd87a2d9690cc65742781b0add",
+      "gzip_sha256": "10d53ffacf1e433c8a3bfefe45781a3c0e7887280d9f678dbc2a5e0565a4b2a9",
+      "bytes": 72449
+    },
+    {
+      "study": "distance_intervention",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/rank6.jsonl",
+      "path": "evidence/raw/distance_intervention/original/rank6.jsonl.gz",
+      "sha256": "6a688350af83c472f2f0fd143512cb08c0dcf5b351e89974550c12d63ab1683b",
+      "gzip_sha256": "6eeec07db4f8e2a74b3c70ec496e0bc58fe6f8ce9b227dc53b236c7768041f22",
+      "bytes": 72443
+    },
+    {
+      "study": "distance_intervention",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/rank7.jsonl",
+      "path": "evidence/raw/distance_intervention/original/rank7.jsonl.gz",
+      "sha256": "d2564d4aa71998708a1365fb632cf3fa3f18f82c988a9210e748e22f7c3827c0",
+      "gzip_sha256": "d9cda3685022cb696accd24a47e6194c3fcc2d60582ea58553d9e9eb4666e540",
+      "bytes": 72494
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_0f5f36abee4b8934_balanced_seed20271011/rank0.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271011/rank0.jsonl.gz",
+      "sha256": "3b124442f6802db3d94b9c18afaec3528869a5eb0feccdee980e707afe304960",
+      "gzip_sha256": "27ecc10cda388518f2e3a04264d25632ce56ef982d8a1d6d99e92f190ba61eca",
+      "bytes": 359502
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_0f5f36abee4b8934_balanced_seed20271011/rank1.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271011/rank1.jsonl.gz",
+      "sha256": "d7732c8b9c6eca50aa8825a92c609845fa23577019707f68928d79da7c4ef7ab",
+      "gzip_sha256": "25a74c8ae0b020b286c6801f46496077b26915037524c6cc2a1e60160f5e8495",
+      "bytes": 352932
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_0f5f36abee4b8934_balanced_seed20271011/rank2.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271011/rank2.jsonl.gz",
+      "sha256": "ebe89a01fde0a76b3e288c1258ac3471ea1077c16905feacdbbb941b158cf91e",
+      "gzip_sha256": "41eb484ffa160007fbf518bf561e6fc00e9a2d51684cbce95ddd0bacd21cc358",
+      "bytes": 360081
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_0f5f36abee4b8934_balanced_seed20271011/rank3.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271011/rank3.jsonl.gz",
+      "sha256": "03e16c17b5332b39ef1e553da211d4f188cafc3bcfd46d394a22e301066d298b",
+      "gzip_sha256": "072d33e32dd33e364cd638ed5ee4c14dd8613ed107762973042d3d49df7e3c18",
+      "bytes": 355141
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_0f5f36abee4b8934_balanced_seed20271011/rank4.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271011/rank4.jsonl.gz",
+      "sha256": "3ad0c9967c4a97cc7f46dc7b7bc4a362acc15cdc30008d36735b5208846727e4",
+      "gzip_sha256": "25b72b6bdd6c54a1997b81128eb6e191cd3b3638e4b4f012c68a8682ef824ef3",
+      "bytes": 358235
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_0f5f36abee4b8934_balanced_seed20271011/rank5.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271011/rank5.jsonl.gz",
+      "sha256": "25768f77181d4cdcb2f4bd0ecb7ef30cd47763c19524b586c63a22637a1197ab",
+      "gzip_sha256": "4b0d1e847c5bbec9a37ba321af6e528e629e3d517da09dcfbb4c86eb7a8a2fa4",
+      "bytes": 357271
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_0f5f36abee4b8934_balanced_seed20271011/rank6.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271011/rank6.jsonl.gz",
+      "sha256": "dbbfccffeae413c62c47c3de98af3434adb5235d886bc33606e084941914960d",
+      "gzip_sha256": "3ec84fb68a71d1900f4841dd037da434f521ef6a471b2c2a25233e9c34f7a31b",
+      "bytes": 358277
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_0f5f36abee4b8934_balanced_seed20271011/rank7.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271011/rank7.jsonl.gz",
+      "sha256": "bd7515f0319e2bd100dfa71be0d8ee61f02ef28e5b71f0ccb9025c64cf4f7eac",
+      "gzip_sha256": "7ebd200b4510b3935eaeffb3e7af8032ee4ac1de3a069b635925c80abd746136",
+      "bytes": 356759
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_4b591791f29c0063_balanced_seed20271012/rank0.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271012/rank0.jsonl.gz",
+      "sha256": "bdf5937ac23a2e202de07bd830f473fc61e6317a0ec4671106aa9c4fd09ee41b",
+      "gzip_sha256": "23fa3c1bc2542c4ab10dcbdf08b794382e51ebea12cb0b073f6179998f8be934",
+      "bytes": 367277
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_4b591791f29c0063_balanced_seed20271012/rank1.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271012/rank1.jsonl.gz",
+      "sha256": "0df537023c7ff5fc93d3b364017dc8d7fac50ad23f369be3e82fcd179ee2b2b4",
+      "gzip_sha256": "4ca8730e6f42e9da68271d20a4b52a7f011cf1a7138fc425eae971dfc4793de0",
+      "bytes": 367302
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_4b591791f29c0063_balanced_seed20271012/rank2.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271012/rank2.jsonl.gz",
+      "sha256": "96a8ce9a68185d0a7ed27549e12d7255e39e4968224ccac73ce4ea134761f875",
+      "gzip_sha256": "c6dc96da8c6dc834b9b390d58b36aa695358330fc3d61127ebcdc722a7994f6c",
+      "bytes": 367273
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_4b591791f29c0063_balanced_seed20271012/rank3.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271012/rank3.jsonl.gz",
+      "sha256": "d9e5ccf7a2d267ce439109283590d4670d20643efdd38d54da985bde95b8a8b7",
+      "gzip_sha256": "6f7cfd612314ccfc4f923d0e1449caac22b91934827df113274096216a054f5d",
+      "bytes": 367164
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_4b591791f29c0063_balanced_seed20271012/rank4.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271012/rank4.jsonl.gz",
+      "sha256": "33bf5c53df0c2f22d0d0ab701cdcaadbf255b0a4cc1dbffe9bffdf24e4869c8e",
+      "gzip_sha256": "29f6963e2c8e5323327ff08de3a21f48dd8ac787e7e4c19fcc5223821c135fdf",
+      "bytes": 367169
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_4b591791f29c0063_balanced_seed20271012/rank5.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271012/rank5.jsonl.gz",
+      "sha256": "b5b3cbbd24cd388e2fdbdb160777a0fe2d29f24aca139aa30f1e4bf6f2c46ae8",
+      "gzip_sha256": "dc9b64c424469e8cba39c57bee54c2b956da147ebfcdbe55450548c1450d2007",
+      "bytes": 367235
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_4b591791f29c0063_balanced_seed20271012/rank6.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271012/rank6.jsonl.gz",
+      "sha256": "b2b6fdadaf938494bd9aa14552ca40de95a619c44edd8a5e05be44ba3b991850",
+      "gzip_sha256": "32babdde08d612d5ca41d26aff9cfcbba984513b0521088cff7a09436c6ddf36",
+      "bytes": 367264
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_4b591791f29c0063_balanced_seed20271012/rank7.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271012/rank7.jsonl.gz",
+      "sha256": "311966796ae9acec341a4af55d3eece64ced8860295ea18b720e5aa944ba4dae",
+      "gzip_sha256": "e1bf2bf8069872d8aa2e118392f6bb3ae5dbec6d7199891409291951658726e4",
+      "bytes": 367199
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_ef3d026d95e065b0_balanced_seed20271013/rank0.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271013/rank0.jsonl.gz",
+      "sha256": "d122f67ccc160305a1e77fd9c9ba591a54242c2d3b68d0e230cbfe2f5765a0da",
+      "gzip_sha256": "cf261326195320451eb193a9df448d4770d07e40356723488e93dac7be498914",
+      "bytes": 367688
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_ef3d026d95e065b0_balanced_seed20271013/rank1.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271013/rank1.jsonl.gz",
+      "sha256": "3803164a80d73266af732347c92b73f07a7e6fb85dc2ce504e071ef82af8ba87",
+      "gzip_sha256": "1cdd59eacb18bf9c30f60cf799c83fdd015c83505970ffbb238239d69581e365",
+      "bytes": 367728
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_ef3d026d95e065b0_balanced_seed20271013/rank2.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271013/rank2.jsonl.gz",
+      "sha256": "e38b89e241db14866c5d2baa97b38ccc14ffaac447d83c217cc24fd2d3a0921d",
+      "gzip_sha256": "50ba19572a9f9445228208b664b332dae41c4b6fab74a17c329b8ee1fdaab3e5",
+      "bytes": 367620
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_ef3d026d95e065b0_balanced_seed20271013/rank3.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271013/rank3.jsonl.gz",
+      "sha256": "a31f95c316ac5260ae0581c621ef12d5a641bf5373b48f2be34e656c5620c9b4",
+      "gzip_sha256": "f01b4e78685602c00796c597cab873f4881c9f645a4902aae71f10f4c2125590",
+      "bytes": 367136
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_ef3d026d95e065b0_balanced_seed20271013/rank4.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271013/rank4.jsonl.gz",
+      "sha256": "7df284ddda3929c7b106a24190a72025113b23ff99ccfc645fe11ece3762c32d",
+      "gzip_sha256": "0e1faa15c7ffafb43f5a8606aba99673be159257d277dbd2b080961ecce6d0d4",
+      "bytes": 367748
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_ef3d026d95e065b0_balanced_seed20271013/rank5.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271013/rank5.jsonl.gz",
+      "sha256": "1703fff14112d616543f5465e59d2c844eccb3dfd8c14566eb650f81fbdcb5dc",
+      "gzip_sha256": "d47cd3e8d849b63961619fcd89779e335e9af277a051973d6e348aadd7dcc222",
+      "bytes": 367684
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_ef3d026d95e065b0_balanced_seed20271013/rank6.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271013/rank6.jsonl.gz",
+      "sha256": "79e02fa4c8dd872b3e00da206b70520c4cbab46837a5e304a7946d500d915b75",
+      "gzip_sha256": "7095c3ca209dd270cb8636ea4f278b47d7afc5e7c7b599a7ef5ed73c5e22e446",
+      "bytes": 367645
+    },
+    {
+      "study": "history_response",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_ef3d026d95e065b0_balanced_seed20271013/rank7.jsonl",
+      "path": "evidence/raw/history_response/balanced_seed20271013/rank7.jsonl.gz",
+      "sha256": "d5a05287618e76dc1387108bda3982a1772163dea379e2390bf46ea2495cd377",
+      "gzip_sha256": "56f76b354ba486a8ddd0376ec2125deb125395258cf13aa93418b01cf3624b9d",
+      "bytes": 367618
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_784564e1d6efcbd7_near_seed20271011/rank0.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271011/rank0.jsonl.gz",
+      "sha256": "1082404f2e0c48e3faa4c7c694372d6c2d6958d1668a03aeeb3b2fcc00806426",
+      "gzip_sha256": "834d904d04feaedad9374d0f00dec7070f27a37904ad8c78eb8a49dd575aeb58",
+      "bytes": 363788
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_784564e1d6efcbd7_near_seed20271011/rank1.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271011/rank1.jsonl.gz",
+      "sha256": "2810becda11499ffa42d50870621d9560769ba245380bffd2c6ef0009fb288c9",
+      "gzip_sha256": "b0bf808ded2cf9a1a25cddde0e1deab0d3c1b75d2bf118c5fc4dc8ba1cd80317",
+      "bytes": 362787
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_784564e1d6efcbd7_near_seed20271011/rank2.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271011/rank2.jsonl.gz",
+      "sha256": "1fa6206950c748b9521873bd3524e295396b005bcb3beadadf56733369e0aa73",
+      "gzip_sha256": "8aa914767c151ffe4ac36191ce95df4e6360dddf7624a442a9c2355cd628e819",
+      "bytes": 363413
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_784564e1d6efcbd7_near_seed20271011/rank3.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271011/rank3.jsonl.gz",
+      "sha256": "8ad18927c968d5ff84988eb828cf424bb8bf8528a4e7ea976aed57865c3c4033",
+      "gzip_sha256": "a7037d1c12c228ef9f4f0bc09837734bef60bffac2369d414e72bfed4177331e",
+      "bytes": 363362
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_784564e1d6efcbd7_near_seed20271011/rank4.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271011/rank4.jsonl.gz",
+      "sha256": "6498426683b7ccaede1e0050aae71f6087ec5018310ddcec2364de1efe7e3606",
+      "gzip_sha256": "1335953fd1535d9d6aea11ddcf1bae385a84329375ad3c72e8dbcceba54e4274",
+      "bytes": 363448
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_784564e1d6efcbd7_near_seed20271011/rank5.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271011/rank5.jsonl.gz",
+      "sha256": "000cf3e553c09e9a1190d18a5e8661ef56320d404c52d5d5a8bae275a161d8aa",
+      "gzip_sha256": "ae0883f63e4aedbe41e5b2f4a75eaf2071b68da95cf35fce1772043af5659799",
+      "bytes": 363726
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_784564e1d6efcbd7_near_seed20271011/rank6.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271011/rank6.jsonl.gz",
+      "sha256": "5f73af7589e4b3d49302089e11b743af150cb7bf9f56e4b4edcdab64d6a894f1",
+      "gzip_sha256": "d4c64ebd93fb0180db203c739dcd8c9105bb2b77b14b2b5b48edf8fcda8c6047",
+      "bytes": 363878
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_784564e1d6efcbd7_near_seed20271011/rank7.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271011/rank7.jsonl.gz",
+      "sha256": "1074c0861fcd8f76cd72f1b754719f4e040cf3f9ef6ffbb5ab9b9d8321937340",
+      "gzip_sha256": "778f33c4a715abd8b26f0912af41285d7873358b119a1b352f718451c2795797",
+      "bytes": 363787
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_cddaf56d16686d04_near_seed20271012/rank0.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271012/rank0.jsonl.gz",
+      "sha256": "d185427e112947e562313a742589e828fac7372e7bef33ca394b429ddc4d2e37",
+      "gzip_sha256": "f2dd7bd52d56d7004a17996c16524c91d8d6cab771f15aa63d59e9bb999d3c69",
+      "bytes": 361617
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_cddaf56d16686d04_near_seed20271012/rank1.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271012/rank1.jsonl.gz",
+      "sha256": "f6ac649a1e8dcaf1aaf353fd54fe5296339c8baaa91ab28d368f0dac904a9c76",
+      "gzip_sha256": "963efdf687321070d1f2b4784f520d8ead989dd45c71e481bbc1b1ffea9ebe34",
+      "bytes": 361294
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_cddaf56d16686d04_near_seed20271012/rank2.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271012/rank2.jsonl.gz",
+      "sha256": "20e7365ed1dc20d4a325c262e60bcdb6b7a2dc83d8bc379e8fc652101c00cfe9",
+      "gzip_sha256": "fbbbe1e44600c98ff2bdf762dfa4c2e9191e29f7f618f4c1c1cabf6ec14ac79f",
+      "bytes": 362001
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_cddaf56d16686d04_near_seed20271012/rank3.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271012/rank3.jsonl.gz",
+      "sha256": "7d9e8d37fa240a73f9670e89eda3ebd3ce49a2e7f8c8c261a9613f4aea9a5d2e",
+      "gzip_sha256": "68cf92278ba3300937141af15d1c756791a655c4584a5c4802bedbd048eb07cf",
+      "bytes": 361765
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_cddaf56d16686d04_near_seed20271012/rank4.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271012/rank4.jsonl.gz",
+      "sha256": "b898cb51b80d5a854aa38ac83f2bc2d1d35f645317f79cb662bb90ab242ae5c9",
+      "gzip_sha256": "74d7a393017e03bad9bc77064a147c18232e662006ee6c398754c37858c29399",
+      "bytes": 361809
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_cddaf56d16686d04_near_seed20271012/rank5.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271012/rank5.jsonl.gz",
+      "sha256": "a6b9498109ae4dbcb589ef5b5f0ed3bd2b8e2eb03ed64f14610d26adc2993450",
+      "gzip_sha256": "2e40c9ff3d910ee8364f28725b04e39b1aefee33deea06e3ada4c01ab346e00d",
+      "bytes": 362172
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_cddaf56d16686d04_near_seed20271012/rank6.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271012/rank6.jsonl.gz",
+      "sha256": "582f3a42d74d031d9ba496c1a49a88f60cbcfdfe4f66f81db914322ea21c9b92",
+      "gzip_sha256": "2746c94301b88b710eddeec6b5b6164931fe58358423e383475ce44599f73b9b",
+      "bytes": 361954
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_cddaf56d16686d04_near_seed20271012/rank7.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271012/rank7.jsonl.gz",
+      "sha256": "702d8bf2b43ed6ee84ccef95f433cb7148fc4c6f6c240126383adada6d4d3513",
+      "gzip_sha256": "b80bc8dd4cc682f04f298e8aa30319eb3d63e316d23d9f8f5b8356e5c28b14f5",
+      "bytes": 361404
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_1cab17656c8f38fd_near_seed20271013/rank0.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271013/rank0.jsonl.gz",
+      "sha256": "80c595360eb588df856d5c20f8ecb26e8526420f8083811850c44acf5f923b4b",
+      "gzip_sha256": "3b3eb0546c24c8be1aa026f235f239175484a01dab467921aa73ead4877f0ded",
+      "bytes": 359599
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_1cab17656c8f38fd_near_seed20271013/rank1.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271013/rank1.jsonl.gz",
+      "sha256": "7d0da4978c89cf2d03795c1e4d7afa630c003234cd43f121291be20770a8b50a",
+      "gzip_sha256": "c9b653f69e3c551c84e1796c9c80c171ec6a056eb82246737460c8966c2bf3bb",
+      "bytes": 359629
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_1cab17656c8f38fd_near_seed20271013/rank2.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271013/rank2.jsonl.gz",
+      "sha256": "de5daffc7d6344d62c8ba091247f7cadb2bd0089d3587ed42898e1a7ebf65618",
+      "gzip_sha256": "1a2575d13956cac55b4ff0cbe81696ff78ac97eb5c6c45be18d5ea2d459b3b6b",
+      "bytes": 359547
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_1cab17656c8f38fd_near_seed20271013/rank3.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271013/rank3.jsonl.gz",
+      "sha256": "f51189fe64682a432d2e9bf9745c581a3ba08d292bc877bbdb20987482f3a9ee",
+      "gzip_sha256": "74e03c9aac4a642ed4c7d10e2b19202896f81b3e09a956224f844bd000a723ea",
+      "bytes": 359693
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_1cab17656c8f38fd_near_seed20271013/rank4.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271013/rank4.jsonl.gz",
+      "sha256": "b78239e89977d6c1392a0708dc22913562cd09fa187271c3e4bae4bed0dac568",
+      "gzip_sha256": "28258b9c642a1d4671171301e846503e64fa626b7503bd7c3bf207ed07b154aa",
+      "bytes": 359705
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_1cab17656c8f38fd_near_seed20271013/rank5.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271013/rank5.jsonl.gz",
+      "sha256": "27fac77ecf143056bf43f63cf60fc6af841198bf2981570cd4749f8931bb7890",
+      "gzip_sha256": "27740b2fdede9286338a6110f073495f5151ce52c2398e0c2229a9e64c05fdd4",
+      "bytes": 359603
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_1cab17656c8f38fd_near_seed20271013/rank6.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271013/rank6.jsonl.gz",
+      "sha256": "bea1a46811dfd15e9ba45b2e3d0a02f0e82ee0a98ecb1b6cca96ac912d80d2ad",
+      "gzip_sha256": "3927bf32b35bd34b8fe03939882b05b2d9286cff103cefe5f51f4d3fbc669dff",
+      "bytes": 359607
+    },
+    {
+      "study": "history_response",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_1cab17656c8f38fd_near_seed20271013/rank7.jsonl",
+      "path": "evidence/raw/history_response/near_seed20271013/rank7.jsonl.gz",
+      "sha256": "a8784286a719a00bd0f83a5fe6dfe53721559db3a0e13a90a04ac71cc7f84ecf",
+      "gzip_sha256": "aaa4670fdfd7690d6c2463343e56c3c1b73e2ec7b8d3d9902f772c4d211c51ed",
+      "bytes": 359768
+    },
+    {
+      "study": "history_response",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_6971e4e6af3641c6_original/rank0.jsonl",
+      "path": "evidence/raw/history_response/original/rank0.jsonl.gz",
+      "sha256": "44f61bb6d6f9f7fcec53491f95b98910bf809adc8e4673ec8cbf89c51d250293",
+      "gzip_sha256": "f31cddb2018c4612983491624df9539fce898bfb1fc0ad5b4b2138d645f873fb",
+      "bytes": 370717
+    },
+    {
+      "study": "history_response",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_6971e4e6af3641c6_original/rank1.jsonl",
+      "path": "evidence/raw/history_response/original/rank1.jsonl.gz",
+      "sha256": "b7a179c4cb35add4b651f7448fe72203df4d5c5067353ef1a465c2c3fd3e82e5",
+      "gzip_sha256": "47923247bb2e4ff3e00e7f8a747e47ac60980909ba6ef9cf4e2d0c6d977e9d2e",
+      "bytes": 369462
+    },
+    {
+      "study": "history_response",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_6971e4e6af3641c6_original/rank2.jsonl",
+      "path": "evidence/raw/history_response/original/rank2.jsonl.gz",
+      "sha256": "8ff44a170643a323f28dc979436c4a11594c2d4f39701adb5f443075d5e80dc6",
+      "gzip_sha256": "4893b9820e2581a0eedc71a82df5d56cb63ef5273292f02fc212ebf6b3835143",
+      "bytes": 370851
+    },
+    {
+      "study": "history_response",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_6971e4e6af3641c6_original/rank3.jsonl",
+      "path": "evidence/raw/history_response/original/rank3.jsonl.gz",
+      "sha256": "5958223b10838155fed613a78899318b0191ee363b453d149839f0db9687164b",
+      "gzip_sha256": "12df2130610bbabaea7efc1bf86e99ca1b136c809f8da0a1d894969b76105c73",
+      "bytes": 370641
+    },
+    {
+      "study": "history_response",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_6971e4e6af3641c6_original/rank4.jsonl",
+      "path": "evidence/raw/history_response/original/rank4.jsonl.gz",
+      "sha256": "98682b4b3954cf8417de05688a2d4946d5c062a9304fef6f15446ccb0e1e59ed",
+      "gzip_sha256": "c569f05957353d1d7c9055480b05b3d7f0b7f192d257f2d710f30293655b637d",
+      "bytes": 371186
+    },
+    {
+      "study": "history_response",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_6971e4e6af3641c6_original/rank5.jsonl",
+      "path": "evidence/raw/history_response/original/rank5.jsonl.gz",
+      "sha256": "f351a8848f3ab432c5571f0f3666e395f0745aa6f2303cf5c7fc378979efbf75",
+      "gzip_sha256": "5d138389f37f52cc993cb8df1c14cb78c450138fe03a7935d44a42759df6218b",
+      "bytes": 370513
+    },
+    {
+      "study": "history_response",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_6971e4e6af3641c6_original/rank6.jsonl",
+      "path": "evidence/raw/history_response/original/rank6.jsonl.gz",
+      "sha256": "14c2f5be3392df98235c3e84373e42ff5bdc40e87d7b91ef07969185f8b37c3b",
+      "gzip_sha256": "d71b220857e1fffff516e9dfae6e69d7edae7d1c204f78144126519229831f35",
+      "bytes": 370936
+    },
+    {
+      "study": "history_response",
+      "role": "original",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_6971e4e6af3641c6_original/rank7.jsonl",
+      "path": "evidence/raw/history_response/original/rank7.jsonl.gz",
+      "sha256": "f0501462cdbeab780f21d0098eecd0f0b3199d834b1a9f69701d35171b644132",
+      "gzip_sha256": "422726449a29220018ac1d6705159dbc696c41ec24fcf6dc75ff457e26405073",
+      "bytes": 370851
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_d15b4bad7b2d7a2b_balanced_seed20271011/rank0.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271011/rank0.jsonl.gz",
+      "sha256": "8493e559b229a43b3117ed336a102d8dab0a041f20c53e92928854418d6deeb4",
+      "gzip_sha256": "9ea2ae5bcb3af83f0f9fa8232b7bfb44329890708a92135bd64b71c3d3edd6bc",
+      "bytes": 183752
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_d15b4bad7b2d7a2b_balanced_seed20271011/rank1.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271011/rank1.jsonl.gz",
+      "sha256": "d045e370311a0c9ba679b2d261c12e4170ae735d425727e3aec482f9ce336b18",
+      "gzip_sha256": "05af47da581b06e0b4ff1d68cfbb00b4b071dc0cc40112feeb7be8f9fc46a970",
+      "bytes": 184276
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_d15b4bad7b2d7a2b_balanced_seed20271011/rank2.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271011/rank2.jsonl.gz",
+      "sha256": "547bfd926fa1780298d2f2a95a94e90c81c4a194bb9608dc1a8b2b98742c07d1",
+      "gzip_sha256": "ed7755650816a2d8db0c96a8d58178570bfb9b394fd17fb099bd1229e1708518",
+      "bytes": 185233
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_d15b4bad7b2d7a2b_balanced_seed20271011/rank3.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271011/rank3.jsonl.gz",
+      "sha256": "e1dd8b3c3253920dd2145eb849f8783d03139dee8dfef5fbfd9d237f6bf3c27d",
+      "gzip_sha256": "814def0e96035af46fe2b51dcb8e60ab01a4dae8643389559513320094356c86",
+      "bytes": 184381
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_d15b4bad7b2d7a2b_balanced_seed20271011/rank4.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271011/rank4.jsonl.gz",
+      "sha256": "b4a597907cf5159647999ae60acf9209a77010deae05ef31c690af632ee04be2",
+      "gzip_sha256": "737b16e6608e4f786d3444a08689d958c43556a280cc0e21fb4ba474c3e93e5c",
+      "bytes": 183691
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_d15b4bad7b2d7a2b_balanced_seed20271011/rank5.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271011/rank5.jsonl.gz",
+      "sha256": "64bf3c60c706c58e64412a21cc7c20ac4c5651d90df32923b6eea59311e4ba89",
+      "gzip_sha256": "fdc92a6821ec8c26ee702b0d1fe212a6d37be9a2aaf1a7d9cac81c6cb11315f3",
+      "bytes": 183146
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_d15b4bad7b2d7a2b_balanced_seed20271011/rank6.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271011/rank6.jsonl.gz",
+      "sha256": "c60859c9f5144a83deba1c18008bf22f0ef4a79f6a636bcc6ad9b80f465df61d",
+      "gzip_sha256": "0813a35e7d316d5c3716e56730193ce222abf691f6351d575d5add83f62a14bc",
+      "bytes": 183652
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_d15b4bad7b2d7a2b_balanced_seed20271011/rank7.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271011/rank7.jsonl.gz",
+      "sha256": "5d5b410540e244370b5947af53726711058a0537ba07a47c97ca4848fb52c32e",
+      "gzip_sha256": "da2d7904c66eb43e805004b9932f61edef529578ddedb35352c578681371893a",
+      "bytes": 184872
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_58a319b328b2ca48_balanced_seed20271012/rank0.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271012/rank0.jsonl.gz",
+      "sha256": "0c4d5c43ab7729e014da3399d55ce4e2048571feeee90e07a549de866e3ce396",
+      "gzip_sha256": "fb00cd2ef26705d829c4ab63b28c3acd14393427576bcc30e9e9ecc0ea7c7a6c",
+      "bytes": 188967
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_58a319b328b2ca48_balanced_seed20271012/rank1.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271012/rank1.jsonl.gz",
+      "sha256": "feba15d83d3a61c7c057589df0938c5373d6ec2869cb3aac0640e6f07331c94f",
+      "gzip_sha256": "ef529137a6c76690a0a6ab971df766aa8b10b074a18ead2a87fee354bc8ec5d5",
+      "bytes": 189002
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_58a319b328b2ca48_balanced_seed20271012/rank2.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271012/rank2.jsonl.gz",
+      "sha256": "1226d77bfdf6d405100bf32fea187334ed8e82ec5a961d36d77f90a24fe7d181",
+      "gzip_sha256": "caa4541be2f26e04e75f2852d84e1063b88af94ea003182a8d2a53a0822c73c2",
+      "bytes": 189228
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_58a319b328b2ca48_balanced_seed20271012/rank3.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271012/rank3.jsonl.gz",
+      "sha256": "9ea618ad0eb929a32f8c3b9bb51774645dde2f9897c18a8e7f7716288a02a20b",
+      "gzip_sha256": "1aa2dd15e4a97b4f99a86477faede3525888811f431aaae8ae11e5ba3a161dd4",
+      "bytes": 189121
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_58a319b328b2ca48_balanced_seed20271012/rank4.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271012/rank4.jsonl.gz",
+      "sha256": "15abbb42122dfcc7fd8e8d40d9d9c68462efffccd48e971d6c7e7d994031ecca",
+      "gzip_sha256": "6ec1fab870c0b3933a2e791c32de34f92bde5a53d49a63112c459d016d09a164",
+      "bytes": 188997
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_58a319b328b2ca48_balanced_seed20271012/rank5.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271012/rank5.jsonl.gz",
+      "sha256": "5db86105cdd5b52c51bc85934558997ea15d763419b2cf960374508a36e8b323",
+      "gzip_sha256": "669a991ab775fddb3b3e71f7434cf2e6c482aacc3fc5a954b47e7744435dae54",
+      "bytes": 189150
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_58a319b328b2ca48_balanced_seed20271012/rank6.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271012/rank6.jsonl.gz",
+      "sha256": "c07057938ba6967e7c658d52ed3d8873d98d94ce2f8a65a2f4db061b2db4caff",
+      "gzip_sha256": "4d536d43655e32a7cc78c9b19d42d993ba7b165904f0eb7637b54d88001d3120",
+      "bytes": 189152
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_58a319b328b2ca48_balanced_seed20271012/rank7.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271012/rank7.jsonl.gz",
+      "sha256": "ac99e1f6d8df9902f89b6761ecbb8680a7d87002b4affd820b012f204beccc8a",
+      "gzip_sha256": "78431b0ea84ab851b98a5004c6e17a931e02d1f6096671cce238adec789593a3",
+      "bytes": 189138
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013_primary1/rank0.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271013/rank0.jsonl.gz",
+      "sha256": "ae06e5d9a4d6334cd28085a1bcb3290ba50b65efb7702f2880e1c92d876d9428",
+      "gzip_sha256": "faed9220ced13344023a7ffd6bd212f6efdc22beee0ca0b3e3bd8b57d6e2da74",
+      "bytes": 189065
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013_primary1/rank1.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271013/rank1.jsonl.gz",
+      "sha256": "2e2c9792ea8762833e878d3c47242a91f4c013a1247a6fdabb0b38b09cb2ceef",
+      "gzip_sha256": "f892266d9cd54600207311a1259036667bd53b36a7ea8fe0b1c53f652c7593f3",
+      "bytes": 189185
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013_primary1/rank2.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271013/rank2.jsonl.gz",
+      "sha256": "8a7b506cb36d8e601ff0b0f23db99a08561949b04a65bd7b51a57f63031f4297",
+      "gzip_sha256": "b7038d6af68d5ebf8a3ba58f88bfcb174da1fabbee38d554d75cab597354e248",
+      "bytes": 189231
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013_primary1/rank3.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271013/rank3.jsonl.gz",
+      "sha256": "e1690bcb6d9bcc270f369838772219d1f51a5f535811ea7cb46a9074e0fa7f1e",
+      "gzip_sha256": "59a52b82d800aeab6b11f21bb0521849c08ce8be478d41b2df6d65c3438f790b",
+      "bytes": 189402
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013_primary1/rank4.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271013/rank4.jsonl.gz",
+      "sha256": "ced5803e821b53c9abf92cfb2522349f28b701a4ba1e4ec8bc589c3d41e51757",
+      "gzip_sha256": "2a8a59b442ae0284eeea3a508fbee22a472d36fac923d21ddfc44991e508b433",
+      "bytes": 188912
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013_primary1/rank5.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271013/rank5.jsonl.gz",
+      "sha256": "f0047b0b4a11d5cb60caa60268555dcd7e6241dbc818904900b4531102896d21",
+      "gzip_sha256": "a941740cfcf588e78ccb28ff77b33497fd6bd757392060cf6c7732c8790d6aea",
+      "bytes": 189120
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013_primary1/rank6.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271013/rank6.jsonl.gz",
+      "sha256": "12da68f900dd1a649ed79cd5f6312de5acb050fa24b739096f742971113f4886",
+      "gzip_sha256": "5ef28ddc95e67f44353e8cb400728fa995c8dc3da3d6c7ab18b183910cbe8e14",
+      "bytes": 189055
+    },
+    {
+      "study": "header_distance",
+      "role": "balanced_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013_primary1/rank7.jsonl",
+      "path": "evidence/raw/header_distance/balanced_seed20271013/rank7.jsonl.gz",
+      "sha256": "b7fe3e66bb36db28692de055d02905624dea0e3915f1b0765664038e849e86f8",
+      "gzip_sha256": "69a08e53c2b5aaa5fa0794b5a63e805ee3b7d283a2d33cf7f1235829df272d25",
+      "bytes": 189182
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_9cdb1219c8333f90_near_seed20271011/rank0.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271011/rank0.jsonl.gz",
+      "sha256": "79c104649ca8347fcc6771e660db4334fa2136a47eeca17cfc18059c61ace9b1",
+      "gzip_sha256": "173e5d74a36218d067c2224a8acce9810bedf9a386dc181a46446fa1c198d823",
+      "bytes": 187769
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_9cdb1219c8333f90_near_seed20271011/rank1.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271011/rank1.jsonl.gz",
+      "sha256": "df3416a5383665247f823e65c4dfcd1b8b88144e46f0ee886330b665579c7362",
+      "gzip_sha256": "2f297fa5047e8991456f77d620bc6503e80c6d6a524a2edd6476da1016ce72fd",
+      "bytes": 187776
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_9cdb1219c8333f90_near_seed20271011/rank2.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271011/rank2.jsonl.gz",
+      "sha256": "42282ee93675328ead7ac72f3bd3fbd7bc83c2e9cf13c8ae5f41aec3faf790d6",
+      "gzip_sha256": "a3c4cc6ca4a0a9ffd12486746c4c456458477bca6c95c701243fd75ce7d68105",
+      "bytes": 188340
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_9cdb1219c8333f90_near_seed20271011/rank3.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271011/rank3.jsonl.gz",
+      "sha256": "cdbdf85ce4f34a73951fccb0ddf8dc9415caec7226fd5997cacf2ca9a1ff5966",
+      "gzip_sha256": "6f39509664ba51ad485bede8973caa9e8eca7561c13403a586eb454f73c5f4e4",
+      "bytes": 187540
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_9cdb1219c8333f90_near_seed20271011/rank4.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271011/rank4.jsonl.gz",
+      "sha256": "f48642c65e9d62920b5fa15c6be4cfe838275709a3c19a930a81023a8f94b703",
+      "gzip_sha256": "7da01fceca591d72bf2364213dee14a9230609332ba2db738ed6e92e7a16e691",
+      "bytes": 187759
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_9cdb1219c8333f90_near_seed20271011/rank5.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271011/rank5.jsonl.gz",
+      "sha256": "8acda8229c36eebe1901e4fd21f1ae545c2a46d49c9148a6b18b4109f05039e4",
+      "gzip_sha256": "aa9b10061d3be28b7cb8d0a0831a131610fe607ed4c011b9a904c3db0cef3996",
+      "bytes": 187711
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_9cdb1219c8333f90_near_seed20271011/rank6.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271011/rank6.jsonl.gz",
+      "sha256": "21637945172aaadd39d7ec3e428f755743903743734933b914d00b19a46cf99b",
+      "gzip_sha256": "ff56dcd195cc847093d3821ab08cfdb475e1918e455ebc3ab0692694d4e566db",
+      "bytes": 188081
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271011",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_9cdb1219c8333f90_near_seed20271011/rank7.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271011/rank7.jsonl.gz",
+      "sha256": "8ea70dc262360125f012039db0d8e8cc520b547e5b56b60d9e0da2d8bf020fc3",
+      "gzip_sha256": "49ed6e595f14999f59a44fc99b7384b60415f904e33c3a4a2bdb37888560f802",
+      "bytes": 188177
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_c204bf1f7a97873a_near_seed20271012/rank0.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271012/rank0.jsonl.gz",
+      "sha256": "d269a0ff2a2657ea383044c87cc38da066bdc2578cddd11be445a72305c8b043",
+      "gzip_sha256": "7b1841b1fc86f7f30dace76cec1727bd1f1c49acb284cb2d5e4c92f822562470",
+      "bytes": 187292
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_c204bf1f7a97873a_near_seed20271012/rank1.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271012/rank1.jsonl.gz",
+      "sha256": "44b8bbcbbbd166b5cefdce063e19b81afc3437c18f57677a20a4631f4efb6282",
+      "gzip_sha256": "f01a23cbcf9dd99e28645984f94ded7ae5bb4c941e6f04388d05bdb00b3c277c",
+      "bytes": 187472
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_c204bf1f7a97873a_near_seed20271012/rank2.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271012/rank2.jsonl.gz",
+      "sha256": "b91e79beff4915f375ce825e0af9d64b140ce26e5246966ec79b50a601c212e8",
+      "gzip_sha256": "ca7f65cff7163a14afb6f3d85913f39e9871af1bdc532dcd5d76cc570f1fec84",
+      "bytes": 187747
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_c204bf1f7a97873a_near_seed20271012/rank3.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271012/rank3.jsonl.gz",
+      "sha256": "87c19f0fb0d49787fd9963f12149c92a95d0c8b9c445c9b8d62cd722fa255407",
+      "gzip_sha256": "3cfc277b5870a22fff2d7aceee791151e969f1a453023d863161f26d9ec38e4e",
+      "bytes": 187378
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_c204bf1f7a97873a_near_seed20271012/rank4.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271012/rank4.jsonl.gz",
+      "sha256": "19cacec938e36f6e88ce26a18881e83f91eb5376e88f8e3b2c0db829763aa546",
+      "gzip_sha256": "a136583a7a83cb6ffe818b134741eab0d6034bd9510dbf0605f347a34ff0bf65",
+      "bytes": 187402
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_c204bf1f7a97873a_near_seed20271012/rank5.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271012/rank5.jsonl.gz",
+      "sha256": "efeb3ebf0ae119329b78099b2fa9a2c4ecdb06eb4214e8749d6593ef84d408f0",
+      "gzip_sha256": "d405fa40bb7f2ca6a6c1e1356aa17c93dcd631ff7666e4e511a36eab9ac459b3",
+      "bytes": 187395
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_c204bf1f7a97873a_near_seed20271012/rank6.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271012/rank6.jsonl.gz",
+      "sha256": "055e6bf28f2dfb9c24e8c64eb000cc8982e73b5675207d2585a2c0e1c24267b3",
+      "gzip_sha256": "124e80e1ef9dc00727b8cadef3c78413a7427befe271bc7169a1840a56aa4d1c",
+      "bytes": 187344
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271012",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_c204bf1f7a97873a_near_seed20271012/rank7.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271012/rank7.jsonl.gz",
+      "sha256": "82ec61431d86405e9d234e547ae8179a20cff582ca8086b8892a217824eb5a89",
+      "gzip_sha256": "51ac080d08c77d7e4df1cdb286be3a4bd701779ceaeade5e40e568d1b2259c82",
+      "bytes": 187653
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_aa1881bc0d03e965_near_seed20271013/rank0.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271013/rank0.jsonl.gz",
+      "sha256": "acea1fbb1b9a76fb71924abd37edd5f83cc9b9f50ec5c0a668ce99fd12e837e8",
+      "gzip_sha256": "c64b2b8ba22ea06b285a5fe7b91e2038e9a6b807e7e314a7b07af4f5fad9a3bf",
+      "bytes": 186823
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_aa1881bc0d03e965_near_seed20271013/rank1.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271013/rank1.jsonl.gz",
+      "sha256": "cb3cfb8228b4a447ae329cfb79a742861b604dcedec79b68bc88b690fd11e401",
+      "gzip_sha256": "d2f17d242236d477785528ca8e03dc6b7b18dc7189f324dd6730e1b495ce6f30",
+      "bytes": 186713
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_aa1881bc0d03e965_near_seed20271013/rank2.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271013/rank2.jsonl.gz",
+      "sha256": "ce35b78e057e18642db4914c21f3f1a12618a6a1fdda28eee0f7246be20c5f6e",
+      "gzip_sha256": "511452d523ba9b939061f4c0004810ca88988ea633451924aa1ca2d9ed240229",
+      "bytes": 186840
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_aa1881bc0d03e965_near_seed20271013/rank3.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271013/rank3.jsonl.gz",
+      "sha256": "102024341d742347494598265f544ef149cf4e0556e21673c649be2c85fd0dcd",
+      "gzip_sha256": "6482d402bec5127aeac6ba3e6ad5509a452745de7eae4c8e9c9ebfaea93808fd",
+      "bytes": 186851
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_aa1881bc0d03e965_near_seed20271013/rank4.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271013/rank4.jsonl.gz",
+      "sha256": "c3a9787797f4b1f7a4f919516be4c834cfae79ca9dca9787920fea8e19104941",
+      "gzip_sha256": "3eaeca6b85d6367ba2b786c94724dd318852db0fdef9555343746c99cfeb357a",
+      "bytes": 186769
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_aa1881bc0d03e965_near_seed20271013/rank5.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271013/rank5.jsonl.gz",
+      "sha256": "6e4b8c467239ab1965094f29e8749014001a667b63e7dcfc0e7feddbbc64caaa",
+      "gzip_sha256": "d65811f110c547449a1a58af853a802f10d720d09d31f2773cd1cb326bab7327",
+      "bytes": 186790
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_aa1881bc0d03e965_near_seed20271013/rank6.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271013/rank6.jsonl.gz",
+      "sha256": "311fd03255b6ac61e3e428f673cf087b5e7272f482eebb9dc24df4cdaf20e810",
+      "gzip_sha256": "46b29a3e172515f47df9f531decaaa0b79565a3d65ef540daf36bbfeeda420e4",
+      "bytes": 186810
+    },
+    {
+      "study": "header_distance",
+      "role": "near_seed20271013",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_aa1881bc0d03e965_near_seed20271013/rank7.jsonl",
+      "path": "evidence/raw/header_distance/near_seed20271013/rank7.jsonl.gz",
+      "sha256": "c7fdcfcbb259a0efefe65dab67c97854571b1764b98cbd9a716de0d4dc42dacc",
+      "gzip_sha256": "e08e0d6b8ed6ff8514449c729f316b00ca39a4bb16357e6b4165c169665c3498",
+      "bytes": 186832
+    },
+    {
+      "study": "distance_intervention_cost",
+      "role": "attention",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank0.jsonl",
+      "path": "evidence/raw/distance_intervention_cost/attention/rank0.jsonl.gz",
+      "sha256": "6395c82055f52ee23430b30b665b19e57d69d5627e1cfcdc4f13f3ba105ba098",
+      "gzip_sha256": "3dea4db3682a5a7447f15736ac483e6b0f6919069580b4b506bff8132b8efc1e",
+      "bytes": 6294
+    },
+    {
+      "study": "distance_intervention_cost",
+      "role": "attention",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank1.jsonl",
+      "path": "evidence/raw/distance_intervention_cost/attention/rank1.jsonl.gz",
+      "sha256": "3b087015a2ed38cc226f550c9ad2ca22cce784d8c0a675395a309b93e5063b18",
+      "gzip_sha256": "de0a305b673b35dda51c6144d5c19f641ced547e6a33c9abef2fbdd81ceb8017",
+      "bytes": 6287
+    },
+    {
+      "study": "distance_intervention_cost",
+      "role": "attention",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank2.jsonl",
+      "path": "evidence/raw/distance_intervention_cost/attention/rank2.jsonl.gz",
+      "sha256": "76fd7d50f7b7ba847b5b8e9b8a7e8b45a73e657ee488b8d96a7d36d9a5af89ff",
+      "gzip_sha256": "0a777c740ebcce5eedf8f6aa77305562fe6e80f1f532808c291ce4ec52e5d29e",
+      "bytes": 6273
+    },
+    {
+      "study": "distance_intervention_cost",
+      "role": "attention",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank3.jsonl",
+      "path": "evidence/raw/distance_intervention_cost/attention/rank3.jsonl.gz",
+      "sha256": "33b45e2d9273675b9d0f2dbf485d35ca9f929e95a2ae1e99854cd749b36c087f",
+      "gzip_sha256": "61d5ed284a60f2fee01eb56a0caeea9d969950f4b5f792e6b5aec22f4c60e1e2",
+      "bytes": 6284
+    },
+    {
+      "study": "distance_intervention_cost",
+      "role": "attention",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank4.jsonl",
+      "path": "evidence/raw/distance_intervention_cost/attention/rank4.jsonl.gz",
+      "sha256": "9e326ca12057204429b17d5d6f6e2d113f93223c6c7f6f179994eb99e29748ec",
+      "gzip_sha256": "057a450f988086c9469b6daea3147670430e559df1406c92750006bbc7a94ddb",
+      "bytes": 6264
+    },
+    {
+      "study": "distance_intervention_cost",
+      "role": "attention",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank5.jsonl",
+      "path": "evidence/raw/distance_intervention_cost/attention/rank5.jsonl.gz",
+      "sha256": "e79d41a56c608ed16fb397c8e5bbf7fe2138df46e26a20384d9499a665aa468f",
+      "gzip_sha256": "cfe80f03a4e084242a2a33e200ed57537c9dd2bdcb429be7f05bece54f3fc07c",
+      "bytes": 6298
+    },
+    {
+      "study": "distance_intervention_cost",
+      "role": "attention",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank6.jsonl",
+      "path": "evidence/raw/distance_intervention_cost/attention/rank6.jsonl.gz",
+      "sha256": "c4fb805e671c0f24ddb18df2687ceeb25886fcb6b6c6a14954eeb0be69dd1de7",
+      "gzip_sha256": "1c649ae7caebe3386de90f491da2c3748556629a9fa78d0188a8675fdd2d9de0",
+      "bytes": 6295
+    },
+    {
+      "study": "distance_intervention_cost",
+      "role": "attention",
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_cost_attention_2b23e9c2fc4884ea/rank7.jsonl",
+      "path": "evidence/raw/distance_intervention_cost/attention/rank7.jsonl.gz",
+      "sha256": "bf682d2bd31b4c579668ee880de52376709a97448343262b570e2790e401384a",
+      "gzip_sha256": "67a97f1e8dbb59438a444d3e8c6336b5de3ed4aa5d62ff779f0b26f1ebc3f636",
+      "bytes": 6292
+    }
+  ]
+}

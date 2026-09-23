@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "checkpoint_sha256": "30482adaac6469ee89b1bbb801bcd6ea12d8063dccba229814cb764d8ff62be9",
+  "final_design_sha256": "7d78deca7128943063653354b78a3ad31ab53c0238581251f211797f2847ac90",
+  "design_text_sha256": "1fa236dd2b1ea1eb92f7b0d6f2c442cb940cdf673860197c8c3697c81dc1a0ae",
+  "indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "methods": [
+    "one",
+    "information_set",
+    "pair_preserving_halves"
+  ],
+  "positions": [
+    "far",
+    "middle",
+    "near"
+  ],
+  "context_tokens": 16384,
+  "repeats": 5,
+  "budget_seconds": 1.5,
+  "sources": {
+    "lrwkv_evidence/distance_cost/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lrwkv_evidence/distance_cost/worker.py": "8a376bba5e4c182826b3de1eb325a1fd8ef6876f89ea28b7459c9d58ca113ce8",
+    "lrwkv_evidence/distance_intervention/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "lrwkv_evidence/distance_intervention/tasks.py": "4cee1dd73032d58cfb3830afa8ffacdbdd2b9923d9322cd8bb3aaab07d7bf0bb",
+    "qz/launch_distance_cost.sh": "baba0a2d6232c96c07934f55b3d81ff7343657cf40be6bfa82937253fbf42fa3"
+  },
+  "analysis_sources": {
+    "theory_mvp/distance_intervention/collect_cost.py": "ce1360c50f1ceb7ee9398f5f7192e08cf23e61ae946f9ae6d218ef8d3f7435be",
+    "theory_mvp/distance_intervention/cost_certificate.py": "4a11968a350aa7933e8b95aeb001b0402f7a0d3b1dec612ab5c8698c7a0b22c9",
+    "tests/test_distance_cost_certificate.py": "49fed6758e7353843feaadba872367454416cef647aa26136f126089bc97eeb2"
+  }
+}

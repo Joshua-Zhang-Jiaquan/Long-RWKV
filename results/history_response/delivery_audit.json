@@ -1,0 +1,19 @@
+{
+  "complete": true,
+  "conditions": 672,
+  "paired_interventions": 43008,
+  "independent_max_arithmetic_discrepancy": 7.105427357601002e-15,
+  "primary_mean": 1.4778520357207983,
+  "primary_ci95": [
+    1.3274506371527812,
+    1.637083844396172
+  ],
+  "manifest_sha256": "1521c039e049d726e726e3fee0c82c6d13c7135b75949e0a265d5ac9dafd6a0b",
+  "pdf_sha256": "bfd87345729d6bc376fde44ef6026e374fc47b868f0b79ccf2b6f9142ccc3c93",
+  "balanced_collateral_errors": 3,
+  "balanced_unaffected_comparisons": 55296,
+  "archive_sha256": "e69881b5d50e6166b07424df5059d532c0b3e23d7f1b6f733abc2b5ff0d5143d",
+  "all_jobs_terminal": true,
+  "live_reserved_gpus": 0,
+  "scope": "Frozen source/raw hashes, archived prior outputs, independently recomputed target-law metrics and paired inference, algebraic bound, scheduler accounting and reviewed clean PDF."
+}

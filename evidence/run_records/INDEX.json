@@ -1,0 +1,317 @@
+{
+  "files": [
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271011/gpu_usage.csv",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271011/gpu_usage.csv.gz",
+      "sha256": "ac1b91c0b9bad0da66b6628d1c41021a8830506110b1169ffbfab840f3234a57",
+      "gzip_sha256": "57b6beec06349769a961c64df59be34b5ad507dfe5bf1ab3a1240d3dbd28b2cc"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271011/gpu_usage.csv",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271011/gpu_usage.csv.gz",
+      "sha256": "1396746417481a2499a89697af56900cb3679cf9b167190f13bb021b027e74a1",
+      "gzip_sha256": "449da95da806ba7e760af94bae882804fef650807bc1a029a41405a6d02f2514"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271012/gpu_usage.csv",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271012/gpu_usage.csv.gz",
+      "sha256": "22419d2bdb7975e9fbf18abaa67359ee8dcdbc47a7f9a73198872d3c96fc1894",
+      "gzip_sha256": "5411041b678842d4fb8db678fe2b7f509bb25a6133323c040700112b47cb207e"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271011_pathfix1/train.jsonl",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271011_pathfix1/train.jsonl.gz",
+      "sha256": "1879a542a332dd777b0fdade16bccfb5921470393f8fdcbbd0a2b2dbe047cf8d",
+      "gzip_sha256": "fd268670032a58fa0b74eef93e0a53bb9c7035fa51c72cb98e09a0b8edc2e2a6"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271011_pathfix1/gpu_usage.csv",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271011_pathfix1/gpu_usage.csv.gz",
+      "sha256": "239a2330163d1d66469b959d4f3774bbef4d7c463f3a5030dcd67ce0abe20b8a",
+      "gzip_sha256": "e1e09f3ced7e639f644be2a1de11fbbcf670471ed3f890933490053196096c1b"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271011_pathfix1/completion.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271011_pathfix1/completion.json.gz",
+      "sha256": "fca9c5313496b179bc94d505ecf9954d12d18d3be30bbf7e26c09f95fb17714f",
+      "gzip_sha256": "032788602db852d661f9bb09cbf2379b85eb71fff55c100be74d4be6b2073ef5"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271011_pathfix1/provenance.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271011_pathfix1/provenance.json.gz",
+      "sha256": "c6fae168f634a11451d5767b64b4fa969154e5a987b3324df6b07ac4e90717ec",
+      "gzip_sha256": "c8b39faceb2d76d1cc78ed8ed00a24fe749817783c8de8e6ddb328e1d7556ac9"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271012/train.jsonl",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271012/train.jsonl.gz",
+      "sha256": "cacf3f3b92da42f88afbba86a307e8b69920fd00329bf7552f2d706da0105470",
+      "gzip_sha256": "1576811979f6be735ab26aec96e9be7939b1480dd07b5ded0c5fc6954dc4324b"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271012/gpu_usage.csv",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271012/gpu_usage.csv.gz",
+      "sha256": "c0f3700e85380f9710b8a4675d23f4537224a0d9fd01be73503f292767c898ab",
+      "gzip_sha256": "5b408b0c8bfa8e901ba8e619918a8bd0fad7e4b343e73cacb053fd0393c9eba8"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271012/completion.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271012/completion.json.gz",
+      "sha256": "1a9f68c5ea8803f15b47d092704c2344127cebe7031d3503df62880b15bf52b0",
+      "gzip_sha256": "651fdef05d6978e48a68812720de5dfc50eed31d61622fa9cbea136e25a6ec81"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271012/provenance.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271012/provenance.json.gz",
+      "sha256": "f86e1b57807a0b43cffdec7103e460f6c8b19f18120af7759bcaf6eea300f2f0",
+      "gzip_sha256": "ff1154e216a60b4cb23d85ab8612f816c98c4485cc4164fe6324220a70b3edd4"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271013/train.jsonl",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271013/train.jsonl.gz",
+      "sha256": "747215d07979e5b11878b735e419be1a4550c4bb9f004835a4e28b211eb5fe5f",
+      "gzip_sha256": "57e1a9e11dcaae20864d8a2e0e16d751459ff1221b80e43be1f9d021ecef5cdd"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271013/gpu_usage.csv",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271013/gpu_usage.csv.gz",
+      "sha256": "4255b8f8e8f074237a7de12121ca6231aade719bc4e3792d6d864e1548d20caa",
+      "gzip_sha256": "34a2cc72d85e2f4e2ed5c50aa23401ef1e7ce39d593963029ae0909777f6b7a2"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271013/completion.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271013/completion.json.gz",
+      "sha256": "6c64239f3414ea8d26df2806fc50e958c38b148185f27babed35651afa97d44a",
+      "gzip_sha256": "9c8a51cc7e966a95069d5716fe839e0dff95f53cd1ca1311f43a37b5d80d8b48"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_balanced_seed20271013/provenance.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_balanced_seed20271013/provenance.json.gz",
+      "sha256": "c3e3a2b958bcfb639da1da05039c0f1c78ecbcbde804e9ef01c6b082b3426d81",
+      "gzip_sha256": "118df646991a1cfd09fbde543fccf3b133e86849ed8e8b23ee5b4d0a58974a74"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_bb5c2eb8321f3688_balanced_seed20271011/gpu_usage.csv",
+      "path": "evidence/run_records/distance_evaluation_bb5c2eb8321f3688_balanced_seed20271011/gpu_usage.csv.gz",
+      "sha256": "68a87f0a33cc50630f25d8ba1a02ae8c7acd7e54300e94b7ac9addbc79ad343f",
+      "gzip_sha256": "20ce9a77ff6df492ea690d7efc761be2f9b03e6c581f2d3c17cb8264414cb7e0"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_ed6ab4389c9af4e5_balanced_seed20271012/gpu_usage.csv",
+      "path": "evidence/run_records/distance_evaluation_ed6ab4389c9af4e5_balanced_seed20271012/gpu_usage.csv.gz",
+      "sha256": "efd551693d7e06bf430d7b5eb014e1f6bf15a5b97fc379d17b3faa294c3d71af",
+      "gzip_sha256": "81e9ac9f7493b77102f4e7c2905a89b935f419fa1e21ff4983ca12823315eac2"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_e6ef65a2beba4264_balanced_seed20271013/gpu_usage.csv",
+      "path": "evidence/run_records/distance_evaluation_e6ef65a2beba4264_balanced_seed20271013/gpu_usage.csv.gz",
+      "sha256": "1261f1e841164d11eb664cd9daefc0a538a355aa4e17045ff6b9c7d05c06d5ca",
+      "gzip_sha256": "24f09eb2c9e8fa5c6c0bc12447fbeae1818efe8faca8b4c55cbfa4e2a3ddc209"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_838415a97e8d1d3a_near_seed20271011/gpu_usage.csv",
+      "path": "evidence/run_records/distance_evaluation_838415a97e8d1d3a_near_seed20271011/gpu_usage.csv.gz",
+      "sha256": "d1a11e574c8fd46fe31d800638f07bdfbf94721381a14a20ebf90fdab6d7f115",
+      "gzip_sha256": "a50a54c79a36085ee99e719393a674658d6d5e374d06642319be639ebce7f479"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_00eae4e2e2c10eaa_near_seed20271012/gpu_usage.csv",
+      "path": "evidence/run_records/distance_evaluation_00eae4e2e2c10eaa_near_seed20271012/gpu_usage.csv.gz",
+      "sha256": "7358f6e6dc0a6db26b72bea42247afcf9a5a32908782f49758df9a2e6132b82e",
+      "gzip_sha256": "74992f0131f06f59d31ec90dad36820d228b9d121aa43d6c2eea7118dad0658d"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_d5ab3388543c47ca_near_seed20271013/gpu_usage.csv",
+      "path": "evidence/run_records/distance_evaluation_d5ab3388543c47ca_near_seed20271013/gpu_usage.csv.gz",
+      "sha256": "1c9ca939735ff9223db692f5d8c19379e61e908a4de0eecb9df58bf433a948a4",
+      "gzip_sha256": "11c3179ba02319faed36e392ed4a971c6836e13793269b38e4d643abfccf450c"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_evaluation_0a1a566997584f32_original/gpu_usage.csv",
+      "path": "evidence/run_records/distance_evaluation_0a1a566997584f32_original/gpu_usage.csv.gz",
+      "sha256": "ac52cbdac6b90052b6497dfcf24daa760f1d2ca67aa5404296a60007a79f7628",
+      "gzip_sha256": "fc82289fb68834f5d221e26a7a2f5edc379043f890a87a1d9a1495bc159dcb10"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271011_pathfix1/train.jsonl",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271011_pathfix1/train.jsonl.gz",
+      "sha256": "c2560b1cafe5980627db56c4f404d2c513882fd892edd188000791e60eca898e",
+      "gzip_sha256": "3e9fc5d34633bceb956c76002c248d2cc653ae1ec6fe65782016424be5495752"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271011_pathfix1/gpu_usage.csv",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271011_pathfix1/gpu_usage.csv.gz",
+      "sha256": "7e0534a5a06107ebb36c4a87accfd99edc3273dae074339d51deb68a05c74459",
+      "gzip_sha256": "4a4ef98998aae9101a1a3254bb8a9ff91bf929dde3d16a7c2e00758f4aeadb75"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271011_pathfix1/completion.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271011_pathfix1/completion.json.gz",
+      "sha256": "08bbbbbabbdc79b87fe79e80956dfd162c19d5d1b48ee54eb9ddc0e80c3e735a",
+      "gzip_sha256": "9e78ca872fc03ee6d20860b2b96d49210f04973c50feda858a5d9a18ef35bc44"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271011_pathfix1/provenance.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271011_pathfix1/provenance.json.gz",
+      "sha256": "51712bfd9b421da92070a2104302253e1d938e7f6a0b0f02b36e50decb3cd616",
+      "gzip_sha256": "1deb511c2805a206fd3d7279ef9209c85b07c9ae45729be846d4ff72ff5aba77"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271012_pathfix1/train.jsonl",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271012_pathfix1/train.jsonl.gz",
+      "sha256": "7a107fe96ddd73f8d119d77fae46c807d17cb865b758ec1ada02a00ef0043b63",
+      "gzip_sha256": "a1316ba7131d5e75e729eae8d43e0bcf33117992545b402baa93af7ff0243c4b"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271012_pathfix1/gpu_usage.csv",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271012_pathfix1/gpu_usage.csv.gz",
+      "sha256": "5ff01a0a482302cbe62d21055573bd65b89e86214211ddd544cae29cd7f58d4a",
+      "gzip_sha256": "766d832d5c59a9835c268872849d9f2e6aa18fca130cd5118cb42c7adb8f8eb2"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271012_pathfix1/completion.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271012_pathfix1/completion.json.gz",
+      "sha256": "9a71477de43b26427436b91839dcc316a450d90ba79652c171f6b8c6ba36c7ca",
+      "gzip_sha256": "17820668b4ac209d1fe4b2f4b5bb121a222a0910f4f96b96c065c3d3626b5fbc"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271012_pathfix1/provenance.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271012_pathfix1/provenance.json.gz",
+      "sha256": "5e8b8af5468e6068f1fffdfae12d8dacda9d2bcbf953814653d12ff842ccbd69",
+      "gzip_sha256": "2efc8f7f314dd5eb550272bddf603a402e73d6926ca6e74a91e02d2053504908"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271013/train.jsonl",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271013/train.jsonl.gz",
+      "sha256": "4cfe77360ff3588af508c4c0f66fb11fd42f580f9c766f400da4bd979441621d",
+      "gzip_sha256": "88085866617e90b68bf01a62a3a8ed1e149dd68887686197e9348697bc8b11ad"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271013/gpu_usage.csv",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271013/gpu_usage.csv.gz",
+      "sha256": "d8096f76a25985a35f213ce83995574f70e3241ad375f4e60b2a60681ede8de2",
+      "gzip_sha256": "1d8402b86be9dff3789453f6b26e321261084f0858fa1af477eab391026a7f2e"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271013/completion.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271013/completion.json.gz",
+      "sha256": "df40142c5ff031fa40272325c236f3aa1536f887a591b613836e20e9ce313116",
+      "gzip_sha256": "2159460fdc506879eb48fb7a728fb5a1190e61546f83d8ab81d39f74fb1ed06b"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_near_seed20271013/provenance.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_near_seed20271013/provenance.json.gz",
+      "sha256": "eb326d155fb0c2e861c4d549cdf193dfcf6b69b60c204e915b1288272cb97522",
+      "gzip_sha256": "be0a017f98f32abf0a44a10aab09d7ae20f2cb196323b835411af8c1aa3945d1"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_qualification/train.jsonl",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_qualification/train.jsonl.gz",
+      "sha256": "bb8ce4ef0bcba8c381d9e9407e570f1e764692b83b7322609eeb1bb24d14c74c",
+      "gzip_sha256": "5bc8955e7659a40e73d462143647e75f929e4ed5ccca12a4650e56db56bc38c8"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_qualification/gpu_usage.csv",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_qualification/gpu_usage.csv.gz",
+      "sha256": "89f1b47642ca7e7584e5097b630a3f04896e1d49eb05163d418477b24b8a3b98",
+      "gzip_sha256": "b846dfe768a93b0a528a5e4f065448ef5d1f870ed632aaa1245a244039bbac8a"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_qualification/completion.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_qualification/completion.json.gz",
+      "sha256": "c1217127e606c6827b0944657ed8e92a4ee8ce6dbbdcc6d0fd40e620b2c27b48",
+      "gzip_sha256": "4c3d7e5f7cc73c6f8d8d4be8ef5fe64e7c89bf380f6dc5b9947dbba39adedd74"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/distance_intervention_cf7b7276c758aee8_qualification/provenance.json",
+      "path": "evidence/run_records/distance_intervention_cf7b7276c758aee8_qualification/provenance.json.gz",
+      "sha256": "94e93776d7cf35c87e330d848ec2f72d6d3c85b219fdcb73197381beffd10186",
+      "gzip_sha256": "75e3573955b35b66e58d03a1cbc9c0d55ce74d875b8181feba82feabf3d12b07"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_0f5f36abee4b8934_balanced_seed20271011/gpu_usage.csv",
+      "path": "evidence/run_records/history_response_0f5f36abee4b8934_balanced_seed20271011/gpu_usage.csv.gz",
+      "sha256": "e1a51f75b26fa173234a397114bb23adc8b16c6ac8343ecdbb5fd76a6eb7af08",
+      "gzip_sha256": "5896c22e84a996998e497c5b3b2df1601b2903ea62ed01fa21ad85a35070498b"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_4b591791f29c0063_balanced_seed20271012/gpu_usage.csv",
+      "path": "evidence/run_records/history_response_4b591791f29c0063_balanced_seed20271012/gpu_usage.csv.gz",
+      "sha256": "e3cd13be6b513fd9436b09241475718028c001576ca4b48aeb38a50a0924d0ab",
+      "gzip_sha256": "00330062fb4ed43c2656efea05470020bd812518e50afa174acc32a3c0b3eb8b"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_ef3d026d95e065b0_balanced_seed20271013/gpu_usage.csv",
+      "path": "evidence/run_records/history_response_ef3d026d95e065b0_balanced_seed20271013/gpu_usage.csv.gz",
+      "sha256": "305438643774804ba9c4e69f4f3c0b018e75c5c0007cf188cb16045915373e43",
+      "gzip_sha256": "343857b0e807ddd2d73b679e2a7749b4a38935ebd667ad1863219a0a91254098"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_784564e1d6efcbd7_near_seed20271011/gpu_usage.csv",
+      "path": "evidence/run_records/history_response_784564e1d6efcbd7_near_seed20271011/gpu_usage.csv.gz",
+      "sha256": "102c72964d4315f06537b221472edd207a697722905a6487a09a35554da711fe",
+      "gzip_sha256": "5e404c708337f7554aa83706820fe7291b79db17c297426815c421508ea26b80"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_cddaf56d16686d04_near_seed20271012/gpu_usage.csv",
+      "path": "evidence/run_records/history_response_cddaf56d16686d04_near_seed20271012/gpu_usage.csv.gz",
+      "sha256": "9ad471e106d88c0b3cc86d4201bd183703dafe8ec37ce7ab3a8546cd9f263db6",
+      "gzip_sha256": "5d547dd82c50245a50bdb7968fb99112eef926deaa20497f5285314c12e1b4b2"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_1cab17656c8f38fd_near_seed20271013/gpu_usage.csv",
+      "path": "evidence/run_records/history_response_1cab17656c8f38fd_near_seed20271013/gpu_usage.csv.gz",
+      "sha256": "47d1ef1f12e1b75fdcb9ea60b7002b9d72163216f0137834bdf2070338ef1ae7",
+      "gzip_sha256": "7665273905633d5ddd0a1fa16fa91a690d633962cc2d07dc0d2a68225177c13c"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/history_response_6971e4e6af3641c6_original/gpu_usage.csv",
+      "path": "evidence/run_records/history_response_6971e4e6af3641c6_original/gpu_usage.csv.gz",
+      "sha256": "ca26d5fe4166b0908f32384e4485161641fd3e493ef9f0c20aea5c501d3540cf",
+      "gzip_sha256": "63f5f52ec2acb4301cc748d9a03fc0f16207f7d5bd1f943fb3dad7b7e6143935"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_d15b4bad7b2d7a2b_balanced_seed20271011/gpu_usage.csv",
+      "path": "evidence/run_records/header_distance_d15b4bad7b2d7a2b_balanced_seed20271011/gpu_usage.csv.gz",
+      "sha256": "7d778a088b9f9eadc9e43b15ca36293b13a5ce21d59f33cf9f19ada7d5343f14",
+      "gzip_sha256": "03a7d40fbfa13c057ee9bd615c0d2887206a18a7ae5447b6bdf7618849547993"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_58a319b328b2ca48_balanced_seed20271012/gpu_usage.csv",
+      "path": "evidence/run_records/header_distance_58a319b328b2ca48_balanced_seed20271012/gpu_usage.csv.gz",
+      "sha256": "4e8769bc0f2c1a913034daf0464130fdb9a37bc8630ec00ea56b6af2c4d6c2df",
+      "gzip_sha256": "6c53e45e47ca151939471506eb3e997b62828e9ac503710ed27b5671c7aa543b"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013_primary1/gpu_usage.csv",
+      "path": "evidence/run_records/header_distance_679ee9f29b1e2006_balanced_seed20271013_primary1/gpu_usage.csv.gz",
+      "sha256": "724e96ad6964bb6e5fbfcd5a75fa935c1c31af3165765e2444b0279463478700",
+      "gzip_sha256": "37694f7ac98dc02d78d8290943d18022c7a43a083c807d0183ffe78183e699ed"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_9cdb1219c8333f90_near_seed20271011/gpu_usage.csv",
+      "path": "evidence/run_records/header_distance_9cdb1219c8333f90_near_seed20271011/gpu_usage.csv.gz",
+      "sha256": "b952687aa94efa1ca31fc7d954e1a5c9aa574119094e08ee642a93b14f002c68",
+      "gzip_sha256": "e77084245b8eecb7c0d2505c4fb377b603e321c47310639932c0ff1394c4398b"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_c204bf1f7a97873a_near_seed20271012/gpu_usage.csv",
+      "path": "evidence/run_records/header_distance_c204bf1f7a97873a_near_seed20271012/gpu_usage.csv.gz",
+      "sha256": "16c80132349b6ac7a4a77adc1c8aa04071aa93bd909010660496244dff4abd24",
+      "gzip_sha256": "3bfce8dc1e8d6375c90d3ce1fff287ed56c554b25a31b02118945a49b55a20d0"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_aa1881bc0d03e965_near_seed20271013/gpu_usage.csv",
+      "path": "evidence/run_records/header_distance_aa1881bc0d03e965_near_seed20271013/gpu_usage.csv.gz",
+      "sha256": "d0b7879503294debb66306cd022043484bcea1ca9497c3f56f2185ba65d41112",
+      "gzip_sha256": "907037eec4c10411d60ca49525861ebf65e993fe74ca733a04387c7b100f0083"
+    },
+    {
+      "original_path": "/inspire/hdd/global_user/zhangjiaquan-253108540222/outputs_long_rwkv_iclr2027/header_distance_679ee9f29b1e2006_balanced_seed20271013/gpu_usage.csv",
+      "path": "evidence/run_records/header_distance_679ee9f29b1e2006_balanced_seed20271013/gpu_usage.csv.gz",
+      "sha256": "e80c77ea61e5b3a0fc5ca3496d1fcc7cd994ae445706842bc4a7f24f8319254a",
+      "gzip_sha256": "61bc0c0ae16e9cf8c9501fea9059cc5ef5e7314af79221a7013412d420b26127"
+    }
+  ],
+  "scope": "Training traces, completion receipts and observed GPU traces. Scheduler accounting remains in the preserved result audits."
+}

@@ -1,0 +1,19 @@
+{
+  "complete": true,
+  "independently_checked_summaries": 314,
+  "conditions": 1152,
+  "endpoint_laws": 2304,
+  "independent_max_arithmetic_discrepancy": 7.105427357601002e-15,
+  "primary_mean": 7.626609112043967,
+  "primary_ci95": [
+    6.908102286434451,
+    8.301452193489855
+  ],
+  "stronger_interpretation_supported": true,
+  "manifest_sha256": "e467d6a45a7266bc2c60a0cbf9619694bd1daf837c954f4c141c63db24c26c5c",
+  "pdf_sha256": "cd8482454a871ec57e455488c226e5669aae952f5acde72e1df097cb3c282634",
+  "archive_sha256": "5dba1a9938a5a9eb075c747ae9d2180c5be7275517ca652a619665c805c99b17",
+  "all_jobs_terminal": true,
+  "live_reserved_gpus": 0,
+  "scope": "Frozen inputs and exact slot geometry, source/raw hashes, independent endpoint laws and bootstrap inference, predeclared interpretation rule, resources and reviewed PDF."
+}

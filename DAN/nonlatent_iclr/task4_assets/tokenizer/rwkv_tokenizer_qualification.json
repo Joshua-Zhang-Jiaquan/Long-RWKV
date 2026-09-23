@@ -1,6 +1,0 @@
-{
-  "evidence_root": "DAN/nonlatent_iclr/task4_assets/tokenizer",
-  "length_artifact_path": "DAN/nonlatent_iclr/task4_assets/representative_rwkv_lengths.json",
-  "model_root": "/inspire/hdd/global_user/zhangjiaquan-253108540222/models/RWKV7-Goose-World3-2.9B-HF",
-  "receipt_path": ".omo/evidence/nonlatent-rnn-dlm-iclr-research/task-04/tokenizer-qualification/8ef417180818408d8bc65efcb4dcd75c/receipt.json"
-}

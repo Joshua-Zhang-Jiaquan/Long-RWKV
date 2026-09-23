@@ -1,0 +1,56 @@
+{
+  "cap": 48,
+  "project_caps": {
+    "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+    "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+  },
+  "project_reserved_gpus": {
+    "project-160ccb20-98ab-4538-a847-01d1f83d5b0f": 32,
+    "project-632c8db8-4530-413a-ada5-df91774a7e09": 16
+  },
+  "live_reserved_gpus": 48,
+  "jobs": [
+    {
+      "job_id": "job-7f779845-c0f3-4ef7-a39e-7d584562829c",
+      "name": "lrwkv-history-ef3d026d-balanced_seed20271013",
+      "status": "job_running",
+      "project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+      "reserved_gpus": 8
+    },
+    {
+      "job_id": "job-6759fcdb-f7ba-4680-aa2e-5d848e3eac40",
+      "name": "lrwkv-history-1cab1765-near_seed20271013",
+      "status": "job_running",
+      "project_id": "project-632c8db8-4530-413a-ada5-df91774a7e09",
+      "reserved_gpus": 8
+    },
+    {
+      "job_id": "job-a6a22c20-a4f8-4cb1-842e-4b0f638ae30c",
+      "name": "lrwkv-history-4b591791-balanced_seed20271012",
+      "status": "job_running",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "reserved_gpus": 8
+    },
+    {
+      "job_id": "job-ead276a7-4aa6-484d-a641-52d0b536c1f3",
+      "name": "lrwkv-history-cddaf56d-near_seed20271012",
+      "status": "job_running",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "reserved_gpus": 8
+    },
+    {
+      "job_id": "job-13b90e10-2dca-4a2d-a50a-a10c47015be0",
+      "name": "lrwkv-history-0f5f36ab-balanced_seed20271011",
+      "status": "job_running",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "reserved_gpus": 8
+    },
+    {
+      "job_id": "job-42893271-fcef-472a-8527-ce2d64047075",
+      "name": "lrwkv-history-784564e1-near_seed20271011",
+      "status": "job_running",
+      "project_id": "project-160ccb20-98ab-4538-a847-01d1f83d5b0f",
+      "reserved_gpus": 8
+    }
+  ]
+}

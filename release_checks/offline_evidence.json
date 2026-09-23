@@ -1,0 +1,36 @@
+{
+  "complete": true,
+  "raw_rank_files": 168,
+  "conditions": {
+    "distance_intervention": 1008,
+    "history_response": 672,
+    "header_distance": 1152,
+    "distance_intervention_cost": 24
+  },
+  "primary": {
+    "distance_intervention": {
+      "mean": 6.050557442365365,
+      "ci95": [
+        5.391622272468388,
+        6.735296739200924
+      ]
+    },
+    "history_response": {
+      "mean": 1.4778520357207983,
+      "ci95": [
+        1.3274506371527812,
+        1.637083844396172
+      ]
+    },
+    "header_distance": {
+      "mean": 7.626609112043967,
+      "ci95": [
+        6.908102286434451,
+        8.301452193489855
+      ]
+    }
+  },
+  "collateral_errors": 3,
+  "unaffected_comparisons": 55296,
+  "scope": "Offline verification of raw hashes, complete selectors, endpoint/response arithmetic, three primary paired intervals, response inequalities, and all six empirical cost certificates. No model inference, new timing, checkpoint availability, or official-kernel parity is claimed."
+}

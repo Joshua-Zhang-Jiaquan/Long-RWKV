@@ -1,7 +1,0 @@
-$ python -m pytest -q scale/tests/nonlatent_iclr/test_schema_contract.py
-Running 16 items in this shard
-FFFFFFF.......FF                                                         [100%]
-9 failed, 7 passed in 0.19s
-exit_code=1
-
-The desired exact absolute `source_roots` envelope is rejected as `invalid envelope`; missing and relative roots have no dedicated validation.

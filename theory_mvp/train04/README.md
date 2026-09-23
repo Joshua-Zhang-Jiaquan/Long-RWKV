@@ -1,0 +1,19 @@
+# Controlled training study using the released 0.4B RWKV
+
+The user's September22 request authorizes training and testing with up to32H100s. This study adapts the released checkpoint; it does not pretrain from scratch. It is separate from the frozen2.9B evaluations and their existing paper tables.
+
+The deployed tied-direction A1 model has **455,010,304 unique parameters**, including the new directional fusion and input-noise conditioning. One recurrent mixer is reused in both directions at each layer. The head retains the pretrained vocabulary matrix but normalizes over native bit IDs49 and50; mask65535 is separate. This is a restricted binary generator, not evidence of full-vocabulary language capability.
+
+The mathematical question is whether posterior dependence predicts the gap between irreversible parallel reveal policies after a neural denoiser learns the task. Eight uniform bits are conditioned on four linear constraints: either four known coordinates, or four pair parities. Both posteriors have entropy4bits. Systematic constraints leave independent unknown bits; pair parity constraints leave dependent pairs. A known information set supplies four independent coordinates for the first round; the remaining four are revealed by the neural model in the second round. An equally sized random partition controls for the two model calls. Neither schedule receives the sampled gold vector.
+
+Canonical labeled matrix structures are split without overlap: systematic49/10/11 and paired parity73/16/16 for training/development/test. Syndromes, surface labels and equation order are randomized. This is held-out labeled-structure evaluation within two familiar algebraic families, not generalization to new graph topologies or arbitrary linear systems. Record identifiers never appear in model prompts.
+
+The exact eight-stage absorbing objective uses a uniformly sampled stage t, independent target masking with probability t/8, and loss8/(t*N) times the masked cross-entropy sum. Empty-mask examples contribute differentiable zero. Prefixes remain clamped. The oracle expected training objective is ln(2)/2 for systematic codes and9ln(2)/16 for pair parities, averaging17ln(2)/32 across the balanced task mixture. The nonzero optimum reflects irreducible uncertainty, so raw prediction accuracy on all bits is not an adequate competence check.
+
+The frozen protocol is in `PROTOCOL.json`. The20-update qualification precedes three independent500-update training runs with the same initialization and data/corruption seeds17,29,43. Each update has32examples; each full run sees16,000examples. Qualification updates are discarded. The learning rate is fixed1e-4. Only fixed terminal checkpoints enter the locked comparison.
+
+Primary evaluation compares seven policies on the same checkpoint: one round, information-set two rounds, random-halves two rounds, Bernoulli2/4/8stages, and sequential8rounds. All use temperature1. Each family has16conditions and32draws per condition. Separate calibration evaluates64conditions per family across8stages against exact oracle marginals. Endpoint joint KL is computed exactly over the16valid outputs for the four fixed policies on a small audit of2conditions per family; no endpoint KL is claimed for sampled Bernoulli paths.
+
+Interpretation requires both conditional denoiser competence and joint sampling fidelity. Validity alone can hide collapse. Report valid support coverage and collision concentration alongside marginal KL, small-panel joint KL and actual calls. Three training seeds are three model replicates; per-condition uncertainty is conditional on those fitted models.
+
+The FLA runtime carries an upstream warning about equivalence to the official RWKV implementation. The study qualifies the implemented tied model, objective, gradients and sampling semantics; it does not establish official-kernel parity or isolate a new neural architecture contribution.

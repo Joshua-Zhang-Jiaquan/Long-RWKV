@@ -1,1 +1,0 @@
-{"baseline":"11 passed","green":"13 passed","fault":"two injected receipt publication failures leave no active ledger and each retry verifies","scope":"publication ordering, link-based no-overwrite, hashed-source containment","real_ledger_modified":false}

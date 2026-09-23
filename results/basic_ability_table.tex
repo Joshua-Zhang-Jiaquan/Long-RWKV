@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrrr}
+\toprule
+Model & RACE & OpenBookQA & MMLU-Redux \\
+Unique items & 4887 & 500 & 5700 \\
+\midrule
+F2, step 14000 & 46.90 & 35.80 & 38.67 \\
+Loop, step 9500 & 46.61 & 36.60 & --- \\
+Loop, step 20500 & 46.02 & 37.00 & --- \\
+Released RWKV-7, 0.4B & 40.58 & 34.80 & 33.95 \\
+Released RWKV-7, 1.5B & 45.98 & 39.40 & 40.21 \\
+Released RWKV-7, 2.9B & 47.64 & 41.20 & 42.74 \\
+\bottomrule
+\end{tabular}
+\caption{Basic-ability option-scoring accuracy (\%). RACE and OpenBookQA use validation splits; MMLU-Redux uses the test split. Each reported cell has exact unique item coverage at evaluation seed 42. Adapted checkpoints use \texttt{fwdce}; released checkpoints use \texttt{raw}. Dashes denote unavailable or unverified complete panels. These are descriptive checkpoint comparisons, with no claim of statistical significance or matched training budget.}
+\label{tab:basic-ability-panels}
+\end{table}

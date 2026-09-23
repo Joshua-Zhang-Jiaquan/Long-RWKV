@@ -1,0 +1,38 @@
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+Model & Length & $n$ & NFE mean/med./p95 & Seconds med./p95 & Peak GiB alloc./res. \\
+\midrule
+F2 & 16K & 16,800 & 2.16/2.0/3.0 & 1.237/1.856 & 11.01/13.91 \\
+F2 & 32K & 18,000 & 2.14/2.0/3.0 & 2.459/3.690 & 14.37/19.77 \\
+F2 & 64K & 18,000 & 2.14/2.0/3.0 & 4.870/7.310 & 21.09/30.03 \\
+R0 & 16K & 16,800 & 2.40/3.0/3.0 & 1.013/1.016 & 8.74/11.46 \\
+R0 & 32K & 18,000 & 2.40/3.0/3.0 & 2.011/2.021 & 11.71/16.93 \\
+R0 & 64K & 18,000 & 2.40/3.0/3.0 & 3.981/4.000 & 17.65/27.34 \\
+\bottomrule
+\end{tabular}
+\caption{Descriptive per-request resources on completed supported confirmation cells. NFE counts actual model calls. Medians and p95 use inclusive linear interpolation; GiB values are maxima of request-level CUDA allocated/reserved bytes. F2 cache-replay qualification is outside item timing, whereas R0 first requests may include JIT compilation. R0 recomputes the full prefix with no KV cache. These measurements do not establish an optimized autoregressive speed comparison, speedup, or goodput.}
+\label{tab:e3-confirmation-resources}
+\end{table}
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}llrr@{}}
+\toprule
+Length & Family & F2 parseable/$n$ & R0 parseable/$n$ \\
+\midrule
+16K & Recall & 0/6,800 & 0/6,800 \\
+16K & Dataflow & 18/5,000 & 26/5,000 \\
+16K & Overwrite & 0/5,000 & 0/5,000 \\
+32K & Recall & 0/7,200 & 0/7,200 \\
+32K & Dataflow & 109/5,400 & 130/5,400 \\
+32K & Overwrite & 0/5,400 & 0/5,400 \\
+64K & Recall & 0/7,200 & 0/7,200 \\
+64K & Dataflow & 1,385/5,400 & 632/5,400 \\
+64K & Overwrite & 0/5,400 & 0/5,400 \\
+\bottomrule
+\end{tabular}
+\caption{Task-grammar parsing on completed supported confirmation cells. Parseability is a diagnostic of output form and does not imply correctness. Unsupported cells are excluded, not zero-filled.}
+\label{tab:e3-confirmation-parsing}
+\end{table}

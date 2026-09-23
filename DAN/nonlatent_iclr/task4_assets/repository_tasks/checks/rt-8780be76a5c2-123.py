@@ -1,1 +1,0 @@
-assert strip('xyzzy') == 'xyzzy'

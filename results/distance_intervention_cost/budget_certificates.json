@@ -1,0 +1,907 @@
+{
+  "certificates": [
+    {
+      "role": "near_seed20271011",
+      "checkpoint_sha256": "3a79d25b13ce2a75ae8cac4e432dd220ad4951304ab5703aa4a8cb38c946dd27",
+      "matched_problem_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "budget_seconds": 1.5,
+      "quality": {
+        "one": {
+          "mean": 2.772641645196718,
+          "ci95": [
+            2.7726319451981816,
+            2.772652191116872
+          ],
+          "problems": 8
+        },
+        "information_set": {
+          "mean": 5.229997471414361,
+          "ci95": [
+            3.933842920126716,
+            6.89150181640896
+          ],
+          "problems": 8
+        },
+        "pair_preserving_halves": {
+          "mean": 3.612698747352459,
+          "ci95": [
+            2.8732716737435635,
+            4.696385524381953
+          ],
+          "problems": 8
+        }
+      },
+      "recurrent_timing": {
+        "one": {
+          "mean": 0.6509185385269423,
+          "ci95": [
+            0.6498460167417458,
+            0.6518997273163405
+          ],
+          "problems": 8
+        },
+        "information_set": {
+          "mean": 1.3014056308505435,
+          "ci95": [
+            1.2992622916751617,
+            1.3033586096517198
+          ],
+          "problems": 8
+        },
+        "pair_preserving_halves": {
+          "mean": 1.3013892959958564,
+          "ci95": [
+            1.2991957347888579,
+            1.3034289663709935
+          ],
+          "problems": 8
+        }
+      },
+      "attention_timing": {
+        "one": {
+          "method": "one",
+          "mean_request_seconds": 1.0028671375165383,
+          "base_mean_seconds": [
+            0.9977179291347663,
+            1.0015770427882673,
+            1.011062135050694,
+            1.0014691931505997,
+            0.9985948607325554,
+            1.0004927054047583,
+            1.0108706295490264,
+            1.0011526043216388
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "base_problems": 8,
+          "mean": 1.0028671375165383,
+          "standard_deviation": 0.005184822768218054,
+          "pointwise_95_percentile_interval": [
+            0.999856744489322,
+            1.0065647677207985
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        },
+        "information_set": {
+          "method": "information_set",
+          "mean_request_seconds": 2.0023426433093845,
+          "base_mean_seconds": [
+            1.9925361054639021,
+            2.000962522874276,
+            2.0252512271205587,
+            1.9997015056510767,
+            1.9895891023178895,
+            1.9967412546277046,
+            2.01728419760863,
+            1.9966752308110396
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "base_problems": 8,
+          "mean": 2.0023426433093845,
+          "standard_deviation": 0.012416864738748888,
+          "pointwise_95_percentile_interval": [
+            1.9951597415842115,
+            2.0111977378837764
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        },
+        "pair_preserving_halves": {
+          "method": "pair_preserving_halves",
+          "mean_request_seconds": 2.003314741514623,
+          "base_mean_seconds": [
+            1.9921080641448499,
+            2.0036147197087604,
+            2.0286559842526914,
+            2.0001056755582494,
+            1.9894338389237722,
+            1.998820053289334,
+            2.0191323198378086,
+            1.9946472764015197
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "base_problems": 8,
+          "mean": 2.0033147415146235,
+          "standard_deviation": 0.013713177744081565,
+          "pointwise_95_percentile_interval": [
+            1.9953053836710752,
+            2.0130300339621807
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        }
+      },
+      "conditions": {
+        "recurrent_two_call_fits": true,
+        "attention_one_call_fits": true,
+        "attention_information_set_excluded": true,
+        "attention_intact_pair_excluded": true,
+        "recurrent_kl_below_product_floor": false
+      },
+      "empirical_sufficient_certificate": false,
+      "scope": "Eight-problem matched empirical law, three positions; plugin mean certificate, not population or per-request guarantee. All six selectors retained. Distinct from the32-problem primary mechanism analysis."
+    },
+    {
+      "role": "balanced_seed20271011",
+      "checkpoint_sha256": "6770ce1883f6482e591917925c1f4de4f047ad637c483bb0b51da6c60a05566c",
+      "matched_problem_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "budget_seconds": 1.5,
+      "quality": {
+        "one": {
+          "mean": 2.772606547484018,
+          "ci95": [
+            2.772603689268634,
+            2.7726096079905966
+          ],
+          "problems": 8
+        },
+        "information_set": {
+          "mean": 0.0006311431025481928,
+          "ci95": [
+            5.030158552315107e-06,
+            0.001879470641369399
+          ],
+          "problems": 8
+        },
+        "pair_preserving_halves": {
+          "mean": 2.7726742988967885,
+          "ci95": [
+            2.7726486889438213,
+            2.7726975098807976
+          ],
+          "problems": 8
+        }
+      },
+      "recurrent_timing": {
+        "one": {
+          "mean": 0.6509311821389323,
+          "ci95": [
+            0.64970072406965,
+            0.6520440415944904
+          ],
+          "problems": 8
+        },
+        "information_set": {
+          "mean": 1.301594368442117,
+          "ci95": [
+            1.2991509840474464,
+            1.3037294617122581
+          ],
+          "problems": 8
+        },
+        "pair_preserving_halves": {
+          "mean": 1.301759914898624,
+          "ci95": [
+            1.299344402043304,
+            1.3039793776270623
+          ],
+          "problems": 8
+        }
+      },
+      "attention_timing": {
+        "one": {
+          "method": "one",
+          "mean_request_seconds": 1.0028671375165383,
+          "base_mean_seconds": [
+            0.9977179291347663,
+            1.0015770427882673,
+            1.011062135050694,
+            1.0014691931505997,
+            0.9985948607325554,
+            1.0004927054047583,
+            1.0108706295490264,
+            1.0011526043216388
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "base_problems": 8,
+          "mean": 1.0028671375165383,
+          "standard_deviation": 0.005184822768218054,
+          "pointwise_95_percentile_interval": [
+            0.999856744489322,
+            1.0065647677207985
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        },
+        "information_set": {
+          "method": "information_set",
+          "mean_request_seconds": 2.0023426433093845,
+          "base_mean_seconds": [
+            1.9925361054639021,
+            2.000962522874276,
+            2.0252512271205587,
+            1.9997015056510767,
+            1.9895891023178895,
+            1.9967412546277046,
+            2.01728419760863,
+            1.9966752308110396
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "base_problems": 8,
+          "mean": 2.0023426433093845,
+          "standard_deviation": 0.012416864738748888,
+          "pointwise_95_percentile_interval": [
+            1.9951597415842115,
+            2.0111977378837764
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        },
+        "pair_preserving_halves": {
+          "method": "pair_preserving_halves",
+          "mean_request_seconds": 2.003314741514623,
+          "base_mean_seconds": [
+            1.9921080641448499,
+            2.0036147197087604,
+            2.0286559842526914,
+            2.0001056755582494,
+            1.9894338389237722,
+            1.998820053289334,
+            2.0191323198378086,
+            1.9946472764015197
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "base_problems": 8,
+          "mean": 2.0033147415146235,
+          "standard_deviation": 0.013713177744081565,
+          "pointwise_95_percentile_interval": [
+            1.9953053836710752,
+            2.0130300339621807
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        }
+      },
+      "conditions": {
+        "recurrent_two_call_fits": true,
+        "attention_one_call_fits": true,
+        "attention_information_set_excluded": true,
+        "attention_intact_pair_excluded": true,
+        "recurrent_kl_below_product_floor": true
+      },
+      "empirical_sufficient_certificate": true,
+      "scope": "Eight-problem matched empirical law, three positions; plugin mean certificate, not population or per-request guarantee. All six selectors retained. Distinct from the32-problem primary mechanism analysis."
+    },
+    {
+      "role": "near_seed20271012",
+      "checkpoint_sha256": "1caba6a6a402616a0a2f4f64f6ceb4547b5109db9c2501b278b58d87de488243",
+      "matched_problem_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "budget_seconds": 1.5,
+      "quality": {
+        "one": {
+          "mean": 2.7725920087872122,
+          "ci95": [
+            2.7725910482333833,
+            2.7725930387463604
+          ],
+          "problems": 8
+        },
+        "information_set": {
+          "mean": 4.520743944601348,
+          "ci95": [
+            3.2632641090713204,
+            5.886269052787291
+          ],
+          "problems": 8
+        },
+        "pair_preserving_halves": {
+          "mean": 2.994564676130201,
+          "ci95": [
+            2.8123053196808336,
+            3.2363506677099494
+          ],
+          "problems": 8
+        }
+      },
+      "recurrent_timing": {
+        "one": {
+          "mean": 0.6534710518802361,
+          "ci95": [
+            0.6523337645015029,
+            0.6542839210877234
+          ],
+          "problems": 8
+        },
+        "information_set": {
+          "mean": 1.3072070411522874,
+          "ci95": [
+            1.3048946203049367,
+            1.3087718343234884
+          ],
+          "problems": 8
+        },
+        "pair_preserving_halves": {
+          "mean": 1.3071753063064535,
+          "ci95": [
+            1.3048020953366601,
+            1.3087621745779567
+          ],
+          "problems": 8
+        }
+      },
+      "attention_timing": {
+        "one": {
+          "method": "one",
+          "mean_request_seconds": 1.0028671375165383,
+          "base_mean_seconds": [
+            0.9977179291347663,
+            1.0015770427882673,
+            1.011062135050694,
+            1.0014691931505997,
+            0.9985948607325554,
+            1.0004927054047583,
+            1.0108706295490264,
+            1.0011526043216388
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "base_problems": 8,
+          "mean": 1.0028671375165383,
+          "standard_deviation": 0.005184822768218054,
+          "pointwise_95_percentile_interval": [
+            0.999856744489322,
+            1.0065647677207985
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        },
+        "information_set": {
+          "method": "information_set",
+          "mean_request_seconds": 2.0023426433093845,
+          "base_mean_seconds": [
+            1.9925361054639021,
+            2.000962522874276,
+            2.0252512271205587,
+            1.9997015056510767,
+            1.9895891023178895,
+            1.9967412546277046,
+            2.01728419760863,
+            1.9966752308110396
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "base_problems": 8,
+          "mean": 2.0023426433093845,
+          "standard_deviation": 0.012416864738748888,
+          "pointwise_95_percentile_interval": [
+            1.9951597415842115,
+            2.0111977378837764
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        },
+        "pair_preserving_halves": {
+          "method": "pair_preserving_halves",
+          "mean_request_seconds": 2.003314741514623,
+          "base_mean_seconds": [
+            1.9921080641448499,
+            2.0036147197087604,
+            2.0286559842526914,
+            2.0001056755582494,
+            1.9894338389237722,
+            1.998820053289334,
+            2.0191323198378086,
+            1.9946472764015197
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "base_problems": 8,
+          "mean": 2.0033147415146235,
+          "standard_deviation": 0.013713177744081565,
+          "pointwise_95_percentile_interval": [
+            1.9953053836710752,
+            2.0130300339621807
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        }
+      },
+      "conditions": {
+        "recurrent_two_call_fits": true,
+        "attention_one_call_fits": true,
+        "attention_information_set_excluded": true,
+        "attention_intact_pair_excluded": true,
+        "recurrent_kl_below_product_floor": false
+      },
+      "empirical_sufficient_certificate": false,
+      "scope": "Eight-problem matched empirical law, three positions; plugin mean certificate, not population or per-request guarantee. All six selectors retained. Distinct from the32-problem primary mechanism analysis."
+    },
+    {
+      "role": "balanced_seed20271012",
+      "checkpoint_sha256": "f3e34a63627d38ef132fac9ffee3b00d94437754956896324ec92fba7ac7588e",
+      "matched_problem_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "budget_seconds": 1.5,
+      "quality": {
+        "one": {
+          "mean": 2.77260779408359,
+          "ci95": [
+            2.7726049987568557,
+            2.7726111158464346
+          ],
+          "problems": 8
+        },
+        "information_set": {
+          "mean": 4.33400922790946e-06,
+          "ci95": [
+            3.555923075992951e-06,
+            5.1046639787203736e-06
+          ],
+          "problems": 8
+        },
+        "pair_preserving_halves": {
+          "mean": 2.772609405219203,
+          "ci95": [
+            2.7726049341846215,
+            2.7726140254299834
+          ],
+          "problems": 8
+        }
+      },
+      "recurrent_timing": {
+        "one": {
+          "mean": 0.6532507165470937,
+          "ci95": [
+            0.6524265006844265,
+            0.6539497904372304
+          ],
+          "problems": 8
+        },
+        "information_set": {
+          "mean": 1.3060154990409503,
+          "ci95": [
+            1.304321361501934,
+            1.3075173819321206
+          ],
+          "problems": 8
+        },
+        "pair_preserving_halves": {
+          "mean": 1.306048088138535,
+          "ci95": [
+            1.3043224660427466,
+            1.3076555623434734
+          ],
+          "problems": 8
+        }
+      },
+      "attention_timing": {
+        "one": {
+          "method": "one",
+          "mean_request_seconds": 1.0028671375165383,
+          "base_mean_seconds": [
+            0.9977179291347663,
+            1.0015770427882673,
+            1.011062135050694,
+            1.0014691931505997,
+            0.9985948607325554,
+            1.0004927054047583,
+            1.0108706295490264,
+            1.0011526043216388
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "base_problems": 8,
+          "mean": 1.0028671375165383,
+          "standard_deviation": 0.005184822768218054,
+          "pointwise_95_percentile_interval": [
+            0.999856744489322,
+            1.0065647677207985
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        },
+        "information_set": {
+          "method": "information_set",
+          "mean_request_seconds": 2.0023426433093845,
+          "base_mean_seconds": [
+            1.9925361054639021,
+            2.000962522874276,
+            2.0252512271205587,
+            1.9997015056510767,
+            1.9895891023178895,
+            1.9967412546277046,
+            2.01728419760863,
+            1.9966752308110396
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "base_problems": 8,
+          "mean": 2.0023426433093845,
+          "standard_deviation": 0.012416864738748888,
+          "pointwise_95_percentile_interval": [
+            1.9951597415842115,
+            2.0111977378837764
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        },
+        "pair_preserving_halves": {
+          "method": "pair_preserving_halves",
+          "mean_request_seconds": 2.003314741514623,
+          "base_mean_seconds": [
+            1.9921080641448499,
+            2.0036147197087604,
+            2.0286559842526914,
+            2.0001056755582494,
+            1.9894338389237722,
+            1.998820053289334,
+            2.0191323198378086,
+            1.9946472764015197
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "base_problems": 8,
+          "mean": 2.0033147415146235,
+          "standard_deviation": 0.013713177744081565,
+          "pointwise_95_percentile_interval": [
+            1.9953053836710752,
+            2.0130300339621807
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        }
+      },
+      "conditions": {
+        "recurrent_two_call_fits": true,
+        "attention_one_call_fits": true,
+        "attention_information_set_excluded": true,
+        "attention_intact_pair_excluded": true,
+        "recurrent_kl_below_product_floor": true
+      },
+      "empirical_sufficient_certificate": true,
+      "scope": "Eight-problem matched empirical law, three positions; plugin mean certificate, not population or per-request guarantee. All six selectors retained. Distinct from the32-problem primary mechanism analysis."
+    },
+    {
+      "role": "near_seed20271013",
+      "checkpoint_sha256": "c2cf9940ccecb091fb4edf68b21a03fb1f3758e42a127c9812f0c9d34dd7ed52",
+      "matched_problem_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "budget_seconds": 1.5,
+      "quality": {
+        "one": {
+          "mean": 2.7726224566669018,
+          "ci95": [
+            2.7726216413319236,
+            2.7726232365143617
+          ],
+          "problems": 8
+        },
+        "information_set": {
+          "mean": 1.848344759020534,
+          "ci95": [
+            1.8480975526712875,
+            1.848571884018963
+          ],
+          "problems": 8
+        },
+        "pair_preserving_halves": {
+          "mean": 2.7726283297955305,
+          "ci95": [
+            2.7726236125409636,
+            2.7726329977264372
+          ],
+          "problems": 8
+        }
+      },
+      "recurrent_timing": {
+        "one": {
+          "mean": 0.6505196987108017,
+          "ci95": [
+            0.6492600960812221,
+            0.6518285096978069
+          ],
+          "problems": 8
+        },
+        "information_set": {
+          "mean": 1.3007788380918404,
+          "ci95": [
+            1.2981976051343371,
+            1.3034279608245318
+          ],
+          "problems": 8
+        },
+        "pair_preserving_halves": {
+          "mean": 1.3013099796449143,
+          "ci95": [
+            1.2989224128657952,
+            1.3037458647430564
+          ],
+          "problems": 8
+        }
+      },
+      "attention_timing": {
+        "one": {
+          "method": "one",
+          "mean_request_seconds": 1.0028671375165383,
+          "base_mean_seconds": [
+            0.9977179291347663,
+            1.0015770427882673,
+            1.011062135050694,
+            1.0014691931505997,
+            0.9985948607325554,
+            1.0004927054047583,
+            1.0108706295490264,
+            1.0011526043216388
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "base_problems": 8,
+          "mean": 1.0028671375165383,
+          "standard_deviation": 0.005184822768218054,
+          "pointwise_95_percentile_interval": [
+            0.999856744489322,
+            1.0065647677207985
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        },
+        "information_set": {
+          "method": "information_set",
+          "mean_request_seconds": 2.0023426433093845,
+          "base_mean_seconds": [
+            1.9925361054639021,
+            2.000962522874276,
+            2.0252512271205587,
+            1.9997015056510767,
+            1.9895891023178895,
+            1.9967412546277046,
+            2.01728419760863,
+            1.9966752308110396
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "base_problems": 8,
+          "mean": 2.0023426433093845,
+          "standard_deviation": 0.012416864738748888,
+          "pointwise_95_percentile_interval": [
+            1.9951597415842115,
+            2.0111977378837764
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        },
+        "pair_preserving_halves": {
+          "method": "pair_preserving_halves",
+          "mean_request_seconds": 2.003314741514623,
+          "base_mean_seconds": [
+            1.9921080641448499,
+            2.0036147197087604,
+            2.0286559842526914,
+            2.0001056755582494,
+            1.9894338389237722,
+            1.998820053289334,
+            2.0191323198378086,
+            1.9946472764015197
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "base_problems": 8,
+          "mean": 2.0033147415146235,
+          "standard_deviation": 0.013713177744081565,
+          "pointwise_95_percentile_interval": [
+            1.9953053836710752,
+            2.0130300339621807
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        }
+      },
+      "conditions": {
+        "recurrent_two_call_fits": true,
+        "attention_one_call_fits": true,
+        "attention_information_set_excluded": true,
+        "attention_intact_pair_excluded": true,
+        "recurrent_kl_below_product_floor": true
+      },
+      "empirical_sufficient_certificate": true,
+      "scope": "Eight-problem matched empirical law, three positions; plugin mean certificate, not population or per-request guarantee. All six selectors retained. Distinct from the32-problem primary mechanism analysis."
+    },
+    {
+      "role": "balanced_seed20271013",
+      "checkpoint_sha256": "8ebf9eddc02e47ea108bbce66807502ca4f3cc0d721bb561001b4562a9aa4493",
+      "matched_problem_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "budget_seconds": 1.5,
+      "quality": {
+        "one": {
+          "mean": 2.772629160673196,
+          "ci95": [
+            2.7726189509995116,
+            2.7726399768787156
+          ],
+          "problems": 8
+        },
+        "information_set": {
+          "mean": 9.28721126742619e-05,
+          "ci95": [
+            3.2421141543784174e-05,
+            0.00020255632657014409
+          ],
+          "problems": 8
+        },
+        "pair_preserving_halves": {
+          "mean": 2.7729481092837016,
+          "ci95": [
+            2.77283662552682,
+            2.773074937467843
+          ],
+          "problems": 8
+        }
+      },
+      "recurrent_timing": {
+        "one": {
+          "mean": 0.6511221238101522,
+          "ci95": [
+            0.6499650103249588,
+            0.6523181841087837
+          ],
+          "problems": 8
+        },
+        "information_set": {
+          "mean": 1.3018703061155976,
+          "ci95": [
+            1.299444538448006,
+            1.304335302390003
+          ],
+          "problems": 8
+        },
+        "pair_preserving_halves": {
+          "mean": 1.301951578973482,
+          "ci95": [
+            1.2994558235630391,
+            1.3045333789971967
+          ],
+          "problems": 8
+        }
+      },
+      "attention_timing": {
+        "one": {
+          "method": "one",
+          "mean_request_seconds": 1.0028671375165383,
+          "base_mean_seconds": [
+            0.9977179291347663,
+            1.0015770427882673,
+            1.011062135050694,
+            1.0014691931505997,
+            0.9985948607325554,
+            1.0004927054047583,
+            1.0108706295490264,
+            1.0011526043216388
+          ],
+          "peak_allocated_bytes": 2398357504,
+          "base_problems": 8,
+          "mean": 1.0028671375165383,
+          "standard_deviation": 0.005184822768218054,
+          "pointwise_95_percentile_interval": [
+            0.999856744489322,
+            1.0065647677207985
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        },
+        "information_set": {
+          "method": "information_set",
+          "mean_request_seconds": 2.0023426433093845,
+          "base_mean_seconds": [
+            1.9925361054639021,
+            2.000962522874276,
+            2.0252512271205587,
+            1.9997015056510767,
+            1.9895891023178895,
+            1.9967412546277046,
+            2.01728419760863,
+            1.9966752308110396
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "base_problems": 8,
+          "mean": 2.0023426433093845,
+          "standard_deviation": 0.012416864738748888,
+          "pointwise_95_percentile_interval": [
+            1.9951597415842115,
+            2.0111977378837764
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        },
+        "pair_preserving_halves": {
+          "method": "pair_preserving_halves",
+          "mean_request_seconds": 2.003314741514623,
+          "base_mean_seconds": [
+            1.9921080641448499,
+            2.0036147197087604,
+            2.0286559842526914,
+            2.0001056755582494,
+            1.9894338389237722,
+            1.998820053289334,
+            2.0191323198378086,
+            1.9946472764015197
+          ],
+          "peak_allocated_bytes": 2398358016,
+          "base_problems": 8,
+          "mean": 2.0033147415146235,
+          "standard_deviation": 0.013713177744081565,
+          "pointwise_95_percentile_interval": [
+            1.9953053836710752,
+            2.0130300339621807
+          ],
+          "bootstrap_seed": 20271022,
+          "bootstrap_repeats": 10000
+        }
+      },
+      "conditions": {
+        "recurrent_two_call_fits": true,
+        "attention_one_call_fits": true,
+        "attention_information_set_excluded": true,
+        "attention_intact_pair_excluded": true,
+        "recurrent_kl_below_product_floor": true
+      },
+      "empirical_sufficient_certificate": true,
+      "scope": "Eight-problem matched empirical law, three positions; plugin mean certificate, not population or per-request guarantee. All six selectors retained. Distinct from the32-problem primary mechanism analysis."
+    }
+  ],
+  "attention_timed_requests": 360,
+  "recurrent_timed_requests": 2160,
+  "scope": "Frozen matched-cost supplement; no additional attention quality experiment."
+}

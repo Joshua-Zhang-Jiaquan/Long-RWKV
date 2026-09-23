@@ -1,1 +1,0 @@
-assert dencrypt('Racecar') == 'Enprpne'

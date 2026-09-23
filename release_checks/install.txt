@@ -1,0 +1,18 @@
+Obtaining file:///inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/long-rwkv-paper-release
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: numpy==1.26.4 in ./.venv-release/lib/python3.12/site-packages (from long-rwkv-evidence==0.2.0) (1.26.4)
+Building wheels for collected packages: long-rwkv-evidence
+  Building editable for long-rwkv-evidence (pyproject.toml): started
+  Building editable for long-rwkv-evidence (pyproject.toml): finished with status 'done'
+  Created wheel for long-rwkv-evidence: filename=long_rwkv_evidence-0.2.0-0.editable-py3-none-any.whl size=3018 sha256=3c79ff890e44115caa9578a56a888b599e737f604e9b014313c48f84bf6c4053
+  Stored in directory: /tmp/pip-ephem-wheel-cache-8iylr8f1/wheels/24/2a/47/8bfece95b1f47c836f0ecb2c77142887a83b5afb07f43c947c
+Successfully built long-rwkv-evidence
+Installing collected packages: long-rwkv-evidence
+Successfully installed long-rwkv-evidence-0.2.0

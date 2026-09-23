@@ -1,6 +1,0 @@
-901e21579e5ff4f77011611485ab637235b4c0662d2440f4851dab2e4c3755eb  evidence_ledger.json
-e58e004a658a39aaf3e21cbfb75403c731e15b0512e71252faed7313e43ea90b  evidence_audit.md
-11e2423af9416566ed151b10c7ba14b8b34d5a3918aa0d4f8027fe38648d9891  repair-root-receipt/prepare_receipt.json
-
-Current attempt before replacement: `af0d67ded56848369a2e21a0f5b4cbd2`.
-Canonical default receipt path `.omo/evidence/nonlatent-rnn-dlm-iclr-research/task-01/af0d67ded56848369a2e21a0f5b4cbd2/prepare_receipt.json` was absent, matching the independently reproduced `PUBLICATION_PENDING` default state.

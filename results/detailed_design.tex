@@ -1,0 +1,81 @@
+\section{Detailed checkpoint-based experimental design}
+\label{m:experiments}
+\textbf{Scope.} The primary study evaluates the existing F2 step-14,000 release without pretraining, fine-tuning, or checkpoint selection on the new tests. The capability and reading-comprehension panels, the controlled direction-and-loop matrix, the single-device systems probe, and the execution-variance comparison are measured and are reported in Section~\ref{m:results}. The decoder was frozen on development data before confirmation; the primary long-context comparison is complete, with 52,800 validated outcomes per model on the generated support. The implemented comparison is F2 versus released causal RWKV-7; the wider baseline family remains a documented design, not a completed comparison. Cross-model differences are practical comparisons of fixed releases, not estimates under matched training histories. The previous from-scratch campaign is not a prerequisite.
+
+\subsection{Checkpoint, decoder, and comparison set}
+The release card describes a BF16 bidirectional RWKV denoiser with approximately 4.09B parameters, a 4,096-token training context, no explicit time input, and masked-token training with causal replay \citep{f2release}. We call this fixed model F2. Only the step-14,000 release is identified here; earlier training steps mentioned in the card are not assumed to be downloadable checkpoints. A release identifier, weight digest, source commit, tokenizer digest, and actual tensor inventory must be frozen before evaluation. The evaluated payload's weight digest, stored-element count, dtype inventory and tensor-class breakdown are frozen and reported in Section~\ref{m:identity}, and the loader was qualified by successfully building and scoring the model. The public Hub revision is pinned, and its BF16 export is matched exactly by SHA-256 reconstruction from the evaluated local tensors (Section~\ref{m:identity}). Local \texttt{float32} storage and public BF16 storage are intentional representations of the checkpoint: the evaluation-time BF16 conversion reproduces the released tensor bytes.
+
+\begin{table}[t]
+\centering\small
+\caption{Existing-checkpoint comparison, not parameter- or pretraining-matched training. Sizes are now \emph{measured} stored-element counts read from each payload's own header, replacing the model labels this table previously carried; the tokenizer column is likewise read from disk. Identifying F2 details are held in the non-anonymous artifact.}
+\begin{tabularx}{\linewidth}{@{}lrp{0.20\linewidth}p{0.22\linewidth}Y@{}}
+\toprule
+ID & Stored elements & Model & Tokenizer (declared vocab) & Role\\
+\midrule
+F2 & 4{,}091{,}581{,}440 & Released BiRWKV diffusion (fp32 stored) & RWKV World (65536) & Fixed candidate\\
+R0 & 2{,}947{,}735{,}040 & RWKV-7 World3 & RWKV World (65536) & Initialization-family comparator\\
+M0 & 2{,}831{,}336{,}960 & Mamba-2 & GPT-NeoX-20B (50277) & Recurrent state-space comparator\\
+L0 & 1{,}365{,}514{,}240 & GLA & LLaMA SentencePiece (32000) & Gated additive-memory comparator\\
+L1 & --- & DeltaNet & --- & Residual-writing comparator (no payload found)\\
+D0 & 8{,}015{,}581{,}184 & LLaDA-8B-Base & LLaDA (126464) & Larger attention-diffusion reference\\
+\bottomrule
+\end{tabularx}
+\label{m:arms}
+\end{table}
+
+Sizes are single-file or summed-across-shard element counts, not ``trainable parameters'': the count includes any stored buffer, and the F2 payload's fp32 storage makes its file 16.37\,GB (15.24\,GiB) for the same 4.09B elements that a bf16 export would store in half that. Vocab sizes are each config's declared embedding width, which is the number the output head is built from and which can differ by a few added tokens from the tokenizer file's own count (LLaDA declares 126{,}464 against 126{,}346 tokenizer entries; Mamba-2 declares 50{,}277 against 50{,}279). The tokenizer column matters because the one-token MMLU panel is built per tokenizer, so a reading is only valid for a model sharing the tree, and these are four different encodings of the same text.
+
+The public comparison set in Table~\ref{m:arms} uses released weights \citep{rwkvrelease,mambarelease,glarelease,deltarelease,lladarelease}. One row needs a flag at the point of definition: M0 names the Mamba-2 release, but the only Mamba checkpoint this study has measured is a Mamba-1 of similar size, whose configuration declares the Mamba-1 architecture class. Those are different architectures and Section~\ref{m:notmeasured} records that the Mamba-2 row has no reading rather than substituting one. We disclose total parameters, tokenizer, pretraining exposure when documented, instruction tuning, and tested context support. Missing training metadata is not imputed. Gated DeltaNet, newer recurrent models, and closer-size checkpoints are additional rows only after their exact releases and pure-versus-hybrid architecture are verified. An unavailable baseline is not replaced with an invented repository name: the L1 row is empty because no DeltaNet payload exists under the project's mount, and the row is kept rather than deleted so the gap stays visible.
+
+The card reports a grouped confidence decoder with $g=4$, 16 schedule rounds, temperature 0.2, and remasking off. The inspected model file exposes a global confidence sampler without the group-size argument \citep{f2source}. Consequently, the historical decoder is a reproduction target, not an already recovered implementation. We first qualify the available sampler, then reconcile the grouped variant before using its name or reproducing its scores. The exact-law sampler of Table~\ref{m:algorithm} is a separately labeled decoder on the same weights, not F2's claimed historical decoding policy.
+
+\subsection{Long-context comparisons with frozen weights}
+\label{m:long}
+The implemented endpoint compares F2 with R0 on associative recall, overwrite/delayed-query tracking, and code-dataflow dependencies. The original design also names M0, L0, and L1; their absence is documented in Section~\ref{m:notmeasured}, and no result against them is claimed. The existing 16K/32K/64K grid crosses evidence positions 10/50/90\%, binding loads $1/8/32/128$, and neutral/random/similar distractors: 324 declared cells, of which 264 contain 200 instances each and 60 have explicit generator refusals. The held-out target suffix is entirely masked; the visible history contains the answer-bearing task evidence. The executed 4K/8K anchors are post-development diagnostics on the same 72 development tasks. Full confirmation-grid anchors and the optional 128K stress test are not executed. Both tested models receive the same native RWKV token IDs, including deliberately repeated one-token filler; decoding and re-encoding that filler would shorten the input and is prohibited.
+
+The reported macro gives equal weight to the nine family--length panels and equal weight to supported cells within each panel. It is conditional on generated support, not the full declared grid. The wider design additionally defines, for checkpoint $b$, native accuracy $S_b(L)$ and
+\begin{equation}
+\Gamma_b(L)=[S_{\rm F2}(L)-S_{\rm F2}(4{\rm K})]-[S_b(L)-S_b(4{\rm K})].
+\label{m:f2degradation}
+\end{equation}
+This degradation contrast is not estimated from the smaller development-only anchor panel. Evidence-only and no-evidence diagnostics assess task competence and sensitivity to available evidence; they are not independent confirmation tests. A primary long-context win requires an observed five-point macro gain and multiplicity-corrected positive evidence against each baseline named in that claim. Lower-capacity or lower-exposure comparisons are not relabeled as matched architectural effects.
+
+RULER, LongBench, BABILong, and NoLiMa are proposed external structured-retrieval, natural-language, and reasoning extensions \citep{ruler,longbench,babilong,nolima}. LongBench v2 is another unexecuted stress panel requiring separate qualification \citep{longbench2}. Exact dataset versions, common raw documents, answer parsers, and length eligibility are fixed before confirmation. Unsupported lengths, OOM, and truncated evidence remain recorded, and no shared-support subset is reported as the full benchmark.
+
+\subsection{What can be isolated without retraining?}
+\label{m:mechanism}
+Within F2, compare one-call predictions with iterative decoding, forward-only with bidirectional computation, and qualified precision/head-memory variants. These interventions preserve checkpoint identity but may change the effective operator. Forward-only F2 is an inference ablation of adapted weights, not the original causal RWKV checkpoint. The same checkpoint at different steps of decoding does not constitute independent training seeds.
+
+Use actual denoiser evaluations and measured request cost. The implemented development calibration crosses schedules $8/16/32/64$ with temperatures $0.7/1.0$ and matched-Bernoulli/confidence commitment. One-call and four-call runs are unexecuted proposed mechanism controls; grouped decoding records extra calls after each committed group. Compare the exact-law and confidence-based samplers separately. Remasking is off in the reproduction track. Increasing a call count cannot improve an unchanged time-independent one-token prediction merely by reevaluating identical inputs. Multi-token tasks, changing partial canvases, and an explicit zero-gain control are necessary to assess refinement.
+
+Instrument realized gate matrices and fixed-coefficient perturbation replays for the state bound; compare fully coupled perturbations separately. Common-input softmax/kernel/delta diagnostics and enumerated categorical systems test the theoretical decomposition without treating a layer replacement as an already trained new model. Full-canvas rereading is the main F2 access mode. State-only inference requires a complete condition interface and is not available merely by passing a causal cache; no state-retention claim follows from the full-canvas experiment. Paired diffusion-versus-autoregressive Mamba and Gated DeltaNet training remains optional work needed for backbone-general transfer.
+
+\subsection{Capability, systems, and statistical reporting}
+\label{m:quality}
+Rerun complete prespecified MMLU and reading-comprehension panels with frozen prompt and scoring rules. Historical card scores are selection-exposed context, not independent confirmation. New GSM8K and executable-code runs are outside this execution scope. Historical free-generation floor observations are labeled separately; masked reconstruction and causal-path perplexity cannot substitute for free generation. Native infilling was not run; any future comparison requires an explicitly shared information-access protocol for causal baselines.
+
+First qualify batch-one 4K loading, then 8K/16K/32K/64K inference. Physical low-memory experiments reuse F2 weights and count retained history, activations, vocabulary logits, temporary probabilities, states, transfers, and runtime allocations. Compare native quality--memory--latency frontiers and common inference-work envelopes. A 16-GiB-class test is attempted only after feasibility checks; quantization or tiled-head changes require numerical and quality qualification. The inherited goodput target is $1.5\times$ at the same quality requirement and deadline, not a speedup inferred from recurrent-state size.
+
+The executed F2 confirmation uses inference seed 17 and five data seeds (101--105); R0 uses deterministic greedy decoding. The wider plan's inference seeds 29 and 43 are not executed, and no decoding-variance estimate is claimed. Ten thousand paired within-cell bootstrap replicates (seed 20270921) retain fixed cell/family/length weights. Intervals condition on generated cells, fixed checkpoints, and executed decodes; they omit unsupported-cell and execution uncertainty. A zero-width interval at an observed floor is not proof of equivalence. The original four-contrast Holm family cannot be completed with one available comparator, so these results are descriptive and establish no multiplicity-controlled superiority claim.
+
+\subsection{Finite-system verification}
+The supplied programs rerun 21 grouped mathematical checks without pretrained weights or benchmark data. An exact enumeration uses $p_0(00,01,10,11)=(0.45,0.05,0.05,0.45)$ and perfect marginal denoisers. Table~\ref{m:finite} shows nonzero output error caused solely by simultaneous-reveal dependence, and its reduction as the survival mesh is refined. The largest residual in the enumerated loss--path identity is below $2.3\times10^{-15}$. This verifies a finite example of the theorem, not trained-model quality or its constants at long context.
+\begin{table}[ht]
+\centering\small
+\caption{Exact binary-pair enumeration with uniform survival increments and posterior excess approximately zero. All errors are nats per target sequence. These are computed mathematical quantities, not language-model benchmark scores.}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+Reverse steps $T$ & Endpoint KL & Dependence $\mathcal B_\rho$ & Mesh upper bound\\
+\midrule
+1 & 0.368064 & 0.368064 & 0.693147\\
+4 & 0.036690 & 0.092016 & 0.173287\\
+16 & 0.003039 & 0.023004 & 0.043322\\
+64 & 0.000209 & 0.005751 & 0.010830\\
+\bottomrule
+\end{tabular}
+\label{m:finite}
+\end{table}
+
+\paragraph{Interpretation.}
+A positive fixed-checkpoint comparison establishes an advantage for the tested releases and inference budgets. It does not isolate pretraining data, parameter count, extra adaptation, or every component of the framework. Within-F2 controls test refinement and directionality more directly, while still requiring checks for distribution shift caused by the intervention. Appendix~\ref{app:protocol} specifies execution gates and Appendix~\ref{app:longcomparison} fixes the estimands and access rules.
+

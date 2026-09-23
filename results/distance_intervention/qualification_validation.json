@@ -1,0 +1,22 @@
+{
+  "completion": {
+    "arm": "balanced",
+    "checkpoint_sha256": "6ffe72e2e6f32bcbbba7b0314d3b8e2ef36e5c83c44a94d3fa4c1feb547b6948",
+    "contract_sha256": "95b7a63d803950bc7bb481e739cc00e314fd7927177b8546103f2d4a5e94abc1",
+    "elapsed_seconds": 262.8430371051654,
+    "execution_complete": true,
+    "qualification": true,
+    "seed": 20271011,
+    "source_sha256": "1c13d0a992535515beaac105e897d4533f10460e1e6e37f4509a26be32be03f8",
+    "step": 6
+  },
+  "steps": 6,
+  "input_tokens": 3152832,
+  "training_gpu_hours": 0.5626975127071556,
+  "max_peak_allocated_bytes": 17004178944,
+  "last_three_update_seconds": [
+    12.100583055056632,
+    11.319149143993855,
+    11.333968427963555
+  ]
+}

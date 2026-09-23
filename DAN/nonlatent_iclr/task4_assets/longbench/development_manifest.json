@@ -1,9 +1,0 @@
-{
-  "asset_path": "source_bundle.json",
-  "license": "MIT",
-  "network_env_scrubbed": true,
-  "sha256": "33d9b20e271eff8ddbc0f04fb576219f11df4208de1696bf586b096a8d17cf35",
-  "upstream_commit": "2e00731f8d0bff23dc4325161044d0ed8af94c1e",
-  "upstream_repo": "THUDM/LongBench",
-  "version": "longbench@2e00731f8d0bff23dc4325161044d0ed8af94c1e"
-}

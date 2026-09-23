@@ -1,0 +1,11 @@
+# Matched-task16K cost check
+
+Before its timings and adapted-checkpoint final quality outputs are available, fix a1.5-second mean complete-request latency budget, based on the earlier separate-task development screen. This is a mean-cost operating point, not a per-request deadline guarantee.
+
+Use exactly the16 dependent base problems and three16K public-block positions from frozen accuracy design14dc97c882daa788232abff63a5197333d138e1135e04e3d360870c6e4e0d361. The compared checkpoints are the fixed200-update context-adapted RWKV and the previously qualified20-update Pythia adapter. Tokenizers are native; both see the same public equations, answer labels and declared irrelevant-record rule. Record actual tokens and record counts; different tokenizers imply different irrelevant-record counts at the same native-token budget. No attention quality claim or matched-pretraining claim is made.
+
+The declared attention policy set is exactly one call, two information-set calls, and two intact-pair calls. Time all three policies for both models with one separate warmup and10 measured complete serial requests per condition, batch1, FP32/IEEE, CUDA synchronization and no conditional audit cache.48conditions per model; repeat timing draws are not independent accuracy samples. Include peak allocated memory and hardware/software provenance. Long numerical screens precede timing. Two8-H100 jobs obey the shared32+16 caps.
+
+A restricted mean-budget certificate requires all of the following: mean recurrent information-set cost≤1.5s; attention one-call cost≤1.5s; both other declared attention costs>1.5s; mean recurrent information-set KL on the same dependent condition panel<4log2. The last compares against the universal forward-KL lower bound for a one-call product sampler, not unmeasured attention accuracy. Report empirical panel quantities and paired problem uncertainty; do not extrapolate to a population mean-budget guarantee without supporting uncertainty. Cached causal models, untested implementations, batching and correlated heads remain outside this restricted comparison.
+
+Retain the measured result even if any criterion fails. Do not select a different budget from these outputs. Exact source and checkpoint hashes are bound by each submission receipt. The quality panel and checkpoint choices remain unchanged.

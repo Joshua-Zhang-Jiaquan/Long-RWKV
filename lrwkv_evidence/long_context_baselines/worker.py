@@ -1,0 +1,114 @@
+"""Practical comparator development qualification/training."""
+import argparse
+import json
+import os
+from pathlib import Path
+import time
+import torch
+import torch.distributed as dist
+from . import training as R, models as M
+from lrwkv_evidence.long_context_mvp import tasks as T
+from lrwkv_evidence.train04 import worker as W
+from lrwkv_evidence.train04dev import core as C
+
+
+@torch.inference_mode()
+def qualify(packed,tok,device,kind):
+    packed.eval();checks=[]
+    for step in (1,201):
+        records=R.records(kind,step,0,tok);b=R.batch(records,device);normal=packed(b)
+        singles=torch.cat([packed(R.batch([r],device)) for r in records])
+        poisoned=dict(b);poisoned['input_ids']=b['input_ids'].clone()
+        poisoned['input_ids'][0,:int(b['doc_starts'][0,1])]=tok.binary_ids[1]
+        changed=packed(poisoned)
+        row=dict(context='evidence_only' if step==1 else 1024,
+                 serial_difference=float((normal-singles).abs().max()),
+                 other_document_difference=float((normal[1:]-changed[1:]).abs().max()),
+                 own_document_difference=float((normal[0]-changed[0]).abs().max()))
+        if row['serial_difference']>1e-5 or row['other_document_difference']>1e-5 or row['own_document_difference']<1e-6:
+            raise ValueError(f'isolation qualification failed: {row}')
+        if kind=='causal_rwkv':
+            first=records[0];prefix=first['prefix']
+            ids=torch.tensor([first['ids']],dtype=torch.long,device=device)
+            gather=torch.arange(prefix-1,prefix+7,device=device)
+            full=packed.document(ids,gather).log_softmax(-1)
+            modified=ids.clone();modified[0,prefix:]=tok.binary_ids[1]
+            changed_first=packed.document(modified,gather).log_softmax(-1)[:,0]
+            logit,state=packed.next_cached(ids[:,:prefix]);cached=[logit.log_softmax(-1)]
+            for i in range(7):
+                logit,state=packed.next_cached(ids[:,prefix+i:prefix+i+1],state)
+                cached.append(logit.log_softmax(-1))
+            row['causal_future_leak_max']=float((full[:,0]-changed_first).abs().max())
+            row['cached_full_logprob_max_difference']=float((full-torch.stack(cached,dim=1)).abs().max())
+            if row['causal_future_leak_max']>1e-5 or row['cached_full_logprob_max_difference']>1e-3:
+                raise ValueError(f'causal/cache qualification failed: {row}')
+        checks.append(row)
+    packed.train();return checks
+
+
+def main():
+    ap=argparse.ArgumentParser();ap.add_argument('--base',type=Path,required=True)
+    ap.add_argument('--kind',choices=('attention','causal_rwkv'),required=True);ap.add_argument('--out',type=Path,required=True)
+    ap.add_argument('--qualification',action='store_true');ap.add_argument('--qualification-out',type=Path)
+    args=ap.parse_args();rank=int(os.environ['RANK']);local=int(os.environ['LOCAL_RANK'])
+    if int(os.environ['WORLD_SIZE'])!=8:raise ValueError('requires eight ranks')
+    torch.set_num_threads(4);torch.cuda.set_device(local)
+    torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
+    torch.set_float32_matmul_precision('highest');torch.use_deterministic_algorithms(True)
+    dist.init_process_group('nccl');device=torch.device('cuda',local)
+    root=Path(__file__).resolve().parents[2]
+    paths=[Path(__file__),Path(R.__file__),Path(T.__file__),Path(W.__file__),Path(C.__file__),
+           Path(T.oracle_marginals.__code__.co_filename),Path(M.__file__),Path(R.R.__file__)]
+    recipe=dict(R.recipe(args.kind),triton_f32_default=os.environ.get('TRITON_F32_DEFAULT','default'))
+    if recipe['triton_f32_default']=='ieee':recipe['precision']='FP32; torch TF32 off; Triton IEEE'
+    contract=dict(recipe=recipe,base_sha256=W.file_sha(args.base/'model.safetensors'),
+                  source_hashes={str(p.relative_to(root)):W.file_sha(p) for p in paths})
+    digest=W.canonical_sha(contract)
+    if not args.qualification:
+        if not args.qualification_out:raise ValueError('passed qualification required')
+        q=json.loads((args.qualification_out/'completion.json').read_text())
+        if not q.get('qualification') or not q.get('execution_complete') or q.get('contract_sha256')!=digest or q.get('step')!=20:
+            raise ValueError('qualification does not match source/recipe')
+        for i in range(8):
+            evidence=json.loads((args.qualification_out/f'qualification_rank{i}.json').read_text())
+            if evidence['contract_sha256']!=digest:raise ValueError('rank qualification mismatch')
+    args.out.mkdir(parents=True,exist_ok=True)
+    if (args.out/'train.jsonl').exists() or (args.out/'completion.json').exists():raise ValueError('refuse reused output')
+    tok,model=M.build(args.kind,args.base)
+    identity=dict(kind=args.kind,parameters=sum(p.numel() for p in model.parameters()),base=str(args.base))
+    model=model.to(device);packed=model
+    checks=qualify(packed,tok,device,args.kind)
+    W.atomic_json(args.out/f'qualification_rank{rank}.json',dict(contract_sha256=digest,checks=checks))
+    ddp=torch.nn.parallel.DistributedDataParallel(packed,device_ids=[local],broadcast_buffers=False)
+    optimizer=torch.optim.AdamW(ddp.parameters(),lr=3e-5,betas=(.9,.95),eps=1e-8,weight_decay=.01)
+    stop=20 if args.qualification else 600
+    if rank==0:W.atomic_json(args.out/'provenance.json',dict(contract=contract,contract_sha256=digest,identity=identity,qualification=args.qualification,stop_step=stop))
+    dist.barrier();started=time.perf_counter();torch.cuda.reset_peak_memory_stats()
+    for step in range(1,stop+1):
+        # Discarded qualification tests both short and 1K training graphs.
+        data_step=step if not args.qualification or step<=10 else 200+step-10
+        b=R.batch(R.records(args.kind,data_step,rank,tok),device);optimizer.zero_grad(set_to_none=True)
+        value=R.loss(ddp(b),b)
+        if not bool(torch.isfinite(value)):raise ValueError('nonfinite loss')
+        value.backward();norm=torch.nn.utils.clip_grad_norm_(ddp.parameters(),1.,error_if_nonfinite=True)
+        if step in (1,11,201):
+            missing=[name for name,p in model.named_parameters() if p.grad is None or p.dtype!=torch.float32 or p.grad.dtype!=torch.float32]
+            if missing:raise ValueError('missing or wrong dtype gradients: '+str(missing[:5]))
+        lr=3e-5*min(step/50,1.)
+        for group in optimizer.param_groups:group['lr']=lr
+        optimizer.step()
+        values=torch.tensor([value.detach().double(),b['input_ids'].numel()],dtype=torch.float64,device=device);dist.all_reduce(values)
+        if rank==0:
+            row=dict(step=step,data_step=data_step,loss=float(values[0]/8),global_input_tokens=int(values[1]),grad_norm_rank0=float(norm),lr=lr,elapsed_seconds=time.perf_counter()-started)
+            with (args.out/'train.jsonl').open('a') as stream:stream.write(json.dumps(row,allow_nan=False)+'\n')
+            print(json.dumps(row),flush=True)
+        if step==stop or (not args.qualification and step==200):
+            dist.barrier()
+            if rank==0:
+                tmp=args.out/'resume.pt.tmp';torch.save(dict(model={k:v.detach().cpu() for k,v in model.state_dict().items()},optimizer=optimizer.state_dict(),step=step,contract=contract,contract_sha256=digest),tmp);os.replace(tmp,args.out/'resume.pt')
+            dist.barrier()
+    if rank==0:W.atomic_json(args.out/'completion.json',dict(execution_complete=True,qualification=args.qualification,step=stop,contract_sha256=digest,checkpoint_sha256=W.file_sha(args.out/'resume.pt'),peak_memory_bytes=torch.cuda.max_memory_allocated(),elapsed_seconds=time.perf_counter()-started))
+    dist.barrier();dist.destroy_process_group()
+
+
+if __name__=='__main__':main()

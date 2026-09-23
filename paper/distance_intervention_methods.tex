@@ -1,0 +1,59 @@
+\subsection{Matched 16K distance and evidence interventions}
+\label{sec:distance-design}
+The failure of 1K adaptation to extrapolate motivates a separately frozen
+16K study. Both training arms start from the same selected seed-71 terminal
+checkpoint, with fresh optimizers and the original labelled answer interface.
+The near-only arm places the public block next to the answer; the
+distance-balanced arm distributes it equally across far, middle, and near
+positions. Both arms use 16K inputs and, within each adaptation seed, identical
+public examples, target-history draws, reveal policies, rounds, update counts,
+and optimizer settings. Only the block position differs. This controls
+training length and input-token budget. Instructions move with the equations,
+so the intervention concerns public-block distance rather than factual memory
+in isolation.
+
+Both arms equally supervise the information-set and intact-pair two-call
+policies. Each samples a round uniformly and uses exact conditional soft
+targets for that round's four coordinates. Half the public examples belong
+to each task family. The risk normalization and residual estimation-error
+bound are given in Appendix~\ref{app:coverage}; balanced supervision is not
+assumed to equalize learned errors. We freeze three adaptation seeds
+(20271011--20271013), global batch 32, AdamW learning rate $10^{-5}$,
+20-update warmup, weight decay $0.01$, gradient clipping at one, and
+FP32/IEEE execution with TF32 disabled. A discarded six-update qualification
+sets a common fixed budget of 600 updates by a predeclared runtime rule.
+There is no quality-based early stopping or checkpoint selection. These
+are adaptation replicates from one selected lineage, not independent
+from-scratch training replicates.
+
+The primary panel uses 32 fresh paired-parity problems at all three 16K
+positions, with exact endpoint laws for all three policies. Its primary
+contrast is near-only minus distance-balanced information-set conditional
+error at the far position. The original starting checkpoint is a descriptive
+baseline. Secondary panels use eight problems at the original short length,
+4K at all three positions, and untrained 32K at far and near positions.
+All fixed checkpoints and cells are retained. The 32 public prompts are
+distinct from the preceding final and development panels, but use the same
+previously observed held-out structure catalog.
+
+For every evaluated context, the counterfactual probe flips one declared
+parity constraint while holding all four visible information-set bits at zero.
+The native prefix changes at exactly one token, preserving token count and
+block position. The target of exactly one remaining coordinate reverses.
+We measure its signed logit contrast, mean correct conditional cross-entropy,
+the gap in Eq.~\eqref{eq:evidence-response}, and probability changes on the
+three unaffected targets. This fixed-history intervention complements the
+endpoint audit, which integrates all 16 target histories.
+
+Paired percentile intervals use 10,000 problem-bootstrap draws, preserving
+the pairing across arms, policies, positions, and adaptation seeds. Each
+seed's effect is reported alongside the seed-averaged effect. These
+pointwise intervals condition on the three observed adaptation seeds;
+they do not estimate population training-seed uncertainty.
+The matched cost supplement uses the first eight predeclared problems at
+the three 16K positions, with one warmup and five complete timed requests
+per policy and model. It retains the 1.5-second mean budget and checks each
+fixed adapted model on this same eight-problem quality--cost panel.
+That secondary certificate is separate from the 32-problem primary
+mechanism analysis. The attention checkpoint supplies measured execution
+cost; its answer quality is not evaluated.

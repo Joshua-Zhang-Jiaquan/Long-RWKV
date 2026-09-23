@@ -1,0 +1,414 @@
+\section{Detailed measured results and evidence audit}
+\label{m:results}
+
+\textbf{Status of this section.} Capability, reading-comprehension, development-decoder, and long-context confirmation panels are measured. The decoder was frozen before confirmation; the complete paired comparison contains 105,600 validated outcomes across both models.
+
+\subsection{Identity of the evaluated checkpoint}
+\label{m:identity}
+
+The evaluated payload is a local copy of the F2 step-14,000 release. Reading its state
+dictionary directly, rather than quoting a model card, gives: \textbf{1{,}952 stored
+tensors}, all in \texttt{float32}, totalling \textbf{4{,}091{,}581{,}440 stored
+elements} ($4.0916\times10^9$). This independently reproduces the $\sim$4{,}091.6M element
+count the protocol left to be obtained from the payload, and it is the \emph{stored} count:
+the instantiated bf16 model executes the same number, and we report the element count
+rather than a "trainable parameter" count that could differ by buffers.
+
+The tensor inventory also confirms two structural claims that the protocol asks to be
+checked rather than assumed. There are \textbf{zero} keys under \texttt{loop.} and
+\textbf{zero} keys naming a latent, FiLM, or conditioning module, so the evaluated object
+is the plain bidirectional denoiser with no depth recycling and no condition interface ---
+it is not the later looped model, and no random module has been attached. The two mixer
+directions are stored separately and equally: \texttt{attn\_fwd} and \texttt{attn\_bwd}
+hold $0.9340$B elements each, $1.8681$B together, so a forward-only evaluation of the same
+geometry would execute $3.1575$B elements and the reverse stream is $22.8\%$ of the
+payload. Embedding and output projection are $167{,}772{,}160$ elements each
+($65536\times2560$).
+
+The local FP32 payload is pinned by \texttt{sha256}
+\texttt{cb45226f\ldots f9bf19}, $16{,}367{,}166{,}427$ bytes, at step 14{,}000 with
+$14{,}680{,}064{,}000$ tokens seen in its metadata. The public release is pinned to
+revision \path{9d2b9042d7ab32e5d706479373a5437b1a29fb4b}. Its BF16 export has
+$8{,}183{,}369{,}960$ bytes and SHA-256
+\path{0e98d75dab14b16feffea4a6b692550cdd558b676d5058bcde0495b5b838d231}.
+Reconstructing that export from the local tensors reproduces this digest exactly.
+Thus the local FP32 storage and public BF16 export are intentional representations,
+and the evaluation-time BF16 conversion is identical to the released tensor payload;
+public weight identity is no longer an unresolved qualification.
+
+\paragraph{Verifiable export audit.}
+The audit fetched only the original $207{,}080$ header bytes, including the eight-byte
+length prefix, from the revision-pinned safetensors file. It checked all $1{,}952$
+keys and shapes against the local CPU-memory-mapped checkpoint, checked contiguous
+nonoverlapping data offsets and total file size, and streamed SHA-256 over the original
+header followed by locally converted tensors in the header's declared dtype and offset
+order. The resulting digest equals the public revision's LFS SHA-256; no public weight
+payload download or temporary 8\,GB export was required. The source package includes
+\path{lrwkv_evidence/verify_f2_export.py} and
+\path{results/f2_export_audit/audit.json} with the header digest and verification receipt.
+This establishes export correspondence, not source-code or sampler equivalence.
+
+No historical validation split or group-size decoder was recovered; the grouped
+$g{=}4$ sampler named by the card remains a reproduction target. The capability
+readings below use causal span likelihood without executing a sampling decoder.
+
+The GPU runtime uses the FLA RWKV implementation, which emits a warning recommending comparison with the official RWKV implementation. The present qualification covers artifact identity, tokenizer IDs, target masking, and repeated-call/cache parity; it does not establish independent official-kernel equivalence. Generated behavior and timings are therefore specific to the recorded runtime.
+
+\subsection{Capability: full MMLU}
+\label{m:mmlu}
+
+Table~\ref{tab:mmlu} reports the complete MMLU test panel, 14{,}042 items, under a one-token label convention whose prompt tree and label encoding are frozen artifacts on disk: the available RWKV and GLA tree manifests carry $\texttt{template\_sha256}=$\texttt{84ea26ef\ldots 213dc}, which is the SHA-256 of the prompt-template literal in the panel's own builder module, together with $\texttt{convention}=\texttt{one\_token\_answer\_label}$ and $\texttt{choice\_start}=L-1$. Two scoring notes. The diffusion rows are scored under the arm name \texttt{fwdce} and the autoregressive rows under \texttt{raw}; these are two \emph{names for one statistic}, not two statistics --- both reach the same length-normalized span likelihood through the same shift, and the per-class assignment exists only because the wrong name either crashes or silently returns a different quantity. The rows are therefore comparable across arms. Separately, the run records carry \texttt{unpinned} in their registry, profile and condition-profile hash fields. That is a provenance gap about the \emph{harness revision} those runs were produced under; it is not a statement about the prompt or the scoring rule, which are pinned where the tree manifests above are available. Mamba-1, Qwen, and Llama tree manifests are absent in the current evidence archive: their exact unique-document coverage and shard/merged agreement are verified, but the original builder/template pin remains incomplete (\path{results/additional_baseline_audit.json}). We record it as what it is rather than as a caveat on the statistic. The prompt trees are tokenizer-specific, so a row is scorable
+only against the tree built with its own tokenizer; the released RWKV-7 and diffusion rows
+share the RWKV-world vocabulary, and the rows are labelled accordingly. No subset is
+reported as the benchmark: a card's 200-question observation is not full MMLU, and neither
+is a capped prefix.
+
+\begin{table}[t]
+\centering\small
+\caption{Full MMLU test panel, 14{,}042 items, one-token label convention, causal span
+likelihood. $n=14{,}042$ for every row; intervals are the recorded 95\% percentile bootstrap intervals over document records and \emph{exclude} execution variance (Section~\ref{m:variance}). The diffusion
+rows are the evaluated F2 payload and its looped siblings; the released rows are fixed
+public checkpoints of different size and pretraining exposure. Sizes are stored-element
+counts where measured, otherwise model labels.}
+\begin{tabular}{@{}llrr@{}}
+\toprule
+ID & Model & Accuracy & 95\% CI\\
+\midrule
+F2 & BiRWKV diffusion, step 14{,}000 (this work's object) & 0.469 & $[0.461,0.477]$\\
+--- & BiRWKV diffusion, step 13{,}000 & 0.427 & $[0.418,0.435]$\\
+--- & Looped variant, step 4{,}750 & 0.475 & $[0.466,0.483]$\\
+--- & Looped variant, step 9{,}500 & 0.479 & $[0.470,0.487]$\\
+--- & Looped variant, step 12{,}500 & 0.467 & $[0.459,0.475]$\\
+--- & Looped variant, step 15{,}000 & 0.451 & $[0.442,0.459]$\\
+--- & Looped variant, step 18{,}500 & 0.458 & $[0.449,0.465]$\\
+--- & Looped variant, step 19{,}500 & 0.462 & $[0.454,0.470]$\\
+--- & Looped variant, step 20{,}000 & 0.453 & $[0.445,0.460]$\\
+--- & Looped variant, step 20{,}500 & 0.452 & $[0.444,0.460]$\\
+\midrule
+R0 & RWKV-7 World3 2.9B (released) & 0.546 & $[0.538,0.554]$\\
+--- & RWKV-7 World3 1.5B (released) & 0.420 & $[0.412,0.428]$\\
+--- & RWKV-7 0.4B (released) & 0.260 & $[0.253,0.268]$\\
+L0 & GLA-1.3B-100B (released) & 0.230 & $[0.223,0.237]$\\
+--- & Mamba-1 2.8B (released) & 0.258 & $[0.251,0.265]$\\
+--- & Qwen2.5-3B (released) & 0.653 & $[0.645,0.661]$\\
+--- & Llama-3.2-3B (released) & 0.541 & $[0.534,0.549]$\\
+\bottomrule
+\end{tabular}
+\label{tab:mmlu}
+\end{table}
+
+Two observations follow, and both are of the "practical comparison of fixed releases"
+kind the design section warns against over-reading. The evaluated F2 payload reaches
+$0.469$ on full MMLU, which is $7.7$ points below the released causal RWKV-7 of comparable
+size ($0.546$) and $7.2$ points below Llama-3.2-3B, while exceeding the released
+RWKV-7 1.5B ($0.420$) and the released 0.4B model ($0.260$). The Mamba-1 2.8B released checkpoint reaches $0.258$, which is $21$ points below
+F2; note that the comparable Mamba-2 release named in Table~\ref{m:arms} has no reading
+here at all, and the two architectures are not interchangeable. These are descriptive differences between releases differing in
+pretraining data, training objective, tokenizer and exposure, so they bound the practical
+comparison and isolate nothing.
+
+Within the diffusion lineage the capability panel is \emph{flat and non-monotone} in
+training step: the best full-MMLU reading in the ladder is step 9{,}500
+($0.479$), and later steps are between $0.451$ and $0.467$. Training longer does not
+improve this panel, and the spread across steps ($2.8$ points) is the same order as the
+difference between the early and late ladder. A capability panel that does not move with
+training step cannot be the evidence for a method whose claimed benefit is long-context
+retrieval; it can only bound the cost of the architecture, which is what we use it for.
+
+\subsection{Reading comprehension: full HellaSwag}
+\label{m:hellaswag}
+
+Table~\ref{tab:hellaswag} reports the complete 10{,}042-item HellaSwag validation panel.
+The pre-existing readings for this benchmark in our earlier records were produced with a
+1{,}000-item cap, and because the item files are task-grouped that cap returned one
+activity group rather than a random tenth; one arm reads $0.573$ at $n=1{,}000$ and
+$0.710$ at $n=10{,}042$. Those earlier numbers are therefore not comparable to these and
+are not reported as such.
+
+\begin{table}[t]
+\centering\small
+\caption{Full HellaSwag validation panel, 10{,}042 items, label-span likelihood.
+$n=10{,}042$ for every row. Rows marked ($\dagger$) are the 0.4B controlled adaptation
+matrix of Section~\ref{m:direction}, averaged over three training seeds, which are
+\emph{not} decoding seeds. For these rows brackets give the training-seed range; other rows show recorded 95\% document-bootstrap intervals.}
+\begin{tabular}{@{}llrr@{}}
+\toprule
+ID & Model & Accuracy & Interval\\
+\midrule
+F2 & BiRWKV diffusion, step 14{,}000 & 0.710 & $[0.701,0.719]$\\
+--- & BiRWKV diffusion, step 13{,}000 & 0.715 & $[0.707,0.724]$\\
+--- & Looped variants, steps 4{,}750--20{,}500 & 0.711--0.714 & ---\\
+\midrule
+R0 & RWKV-7 World3 2.9B (released causal) & \textbf{0.743} & $[0.734,0.751]$\\
+--- & RWKV-7 World3 1.5B (released causal) & 0.686 & $[0.676,0.695]$\\
+--- & RWKV-7 0.4B (released causal) & \textbf{0.534} & $[0.524,0.544]$\\
+\midrule
+$\dagger$ & 0.4B forward-only, no loop & 0.519 & $[0.517,0.522]$\\
+$\dagger$ & 0.4B forward-only, with loop & 0.520 & $[0.518,0.521]$\\
+$\dagger$ & 0.4B bidirectional, no loop & 0.511 & $[0.507,0.516]$\\
+$\dagger$ & 0.4B bidirectional, with loop & 0.510 & $[0.507,0.515]$\\
+\bottomrule
+\end{tabular}
+\label{tab:hellaswag}
+\end{table}
+
+The released causal comparators now carry this section's two substantive results. First,
+at 2.9B the causal RWKV-7 reaches $0.743$ against the diffusion model's $0.710$: a
+\textbf{3.3-point} gap in favour of the causal model, in the same direction as the 7.7-point MMLU gap. Second, and
+more informative because it is controlled, the released \emph{causal} 0.4B checkpoint is
+the initialization of the 0.4B adapted matrix, so the two sets compare with the
+initialization held fixed. The released base scores $0.534$; the forward-only adapted arms
+average $0.519$ and the bidirectional adapted arms $0.511$. The forward-only adapted arms are about 1.5 points below their initialization on HellaSwag, and the bidirectional arms about one point below the forward-only arms. The comparison to the initialization combines continued training, its data and objective; without equally budgeted causal continuation it does not isolate an objective effect.
+These descriptive differences favour the released base on this panel; repeated-execution uncertainty for these arms has not been measured.
+
+The 2.9B diffusion arms cluster within $0.5$ points of one another
+($0.710$--$0.715$) across a fourfold range of training steps, which is the same
+step-insensitivity the MMLU panel showed.
+
+\subsection{Additional basic-ability panels}
+\label{m:basic}
+\input{results/basic_ability_table.tex}
+
+Table~\ref{tab:basic-ability-panels} reports complete RACE and OpenBookQA validation panels and available MMLU-Redux test panels. The collector checks each scoring arm against the exact unique document IDs in its task tree, rejects duplicate or incomplete coverage, and recomputes accuracy from the per-document records. Adapted models use the causal \texttt{fwdce} path and released models the equivalent \texttt{raw} path. These option-span likelihood panels are distinct from the one-token MMLU label protocol and are not pooled into a post-hoc aggregate.
+
+F2 reaches 46.90\% on RACE and 35.80\% on OpenBookQA, compared with 47.64\% and 41.20\% for released RWKV-7 2.9B. The respective descriptive differences are $-0.74$ and $-5.40$ percentage points. F2 exceeds the 0.4B release on both panels and exceeds the 1.5B release on RACE. Differences in pretraining and adaptation remain confounded. F2 scores 38.67\% on MMLU-Redux versus 42.74\% for the 2.9B release. MMLU-Redux is a separate benchmark and its scores are not substitutes for full MMLU. Missing cells remain unreported until their complete records pass the same checks. Source hashes and coverage checks are recorded in \texttt{results/basic\_ability\_audit.json}; source hashes do not retroactively fill the upstream harness fields marked \texttt{unpinned}.
+
+\input{results/basic_ability_contrasts.tex}
+The paired intervals in Table~\ref{tab:basic-ability-contrasts} resample matched documents, with 10,000 replicates and a fixed seed. RACE is unresolved at this precision; the OpenBookQA and Redux differences favor the released comparator. These descriptive intervals are not multiplicity-adjusted confirmation tests and do not include between-training or between-execution uncertainty.
+
+\subsection{Forward-only versus bidirectional, under matched training}
+\label{m:direction}
+
+Section~\ref{m:mechanism} lists "forward-only vs bidirectional" as a within-checkpoint
+inference intervention: the same weights evaluated with the reverse stream removed. That
+intervention isolates direction at inference. A different and stronger question is whether
+\emph{training} with a bidirectional mixer helps, and the 0.4B controlled matrix answers
+it, because all four arms share one initialization, one corpus and an equal token budget;
+only the direction and the presence of a tied loop differ, at three training seeds each.
+
+\begin{table}[t]
+\centering\small
+\caption{Controlled 0.4B arm matrix: direction $\times$ tied loop, from a common released
+initialization, equal token budget, three training seeds per cell. Means over seeds;
+brackets give the range across the three seeds. These are training-seed replicates of one
+architecture family, not decoding repetitions of one checkpoint.}
+\begin{tabular}{@{}llrr@{}}
+\toprule
+Direction & Loop & MMLU (14{,}042) & HellaSwag (10{,}042)\\
+\midrule
+\emph{released causal init} & --- & 0.2604 & 0.5338\\
+\midrule
+Forward-only & absent & 0.2686 $[0.2683,0.2691]$ & 0.5192 $[0.5166,0.5216]$\\
+Forward-only & tied & 0.2689 $[0.2683,0.2695]$ & 0.5195 $[0.5178,0.5214]$\\
+Bidirectional & absent & 0.2584 $[0.2531,0.2655]$ & 0.5108 $[0.5073,0.5156]$\\
+Bidirectional & tied & 0.2583 $[0.2537,0.2636]$ & 0.5103 $[0.5071,0.5154]$\\
+\bottomrule
+\end{tabular}
+\label{tab:direction}
+\end{table}
+
+The released causal initialization scores higher on HellaSwag than every adapted run. On MMLU, the forward-only adapted arms exceed the initialization, whereas the bidirectional means are below it. These are comparisons to an untouched initialization, not an equal-budget causal-continuation control, so they do not isolate the effect of changing the objective.
+
+Within the adapted matrix, forward-only arms average 1.04 percentage points higher on MMLU and 0.88 points higher on HellaSwag than bidirectional arms. Tied-loop differences are small at this training budget: approximately $+0.000214$ and $-0.000047$ on MMLU, and $+0.0004$ and $-0.0005$ on HellaSwag, for forward and bidirectional models respectively. These observations concern the evaluated causal likelihood statistic and these checkpoints. They neither establish a benefit of bidirectionality nor determine its effect on long-context denoising. The three training seeds support descriptive within-family comparisons; they do not establish a general null effect for loops or a universal direction penalty.
+
+\subsection{Execution variance bounds the resolvable contrast}
+\label{m:variance}
+
+Three of the readings above were scored twice, by accident of two campaign lanes, on the
+same checkpoint and the same benchmark but on differently shaped pods: eight single-GPU
+pods, and one eight-GPU pod. Comparing their per-item records gives a reproducibility
+measurement of execution sensitivity. Changed item verdicts need not produce an equal change in aggregate accuracy.
+
+\begin{table}[t]
+\centering\small
+\caption{The same checkpoint and benchmark scored under two pod placements. Per-item
+comparison of verdicts and label likelihoods over the full 14{,}042-item MMLU panel.}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Checkpoint & Items changing verdict & Max $|\Delta \mathrm{NLL}|$ & Mean $|\Delta \mathrm{NLL}|$\\
+\midrule
+F2 (step 14{,}000) & 28 / 14{,}042 (0.20\%) & 0.104 & 0.0028\\
+Looped step 12{,}500 & 105 / 14{,}042 (0.75\%) & 0.167 & 0.0080\\
+Looped step 9{,}500 & 105 / 14{,}042 (0.75\%) & 0.216 & 0.0125\\
+\bottomrule
+\end{tabular}
+\label{tab:variance}
+\end{table}
+
+The disagreement rates quantify item-level execution sensitivity, not the change in
+aggregate accuracy: changes from correct to incorrect and from incorrect to correct can
+cancel. Thus $0.75$ percentage points is an upper bound on the absolute accuracy change
+for the two looped comparisons, not an estimated standard deviation or a universal
+resolution floor. The displayed single-execution intervals do not include execution
+variation, and a paired comparison with repeated executions is needed to assess a small
+contrast. These three MMLU comparisons do not establish an execution threshold for
+HellaSwag or for other checkpoints.
+
+The mean absolute likelihood changes range from $3\times10^{-3}$ to
+$1.3\times10^{-2}$. Their cause is unresolved; their magnitude alone cannot rule out
+accumulated reduced-precision or kernel effects. The placements differ in pod width
+(8$\times$1 versus 1$\times$8 GPUs), CPU count (20 versus 192, with no thread limit
+set), and GPU/kernel configuration. Equal disagreement counts for two checkpoints do
+not identify a shared cause without comparing the affected item sets and controls.
+
+\subsection{Physical inference: memory and latency at 4K--64K}
+\label{m:systems}
+
+An exploratory single-device probe measures full-context forward passes, processed-input
+throughput, and peak allocated and reserved device memory. It does not execute a
+complete generation request. The saved BiRWKV rows contain no checkpoint digest or
+resolved weight path; the adapter registry's default has 3.610B stored elements rather
+than F2's 4.092B. Consequently, these measurements are attributed to the recorded
+\texttt{birwkv-2.9b} probe label, not to the qualified F2 payload.
+
+\begin{table}[t]
+\centering\small
+\caption{Exploratory single-device full-context forward probe, batch one, native
+precision. Wall time is the sum of five timed calls after warm-up; throughput is
+processed input tokens per second ($5L$/wall time), not generated tokens per second.
+The NFE column is configured adapter metadata, not an observed sampler call count.
+The BiRWKV checkpoint identity is unresolved. Two comparators failed to load.}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Model & NFE & Context & 5 calls (ms) & Input tok/s & Reserved (GiB)\\
+\midrule
+birwkv-2.9b (masked diffusion) & 100 & 4{,}096 & 1{,}205 & 16{,}990 & 9.43\\
+ & & 16{,}384 & 4{,}624 & 17{,}716 & 13.46\\
+ & & 32{,}768 & 9{,}199 & 17{,}810 & 18.86\\
+ & & 65{,}536 & 18{,}187 & 18{,}017 & 29.58\\
+\midrule
+rwkv7-goose-world3-2.9b (AR) & 1 & 4{,}096 & 776 & 26{,}405 & 13.74\\
+ & & 16{,}384 & 2{,}929 & 27{,}969 & 21.36\\
+ & & 32{,}768 & 5{,}839 & 28{,}061 & 31.53\\
+ & & 65{,}536 & 11{,}507 & 28{,}477 & 51.80\\
+\midrule
+llama-3.2-3b (AR transformer) & 1 & 4{,}096 & 313 & 65{,}331 & 7.81\\
+ & & 16{,}384 & 1{,}544 & 53{,}068 & 13.40\\
+ & & 32{,}768 & 3{,}763 & 43{,}543 & 20.73\\
+ & & 65{,}536 & 10{,}242 & 31{,}995 & 35.42\\
+\midrule
+qwen2.5-3b (AR transformer) & 1 & 4{,}096 & 299 & 68{,}445 & 7.57\\
+ & & 16{,}384 & 1{,}394 & 58{,}753 & 12.76\\
+ & & 32{,}768 & 3{,}375 & 48{,}539 & 19.49\\
+ & & 65{,}536 & 9{,}321 & 35{,}156 & 33.44\\
+\midrule
+llada-8b-base & --- & all & \multicolumn{3}{c}{load failed at every context}\\
+mamba2-2.7b & --- & all & \multicolumn{3}{c}{load failed at every context}\\
+\bottomrule
+\end{tabular}
+\label{tab:systems}
+\end{table}
+
+Over this measured range, processed-input throughput is approximately context-flat
+for the recurrent mixers: the two RWKV rows rise by $6.0\%$ and $7.9\%$ between 4K
+and 64K. Transformer throughput falls by factors of $2.04$ and $1.95$. This is a
+forward-pass scaling observation, not a comparison of cached autoregressive generation
+against iterative denoising.
+
+Peak reserved memory grows from $9.43$ to $29.58$\,GiB for the BiRWKV probe, from
+$13.74$ to $51.80$\,GiB for causal RWKV, and from $7.81$ to $35.42$\,GiB for Llama.
+Fixed weight storage contributes to these totals, so growth by less than the $16\times$
+length increase does not establish a sublinear asymptotic memory law. The BiRWKV 16K
+row reserves $13.46$\,GiB on the tested device; this is not a physical 16-GiB-device
+qualification and does not establish an F2 operating point.
+
+Dividing processed-input throughput by the configured NFE cannot recover generated-token
+throughput: the number of output tokens, actual sampler calls, changing canvases, and
+causal prefill/decode work are not measured here. The $1.5\times$ goodput target requires
+completed requests at a frozen quality threshold and deadline under concurrency, with
+at least $1{,}000$ completions per cell. That target remains unmeasured. A fixed-overhead
+estimate from two differently sourced canvas timings would likewise require matched
+checkpoint, hardware, and execution settings before it could support an optimization
+claim.
+
+\subsection{Stress-test floors}
+\label{m:floors}
+
+The protocol requires free-generation floor effects to be reported rather than omitted.
+F2 itself reads GSM8K at $0.61\%$ ($n=1{,}319$) across decoder variants, and earlier
+runs of this lineage read GSM8K at or below $1.8\%$ (best over arms, $n=2{,}638$ and
+$n=1{,}319$) and HumanEval pass@1 at or below $0.6\%$ ($n=328$). All are at floor; for
+contrast the released LLaDA-8B attention-diffusion reference reads $61.5\%$, but at
+$n=200$ and under a different decoder, so it is not the same statistic. These
+are reported as context for the diffusion lineage, not as panel results under this
+protocol: the item sets, the parser and the sampling schedule differ from the frozen
+ones, and the executable-code suites the protocol names are the EvalPlus variants, which
+are not scored here.
+
+\subsection{Completed long-context confirmation}
+\label{m:confirmation}
+
+The locked 16K/32K/64K comparison is complete: 264 of 324 declared cells contain 200 paired examples each, giving 52,800 outcomes per model and 105,600 validated outcomes in total. The 60 generator refusals comprise six canvas overflows and 54 infeasible load-one cells. They remain explicit exclusions, not zero scores. Collection checks canonical instance IDs, prompt hashes, parsed answers against canonical gold, source provenance, and disjoint assigned coverage across execution partitions. Additional receipts outside a partition's assigned cells are counted but excluded rather than merged twice.
+
+F2 uses the development-selected eight-stage matched-Bernoulli decoder at temperature $0.7$ and inference seed 17; R0 uses frozen greedy decoding. No confirmation outcome changes these policies. F2 answers 15 examples correctly and R0 answers 14; these pooled counts are distinct from the primary macro. Equal weighting of lengths, families, and supported cells within each family--length panel gives $0.030864\%$ for F2 and $0.028807\%$ for R0, a difference of $+0.002058$ percentage points. The descriptive paired 95\% interval for this difference is $[-0.020576,+0.024691]$ percentage points; the marginal intervals are $[0.016461,0.047325]\%$ and $[0.014403,0.045267]\%$, respectively. All recall and overwrite outcomes are incorrect. The only successes are in dataflow: at 32K, F2 has zero and R0 two; at 64K, F2 has 15 and R0 12. No model succeeds at 16K.
+
+The intervals use 10,000 paired within-cell multinomial bootstrap draws with seed 20270921, preserving the primary macro's equal panel and cell weights. They condition on the generated cells, fixed checkpoints, and executed decoding seed, without representing unsupported-cell, training, or execution uncertainty. Zero-width intervals in all-zero panels do not establish equivalence. These results provide no evidence of long-context superiority or of the prespecified five-point practical gain. Together with the competence controls in Section~\ref{m:competence}, the near-zero endpoint does not isolate retention failure or a benefit from iterative refinement.
+
+The validated aggregate and cell-level audit are recorded in \path{results/e3_confirmation_summary.json}. The portable export in \path{results/e3_receipt_export/manifest.json} records accepted per-item records, exact receipt hashes, source provenance, and explicit unsupported-cell records; its manifest tracks artifact counts and checksums separately from the aggregate.
+
+\input{results/e3_resources_appendix.tex}
+
+\input{results/e3_dev_table.tex}
+
+\subsection{Task-format competence controls}
+\label{m:competence}
+After decoder freezing, we rerun the same 72 development tasks with only filler removed, with evidence replaced by neutral filler, and with the same logical tasks rerendered at 4K and 8K. These are post-development diagnostics, not independent confirmation. Gold target length remains supplied; the decoder and answer parser are unchanged. Table~\ref{tab:e3-controls} reports all 576 outcomes.
+
+Both models score zero and produce no parseable answers in all four controls. In particular, removing all irrelevant filler leaves only 175--180 tokens but does not restore successful task execution. Consequently, a long-context floor under this serialization cannot isolate memory retention or a benefit from iterative refinement. The observed zero is specific to this prompt, supplied-length generation interface, and fixed checkpoints; it is not a general claim that the models lack recall or dataflow capability. The 4K/8K diagnostics cannot be substituted for full-grid degradation contrasts.
+
+\input{results/e3_controls_summary.tex}
+
+\subsection{Exploratory generation canaries}
+\label{m:canary}
+
+To inspect the development-task floor, we subsequently ran eight fixed prompts per model spanning capital completion, arithmetic, lookup instructions, one-shot lookup, symbolic serialization, and chat-style variants. Each run supplies a 32-token masked suffix, replacing the short gold-length answer budget used in the symbolic task evaluations. F2 retains the 8-step, temperature-0.7 matched-Bernoulli decoder; R0 retains greedy decoding. A separate first-position diagnostic adds one forward call to each run. These 16 records are exploratory observations, with no post-hoc accuracy threshold or aggregate success score.
+
+Table~\ref{tab:e3-canary} shows leading excerpts from three paired prompts. Both capital-chat continuations mention Paris. The R0 chat-lookup continuation includes the stored reference string, whereas the corresponding F2 continuation does not provide that value in its leading excerpt. The raw symbolic serialization produces the displayed fragmented or repeated continuations. These examples show that the earlier floor is compatible with nontrivial continuations under a different interface; they do not establish a prompt-only explanation, general task competence, or an improvement in long-context retention. Prompt wording and output budget change together, and these hand-inspected outputs neither replace nor tune the locked confirmation endpoint.
+
+The audit checks all eight prompt pairs, regenerated masked-canvas hashes, 32-token output budgets, output-ID decoding, rank provenance, and accessible source and weight hashes. It retains every output and diagnostic in \texttt{results/e3\_canary\_audit.json}. Runtime-library hashes from the job are distinguished from checks of files accessible on the audit host: matching source bytes corroborates content but does not recreate the historical container environment.
+
+\input{results/e3_canary_audit.tex}
+
+\subsection{What is not measured}
+\label{m:notmeasured}
+
+The following distinguish unexecuted parts of the broader design from the measured subset. They are not lower bounds or inferred results.
+
+\begin{itemize}[leftmargin=1.2em,itemsep=2pt,topsep=2pt]
+\item \textbf{Full-grid paired $4$K/$8$K anchors and $\Gamma_b(L)$}: not executed. The smaller post-development competence diagnostics in Section~\ref{m:competence} retain the same 72 development tasks and cannot replace these full-grid contrasts.
+\item \textbf{External suites} (RULER, LongBench, BABILong, NoLiMa): not run. RULER's
+pinned grid is 4K/8K/16K and is generated locally; LongBench and BABILong would each need
+their own access-matched serialization for causal baselines, which the protocol requires
+and which does not yet exist.
+\item \textbf{L0 (GLA) and L1 (DeltaNet) long-context comparisons}: neither is executed. GLA did, however, complete a separate causal MMLU test panel: 3,232 correct out of 14,042 unique items (23.02\%). The eight raw-scoring shards agree exactly with their merged records and the tokenizer-specific test tree; the resolved configuration declares \texttt{GLAForCausalLM}. Thus earlier architecture-registration and tokenizer-loading failures are historical blockers, not evidence that no hardware load succeeded. The model snapshot is \path{46b15820a4df269e99aed9d709e017677c15d24b}; upstream harness provenance fields remain unpinned. The audit in \texttt{results/additional\_baseline\_audit.json} records coverage, source hashes, and remaining limitations. This capability observation does not supply a long-context GLA result. DeltaNet has no complete campaign capability or long-context panel; the absent payload is not replaced by a different model.
+\item \textbf{M0 (Mamba-2 2.7B)}: absent. The only Mamba reading in the campaign is a
+Mamba-1 2.8B checkpoint, whose configuration declares the Mamba-1 architecture class;
+the Mamba-2 2.7B checkpoint named in Table~\ref{m:arms} exists but has no loader in
+this harness and no reading. A Mamba-1 result is not a Mamba-2 result and we do not
+substitute one for the other.
+\item \textbf{D0 (LLaDA-8B-Base)}: the checkpoint is present and has a separate loader
+outside this harness; no full-panel MMLU reading for it exists under this protocol, and
+it failed to load in the systems probe. Its only MMLU observation is the $n=200$ item of
+the historical panel below, which the protocol's own text forbids reading as full MMLU.
+\item \textbf{Incomplete auxiliary cells}: complete RACE and OpenBookQA panels are now reported in Section~\ref{m:basic}. Remaining missing model--dataset combinations are explicitly marked in Table~\ref{tab:basic-ability-panels}. Historical panels at different item counts or prompt constructions are not substituted for these cells.
+\item \textbf{The historical card-style capability panel} (MMLU at $n=200$, OpenBookQA
+and RACE at $n=500$, LLaDA-8B and the released RWKV-7 among its rows): measured, but
+under a different protocol and a different item count, and the protocol's own text
+forbids reading a 200-question observation as full MMLU. It is context, not a result of
+this study, and the $n=200$ MMLU score is additionally extractor-dependent --- a
+first-token match and a substring match on the same generations give $0.095$ and $0.230$
+respectively, so the number is not stable enough to report even as context.
+\item \textbf{Native infilling} (Section~\ref{m:quality}): not run. It requires an
+information-access-matched serialization for causal baselines, and reporting it with a
+prefix-only baseline would be the access mismatch the protocol forbids.
+\item \textbf{Goodput, concurrency and the low-memory variants}: the single-device
+memory--latency frontier is measured (Section~\ref{m:systems}), but the protocol's
+$1.5\times$ goodput target needs concurrency, a frozen deadline and $\ge1{,}000$
+completions per cell, and none of those were run. Quantization, selective heads and
+offload are named modifications that need parity and quality checks and were not
+attempted. Two of the six models (LLaDA-8B and Mamba-2 2.7B) failed to load in the probe
+and have no systems row at all.
+\item \textbf{State-only retention, cross-backbone transfer, and causal architectural
+attribution}: not claimed, and no experiment here supports them.
+\end{itemize}
+

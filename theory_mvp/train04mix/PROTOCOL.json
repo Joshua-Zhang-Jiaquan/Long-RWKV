@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "scope": "Development 2x2 comparison after successful N2 curriculum, preserving original N8 terminal task",
+  "arms": ["hard", "rao_blackwell"],
+  "parents": "Each arm restores its own completed phase300 baseline checkpoint, including optimizer; same initial/data seed as corresponding control",
+  "intervention": "Only training canvas law and associated unbiased weighting change: half standard corruption, half information-set reveal-history examples",
+  "policy_round_sampling": "Uniform over2rounds; teacher-forced histories from target P; score only selected reveal group with weight2/N",
+  "standard_branch": "Original uniform8stage independent masks; weight8/(tN), retain empty masks",
+  "oracle_scope": "Public A selects groups; exact conditional marginal targets only in soft-label arm. No gold values or symbolic completion at sampling time",
+  "precision": "Identical to matched standard controls: FP32 tensors, PyTorch TF32 off, unchanged default Triton kernel precision. No mid-comparison precision change",
+  "model": "Same455010304parameter tiedA1 RWKV and stable binary log-odds head",
+  "stage": "N4 training updates301-700; review development before originalN8 phase701-1500",
+  "optimizer": "Restore parent AdamW, continue lr3e-5 beta(.9,.95) eps1e-8 weightdecay.01 clip1; no reset",
+  "batch": "32examples per update across8H100,4separate-document forwards per rank",
+  "matched_controls": "train04dev stage915415bd53166249 hard/soft continuations",
+  "evaluation": "Identical standard-corruption development panel every100updates; separate exact endpoint audits. No new confirmatory test access",
+  "reporting": "Report all four arms, both families, and failures. Raw training objectives have different oracle entropy baselines; compare proper excess loss and common evaluation metrics",
+  "gpu_cap": 32,
+  "gpus_per_job": 8,
+  "phase_max_running_hours": 2,
+  "decision": "Activate pre-derived mixture objective as a new immutable development branch, not a change to the queued standard controls"
+}

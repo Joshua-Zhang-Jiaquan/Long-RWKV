@@ -1,5 +1,0 @@
-{
-  "executionEnvironments": [{"root": "../../.."}],
-  "extraPaths": ["../../../"],
-  "include": ["test_architecture*.py"]
-}

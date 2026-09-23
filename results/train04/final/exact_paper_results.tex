@@ -1,0 +1,17 @@
+\paragraph{Post-primary exact-probability diagnostic.}
+The sampled parity contrast motivated an additional diagnostic, without changing any checkpoint, hyperparameter or sampler. We enumerated all 16 valid endpoint probabilities for both two-round policies on all 32 existing test conditions per checkpoint. This removes Monte Carlo error in finite-panel validity, but does not remove uncertainty about unseen conditions. Audit memoization is not a decoding-speed measurement.
+\begin{table}[htbp]
+\centering\small
+\caption{Post-primary exact model expectations, equal-seed means on the existing conditions. The sampled tables above are retained unchanged.}
+\label{tab:train04exact}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Family & Info valid (\%) & Random valid (\%) & Difference (pp) & Info KL & Random KL\\
+\midrule
+Systematic & 6.0300 & 6.0288 & 0.0012 & 2.8537 & 2.8540\\
+Pair parity & 6.3004 & 6.3000 & 0.0004 & 2.8243 & 2.8243\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Cross-execution checking found joint-KL differences up to 0.00970 nats on overlapping audit conditions. The enumerated values therefore remove endpoint Monte Carlo error but do not establish reproducibility at the precision of the tiny reported policy differences; numerical qualification remains pending.

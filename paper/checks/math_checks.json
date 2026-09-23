@@ -1,0 +1,54 @@
+{
+  "scope": "Synthetic identity and inequality checks; NOT model benchmarks.",
+  "seed": 20260917,
+  "all_checks_passed": true,
+  "checks": {
+    "delta_residual_identity": {
+      "trials": 100,
+      "max_absolute_residual": 1.9864636576225117e-15
+    },
+    "overwrite_attention_comparison": {
+      "records": 5,
+      "logit_margin": 8.0,
+      "delta_attention_error": 0.0013400523616630133,
+      "additive_attention_error": 0.6653266143050036,
+      "theorem_upper_bound": 0.002683701023220095,
+      "separation_D": 0.6666666666666667
+    },
+    "variable_metric_scan_bound": {
+      "positions": 400,
+      "max_effective_contraction": 0.8624399757250819,
+      "max_symmetry_residual": 1.402674382967163e-16,
+      "max_actual_minus_bound": 0.0,
+      "final_weighted_error": 0.0001983978272272892,
+      "final_weighted_bound": 0.0008183059076375587
+    },
+    "markov_perturbation_bound": {
+      "steps": 30,
+      "states": 5,
+      "max_dobrushin_coefficient": 0.6316949183754552,
+      "final_total_variation": 0.0057021907748721345,
+      "final_bound": 0.022941794848521768,
+      "max_actual_minus_bound": -0.01239113578288506
+    },
+    "optional_attention_projection_descent": {
+      "iterations": 20,
+      "contraction": 0.7495019117847966,
+      "initial_loss_gap": 14.942736127861641,
+      "final_loss_gap": 3.063579426124938e-06,
+      "max_actual_minus_bound": -3.5570441466572805e-09
+    },
+    "compression_counterexample": {
+      "log_loss_gap_nats": 0.6931471805599453,
+      "best_answer_accuracy": 0.5,
+      "extra_history_bit_log_loss_reduction_nats": 0.6931471805599453
+    },
+    "memory_arithmetic": {
+      "audited_parameters": 4091581441,
+      "bf16_weight_payload_GiB": 7.621164323762059,
+      "ideal_4bit_weight_payload_GiB": 1.9052910809405148,
+      "64K_by_65536_bf16_logits_GiB": 8.0,
+      "64K_by_65536_fp32_logits_GiB": 16.0
+    }
+  }
+}

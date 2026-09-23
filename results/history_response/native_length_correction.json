@@ -1,0 +1,22 @@
+{
+  "at": "2026-09-23T03:08:12.955634+00:00",
+  "correction": "The old manuscript incorrectly called matched-study native prefixes exact-length. Whole-record RWKV packing undershoots the nominal budget. The cost comparison uses equal requested budgets, not identical native prefix lengths.",
+  "rwkv_recorded_prefix_lengths": {
+    "None": [
+      115
+    ],
+    "4096": [
+      4095
+    ],
+    "16384": [
+      16383
+    ],
+    "32768": [
+      32767
+    ]
+  },
+  "attention_cost_prefix_lengths": [
+    16384
+  ],
+  "changes": "Manuscript wording only; all frozen inputs, measurements and protocols preserved."
+}

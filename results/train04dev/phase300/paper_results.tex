@@ -1,0 +1,17 @@
+\subsection{First curriculum development phase}
+After the negative pilot, a matched development comparison changes both arms to FP32 tensors, a binary log-odds head, learning rate $3\times10^{-5}$ with 50-update warmup, and a fixed 2--4--8-bit curriculum. One arm uses sampled hard labels; the other uses exact conditional marginal soft labels with the same corruption weighting. The first phase is now complete: 300 updates on two-bit tasks, one initialization and data seed, with optimizer state retained. The original eight-bit task is unchanged and has not yet received curriculum training. These development results are not a confirmatory test or an isolated ablation of every change from the primary pilot.
+\begin{table}[htbp]\centering\small
+\caption{Completed two-bit curriculum phase. Marginal KL is per masked bit on the common development panel, not schedule-specific endpoint KL.}
+\begin{tabular}{@{}llrr@{}}\toprule
+Objective & Dimension & Deterministic accuracy (\%) & Marginal KL\\\midrule
+Hard labels & 2 & 100.00 & 0.047179\\
+Hard labels & 8 & 58.67 & 1.373374\\
+Conditional soft labels & 2 & 100.00 & 0.000733\\
+Conditional soft labels & 8 & 58.23 & 3.412035\\
+\bottomrule\end{tabular}\end{table}
+Both arms attain perfect thresholded accuracy on this two-bit panel, while soft targets have lower proper loss. Eight-bit calibration deteriorates during this first phase; the result therefore demonstrates learning of the small curriculum task, not the terminal sampling mechanism or cross-size generalization. Later curriculum phases remain pending.
+
+\paragraph{Endpoint audit of the first curriculum phase.}
+On eight two-bit parity development conditions, hard-label information-set sampling has mean valid mass 58.438\% and endpoint KL 0.537734 nats; conditional-soft-label sampling has 99.914\% valid mass and KL 0.002346 nats. One-round soft-label sampling instead has 50.017\% valid mass and KL 0.695689 nats, including the unavoidable $\log2$ dependence cost. The independent marginal-error sums agree with the endpoint decomposition. The eight two-bit parity condition draws cover four unique prompts and one pair structure; this is a competence diagnostic, not held-out-structure generalization. This small-task result distinguishes thresholded accuracy from sampling fidelity. It does not demonstrate an information-set advantage over random halves: with only one parity pair, either one-coordinate-per-round ordering has zero dependence cost. Soft-label random halves likewise has 99.957\% valid mass on this panel.
+
+On the original eight-bit parity development panel before eight-bit curriculum training, information-set valid mass remains 6.193\% for hard labels and 6.733\% for soft labels, with endpoint KL 7.2954 and 18.8652 nats, respectively. The large conditional-within-valid-support errors show that similar validity can conceal very different posterior mismatch. The full development audit retains both families, all three dimensions, and all three fixed policies, rather than selecting only the successful two-bit slice.

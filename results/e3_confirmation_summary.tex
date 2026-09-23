@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+Length & Family & Cells & F2 & R0 & $\Delta$ [95\% CI]\\
+\midrule
+16K & Recall & 34/36 & 0.000 & 0.000 & +0.000 [+0.000,+0.000]\\
+16K & Dataflow & 25/36 & 0.000 & 0.000 & +0.000 [+0.000,+0.000]\\
+16K & Overwrite & 25/36 & 0.000 & 0.000 & +0.000 [+0.000,+0.000]\\
+32K & Recall & 36/36 & 0.000 & 0.000 & +0.000 [+0.000,+0.000]\\
+32K & Dataflow & 27/36 & 0.000 & 0.037 & -0.037 [-0.093,+0.000]\\
+32K & Overwrite & 27/36 & 0.000 & 0.000 & +0.000 [+0.000,+0.000]\\
+64K & Recall & 36/36 & 0.000 & 0.000 & +0.000 [+0.000,+0.000]\\
+64K & Dataflow & 27/36 & 0.278 & 0.222 & +0.056 [-0.130,+0.241]\\
+64K & Overwrite & 27/36 & 0.000 & 0.000 & +0.000 [+0.000,+0.000]\\
+\midrule
+Overall & Conditional macro & 264/324 & 0.031 & 0.029 & +0.002 [-0.021,+0.025]\\
+\bottomrule
+\end{tabular}
+\caption{Long-context accuracy (\%) conditional on generated support. Cells gives supported/declared counts. All 60 unsupported cells remain excluded, not scored as zero. The macro weights lengths, families, and supported cells equally at their respective levels. Differences and intervals are percentage points. Paired within-cell percentile bootstrap intervals use 10,000 draws; they condition on the generated cells and executed decodes. Zero-width intervals are not evidence of equivalence.}
+\label{tab:e3-confirmation-conditional}
+\end{table}

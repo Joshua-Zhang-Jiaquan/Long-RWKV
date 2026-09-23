@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Released checkpoint & Correct / items & MMLU (\%) & 95\% CI (\%)\\
+\midrule
+GLA-1.3B-100B & 3,232/14,042 & 23.02 & [22.34,23.68]\\
+Mamba-1 2.8B & 3,625/14,042 & 25.82 & [25.09,26.51]\\
+Qwen2.5-3B & 9,174/14,042 & 65.33 & [64.53,66.08]\\
+Llama-3.2-3B & 7,600/14,042 & 54.12 & [53.36,54.91]\\
+\bottomrule
+\end{tabular}
+\caption{Released-model full-MMLU descriptive panels (\texttt{raw}, seed 42). Each has exact unique coverage of its tokenizer-specific 14,042-item test tree and agrees with its eight shard files. Intervals are recorded document-bootstrap intervals for one execution. Training histories differ and upstream harness provenance remains partly unpinned; tree manifests absent for some rows are documented in the audit. Mamba-1 is distinct from the planned Mamba-2 comparator.}
+\label{tab:additional-baseline-audit}
+\end{table}

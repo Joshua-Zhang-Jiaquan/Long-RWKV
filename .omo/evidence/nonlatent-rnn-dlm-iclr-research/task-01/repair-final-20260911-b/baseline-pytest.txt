@@ -1,5 +1,0 @@
-$ PYTHONDONTWRITEBYTECODE=1 python -m pytest -q -p no:cacheprovider scale/tests/nonlatent_iclr
-Running 53 items in this shard
-.....................................................                    [100%]
-53 passed in 1.26s
-exit_code=0

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/qz/finalize_header_distance.py", line 52, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/inspire/hdd/project/multimodal-diffusion-language-model/zhangjiaquan-253108540222/DiffRWKV-RELAY/long_rwkv_iclr2027/qz/finalize_header_distance.py", line 35, in main
+    raise RuntimeError(f"{role} terminal without complete output: {job['status']}; no automatic retry")
+RuntimeError: balanced_seed20271013 terminal without complete output: job_stopped; no automatic retry

@@ -1,0 +1,13 @@
+\begin{table}[ht]\centering\small
+\begin{tabular}{llrrr}\toprule
+Model & Depth & Exact / 120 & 95\% Wilson interval & Gold anywhere / 120\\\midrule
+F2 & 1-hop & 22 (18.3\%) & [12.4,26.2]\% & 57\\
+F2 & 2-hop & 1 (0.8\%) & [0.1,4.6]\% & 14\\
+R0 & 1-hop & 63 (52.5\%) & [43.6,61.2]\% & 110\\
+R0 & 2-hop & 29 (24.2\%) & [17.4,32.6]\% & 32\\
+\bottomrule\end{tabular}
+\caption{All 480 audited pilot outputs. Every cell fails the frozen 96/120 competence threshold. Wilson intervals are descriptive for fixed balanced development tasks, not multiplicity-adjusted confirmation. Gold occurrence is a separate diagnostic and can include ambiguous continuations.}
+\end{table}
+\paragraph{Gate decision.} No long-context expansion. One-hop inputs contain 121--129 native tokens; two-hop inputs contain 209--219. F2 produces 36 and 17 parseable first-line answers; R0 produces 71 and 103. Although R0 mentions the reference color in 110/120 one-hop outputs, this diagnostic does not change the frozen gate. In F2 one-hop outputs, 31 of the 57 reference-containing continuations also mention another candidate color. Two-hop failure persists even with the permissive occurrence diagnostic.
+\paragraph{Runtime scope.} The job uses the recorded FLA implementation, whose warning recommends checking against the official RWKV implementation. Artifact and tokenizer checks do not establish independent official-kernel parity. These are observations of the qualified frozen-model runtime and task interface, not a general impossibility claim about the checkpoints.
+\paragraph{Resources.} One eight-H100 job succeeded with 316 seconds of scheduler-reported running time (approximately 0.70 H100-hours, not a billing estimate). The concurrency cap remained 32; no further jobs were launched.

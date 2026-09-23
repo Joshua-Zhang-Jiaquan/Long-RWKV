@@ -1,0 +1,68 @@
+\section{Exhaustive history and constraint response audit}
+\label{app:history-response}
+The preceding intervention evaluated one syndrome flip at an all-zero visible
+history. After observing that completed study, we froze a separate diagnostic
+that enumerates all 16 target-distributed information-set histories and all
+four syndrome flips for every original primary problem, position and
+checkpoint. This is an exhaustive within-task diagnostic on reused problems,
+not an independent replication. No model is trained or selected in this
+follow-up. Each counterfactual changes one native input token and one required
+hidden target while preserving the visible history and complete input layout.
+
+\paragraph{Connection to conditional error.}
+For a fixed public problem $x$, let $h$ index its 16 equiprobable visible
+histories, and let $r$ index the four constraints. Each constraint controls
+one of the four remaining targets. Write $c_{hr}$ for the correct target
+cross-entropy under the original prompt and $c^{\mathrm{flip}}_{hr}$ for
+the corresponding target cross-entropy after flipping constraint $r$.
+With $L_{hr}=(c_{hr}+c^{\mathrm{flip}}_{hr})/2$, define
+\begin{align}
+ E_2(x)&=\frac1{16}\sum_h\sum_r c_{hr}, &
+ E_{2,\mathrm{flip}}(x)&=\frac1{16}\sum_h\sum_r
+ c^{\mathrm{flip}}_{hr}.
+\end{align}
+Direct summation and Eq.~\eqref{eq:evidence-response} give
+\begin{equation}
+ 4\overline L(x)=\tfrac12\{E_2(x)+E_{2,\mathrm{flip}}(x)\},\qquad
+ \overline L(x)=\overline{\operatorname{sp}(-\Delta/2)}+\overline G,
+ \quad G\ge0,
+ \label{eq:exhaustive-response}
+\end{equation}
+where bars average all 64 history--constraint pairs. The first identity follows
+because each hidden coordinate occurs exactly once in the constraint sum.
+The second averages the pointwise convexity decomposition. Crucially,
+$E_{2,\mathrm{flip}}$ aggregates the intervened coordinate from four distinct
+counterfactual prompts; it is not the complete second-round error of any one
+prompt. Thus $\overline L$ measures a symmetrized conditional-error law and
+must not replace the original endpoint $E_2$. The original sufficient
+criterion remains $E_{\mathrm{first}}+E_2<4\log2$.
+Nonnegativity of $E_{2,\mathrm{flip}}$ also gives a conservative sufficient
+criterion directly from the exhaustive response diagnostic:
+\begin{equation}
+ E_{\mathrm{first}}+8\overline L<4\log2
+ \quad\Longrightarrow\quad
+ \mathrm{KL}_{\mathrm{info}}<4\log2.
+ \label{eq:response-certificate}
+\end{equation}
+This follows by substituting $E_2\le8\overline L$; it is an algebraic
+consequence of the measured target law, not a training-to-test guarantee.
+The response-based criterion is sufficient but not necessary, so failing it
+does not establish failure of the exact endpoint criterion.
+
+\paragraph{Analysis and checks.}
+The primary contrast is near-only minus balanced mean paired CE at 16K far,
+with equal averaging over the 16 histories and four constraints. We report
+each adaptation seed and their mean, using 10,000 paired problem bootstrap
+draws with seed 20260923. Histories and constraints are exact inner
+expectations, not independent statistical samples. Intervals remain
+conditional on the observed checkpoints and selected lineage. All seven
+selectors and all three positions are retained. We separately report the
+response floor, centering penalty, fraction of pairs with both target
+predictions correct, unaffected-target probability changes and worst-case
+errors. Mean improvement alone does not establish uniform competence.
+The original first/second errors and original fixed-history probes are
+recomputed, with a predeclared absolute reconciliation tolerance of $10^{-4}$
+for each compared metric. Raw normalized binary probabilities are retained
+for every call.
+
+\input{results/history_response/paper_results.tex}

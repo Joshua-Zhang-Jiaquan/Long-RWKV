@@ -1,1 +1,0 @@
-assert solution() == 25164150
